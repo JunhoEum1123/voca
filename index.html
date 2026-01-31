@@ -3,15 +3,6 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-
-  <!-- ✅ PWA: manifest + iOS 홈화면(앱처럼) -->
-  <link rel="manifest" href="manifest.json">
-  <meta name="theme-color" content="#0b0c10">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <meta name="apple-mobile-web-app-title" content="VocabQuiz">
-  <link rel="apple-touch-icon" href="icons/icon-192.png">
-
   <title>Vocabulary Quiz 1200–1450 (오답 어원/의미 생성 해설 강화)</title>
   <style>
     :root { font-family: system-ui, -apple-system, Segoe UI, Roboto, "Noto Sans KR", Arial, sans-serif; }
@@ -38,6 +29,7 @@
       background:#0f1118; border:1px solid #2b3250; border-radius: 12px;
       padding: 12px; cursor:pointer; display:flex; gap:10px; align-items:flex-start;
       transition: transform .05s ease;
+      user-select:none;
     }
     .choice:hover { transform: translateY(-1px); }
     .choice.selected { border-color:#86a3ff; background:#121a34; }
@@ -85,7 +77,7 @@
           <div class="sub">
             - 단어 1개당 <b>유사 오답 3개</b> 자동 생성 → <b>4지선다</b><br/>
             - <b>오답일 때만</b> “왜 그 뜻이 되는지”를 <b>단어별로</b> (구성 → 의미 생성 → 암기/오답 방지)로 자세히 보여줍니다.<br/>
-            - ✅ <b>보기 하나를 누르면 즉시 채점</b> (정답/오답 + 오답 해설 즉시 표시)
+            - ✅ <b>정답 확인 버튼 없음</b>: 보기(답안)를 누르면 즉시 채점/해설 표시
           </div>
         </div>
         <div class="row">
@@ -126,7 +118,6 @@
 
       <div class="footer">
         <button class="btn secondary" id="btnPrev">이전</button>
-        <button class="btn secondary" id="btnCheck" title="(이제 자동 채점이라 선택 시 바로 채점됩니다)">정답 확인</button>
         <button class="btn" id="btnNext">다음</button>
       </div>
 
@@ -435,49 +426,50 @@ const RAW = String.raw`
  *  ========================= */
 const ETYMO_STRONG = {
   "patch": [
-    ["어원/기원", "중세 영어(14세기쯤) pacche: ‘기워 붙이는 천 조각(패치)’에서 시작 → ‘구멍을 메우는 조각’ 이미지가 핵심."],
-    ["뜻이 만들어진 흐름", "① ‘구멍 난 곳을 덮는 조각’(명사) → ② ‘그 조각을 붙여서 수선하다’(동사: 땜질/때우다) → ③ ‘임시로 고치다/수정하다’ → ④ 컴퓨터에서도 버그를 임시로 막는 수정 = software patch"],
-    ["중2 암기 팁", "patch = ‘붙여서 막기’. 옷 구멍에 패치 붙이듯이, 문제점/허점도 ‘패치로 막는다’고 생각하면 절대 안 헷갈림."]
+    ["어원/기원", "중세 영어 pacche(기워 붙이는 천 조각) → ‘구멍을 메우는 조각’ 이미지가 핵심."],
+    ["뜻이 만들어진 흐름", "① 구멍을 덮는 조각 → ② 조각을 붙여 수선하다(땜대다) → ③ 임시 수정(소프트웨어 patch)"],
+    ["중2 암기 팁", "patch=‘붙여서 막기’. 옷 구멍 패치처럼, 문제도 패치로 막는다!"]
   ],
   "deduct": [
-    ["어원/구성", "de-(떼어 내리다) + duct(이끌다)"],
-    ["뜻이 만들어진 흐름", "전체 금액에서 어떤 부분을 ‘끌어내려서 빼는 것’ → 공제하다/감하다"],
-    ["중2 암기 팁", "duct=길/통로 느낌(도관). de-가 붙으면 ‘아래로 빼낸다’ → 점수가 빠짐(공제)."]
+    ["어원/구성", "de-(떼어/아래로) + duct(이끌다)"],
+    ["뜻이 만들어진 흐름", "전체에서 어떤 부분을 ‘끌어내려 빼는 것’ → 공제하다/감하다"],
+    ["중2 암기 팁", "de- + duct(끌다) = ‘빼내려서 감점!’"]
   ],
   "subsequent": [
     ["어원/구성", "sub-(뒤/아래) + sequ(따르다)"],
     ["뜻이 만들어진 흐름", "어떤 일 ‘뒤를 따라오는 것’ → 그 후의/다음의"],
-    ["중2 암기 팁", "sequence(순서)=따라오는 줄. subsequent=그 줄에서 ‘뒤에 오는 것’."]
+    ["중2 암기 팁", "sequence(순서) = 따라오는 줄 → subsequent=뒤에 오는 것"]
   ],
   "chronological": [
-    ["어원/구성", "chrono-(시간) + -logical(관련/논리적인 배열)"],
-    ["뜻이 만들어진 흐름", "시간을 기준으로 배열됨 → 시간순의"],
-    ["중2 암기 팁", "chrono=시간. 크로노(시간) + 순서 = 시간순."]
+    ["어원/구성", "chrono-(시간) + -logical(관련된 배열/논리)"],
+    ["뜻이 만들어진 흐름", "시간 기준으로 배열됨 → 시간순의"],
+    ["중2 암기 팁", "chrono=시간 → 시간순=chronological"]
   ],
   "credibility": [
     ["어원/구성", "cred-(믿다) + -ible(가능) + -ity(성질)"],
-    ["뜻이 만들어진 흐름", "‘믿을 수 있는 정도’라는 성질 → 신뢰성"],
-    ["중2 암기 팁", "credit(신용)과 같은 뿌리. 신용=믿음=cred."]
+    ["뜻이 만들어진 흐름", "믿을 수 있는 정도(성질) → 신뢰성"],
+    ["중2 암기 팁", "credit(신용)와 같은 뿌리 cred=믿다"]
   ],
   "auditory": [
     ["어원/구성", "aud-(듣다) + -ory(~의)"],
     ["뜻이 만들어진 흐름", "듣는 것과 관련 → 청각의"],
-    ["중2 암기 팁", "audio=오디오=소리. aud- 보면 ‘듣다’부터 떠올리기."]
+    ["중2 암기 팁", "audio=오디오(소리). aud- 보면 ‘듣다’!"
+    ]
   ],
   "exclusive": [
     ["어원/구성", "ex-(밖) + clud(닫다/막다) + -ive"],
-    ["뜻이 만들어진 흐름", "밖으로 ‘닫아서’ 못 들어오게 함 → 배타적인/독점적인"],
-    ["중2 암기 팁", "include(포함) ↔ exclude(제외). ‘clude=닫다’로 기억."]
+    ["뜻이 만들어진 흐름", "밖으로 닫아서 못 들어오게 함 → 배타적인/독점적인"],
+    ["중2 암기 팁", "include(포함) ↔ exclude(제외). clude=닫다"]
   ],
   "prospect": [
     ["어원/구성", "pro-(앞) + spect(보다)"],
-    ["뜻이 만들어진 흐름", "앞을 내다봄 → 전망/가능성"],
-    ["중2 암기 팁", "spectator(관객)=보는 사람. prospect=앞을 보는 것(전망)."]
+    ["뜻이 만들어진 흐름", "앞을 봄 → 전망/가능성"],
+    ["중2 암기 팁", "spectator(관객)=보는 사람. prospect=앞을 보는 것"]
   ]
 };
 
 /** =========================
- *  3) 자동 해설(강화)
+ *  3) 자동 해설(개별화)
  *  ========================= */
 const PREFIX = [
   ["anti", "반대"], ["auto","스스로"], ["bi","2"], ["co","함께"], ["con","함께/완전히"],
@@ -489,31 +481,26 @@ const PREFIX = [
 ];
 
 const SUFFIX = [
-  ["tion","명사(~하는 것/과정/결과)"], ["sion","명사(~하는 것/과정/결과)"], ["ment","명사(행동/결과)"],
-  ["ity","명사(성질/상태)"], ["ness","명사(상태)"], ["ive","형용사(~한 성질의)"],
+  ["tion","명사(과정/결과)"], ["sion","명사(과정/결과)"], ["ment","명사(행동/결과)"],
+  ["ity","명사(성질/상태)"], ["ness","명사(상태)"], ["ive","형용사(성질)"],
   ["al","형용사(~의)"], ["ic","형용사(~의)"], ["ous","형용사(~한)"],
   ["ly","부사(~하게)"], ["able","형용사(~할 수 있는)"], ["ible","형용사(~할 수 있는)"],
-  ["ize","동사(~화하다)"], ["ify","동사(~하게 하다)"], ["ence","명사(상태/성질)"], ["ance","명사(상태/성질)"],
-  ["ary","형용사(~의)"], ["ent","형용사/명사(~하는/한)"], ["ant","형용사/명사(~하는/한)"]
+  ["ize","동사(~화하다)"], ["ify","동사(~하게 하다)"], ["ence","명사(성질)"], ["ance","명사(성질)"],
+  ["ary","형용사(~의)"], ["ent","형용사/명사"], ["ant","형용사/명사"]
 ];
 
 const ROOTS = [
   ["spect", "보다"], ["vid", "보다"], ["vis", "보다"],
   ["cred", "믿다"], ["fid", "믿다"], ["aud", "듣다"],
   ["dict", "말하다"], ["log", "말/이성/학문"], ["chron", "시간"],
-  ["scrib", "쓰다"], ["script", "쓰다"], ["graph", "쓰다/기록"],
-  ["port", "나르다/옮기다"], ["fer", "옮기다/나르다"], ["lat", "옮기다"],
-  ["mit", "보내다"], ["miss", "보내다"], ["duc", "이끌다"], ["duct", "이끌다"],
-  ["tract", "끌다"], ["press", "누르다"], ["puls", "치다/밀다"],
-  ["tact", "만지다"], ["ten", "잡다/붙들다"], ["tain", "잡다/유지하다"],
-  ["ced", "가다"], ["ceed", "가다"], ["gress", "걷다/가다"],
-  ["form", "형태"], ["struct", "쌓다/세우다"], ["stit", "세우다"],
-  ["mob", "움직이다"], ["mot", "움직이다"], ["viv", "살다"], ["vit", "살다"],
-  ["gen", "태어나다/생기다"], ["nat", "태어나다/본성"],
+  ["scrib", "쓰다"], ["script", "쓰다"], ["graph", "기록"],
+  ["port", "옮기다"], ["fer", "옮기다"], ["mit", "보내다"], ["miss", "보내다"],
+  ["duc", "이끌다"], ["duct", "이끌다"], ["tract", "끌다"],
+  ["press", "누르다"], ["struct", "세우다/쌓다"], ["stit", "세우다"],
+  ["gen", "태어나다"], ["nat", "본성/태어나다"],
   ["terr", "땅/영역"], ["bio", "생명"], ["astro", "별"], ["botan", "식물"],
   ["grav", "무겁다/중력"], ["mut", "바꾸다"], ["flu", "흐르다"],
-  ["clar", "맑다/분명"], ["sens", "느끼다"], ["spir", "숨쉬다/정신"],
-  ["cid", "죽이다/떨어지다"], ["rupt", "깨지다"], ["fract", "부수다/깨지다"]
+  ["clar", "맑다/분명"], ["sens", "느끼다"], ["fract", "부수다"], ["rupt", "깨지다"]
 ];
 
 function normalizeWord(w){ return String(w||"").toLowerCase().trim(); }
@@ -548,7 +535,6 @@ function inferPos(meaningKo){
   if (m.includes("하게")) return "부사";
   return "어휘";
 }
-
 function buildMeaningChain(pre, roots, suf){
   const steps = [];
   if (pre) steps.push(`① ${pre[0]} = “${pre[1]}”`);
@@ -556,29 +542,20 @@ function buildMeaningChain(pre, roots, suf){
     roots.forEach((r, i) => steps.push(`${pre ? (i===0 ? "②" : "③") : (i===0 ? "①":"②")} ${r[0]} = “${r[1]}”`));
   }
   if (suf) steps.push(`마지막: -${suf[0]} = “${suf[1]}”`);
-  if (!steps.length) steps.push("① (분해 단서 약함) → ‘핵심 장면’으로 연결");
+  if (!steps.length) steps.push("① (분해 단서 약함) → ‘대표 장면(이미지)’로 의미 고정");
   return steps.join(" → ");
-}
-function buildMnemonic(word, pre, roots, suf, pos){
-  const chunk = [];
-  if (pre) chunk.push(`${pre[0]}(${pre[1]})`);
-  if (roots.length) chunk.push(...roots.map(r=>`${r[0]}(${r[1]})`));
-  if (suf) chunk.push(`-${suf[0]}(${suf[1]})`);
-  if (chunk.length) return `암기 공식: ${word} ≈ ${chunk.join(" + ")} (품사: ${pos})`;
-  return `암기 팁: ${word}는 “장면 1개”로 고정 (품사: ${pos})`;
 }
 function buildAntiConfusion(word, pre, suf){
   const tips = [];
-  if (pre && pre[0] === "re") tips.push("re- = 다시/뒤로 (반대 아님)");
+  if (pre && pre[0] === "re") tips.push("re- = 다시/뒤로 (반대 X)");
   if (pre && pre[0] === "dis") tips.push("dis- = 분리/제거/반대 (in- 부정과 구분)");
-  if (pre && pre[0] === "inter") tips.push("inter- = 사이에 끼기 (돕다가 아니라 간섭 이미지)");
+  if (pre && pre[0] === "inter") tips.push("inter- = 사이에 끼기(간섭 이미지)");
   if (suf && suf[0] === "tion") tips.push("-tion = 명사(과정/결과)");
   if (suf && suf[0] === "ity") tips.push("-ity = ~성/상태");
   if (word.endsWith("ly")) tips.push("-ly = 부사(~하게)");
-  if (!tips.length) tips.push("오답 방지: 핵심 이미지 1개만 고정");
+  if (!tips.length) tips.push("핵심 이미지 1개만 고정하면 오답이 확 줄어요.");
   return tips.join(" / ");
 }
-
 function autoEtymo(word, meaningKo){
   const w = normalizeWord(word);
   const pre = detectPrefix(w);
@@ -593,37 +570,43 @@ function autoEtymo(word, meaningKo){
   if (!breakdown.length) breakdown.push(`${w} (분해 단서 약함)`);
 
   const chain = buildMeaningChain(pre, roots, suf);
-  const mnemonic = buildMnemonic(w, pre, roots, suf, pos);
   const anti = buildAntiConfusion(w, pre, suf);
 
   const reason = (() => {
     if (pre || suf || roots.length) {
       const core = roots.length ? roots.map(r=>r[1]).join(" + ") : "핵심 의미";
-      const dir = pre ? `“${pre[1]}” 방향 +` : "";
-      const tail = suf ? ` + “${suf[1]}”` : "";
-      return `${dir} ${core}${tail} 로 뜻이 자연스럽게 만들어집니다.`;
+      const dir = pre ? `“${pre[1]}” 방향을 먼저 잡고, ` : "";
+      const tail = suf ? ` 마지막에 “${suf[1]}”로 품사/느낌을 고정합니다.` : " 문맥에 맞게 품사를 고정합니다.";
+      return `${dir}${core}를 붙이면 뜻이 연결돼요.${tail} (품사: ${pos})`;
     }
-    return `분해보다 “장면”으로 외우는 편이 빠릅니다: ${w}의 대표 장면을 하나 정해 뜻을 고정하세요.`;
+    return `이 단어는 분해보다 ‘장면’이 핵심입니다. ${w}가 쓰일 상황을 1개 떠올려 뜻을 고정하세요. (품사: ${pos})`;
+  })();
+
+  const mnemonic = (() => {
+    const parts = [];
+    if (pre) parts.push(`${pre[0]}(${pre[1]})`);
+    if (roots.length) parts.push(...roots.map(r=>`${r[0]}(${r[1]})`));
+    if (suf) parts.push(`-${suf[0]}(${suf[1]})`);
+    if (parts.length) return `암기: ${w} ≈ ${parts.join(" + ")} → 뜻을 “${parts.map(p=>p.split("(")[1].replace(")","")).join(" + ")}”로 연결.`;
+    return `암기: ${w}는 대표 장면 1개로 외우기(예: 행동/상황을 그림처럼 떠올리기).`;
   })();
 
   return [
     ["어원/구성(자동·개별)", breakdown.join(" + ")],
     ["뜻이 만들어진 흐름(자동·개별)", chain],
     ["왜 이런 뜻이 되나(자동·개별)", reason],
-    ["중2 암기 공식(자동·개별)", mnemonic],
-    ["오답 방지 포인트(자동·개별)", anti]
+    ["중2 암기(자동·개별)", mnemonic],
+    ["오답 방지(자동·개별)", anti]
   ];
 }
-
 function getEtymoCard(word, meaningKo) {
   const key = normalizeWord(word);
-  const strong = ETYMO_STRONG[key];
-  if (strong) return strong;
+  if (ETYMO_STRONG[key]) return ETYMO_STRONG[key];
   return autoEtymo(key, meaningKo);
 }
 
 /** =========================
- *  4) 파싱: "번호 단어 / 뜻"
+ *  4) 파싱
  *  ========================= */
 function parseEntries(raw) {
   const lines = raw.split(/\r?\n/);
@@ -632,10 +615,7 @@ function parseEntries(raw) {
   for (const line of lines) {
     const m = line.match(re);
     if (!m) continue;
-    const num = parseInt(m[1], 10);
-    const word = m[2].trim();
-    const meaning = m[3].trim();
-    out.push({ num, word, meaning });
+    out.push({ num: parseInt(m[1],10), word: m[2].trim(), meaning: m[3].trim() });
   }
   return out;
 }
@@ -661,7 +641,6 @@ function pickDistractors(correctMeaning, poolMeanings, count=3) {
   if (picked.size < count) takeFrom(poolMeanings);
   return [...picked].slice(0, count);
 }
-
 function buildQuestions(entries) {
   const meanings = entries.map(e => e.meaning);
   return entries.map(e => {
@@ -669,7 +648,7 @@ function buildQuestions(entries) {
     const distractors = pickDistractors(correct, meanings, 3);
     const options = shuffle([correct, ...distractors]);
     const correctIndex = options.indexOf(correct);
-    return { num: e.num, word: e.word, meaning: e.meaning, correct, options, correctIndex };
+    return { num: e.num, word: e.word, meaning: e.meaning, options, correctIndex };
   });
 }
 
@@ -691,12 +670,11 @@ const dom = {
   btnReset: document.getElementById("btnReset"),
   btnPrev: document.getElementById("btnPrev"),
   btnNext: document.getElementById("btnNext"),
-  btnCheck: document.getElementById("btnCheck"),
 };
 
 function getKey() {
   const range = dom.rangeSelect.value;
-  return `vocab_quiz_1200_1450_etymo_${range}_v5_autocheck`;
+  return `vocab_quiz_1200_1450_etymo_${range}_v6_autocheck_no_button`;
 }
 function defaultState(total) {
   return {
@@ -741,7 +719,6 @@ function render() {
     dom.bar.style.width = "0%";
     dom.btnPrev.disabled = true;
     dom.btnNext.disabled = true;
-    dom.btnCheck.disabled = true;
     dom.btnWrongOnly.disabled = true;
     dom.summary.innerHTML = "";
     return;
@@ -765,9 +742,6 @@ function render() {
   const chosen = s.selected[s.idx];
   const checked = s.checked[s.idx];
 
-  // ✅ 자동 채점이므로 정답확인 버튼은 "사용 불가"로 처리(그래도 UI는 남겨둠)
-  dom.btnCheck.disabled = true;
-
   dom.qbox.innerHTML = `
     <div class="qhead">
       <div class="qnum">Q${s.idx+1} / ${total} <span class="meta">(단어번호 ${q.num})</span></div>
@@ -789,10 +763,9 @@ function render() {
     el.className = cls;
     el.innerHTML = `<div class="tag">${idx0+1}</div><div>${escapeHtml(text)}</div>`;
     el.addEventListener("click", () => {
-      if (s.checked[s.idx]) return; // 이미 채점된 문제면 변경 불가
-      s.selected[s.idx] = idx0;
-      // ✅ 선택 즉시 채점(=정답확인 버튼 누른 효과)
-      checkAnswer();
+      if (s.checked[s.idx]) return; // 이미 채점된 문제는 재선택 방지
+      s.selected[s.idx] = idx0;     // 선택 기록
+      checkAnswer();                // ✅ 즉시 채점(=정답 확인 버튼 효과)
     });
     choicesEl.appendChild(el);
   });
@@ -838,7 +811,7 @@ function render() {
       ${etymoHtml}
     `;
   } else {
-    resultArea.innerHTML = `<div class="small muted" style="margin-top:10px;">보기를 누르면 즉시 채점됩니다.</div>`;
+    resultArea.innerHTML = `<div class="small muted" style="margin-top:10px;">보기(답안)를 누르면 바로 채점됩니다.</div>`;
   }
 
   if (done === total) renderSummary();
@@ -902,12 +875,12 @@ function checkAnswer() {
   if (chosen === null || s.checked[s.idx]) return;
 
   s.checked[s.idx] = true;
+
   if (chosen === q.correctIndex) {
     s.score += 1;
   } else {
     const qNo = s.idx + 1;
-    const exists = s.wrong.some(x => x.qNo === qNo);
-    if (!exists) {
+    if (!s.wrong.some(x => x.qNo === qNo)) {
       s.wrong.push({
         qNo,
         word: q.word,
@@ -988,9 +961,6 @@ dom.btnNext.addEventListener("click", () => {
   render();
 });
 
-// ✅ 버튼 눌러도 동일하게 채점되긴 하지만(보험), 자동 채점이 기본이라 거의 안 씀
-dom.btnCheck.addEventListener("click", checkAnswer);
-
 dom.rangeSelect.addEventListener("change", () => {
   quiz.state = null;
   render();
@@ -1003,15 +973,6 @@ dom.saveToggle.addEventListener("change", () => {
 });
 
 render();
-
-/** =========================
- *  ✅ PWA Service Worker 등록
- *  ========================= */
-if ("serviceWorker" in navigator) {
-  window.addEventListener("load", () => {
-    navigator.serviceWorker.register("./sw.js").catch(console.error);
-  });
-}
 </script>
 </body>
 </html>
