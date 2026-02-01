@@ -3,69 +3,109 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Vocabulary Quiz 1200–1450 (오답 어원/의미 생성 해설 강화)</title>
+  <title>Vocabulary Quiz 1200–1450 (오답 어원/의미 생성 해설 강화 + 발음 + 스코어보드)</title>
   <style>
     :root { font-family: system-ui, -apple-system, Segoe UI, Roboto, "Noto Sans KR", Arial, sans-serif; }
-    body { margin: 0; background: #0b0c10; color: #e7e7e7; }
+    body { margin: 0; background: #0b0c10; color: #e7e7e7; font-size: 18px; } /* ✅ 전체 글자 크게 */
     .wrap { max-width: 980px; margin: 0 auto; padding: 18px; }
     .card { background: #14161d; border: 1px solid #232636; border-radius: 14px; padding: 18px; box-shadow: 0 6px 18px rgba(0,0,0,.25); }
-    h1 { margin: 0 0 10px; font-size: 20px; }
-    .sub { opacity: .8; font-size: 13px; margin-bottom: 14px; line-height: 1.45; }
+    h1 { margin: 0 0 10px; font-size: 22px; } /* ✅ 크게 */
+    .sub { opacity: .85; font-size: 15px; margin-bottom: 14px; line-height: 1.55; } /* ✅ 크게 */
     .row { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; justify-content: space-between; }
-    .pill { background:#1c2030; border:1px solid #2b3250; padding: 6px 10px; border-radius: 999px; font-size: 12px; }
-    .btn { background:#2a63ff; border:0; color:white; padding:10px 12px; border-radius: 10px; cursor:pointer; font-weight:800; }
+    .pill { background:#1c2030; border:1px solid #2b3250; padding: 8px 12px; border-radius: 999px; font-size: 14px; } /* ✅ 크게 */
+    .btn { background:#2a63ff; border:0; color:white; padding:12px 14px; border-radius: 12px; cursor:pointer; font-weight:900; font-size: 15px; }
     .btn.secondary { background:#2b3250; }
     .btn.danger { background:#ff3b3b; }
     .btn:disabled { opacity:.5; cursor:not-allowed; }
-    .progressbar { height: 10px; background:#0f1118; border:1px solid #232636; border-radius:999px; overflow:hidden; margin-top: 10px; }
+    .progressbar { height: 12px; background:#0f1118; border:1px solid #232636; border-radius:999px; overflow:hidden; margin-top: 12px; }
     .bar { height:100%; width:0%; background:#2a63ff; }
     .qbox { margin-top: 14px; }
-    .qhead { display:flex; gap:12px; align-items:baseline; flex-wrap:wrap; }
-    .qnum { font-weight:900; font-size: 14px; opacity:.9; }
-    .word { font-size: 28px; font-weight:900; letter-spacing:.3px; }
-    .meta { font-size: 12px; opacity:.8; }
-    .choices { display:grid; gap:10px; margin-top: 14px; }
+    .qhead { display:flex; gap:12px; align-items:center; flex-wrap:wrap; }
+    .qnum { font-weight:900; font-size: 16px; opacity:.95; } /* ✅ 크게 */
+    .word { font-size: 36px; font-weight:1000; letter-spacing:.3px; } /* ✅ 크게 */
+    .meta { font-size: 13px; opacity:.85; }
+    .choices { display:grid; gap:12px; margin-top: 14px; }
     .choice {
-      background:#0f1118; border:1px solid #2b3250; border-radius: 12px;
-      padding: 12px; cursor:pointer; display:flex; gap:10px; align-items:flex-start;
+      background:#0f1118; border:1px solid #2b3250; border-radius: 14px;
+      padding: 14px; cursor:pointer; display:flex; gap:12px; align-items:flex-start;
       transition: transform .05s ease;
       user-select:none;
+      font-size: 18px; /* ✅ 보기 글자 크게 */
+      line-height: 1.5;
     }
     .choice:hover { transform: translateY(-1px); }
     .choice.selected { border-color:#86a3ff; background:#121a34; }
     .choice.correct { border-color:#35d07f; background:#0f1f18; }
     .choice.wrong { border-color:#ff6b6b; background:#231012; }
-    .tag { font-weight:900; width: 26px; text-align:center; opacity:.9; }
-    .result { margin-top: 12px; padding: 12px; border-radius: 12px; border:1px solid #2b3250; background:#0f1118; }
+    .tag { font-weight:1000; width: 30px; text-align:center; opacity:.95; }
+    .result { margin-top: 12px; padding: 14px; border-radius: 14px; border:1px solid #2b3250; background:#0f1118; }
     .result.good { border-color:#35d07f; background:#0f1f18; }
     .result.bad { border-color:#ff6b6b; background:#231012; }
-    .small { font-size: 13px; opacity:.9; line-height:1.5; }
+    .small { font-size: 15px; opacity:.95; line-height:1.6; } /* ✅ 크게 */
     .footer { margin-top: 14px; display:flex; gap:10px; flex-wrap:wrap; }
     details { margin-top: 14px; }
-    summary { cursor:pointer; font-weight:900; }
+    summary { cursor:pointer; font-weight:1000; font-size: 16px; }
     table { width:100%; border-collapse: collapse; margin-top: 10px; }
-    th, td { border-bottom:1px solid #232636; padding: 10px 6px; text-align:left; font-size: 13px; }
-    th { opacity:.85; }
-    .muted { opacity:.7; }
+    th, td { border-bottom:1px solid #232636; padding: 12px 8px; text-align:left; font-size: 15px; }
+    th { opacity:.9; }
+    .muted { opacity:.75; }
     .controls { display:flex; gap:10px; flex-wrap:wrap; align-items:center; margin-top: 10px; }
     select, input[type="checkbox"] { accent-color: #2a63ff; }
     select {
       background:#0f1118; color:#e7e7e7; border:1px solid #2b3250;
-      border-radius: 10px; padding: 8px 10px; font-weight:700;
+      border-radius: 12px; padding: 10px 12px; font-weight:900; font-size: 15px;
     }
-    label { font-size: 13px; opacity:.9; display:flex; gap:8px; align-items:center; }
+    label { font-size: 15px; opacity:.95; display:flex; gap:8px; align-items:center; }
     .hr { border:0; border-top:1px solid #232636; margin:16px 0; }
     .etymo {
       margin-top: 10px;
-      padding: 12px;
+      padding: 14px;
       border: 1px dashed #2b3250;
-      border-radius: 12px;
+      border-radius: 14px;
       background: rgba(30,34,52,.35);
     }
-    .etymo .title { font-weight:900; margin-bottom: 6px; }
-    .etymo ul { margin: 8px 0 0; padding-left: 18px; }
-    .etymo li { margin: 6px 0; }
-    .kbd { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace; font-size: 12px; padding: 2px 6px; border:1px solid #2b3250; border-radius: 8px; background:#0f1118; }
+    .etymo .title { font-weight:1000; margin-bottom: 8px; font-size: 16px; }
+    .etymo ul { margin: 10px 0 0; padding-left: 20px; }
+    .etymo li { margin: 8px 0; }
+    .kbd { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace; font-size: 13px; padding: 3px 8px; border:1px solid #2b3250; border-radius: 10px; background:#0f1118; }
+    .mini { font-size: 13px; opacity:.85; }
+    .iconbtn {
+      display:inline-flex; align-items:center; justify-content:center;
+      gap:8px;
+      padding: 10px 12px;
+      border-radius: 12px;
+      border: 1px solid #2b3250;
+      background: #0f1118;
+      color: #e7e7e7;
+      cursor: pointer;
+      font-weight: 1000;
+      font-size: 15px;
+    }
+    .iconbtn:hover { border-color:#86a3ff; background:#121a34; }
+    .scoreboard {
+      margin-top: 14px;
+      padding: 14px;
+      border-radius: 14px;
+      border: 1px solid #232636;
+      background: #0f1118;
+    }
+    .scoregrid {
+      display:grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+      margin-top: 10px;
+    }
+    .scoreitem {
+      background:#14161d;
+      border:1px solid #2b3250;
+      border-radius: 14px;
+      padding: 12px;
+    }
+    .scorelabel { font-size: 13px; opacity:.75; font-weight:900; }
+    .scorevalue { font-size: 24px; font-weight:1000; margin-top: 4px; }
+    @media (min-width: 760px) {
+      .scoregrid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+    }
   </style>
 </head>
 <body>
@@ -73,11 +113,11 @@
     <div class="card">
       <div class="row">
         <div>
-          <h1>Vocabulary Quiz (1200–1450) — 오답 어원/의미 생성 해설(강화)</h1>
+          <h1>Vocabulary Quiz (1200–1450) — 발음(미국식) + 스코어보드 + 오답 해설</h1>
           <div class="sub">
-            - 단어 1개당 <b>유사 오답 3개</b> 자동 생성 → <b>4지선다</b><br/>
-            - <b>오답일 때만</b> “왜 그 뜻이 되는지”를 <b>단어별로</b> (구성 → 의미 생성 → 암기/오답 방지)로 자세히 보여줍니다.<br/>
-            - ✅ <b>정답 확인 버튼 없음</b>: 보기(답안)를 누르면 즉시 채점/해설 표시
+            - 보기(답안)를 누르면 <b>즉시 채점</b>됩니다.<br/>
+            - 문항이 뜨면 <b>미국식 발음</b>을 자동 재생(가능한 경우)하고, 🔊 버튼으로 <b>반복 청취</b>할 수 있습니다.<br/>
+            - 오답일 때만 “왜 그 뜻이 되는지(어원/의미 생성/암기/오답 방지)”를 단어별로 보여줍니다.
           </div>
         </div>
         <div class="row">
@@ -104,6 +144,7 @@
 
         <label><input type="checkbox" id="shuffleToggle" checked /> 문제 순서 섞기</label>
         <label><input type="checkbox" id="saveToggle" checked /> 진행상황 자동 저장</label>
+        <label><input type="checkbox" id="autoPronounceToggle" checked /> 문제 표시 시 자동 발음</label>
 
         <button class="btn" id="btnStart">퀴즈 시작/재시작</button>
         <button class="btn secondary" id="btnWrongOnly" disabled>오답만 다시</button>
@@ -112,6 +153,31 @@
 
       <div class="progressbar" aria-label="progress">
         <div class="bar" id="bar"></div>
+      </div>
+
+      <!-- ✅ 스코어보드 -->
+      <div class="scoreboard" id="scoreboard">
+        <div style="font-weight:1000; font-size:16px;">스코어보드</div>
+        <div class="mini muted">총 응시/정답/오답, 연속 정답(스트릭)을 실시간 표시합니다.</div>
+        <div class="scoregrid">
+          <div class="scoreitem">
+            <div class="scorelabel">응시(채점 완료)</div>
+            <div class="scorevalue" id="sbAnswered">0</div>
+          </div>
+          <div class="scoreitem">
+            <div class="scorelabel">정답</div>
+            <div class="scorevalue" id="sbCorrect">0</div>
+          </div>
+          <div class="scoreitem">
+            <div class="scorelabel">오답</div>
+            <div class="scorevalue" id="sbWrong">0</div>
+          </div>
+          <div class="scoreitem">
+            <div class="scorelabel">연속 정답</div>
+            <div class="scorevalue" id="sbStreak">0</div>
+          </div>
+        </div>
+        <div class="mini muted" id="sbNote" style="margin-top:8px;"></div>
       </div>
 
       <div class="qbox" id="qbox"></div>
@@ -126,6 +192,50 @@
   </div>
 
 <script>
+/** =========================
+ *  0) 발음(미국식) - Web Speech API
+ *  ========================= */
+let userInteracted = false;     // iOS 등에서 자동 재생 제한 대비
+let lastSpokenKey = "";         // 같은 문제에서 중복 자동발음 방지
+
+function pickUSVoice() {
+  const voices = window.speechSynthesis ? window.speechSynthesis.getVoices() : [];
+  // 가장 우선: en-US
+  let v = voices.find(x => (x.lang || "").toLowerCase() === "en-us");
+  if (v) return v;
+  // 다음: en-us 포함
+  v = voices.find(x => (x.lang || "").toLowerCase().includes("en-us"));
+  if (v) return v;
+  // 다음: 영어 아무거나
+  v = voices.find(x => (x.lang || "").toLowerCase().startsWith("en"));
+  return v || null;
+}
+
+function speakWord(word, {force=false} = {}) {
+  if (!("speechSynthesis" in window) || !word) return;
+  try {
+    const key = `${word}`;
+    if (!force && key === lastSpokenKey) return;
+
+    window.speechSynthesis.cancel();
+    const u = new SpeechSynthesisUtterance(word);
+    u.lang = "en-US";
+    const v = pickUSVoice();
+    if (v) u.voice = v;
+    u.rate = 0.95;   // 약간 또박또박
+    u.pitch = 1.0;
+    u.volume = 1.0;
+
+    lastSpokenKey = key;
+    window.speechSynthesis.speak(u);
+  } catch {}
+}
+
+// iOS Safari에서 voices 로딩 지연되는 경우 대비
+if ("speechSynthesis" in window) {
+  window.speechSynthesis.onvoiceschanged = () => { /* voices ready */ };
+}
+
 /** =========================
  *  1) 원문 데이터(사용자 제공)
  *  ========================= */
@@ -422,7 +532,7 @@ const RAW = String.raw`
 `;
 
 /** =========================
- *  2) 정밀 해설(수동) — “단어별로” 아주 구체적으로
+ *  2) 정밀 해설(수동)
  *  ========================= */
 const ETYMO_STRONG = {
   "patch": [
@@ -653,7 +763,7 @@ function buildQuestions(entries) {
 }
 
 /** =========================
- *  6) 상태/저장
+ *  6) 상태/저장 + 스코어보드
  *  ========================= */
 const dom = {
   pillCount: document.getElementById("pillCount"),
@@ -665,17 +775,24 @@ const dom = {
   rangeSelect: document.getElementById("rangeSelect"),
   shuffleToggle: document.getElementById("shuffleToggle"),
   saveToggle: document.getElementById("saveToggle"),
+  autoPronounceToggle: document.getElementById("autoPronounceToggle"),
   btnStart: document.getElementById("btnStart"),
   btnWrongOnly: document.getElementById("btnWrongOnly"),
   btnReset: document.getElementById("btnReset"),
   btnPrev: document.getElementById("btnPrev"),
   btnNext: document.getElementById("btnNext"),
+  sbAnswered: document.getElementById("sbAnswered"),
+  sbCorrect: document.getElementById("sbCorrect"),
+  sbWrong: document.getElementById("sbWrong"),
+  sbStreak: document.getElementById("sbStreak"),
+  sbNote: document.getElementById("sbNote"),
 };
 
 function getKey() {
   const range = dom.rangeSelect.value;
-  return `vocab_quiz_1200_1450_etymo_${range}_v6_autocheck_no_button`;
+  return `vocab_quiz_1200_1450_etymo_${range}_v7_pronounce_scoreboard`;
 }
+
 function defaultState(total) {
   return {
     idx: 0,
@@ -683,34 +800,80 @@ function defaultState(total) {
     checked: Array(total).fill(false),
     score: 0,
     wrong: [],
-    order: [...Array(total).keys()]
+    order: [...Array(total).keys()],
+    // ✅ 스코어보드 누적
+    answeredCount: 0,
+    correctCount: 0,
+    wrongCount: 0,
+    streak: 0,
+    bestStreak: 0
   };
 }
+
+function normalizeLoadedState(s, total) {
+  // 기존 저장본 호환(필드가 없으면 기본값 채우기)
+  const base = defaultState(total);
+  const out = { ...base, ...s };
+
+  if (!Array.isArray(out.selected) || out.selected.length !== total) out.selected = base.selected;
+  if (!Array.isArray(out.checked) || out.checked.length !== total) out.checked = base.checked;
+  if (!Array.isArray(out.order) || out.order.length !== total) out.order = base.order;
+  if (!Array.isArray(out.wrong)) out.wrong = [];
+  // 숫자 필드 보정
+  for (const k of ["idx","score","answeredCount","correctCount","wrongCount","streak","bestStreak"]) {
+    out[k] = Number.isFinite(out[k]) ? out[k] : base[k];
+  }
+  // idx 범위 보정
+  out.idx = Math.max(0, Math.min(total-1, out.idx));
+  return out;
+}
+
 let quiz = { entries: [], questions: [], state: null };
 
 function saveState() {
   if (!dom.saveToggle.checked) return;
   localStorage.setItem(getKey(), JSON.stringify(quiz.state));
 }
+
 function loadState(total) {
   if (!dom.saveToggle.checked) return null;
   try {
     const raw = localStorage.getItem(getKey());
     if (!raw) return null;
     const s = JSON.parse(raw);
-    if (!s || !Array.isArray(s.selected) || s.selected.length !== total) return null;
-    return s;
+    if (!s) return null;
+    return normalizeLoadedState(s, total);
   } catch { return null; }
 }
+
 function filterByRange(rangeStr) {
   const [a,b] = rangeStr.split("-").map(x => parseInt(x,10));
   return ALL.filter(e => e.num >= a && e.num <= b);
+}
+
+function updateScoreboard() {
+  if (!quiz.state) {
+    dom.sbAnswered.textContent = "0";
+    dom.sbCorrect.textContent = "0";
+    dom.sbWrong.textContent = "0";
+    dom.sbStreak.textContent = "0";
+    dom.sbNote.textContent = "";
+    return;
+  }
+  const s = quiz.state;
+  dom.sbAnswered.textContent = String(s.answeredCount);
+  dom.sbCorrect.textContent = String(s.correctCount);
+  dom.sbWrong.textContent = String(s.wrongCount);
+  dom.sbStreak.textContent = String(s.streak);
+  dom.sbNote.textContent = `최고 연속 정답: ${s.bestStreak}회`;
 }
 
 /** =========================
  *  7) 렌더
  *  ========================= */
 function render() {
+  updateScoreboard();
+
   if (!quiz.state) {
     dom.qbox.innerHTML = `<div class="small muted">상단에서 범위를 선택하고 “퀴즈 시작/재시작”을 누르세요.</div>`;
     dom.pillCount.textContent = `문항: 0`;
@@ -745,11 +908,25 @@ function render() {
   dom.qbox.innerHTML = `
     <div class="qhead">
       <div class="qnum">Q${s.idx+1} / ${total} <span class="meta">(단어번호 ${q.num})</span></div>
-      <div class="word">${escapeHtml(q.word)}</div>
     </div>
+
+    <div class="qhead" style="margin-top:8px;">
+      <div class="word">${escapeHtml(q.word)}</div>
+      <button class="iconbtn" id="btnSpeak" title="미국식 발음 재생">🔊 발음 듣기</button>
+      <span class="mini muted">${"speechSynthesis" in window ? "US 발음(TTS)" : "이 브라우저는 발음 기능 미지원"}</span>
+    </div>
+
     <div class="choices" id="choices"></div>
     <div id="resultArea"></div>
   `;
+
+  // 발음 버튼
+  const btnSpeak = document.getElementById("btnSpeak");
+  btnSpeak.disabled = !("speechSynthesis" in window);
+  btnSpeak.addEventListener("click", () => {
+    userInteracted = true;
+    speakWord(q.word, {force:true});
+  });
 
   const choicesEl = document.getElementById("choices");
   q.options.forEach((text, idx0) => {
@@ -763,9 +940,10 @@ function render() {
     el.className = cls;
     el.innerHTML = `<div class="tag">${idx0+1}</div><div>${escapeHtml(text)}</div>`;
     el.addEventListener("click", () => {
+      userInteracted = true;
       if (s.checked[s.idx]) return; // 이미 채점된 문제는 재선택 방지
       s.selected[s.idx] = idx0;     // 선택 기록
-      checkAnswer();                // ✅ 즉시 채점(=정답 확인 버튼 효과)
+      checkAnswer();                // ✅ 즉시 채점
     });
     choicesEl.appendChild(el);
   });
@@ -818,6 +996,17 @@ function render() {
   else dom.summary.innerHTML = "";
 
   dom.btnWrongOnly.disabled = (done === 0);
+
+  // ✅ 문제 표시 시 자동 발음(가능한 경우)
+  // - iOS 등 자동 재생 제한이 있을 수 있으니, 사용자가 Start/클릭 등으로 상호작용한 뒤에만 시도
+  // - 같은 문제에서는 중복 호출 방지(lastSpokenKey)
+  if (dom.autoPronounceToggle.checked && userInteracted) {
+    // 렌더 직후 바로 호출(대부분 OK). 너무 빠르면 막히는 브라우저도 있어 setTimeout 약간 줌.
+    setTimeout(() => {
+      // 아직 채점 전이라도 단어는 읽어줌
+      speakWord(q.word, {force:false});
+    }, 80);
+  }
 }
 
 function renderSummary() {
@@ -829,7 +1018,7 @@ function renderSummary() {
     <div class="hr"></div>
     <div class="row">
       <div>
-        <div style="font-weight:900; font-size:16px;">결과</div>
+        <div style="font-weight:1000; font-size:18px;">결과</div>
         <div class="small">총점: <b>${s.score}</b> / ${total}</div>
         <div class="small muted">완료: ${total}문항</div>
       </div>
@@ -874,11 +1063,21 @@ function checkAnswer() {
   const chosen = s.selected[s.idx];
   if (chosen === null || s.checked[s.idx]) return;
 
+  // ✅ 채점 처리
   s.checked[s.idx] = true;
+
+  // ✅ 스코어보드 카운트 갱신
+  s.answeredCount += 1;
 
   if (chosen === q.correctIndex) {
     s.score += 1;
+    s.correctCount += 1;
+    s.streak += 1;
+    if (s.streak > s.bestStreak) s.bestStreak = s.streak;
   } else {
+    s.wrongCount += 1;
+    s.streak = 0;
+
     const qNo = s.idx + 1;
     if (!s.wrong.some(x => x.qNo === qNo)) {
       s.wrong.push({
@@ -889,11 +1088,15 @@ function checkAnswer() {
       });
     }
   }
+
   saveState();
   render();
 }
 
 function startQuiz({ wrongOnly=false } = {}) {
+  userInteracted = true; // ✅ 시작 버튼도 사용자 상호작용으로 간주(자동 발음 시도 가능)
+  lastSpokenKey = "";    // 새 시작 시 자동발음 중복 방지 키 초기화
+
   const range = dom.rangeSelect.value;
   const entries = filterByRange(range);
   const questions = buildQuestions(entries);
@@ -942,19 +1145,23 @@ dom.btnStart.addEventListener("click", () => startQuiz({ wrongOnly:false }));
 dom.btnWrongOnly.addEventListener("click", () => startQuiz({ wrongOnly:true }));
 
 dom.btnReset.addEventListener("click", () => {
+  userInteracted = true;
   if (!confirm("선택한 범위의 저장된 진행상황을 완전 초기화할까요?")) return;
   localStorage.removeItem(getKey());
   quiz.state = null;
+  lastSpokenKey = "";
   render();
 });
 
 dom.btnPrev.addEventListener("click", () => {
+  userInteracted = true;
   if (!quiz.state) return;
   quiz.state.idx = Math.max(0, quiz.state.idx - 1);
   saveState();
   render();
 });
 dom.btnNext.addEventListener("click", () => {
+  userInteracted = true;
   if (!quiz.state) return;
   quiz.state.idx = Math.min(quiz.questions.length - 1, quiz.state.idx + 1);
   saveState();
@@ -963,12 +1170,25 @@ dom.btnNext.addEventListener("click", () => {
 
 dom.rangeSelect.addEventListener("change", () => {
   quiz.state = null;
+  lastSpokenKey = "";
   render();
 });
 
 dom.saveToggle.addEventListener("change", () => {
+  userInteracted = true;
   if (!dom.saveToggle.checked) {
     alert("자동 저장이 꺼졌습니다. 새로고침하면 진행상황이 유지되지 않을 수 있어요.");
+  }
+});
+
+dom.autoPronounceToggle.addEventListener("change", () => {
+  userInteracted = true;
+  // 켜는 순간 현재 문제 한 번 읽어주기(원하면)
+  if (dom.autoPronounceToggle.checked && quiz.state) {
+    const s = quiz.state;
+    const qIndex = s.order[s.idx];
+    const q = quiz.questions[qIndex];
+    speakWord(q.word, {force:true});
   }
 });
 
