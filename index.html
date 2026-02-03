@@ -3,16 +3,16 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Vocabulary Quiz 1200–1450 (오답 어원/의미 생성 해설 강화 + 발음 + 스코어보드)</title>
+  <title>Vocabulary Quiz 1451–1600 (오답 어원/의미 생성 해설 강화 + 발음 + 스코어보드)</title>
   <style>
     :root { font-family: system-ui, -apple-system, Segoe UI, Roboto, "Noto Sans KR", Arial, sans-serif; }
-    body { margin: 0; background: #0b0c10; color: #e7e7e7; font-size: 18px; } /* ✅ 전체 글자 크게 */
+    body { margin: 0; background: #0b0c10; color: #e7e7e7; font-size: 18px; }
     .wrap { max-width: 980px; margin: 0 auto; padding: 18px; }
     .card { background: #14161d; border: 1px solid #232636; border-radius: 14px; padding: 18px; box-shadow: 0 6px 18px rgba(0,0,0,.25); }
-    h1 { margin: 0 0 10px; font-size: 22px; } /* ✅ 크게 */
-    .sub { opacity: .85; font-size: 15px; margin-bottom: 14px; line-height: 1.55; } /* ✅ 크게 */
+    h1 { margin: 0 0 10px; font-size: 22px; }
+    .sub { opacity: .85; font-size: 15px; margin-bottom: 14px; line-height: 1.55; }
     .row { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; justify-content: space-between; }
-    .pill { background:#1c2030; border:1px solid #2b3250; padding: 8px 12px; border-radius: 999px; font-size: 14px; } /* ✅ 크게 */
+    .pill { background:#1c2030; border:1px solid #2b3250; padding: 8px 12px; border-radius: 999px; font-size: 14px; }
     .btn { background:#2a63ff; border:0; color:white; padding:12px 14px; border-radius: 12px; cursor:pointer; font-weight:900; font-size: 15px; }
     .btn.secondary { background:#2b3250; }
     .btn.danger { background:#ff3b3b; }
@@ -21,8 +21,8 @@
     .bar { height:100%; width:0%; background:#2a63ff; }
     .qbox { margin-top: 14px; }
     .qhead { display:flex; gap:12px; align-items:center; flex-wrap:wrap; }
-    .qnum { font-weight:900; font-size: 16px; opacity:.95; } /* ✅ 크게 */
-    .word { font-size: 36px; font-weight:1000; letter-spacing:.3px; } /* ✅ 크게 */
+    .qnum { font-weight:900; font-size: 16px; opacity:.95; }
+    .word { font-size: 36px; font-weight:1000; letter-spacing:.3px; }
     .meta { font-size: 13px; opacity:.85; }
     .choices { display:grid; gap:12px; margin-top: 14px; }
     .choice {
@@ -30,7 +30,7 @@
       padding: 14px; cursor:pointer; display:flex; gap:12px; align-items:flex-start;
       transition: transform .05s ease;
       user-select:none;
-      font-size: 18px; /* ✅ 보기 글자 크게 */
+      font-size: 18px;
       line-height: 1.5;
     }
     .choice:hover { transform: translateY(-1px); }
@@ -41,7 +41,7 @@
     .result { margin-top: 12px; padding: 14px; border-radius: 14px; border:1px solid #2b3250; background:#0f1118; }
     .result.good { border-color:#35d07f; background:#0f1f18; }
     .result.bad { border-color:#ff6b6b; background:#231012; }
-    .small { font-size: 15px; opacity:.95; line-height:1.6; } /* ✅ 크게 */
+    .small { font-size: 15px; opacity:.95; line-height:1.6; }
     .footer { margin-top: 14px; display:flex; gap:10px; flex-wrap:wrap; }
     details { margin-top: 14px; }
     summary { cursor:pointer; font-weight:1000; font-size: 16px; }
@@ -113,7 +113,7 @@
     <div class="card">
       <div class="row">
         <div>
-          <h1>Vocabulary Quiz (1200–1450) — 발음(미국식) + 스코어보드 + 오답 해설</h1>
+          <h1>Vocabulary Quiz (1451–1600) — 발음(미국식) + 스코어보드 + 오답 해설</h1>
           <div class="sub">
             - 보기(답안)를 누르면 <b>즉시 채점</b>됩니다.<br/>
             - 문항이 뜨면 <b>미국식 발음</b>을 자동 재생(가능한 경우)하고, 🔊 버튼으로 <b>반복 청취</b>할 수 있습니다.<br/>
@@ -130,15 +130,15 @@
       <div class="controls">
         <label>범위
           <select id="rangeSelect">
-            <option value="1200-1450" selected>1200–1450 (전체)</option>
-            <option value="1200-1219">1200–1219</option>
-            <option value="1220-1239">1220–1239</option>
-            <option value="1240-1259">1240–1259</option>
-            <option value="1260-1279">1260–1279</option>
-            <option value="1280-1299">1280–1299</option>
-            <option value="1300-1319">1300–1319</option>
-            <option value="1320-1339">1320–1339</option>
-            <option value="1340-1450">1340–1450</option>
+            <option value="1451-1600" selected>1451–1600 (전체)</option>
+            <option value="1451-1469">1451–1469</option>
+            <option value="1470-1489">1470–1489</option>
+            <option value="1490-1509">1490–1509</option>
+            <option value="1510-1529">1510–1529</option>
+            <option value="1530-1549">1530–1549</option>
+            <option value="1550-1569">1550–1569</option>
+            <option value="1570-1586">1570–1586</option>
+            <option value="1587-1600">1587–1600</option>
           </select>
         </label>
 
@@ -155,7 +155,6 @@
         <div class="bar" id="bar"></div>
       </div>
 
-      <!-- ✅ 스코어보드 -->
       <div class="scoreboard" id="scoreboard">
         <div style="font-weight:1000; font-size:16px;">스코어보드</div>
         <div class="mini muted">총 응시/정답/오답, 연속 정답(스트릭)을 실시간 표시합니다.</div>
@@ -195,18 +194,15 @@
 /** =========================
  *  0) 발음(미국식) - Web Speech API
  *  ========================= */
-let userInteracted = false;     // iOS 등에서 자동 재생 제한 대비
-let lastSpokenKey = "";         // 같은 문제에서 중복 자동발음 방지
+let userInteracted = false;
+let lastSpokenKey = "";
 
 function pickUSVoice() {
   const voices = window.speechSynthesis ? window.speechSynthesis.getVoices() : [];
-  // 가장 우선: en-US
   let v = voices.find(x => (x.lang || "").toLowerCase() === "en-us");
   if (v) return v;
-  // 다음: en-us 포함
   v = voices.find(x => (x.lang || "").toLowerCase().includes("en-us"));
   if (v) return v;
-  // 다음: 영어 아무거나
   v = voices.find(x => (x.lang || "").toLowerCase().startsWith("en"));
   return v || null;
 }
@@ -222,7 +218,7 @@ function speakWord(word, {force=false} = {}) {
     u.lang = "en-US";
     const v = pickUSVoice();
     if (v) u.voice = v;
-    u.rate = 0.95;   // 약간 또박또박
+    u.rate = 0.95;
     u.pitch = 1.0;
     u.volume = 1.0;
 
@@ -231,351 +227,190 @@ function speakWord(word, {force=false} = {}) {
   } catch {}
 }
 
-// iOS Safari에서 voices 로딩 지연되는 경우 대비
 if ("speechSynthesis" in window) {
-  window.speechSynthesis.onvoiceschanged = () => { /* voices ready */ };
+  window.speechSynthesis.onvoiceschanged = () => {};
 }
 
 /** =========================
- *  1) 원문 데이터(사용자 제공)
+ *  1) 원문 데이터 (1451–1600)
  *  ========================= */
 const RAW = String.raw`
-1200–1219
-
-1200 logical / 논리적인
-1201 credibility / 신뢰성
-1202 auditory / 청각의, 귀의
-1203 scrutinize / 자세히 조사하다
-1204 cooperate / 협력(협동)하다
-1205 reciprocal / 상호 간의, 호혜적인
-1206 exclusive / 배타적인
-1207 forfeit / 박탈(몰수)당하다
-1208 rebellious / 반역의
-1209 retreat / 후퇴하다, 물러서다
-1210 prudence / 신중, 사려 분별
-1211 aid / 원조, 지원
-1212 replicate / 모사하다, 반복하다
-1213 pasture / 초원, 목초지
-1214 prospect / (미래의) 전망, 예상
-1215 qualify / ~에게 자격을 주다, 자격을 얻다
-1216 rid / 없애다, 제거하다
-1217 involuntarily / 무심결에, 본의 아니게
-1218 assure / ~을 확실하게 하다
-1219 periodic / 주기적인
-
-1220–1239
-
-1220 revert / 되돌아가다
-1221 combustion / 불이 탐, 연소
-1222 sneak / 살금살금(몰래) 들어오다
-1223 ban / 금지하다
-1224 collapse / 붕괴
-1225 sprint / 전력 질주하다
-1226 shatter / 산산이 부서지다
-1227 debt / 빚, 부채
-1228 diploma / 졸업장, 수료증
-1229 flip / 홱 뒤집다, 가볍게 던지다
-1230 acquaint / 알게 하다, 숙지시키다
-1231 translate / 번역하다
-1232 implement / 시행하다
-1233 impulse / 충동, 욕구
-1234 inhabitant / (특정 지역의) 주민, 서식 동물
-1235 interfere / 간섭하다, 방해하다
-1236 shield / 보호하다
-1237 irrelevant / 상관없는, 무관한
-1238 initially / 처음에, 시초에
-1239 tame / 길들여진
-
-1240–1259
-
-1240 agent / 직원, 요원
-1241 decline / 감소하다, 쇠퇴하다
-1242 courtesy / 정중함, 공손함
-1243 rattle / 덜거덕거리다, 달걀거리다
-1244 wrap / 싸다, 포장하다
-1245 stir / 동요, 충격
-1246 discard / 버리다, 폐기하다
-1247 reference / 추천서
-1248 convert / 전환(변환)하다
-1249 spur / ~에 박차를 가하다, 자극하다
-1250 dismiss / 묵살하다
-1251 sentiment / 정서, 감정
-1252 odd / 이상한
-1253 grasp / 이해하다, 파악하다
-1254 constitute / 구성하다
-1255 skeptical / 회의적인, 의심 많은
-1256 astrology / 점성술, 점성학
-1257 intimate / 사적인, 개인적인
-1258 promotion / 홍보, 판매 촉진
-1259 miserable / 비참한, 불행한
-
-1260–1279
-
-1260 permit / 허락하다, 허가하다
-1261 summit / 꼭대기, 정상
-1262 snatch / 잡아채다
-1263 refuge / 피난(처), 도피(처)
-1264 integrity / 성실, 정직
-1265 stick / 꼼짝 못하다
-1266 testimony / 증거, 증언
-1267 federal / 연방의, 연합의
-1268 superficial / 피상적인, 표면적인
-1269 tolerate / 참다, 용인하다
-1270 turnover / (직원의) 이직률
-1271 versus / ~대, ~와 대비하여
-1272 violate / 위반하다
-1273 altruism / 이타주의, 이타심
-1274 upright / 똑바른, 곧곧한
-1275 bound / ~할 것 같은, ~이 틀림없는
-1276 corporate / 기업의, 법인의
-1277 defeat / 패배, 실패
-1278 desperate / 절망적인
-1279 disability / 장애, 불리한 조건
-
-1280–1299
-
-1280 endure / 참다, 견디다
-1281 gaze / 응시하다, 바라보다
-1282 ambivalent / 양면 가치의
-1283 inherit / 상속받다, 물려받다
-1284 antibody / 항체
-1285 define / 의미를 정의하다
-1286 particle / 입자
-1287 pupil / 학생
-1288 preach / 설교하다, 전도하다
-1289 chronological / 발생(시간) 순서대로 된
-1290 underprivileged / (사회·경제적으로) 혜택을 받지 못하는
-1291 uncover / (비밀 등을) 알아내다, 폭로하다
-1292 dump / 버리다, 쏟아 버리다
-1293 acid / 산성의
-1294 literary / 문학의
-1295 border / 접경하다
-1296 articulate / 분명히 표현하다(설명하다)
-1297 alley / 골목
-1298 mitigation / 완화, 경감
-1299 vicious / 나쁜, 악덕의
-
-1300–1319
-
-1300 abound / 아주 많다, 풍부하다
-1301 entitle / 자격을 주다
-1302 asset / 자산, 재산
-1303 underway / 진행 중인
-1304 litter / 쓰레기
-1305 mature / 성숙(발달)하다
-1306 originate / 비롯되다, 유래하다
-1307 tyranny / 독재(전체) 정치
-1308 passage / 복도, 통로
-1309 persist / 지속하다
-1310 clog / 막(히)다
-1311 hypothesis / 가설, 가정
-1312 plain / 보통의, 평범한
-1313 bizarre / 기이한, 특이한
-1314 bleed / 피를 흘리다, 출혈하다
-1315 smooth / 매끈한
-1316 via / ~을 통해서, ~에 의해서
-1317 combat / 전투, 싸움
-1318 temporary / 일시적인, 임시의
-1319 tremendous / 엄청난, 굉장한
-
-1320–1339
-
-1320 posterity / 후세, 후대
-1321 cast / (의심을) 불러일으키다
-1322 counteract / 대응[대항]하다, 상쇄[중화]하다
-1323 contagious / 전염되는, 전염성의
-1324 appointment / 임명, 지명
-1325 assemble / 모으다, 집합시키다
-1326 bilingual / 2개 국어를 말하는
-1327 customized / 개개인의 요구에 맞춘
-1328 govern / 좌우하다, 결정하다
-1329 preponderance / (수적·양적으로) 우세함
-1330 surround / 둘러싸다, 에워싸다
-1331 conceive / 생각[상상]하다
-1332 argument / 논쟁, 언쟁
-1333 precede / ~에 앞서다, 선행하다
-1334 signify / 의미하다, 나타내다
-1335 transfer / 옮기다, 이동하다
-1336 pigment / 색소, 안료
-1337 cuisine / 요리(법)
-1338 mobilize / (사람·물자·수단 등을) 동원하다
-1339 subsequent / 그 후의, 다음의
-
-1340–1450
-
-1340 starvation / 굶주림, 기아
-1341 urgent / 긴급한, 다급한
-1342 respectively / 각각, 제각기
-1343 deed / 행위, 행동
-1344 fate / 운명
-1345 philosophy / 철학
-1346 bypass / 우회로, 건너뛰다, 우회하다
-1347 attest / 증언하다, 입증하다
-1348 bloom / 꽃이 피다, 꽃을 피우다
-1349 boost / 신장시키다, 북돋우다
-1350 deduct / 공제하다, 감하다
-
-1351–1373
-
-1351 avid / 열망하는, 열심인
-1352 discrimination / 차별
-1353 disguise / 변장(위장)하다
-1354 cumulative / 누적되는, 누계의
-1355 split / 쪼개다, 나누다
-1356 pope / 교황
-1357 droopy / 축 늘어진
-1358 hierarchy / 계급, 계층, 서열
-1359 migrate / 이주(이동)하다
-1360 substantial / (양, 크기가) 상당한
-1361 grave / 심각한, 중대한
-1362 disciple / 제자, 신봉자
-1363 prevail / 이기다, 압도하다
-1364 revive / 소생하다, 부활시키다
-1365 delude / 착각하게 하다, 속이다
-1366 drawback / 결점, 문제점
-1367 standardize / 표준화하다, 통일시키다
-1368 dusk / 황혼, 어스름
-1369 territory / 영역, 분야
-1370 eligible / 자격이 있는
-1371 vanish / 사라지다
-1372 violence / 폭행, 폭력
-1373 abuse / 학대하다
-
-1374–1395
-
-1374 choke / (성장을) 방해하다
-1375 concise / 간결한
-1376 deliberate / 숙고하다, 신중히 생각하다
-1377 curse / 저주, 악담
-1378 crush / 으스러뜨리다, 뭉개다
-1379 niche / 딱 맞는 위치[지위], 적소
-1380 intervention / 간섭
-1381 mute / 말 없는, 무언의
-1382 tissue / (세포들로 이뤄진) 조직
-1383 personnel / 인원, 직원
-1384 prejudice / 편견
-1385 probe / 탐색[조사]하다
-1386 clarity / 명료성, 명확성
-1387 scope / 기회, 여지
-1388 spatial / 공간의, 공간적인
-1389 steep / 가파른, 비탈진
-1390 temporal / 시간의
-1391 patch / (행정 등으로) 땜대다, 때우다
-1392 dismantle / 분해하다, 해체하다
-1393 epoch / 시대, 시기
-1394 exert / (힘, 영향력을) 가하다, 행사하다
-1395 accommodate / 숙박시키다, 수용하다
-
-1396–1417
-
-1396 marital / 결혼(생활)의, 부부의
-1397 affection / 애착, 애정
-1398 extensive / 넓은, 광범위한
-1399 aspiration / 열망, 포부
-1400 cite / 언급하다
-1401 universal / 일반[보편]적인
-1402 proximity / 가까움, 근접
-1403 prelude / 전조, 서막
-1404 kinship / 친족(임), 친족 관계
-1405 harassment / 괴롭힘
-1406 repertoire / 레퍼토리, 연주 목록
-1407 retailer / 소매상, 소매업, 소매 상점
-1408 drift / (목적이나 목표 없이) 흘러가다, 방황하다
-1409 dub / 재녹음(더빙)하다
-1410 alongside / ~ 옆에, 나란히
-1411 enact / 상연[연기]하다
-1412 accidental / 우연한, 돌발적인
-1413 encyclopedia / 백과사전
-1414 endow / ~에게 (특질 등을) 부여하다
-1415 associate / 연상하다, 연관 짓다
-1416 feminine / 여성의, 여성스러운
-1417 foe / 적
-
-1418–1439
-
-1418 revise / 변경[수정]하다
-1419 exterminate / 근절하다, 몰살하다, 박멸하다
-1420 amend / 개정[수정]하다
-1421 coherent / 일관성 있는, 논리적인
-1422 botanical / 식물(학)의
-1423 indispensable / 없어서는 안 될, 필수적인
-1424 abstain / 자제하다, 삼가다
-1425 shortcoming / 결점, 단점
-1426 residue / 잔여물
-1427 displace / (밀어내고) 대신[대체]하다
-1428 collide / 충돌[상충]하다, 부딪히다
-1429 dreary / 음울한, 따분한
-1430 sensitivity / 예민함, 민감함
-1431 gravitational / 중력[인력]의
-1432 ancestral / 조상의
-1433 elevation / 고도, 해발
-1434 elated / 의기양양한, 매우 기뻐하는
-1435 nomadic / 유목의
-1436 approximately / 거의, 대략
-1437 enlighten / 계몽하다, 깨우치게 하다
-1438 fluctuate / 변동하다, 오르내리다
-1439 factual / 사실의, 실제의
-
-1440–1450
-
-1440 fraction / 부분, 일부
-1441 frenzy / 광분, 광란
-1442 orientation / 방향, 지향
-1443 spherical / 구 모양의, 구체의
-1444 grin / (이를 드러내고) 활짝 웃다
-1445 growl / 으르렁거리다
-1446 haunt / (유령 등이) 출몰하다
-1447 overestimate / 과대평가하다
-1448 resentment / 분함, 분노
-1449 heap / 더미, 무더기
-1450 tuition / 수업료
+1451 / impartial / 공정한, 편견이 없는
+1452 / confederate / 공범, 공모자
+1453 / legislation / 법률(제정)
+1454 / inscription / 새기기, 명각
+1455 / versatile / 다재다능한, 다용도의
+1456 / limp / 기운이 없는, 축 처진
+1457 / intrinsic / 고유한, 본질적인
+1458 / limb / 팔, 다리, (새의) 날개
+1459 / prehistoric / 선사 시대의
+1460 / rush / 서두르다
+1461 / stale / 진부한, 신선하지 않은
+1462 / gratitude / 감사, 고마움
+1463 / garment / 의복, 옷
+1464 / reproach / 비난하다, 나무라다
+1465 / handicap / 불리하게 만들다, 방해하다
+1466 / spiny / 가시가 많은
+1467 / suspicion / 의심, 불신, 혐의
+1468 / spawn / (알을) 낳다, 생산하다
+1469 / sedentary / 한곳에 머물러 사는, 정착하고 있는
+1470 / humble / 겸손한
+1471 / incur / (나쁜 상황을) 초래하다, (손해·빚을) 발생시키다
+1472 / indulge / (욕구·쾌락에) 빠지다, 탐닉하다
+1473 / thaw / 녹다, 해동시키다
+1474 / inspection / 사찰, 점검, 정밀조사
+1475 / invert / 뒤집다, 도치시키다
+1476 / leftover / (주로 복수로) 남은 음식
+1477 / liken / ~에 비유하다
+1478 / disseminate / (정보·사상 등을) 퍼뜨리다, 전파하다
+1479 / linger / 남아 있다, 오래 끌다
+1480 / circumstance / 상황, 환경
+1481 / martial / 싸움의, 전쟁의
+1482 / sorrowful / 슬픈
+1483 / peninsula / 반도
+1484 / monk / 수도자, 수도승
+1485 / maternal / 어머니의, 모성의
+1486 / minister / 성직자, 목사
+1487 / monetary / 통화[화폐]의, 금전의
+1488 / nostalgia / 향수(병)
+1489 / oblige / 의무적으로 ~하게 하다, 강요하다
+1490 / vocational / 직업과 관련된, 직무상의
+1491 / contestant / (대회·시합의) 참가자
+1492 / subside / 가라앉다, 진정되다
+1493 / stiffen / 뻣뻣해지다, 경직되다
+1494 / onward / 앞으로, 나아가서
+1495 / outlaw / 불법화하다, 금하다
+1496 / outset / 착수, 시초, 발단
+1497 / overturn / 뒤집(히)다
+1498 / ramification / 파문, 영향
+1499 / pathway / 좁은 길, 통로
+1500 / pierce / 뚫다, 관통하다
+1501 / nutrient / 영양소, 영양분
+1502 / lodge / 오두막, 산장
+1503 / loom / 어렴풋이 나타나다, 곧 닥칠 것처럼 보이다
+1504 / mainstream / (사상 등의) 주류, 대세
+1505 / manuscript / (책·악보 등의) 원고, 사본
+1506 / erupt / (화산이) 분출하다, 폭발하다
+1507 / mighty / 강력한, 힘센
+1508 / hull / 선체
+1509 / muddy / 진흙투성이인
+1510 / nuisance / 성가신 사람[일], 골칫거리
+1511 / splendid / 훌륭한, 멋진
+1512 / strife / 갈등, 불화, 다툼
+1513 / stature / 위상, 수준
+1514 / adversity / 역경, 고난
+1515 / spacious / 넓은
+1516 / unconsciously / 무의식적으로
+1517 / authoritative / 권위 있는
+1518 / actualize / 현실로 만들다, 실현하다
+1519 / console / 위로하다
+1520 / drag / 끌다, 끌고 가다
+1521 / authentic / 진정한, 진짜의
+1522 / mammal / 포유동물
+1523 / plunge / 돌입하다
+1524 / gigantic / 거대한
+1525 / predominate / 우세하다, 지배하다
+1526 / rust / 녹이 슬다, 부식하다[시키다]
+1527 / recede / 물러나다, 약해지다
+1528 / reprimand / 질책하다
+1529 / rhetorical / 수사적인, 웅변적인
+1530 / riddle / 구멍을 숭숭 뚫다, 벌집같이 만들다
+1531 / generalization / 일반화
+1532 / scramble / 기어 오르다
+1533 / speculate / 추측[짐작]하다
+1534 / stalk / (식물의) 줄기
+1535 / stroll / 산책하다, 거닐다
+1536 / stumble / 우연히 발견하다
+1537 / outrun / 더 빨리[멀리] 달리다
+1538 / squeeze / 짜다
+1539 / dumb / 멍청한
+1540 / stifle / 억누르다, 억압하다
+1541 / inescapable / 피할 수 없는
+1542 / supervision / 감독, 관리, 지휘
+1543 / synthetic / 합성한, 인조의
+1544 / peer / 응시하다, 유심히 보다
+1545 / reconstruct / 재구성[재현]하다
+1546 / enroll / 등록하다
+1547 / utilize / 활용[이용]하다
+1548 / dignity / 위엄, 품위, 존엄(성)
+1549 / slay / 죽이다
+1550 / presuppose / 상정하다, 전제로 하다
+1551 / examine / 검사[조사]하다
+1552 / saturate / 포화시키다, 포화 상태를 만들다
+1553 / generate / 발생시키다, 초래하다
+1554 / sprout / 싹이 나다
+1555 / offend / 기분을 상하게 하다
+1556 / infancy / 유아기
+1557 / stink / 악취를 풍기다, 냄새가 나다
+1558 / withdraw / 취소[철회]하다
+1559 / paddle / 노를 젓다, 첨벙거리다
+1560 / propose / (계획·생각을) 제안[제시]하다
+1561 / submerge / 물속에 넣다[잠기다]
+1562 / overtake / 추월하다, 능가하다
+1563 / expose / 드러내다, 노출시키다
+1564 / tariff / 관세
+1565 / utterly / 완전히, 순전히, 전혀
+1566 / underestimate / 너무 적게 잡다, 과소평가하다
+1567 / undue / 지나친, 과도한
+1568 / carve / 조각하다, 새기다
+1569 / descendant / 자손, 후예
+1570 / vein / 정맥, 혈관
+1571 / informative / 유익한, 교육적인
+1572 / predator / 포식자
+1573 / withhold / (~을) 주지 않다, 보류하다
+1574 / install / 설치하다, 장착하다
+1575 / absurd / 불합리한
+1576 / archaeology / 고고학
+1577 / apparatus / (신체의) 기관
+1578 / acclaim / 환호, 갈채
+1579 / herald / 알리다, 발표하다
+1580 / succumb / 굴복하다, (병 등으로) 쓰러지다
+1581 / stack / 쌓다, 쌓이다
+1582 / hostage / 인질
+1583 / thrift / 절약, 검약
+1584 / anonymous / 익명인, 신원 불명의
+1585 / landfill / 쓰레기 매립(지)
+1586 / astound / 경악시키다, 큰 충격을 주다
+1587 / uphold / (법·원칙 등을) 유지하다, 옹호하다
+1588 / terrain / 지형, 지역
+1589 / thermal / 열의, 뜨거운
+1590 / thrust / (거칠게) 밀치다, 찌르다
+1591 / vegetation / 초목, 식물
+1592 / passionate / 열정적인, 열렬한
+1593 / anthropology / 인류학
+1594 / aboriginal / (특히 오스트레일리아의) 원주민의
+1595 / abide / (규칙을) 지키다
+1596 / sediment / 침전[퇴적]물, 앙금
+1597 / magnify / 확대하다, 증대하다
+1598 / respondent / 응답자
+1599 / alleviate / 완화하다, 경감시키다
+1600 / alienate / 멀리하다, 소원하게 하다
 `;
 
 /** =========================
- *  2) 정밀 해설(수동)
+ *  2) 정밀 해설(수동) - 필요시 추가
  *  ========================= */
 const ETYMO_STRONG = {
-  "patch": [
-    ["어원/기원", "중세 영어 pacche(기워 붙이는 천 조각) → ‘구멍을 메우는 조각’ 이미지가 핵심."],
-    ["뜻이 만들어진 흐름", "① 구멍을 덮는 조각 → ② 조각을 붙여 수선하다(땜대다) → ③ 임시 수정(소프트웨어 patch)"],
-    ["중2 암기 팁", "patch=‘붙여서 막기’. 옷 구멍 패치처럼, 문제도 패치로 막는다!"]
+  "impartial": [
+    ["어원/구성", "im-(not) + partial(부분/편파적인)"],
+    ["뜻이 만들어진 흐름", "‘편파적(partial)’이 ‘아님’ → 공정한/편견이 없는"],
+    ["오답 방지", "partial=부분/편파. impartial=그 반대(공정)."]
   ],
-  "deduct": [
-    ["어원/구성", "de-(떼어/아래로) + duct(이끌다)"],
-    ["뜻이 만들어진 흐름", "전체에서 어떤 부분을 ‘끌어내려 빼는 것’ → 공제하다/감하다"],
-    ["중2 암기 팁", "de- + duct(끌다) = ‘빼내려서 감점!’"]
+  "intrinsic": [
+    ["어원/구성", "intra-(안쪽) 계열 + -insic(내재)"],
+    ["뜻이 만들어진 흐름", "안에 ‘내재’한 성질 → 본질적인/고유한"],
+    ["오답 방지", "intrinsic(내재) ↔ extrinsic(외재)."]
   ],
-  "subsequent": [
-    ["어원/구성", "sub-(뒤/아래) + sequ(따르다)"],
-    ["뜻이 만들어진 흐름", "어떤 일 ‘뒤를 따라오는 것’ → 그 후의/다음의"],
-    ["중2 암기 팁", "sequence(순서) = 따라오는 줄 → subsequent=뒤에 오는 것"]
+  "disseminate": [
+    ["어원/기원", "dis-(흩어) + semin(씨앗)"],
+    ["뜻이 만들어진 흐름", "씨앗을 흩뿌리다 → 정보/사상을 퍼뜨리다"],
+    ["암기", "seed(씨앗) 느낌으로 ‘널리 퍼짐’ 고정"]
   ],
-  "chronological": [
-    ["어원/구성", "chrono-(시간) + -logical(관련된 배열/논리)"],
-    ["뜻이 만들어진 흐름", "시간 기준으로 배열됨 → 시간순의"],
-    ["중2 암기 팁", "chrono=시간 → 시간순=chronological"]
+  "nostalgia": [
+    ["어원/구성", "nostos(귀향) + algia(고통)"],
+    ["뜻이 만들어진 흐름", "집/과거를 그리워하는 아픔 → 향수(병)"],
+    ["암기", "algia=통증(예: neuralgia) → ‘그리움의 아픔’"]
   ],
-  "credibility": [
-    ["어원/구성", "cred-(믿다) + -ible(가능) + -ity(성질)"],
-    ["뜻이 만들어진 흐름", "믿을 수 있는 정도(성질) → 신뢰성"],
-    ["중2 암기 팁", "credit(신용)와 같은 뿌리 cred=믿다"]
-  ],
-  "auditory": [
-    ["어원/구성", "aud-(듣다) + -ory(~의)"],
-    ["뜻이 만들어진 흐름", "듣는 것과 관련 → 청각의"],
-    ["중2 암기 팁", "audio=오디오(소리). aud- 보면 ‘듣다’!"
-    ]
-  ],
-  "exclusive": [
-    ["어원/구성", "ex-(밖) + clud(닫다/막다) + -ive"],
-    ["뜻이 만들어진 흐름", "밖으로 닫아서 못 들어오게 함 → 배타적인/독점적인"],
-    ["중2 암기 팁", "include(포함) ↔ exclude(제외). clude=닫다"]
-  ],
-  "prospect": [
-    ["어원/구성", "pro-(앞) + spect(보다)"],
-    ["뜻이 만들어진 흐름", "앞을 봄 → 전망/가능성"],
-    ["중2 암기 팁", "spectator(관객)=보는 사람. prospect=앞을 보는 것"]
-  ]
 };
 
 /** =========================
@@ -584,10 +419,10 @@ const ETYMO_STRONG = {
 const PREFIX = [
   ["anti", "반대"], ["auto","스스로"], ["bi","2"], ["co","함께"], ["con","함께/완전히"],
   ["counter","반대/상쇄"], ["de","떼어/아래로/없애다"], ["dis","떼어/반대/없애다"],
-  ["en","~하게 하다/넣다"], ["ex","밖으로/전-"], ["im","안으로/강화(또는 in- 변형)"],
-  ["in","안/부정(아니다)"], ["inter","사이에/서로"], ["mis","잘못"], ["non","아님"],
+  ["en","~하게 하다/넣다"], ["ex","밖으로/전-"], ["im","부정/안으로(in- 변형)"],
+  ["in","부정(아니다)/안"], ["inter","사이에/서로"], ["mis","잘못"], ["non","아님"],
   ["over","과하게"], ["pre","앞/미리"], ["pro","앞/찬성"], ["re","다시/뒤로"],
-  ["sub","아래/뒤"], ["trans","가로질러/건너"]
+  ["sub","아래/뒤"], ["trans","가로질러/건너"], ["under","아래/덜"]
 ];
 
 const SUFFIX = [
@@ -600,17 +435,15 @@ const SUFFIX = [
 ];
 
 const ROOTS = [
-  ["spect", "보다"], ["vid", "보다"], ["vis", "보다"],
-  ["cred", "믿다"], ["fid", "믿다"], ["aud", "듣다"],
-  ["dict", "말하다"], ["log", "말/이성/학문"], ["chron", "시간"],
+  ["part", "부분"], ["cred", "믿다"], ["aud", "듣다"], ["dict", "말하다"],
   ["scrib", "쓰다"], ["script", "쓰다"], ["graph", "기록"],
   ["port", "옮기다"], ["fer", "옮기다"], ["mit", "보내다"], ["miss", "보내다"],
   ["duc", "이끌다"], ["duct", "이끌다"], ["tract", "끌다"],
-  ["press", "누르다"], ["struct", "세우다/쌓다"], ["stit", "세우다"],
-  ["gen", "태어나다"], ["nat", "본성/태어나다"],
-  ["terr", "땅/영역"], ["bio", "생명"], ["astro", "별"], ["botan", "식물"],
-  ["grav", "무겁다/중력"], ["mut", "바꾸다"], ["flu", "흐르다"],
-  ["clar", "맑다/분명"], ["sens", "느끼다"], ["fract", "부수다"], ["rupt", "깨지다"]
+  ["press", "누르다"], ["struct", "세우다/쌓다"], ["gen", "태어나다/만들다"],
+  ["terr", "땅/지역"], ["bio", "생명"], ["archae", "고대"], ["therm", "열"],
+  ["spect", "보다"], ["vid", "보다"], ["vis", "보다"], ["semin", "씨앗"],
+  ["vert", "돌리다"], ["ceed", "가다"], ["cess", "가다"], ["sid", "앉다"],
+  ["rupt", "깨지다"], ["stalk", "줄기"], ["vege", "식물"], ["magn", "크다"]
 ];
 
 function normalizeWord(w){ return String(w||"").toLowerCase().trim(); }
@@ -659,7 +492,9 @@ function buildAntiConfusion(word, pre, suf){
   const tips = [];
   if (pre && pre[0] === "re") tips.push("re- = 다시/뒤로 (반대 X)");
   if (pre && pre[0] === "dis") tips.push("dis- = 분리/제거/반대 (in- 부정과 구분)");
-  if (pre && pre[0] === "inter") tips.push("inter- = 사이에 끼기(간섭 이미지)");
+  if (pre && pre[0] === "inter") tips.push("inter- = 사이/서로 (끼어들기 이미지)");
+  if (pre && pre[0] === "over") tips.push("over- = 과하게(과장/과다)");
+  if (pre && pre[0] === "under") tips.push("under- = 덜/아래(과소/부족)");
   if (suf && suf[0] === "tion") tips.push("-tion = 명사(과정/결과)");
   if (suf && suf[0] === "ity") tips.push("-ity = ~성/상태");
   if (word.endsWith("ly")) tips.push("-ly = 부사(~하게)");
@@ -721,7 +556,8 @@ function getEtymoCard(word, meaningKo) {
 function parseEntries(raw) {
   const lines = raw.split(/\r?\n/);
   const out = [];
-  const re = /^\s*(\d{4})\s+([A-Za-z-]+)\s*\/\s*(.+?)\s*$/;
+  // "1451 / word / meaning"
+  const re = /^\s*(\d{4})\s*\/\s*([A-Za-z-]+)\s*\/\s*(.+?)\s*$/;
   for (const line of lines) {
     const m = line.match(re);
     if (!m) continue;
@@ -790,7 +626,7 @@ const dom = {
 
 function getKey() {
   const range = dom.rangeSelect.value;
-  return `vocab_quiz_1200_1450_etymo_${range}_v7_pronounce_scoreboard`;
+  return `vocab_quiz_1451_1600_etymo_${range}_v1_pronounce_scoreboard`;
 }
 
 function defaultState(total) {
@@ -801,7 +637,6 @@ function defaultState(total) {
     score: 0,
     wrong: [],
     order: [...Array(total).keys()],
-    // ✅ 스코어보드 누적
     answeredCount: 0,
     correctCount: 0,
     wrongCount: 0,
@@ -811,7 +646,6 @@ function defaultState(total) {
 }
 
 function normalizeLoadedState(s, total) {
-  // 기존 저장본 호환(필드가 없으면 기본값 채우기)
   const base = defaultState(total);
   const out = { ...base, ...s };
 
@@ -819,11 +653,9 @@ function normalizeLoadedState(s, total) {
   if (!Array.isArray(out.checked) || out.checked.length !== total) out.checked = base.checked;
   if (!Array.isArray(out.order) || out.order.length !== total) out.order = base.order;
   if (!Array.isArray(out.wrong)) out.wrong = [];
-  // 숫자 필드 보정
   for (const k of ["idx","score","answeredCount","correctCount","wrongCount","streak","bestStreak"]) {
     out[k] = Number.isFinite(out[k]) ? out[k] : base[k];
   }
-  // idx 범위 보정
   out.idx = Math.max(0, Math.min(total-1, out.idx));
   return out;
 }
@@ -920,7 +752,6 @@ function render() {
     <div id="resultArea"></div>
   `;
 
-  // 발음 버튼
   const btnSpeak = document.getElementById("btnSpeak");
   btnSpeak.disabled = !("speechSynthesis" in window);
   btnSpeak.addEventListener("click", () => {
@@ -941,9 +772,9 @@ function render() {
     el.innerHTML = `<div class="tag">${idx0+1}</div><div>${escapeHtml(text)}</div>`;
     el.addEventListener("click", () => {
       userInteracted = true;
-      if (s.checked[s.idx]) return; // 이미 채점된 문제는 재선택 방지
-      s.selected[s.idx] = idx0;     // 선택 기록
-      checkAnswer();                // ✅ 즉시 채점
+      if (s.checked[s.idx]) return;
+      s.selected[s.idx] = idx0;
+      checkAnswer();
     });
     choicesEl.appendChild(el);
   });
@@ -997,13 +828,8 @@ function render() {
 
   dom.btnWrongOnly.disabled = (done === 0);
 
-  // ✅ 문제 표시 시 자동 발음(가능한 경우)
-  // - iOS 등 자동 재생 제한이 있을 수 있으니, 사용자가 Start/클릭 등으로 상호작용한 뒤에만 시도
-  // - 같은 문제에서는 중복 호출 방지(lastSpokenKey)
   if (dom.autoPronounceToggle.checked && userInteracted) {
-    // 렌더 직후 바로 호출(대부분 OK). 너무 빠르면 막히는 브라우저도 있어 setTimeout 약간 줌.
     setTimeout(() => {
-      // 아직 채점 전이라도 단어는 읽어줌
       speakWord(q.word, {force:false});
     }, 80);
   }
@@ -1063,10 +889,7 @@ function checkAnswer() {
   const chosen = s.selected[s.idx];
   if (chosen === null || s.checked[s.idx]) return;
 
-  // ✅ 채점 처리
   s.checked[s.idx] = true;
-
-  // ✅ 스코어보드 카운트 갱신
   s.answeredCount += 1;
 
   if (chosen === q.correctIndex) {
@@ -1094,8 +917,8 @@ function checkAnswer() {
 }
 
 function startQuiz({ wrongOnly=false } = {}) {
-  userInteracted = true; // ✅ 시작 버튼도 사용자 상호작용으로 간주(자동 발음 시도 가능)
-  lastSpokenKey = "";    // 새 시작 시 자동발음 중복 방지 키 초기화
+  userInteracted = true;
+  lastSpokenKey = "";
 
   const range = dom.rangeSelect.value;
   const entries = filterByRange(range);
@@ -1183,7 +1006,6 @@ dom.saveToggle.addEventListener("change", () => {
 
 dom.autoPronounceToggle.addEventListener("change", () => {
   userInteracted = true;
-  // 켜는 순간 현재 문제 한 번 읽어주기(원하면)
   if (dom.autoPronounceToggle.checked && quiz.state) {
     const s = quiz.state;
     const qIndex = s.order[s.idx];
