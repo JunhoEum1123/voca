@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Vocabulary 1451–1700 | 단어장 + 퀴즈</title>
+  <title>VOCA TEST (1451–1604)</title>
 
   <style>
     :root{
@@ -216,7 +216,7 @@
         <div class="modegrid">
           <div class="modecard">
             <h2>📘 단어장 보기</h2>
-            <p>1451–1700 단어를 목록으로 확인하고, 검색/필터, 발음 듣기, 복사 등을 할 수 있어요.</p>
+            <p>단어를 목록으로 확인하고, 발음 듣기, 복사 등을 할 수 있어요.</p>
             <div style="margin-top:10px;">
               <button class="btn" id="goWordbook">단어장으로</button>
             </div>
@@ -909,6 +909,11 @@
         renderTimerPill();
 
         // 1분 경고(딱 60초 남을 때 1회)
+        if (quiz.state.timeLeft === 300){
+          try{ alert("⏰ 5분 남았습니다!"); } catch {}
+        }
+        
+        // 1분 경고(딱 60초 남을 때 1회)
         if (quiz.state.timeLeft === 60){
           try{ alert("⏰ 1분 남았습니다!"); } catch {}
         }
@@ -1355,3 +1360,4 @@
   </script>
 </body>
 </html>
+
