@@ -120,7 +120,7 @@
     .scorevalue{ font-size:24px; font-weight:1000; margin-top:4px; }
 
     @media (min-width:760px){
-      .scoregrid{ grid-template-columns: repeat(4, minmax(0, 1fr)); }
+      .scoregrid{ grid-template-columns: repeat(5, minmax(0, 1fr)); }
     }
 
     /* 홈(모드 선택) */
@@ -183,16 +183,29 @@
     }
     [data-theme="light"] .dot::after{ left:18px; }
 
-    /* 오답 연상 그림 */
-    .mnemo{
+    /* 오답 해설 박스 */
+    .whybox{
       margin-top:10px;
+      padding:14px;
+      border-radius:14px;
+      border:1px dashed var(--choiceBorder);
+      background: rgba(30,34,52,.25);
+    }
+    .whytitle{ font-weight:1000; margin-bottom:8px; }
+    .whygrid{ display:grid; gap:12px; grid-template-columns: 1fr; }
+    @media (min-width:760px){
+      .whygrid{ grid-template-columns: 1.2fr .8fr; }
+    }
+    .whyimg{
       border:1px solid var(--choiceBorder);
       border-radius:14px;
+      overflow:hidden;
       background:var(--choiceBg);
-      padding:12px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
     }
-    .mnemo .title{ font-weight:1000; margin-bottom:6px; }
-    .mnemo .svgwrap{ margin-top:8px; border:1px dashed var(--choiceBorder); border-radius:14px; padding:10px; background:transparent; }
+    .whyimg img{ width:100%; height:auto; display:block; }
   </style>
 </head>
 
@@ -203,16 +216,16 @@
         <div>
           <h1 id="appTitle">Vocabulary 1451–1700</h1>
           <div class="sub" id="appSubtitle">
-            처음 페이지에서 <b>단어장</b> / <b>시험(퀴즈)</b>를 선택할 수 있습니다. (테마: 다크/화이트 스위치 지원)
+            처음 페이지에서 <b>단어장</b> / <b>시험(퀴즈)</b>를 선택할 수 있습니다.
           </div>
         </div>
 
         <div style="display:flex; gap:10px; flex-wrap:wrap; align-items:center;">
-          <div class="switch" id="themeSwitch" title="다크/화이트 모드 전환">
+          <div class="switch" id="themeSwitch" title="다크/화이트 모드 전환" role="button" tabindex="0">
             <span id="themeLabel">다크</span>
             <span class="dot" aria-hidden="true"></span>
           </div>
-          <button class="btn secondary" id="btnHome" style="display:none;">홈</button>
+          <button type="button" class="btn secondary" id="btnHome" style="display:none;">홈</button>
         </div>
       </div>
 
@@ -223,15 +236,15 @@
             <h2>📘 단어장 보기</h2>
             <p>1451–1700 단어를 목록으로 확인하고, 검색/필터, 발음 듣기, 복사 등을 할 수 있어요.</p>
             <div style="margin-top:10px;">
-              <button class="btn" id="goWordbook">단어장으로</button>
+              <button type="button" class="btn" id="goWordbook">단어장으로</button>
             </div>
           </div>
 
           <div class="modecard">
             <h2>📝 시험(퀴즈) 치기</h2>
-            <p>시작 번호/끝 번호, 문제 수량(랜덤 추출), 오답만 다시, 자동 저장/발음 등을 지원합니다.</p>
+            <p>시작 번호/끝 번호, 문제 수량(랜덤 추출), 오답만 다시, 자동 저장/발음, 10분 타이머.</p>
             <div style="margin-top:10px;">
-              <button class="btn" id="goQuiz">시험 치기</button>
+              <button type="button" class="btn" id="goQuiz">시험 치기</button>
             </div>
           </div>
         </div>
@@ -245,9 +258,9 @@
             <div class="pill" id="wbPillRange">범위: -</div>
           </div>
           <div class="wb-actions">
-            <button class="chip" id="wbSortNum">번호순</button>
-            <button class="chip" id="wbSortWord">알파벳순</button>
-            <button class="chip" id="wbSortShuffle">섞기</button>
+            <button type="button" class="chip" id="wbSortNum">번호순</button>
+            <button type="button" class="chip" id="wbSortWord">알파벳순</button>
+            <button type="button" class="chip" id="wbSortShuffle">섞기</button>
           </div>
         </div>
 
@@ -261,7 +274,7 @@
           <label>검색
             <input type="text" id="wbSearch" placeholder="예: intrinsic / 본질 / 1504" style="min-width:240px;">
           </label>
-          <button class="btn secondary" id="wbApply">적용</button>
+          <button type="button" class="btn secondary" id="wbApply">적용</button>
         </div>
 
         <div class="mini muted" style="margin-top:8px;">
@@ -278,7 +291,8 @@
             <div class="pill" id="pillCount">문항: 0</div>
             <div class="pill" id="pillProgress">진행: 0/0</div>
             <div class="pill" id="pillScore">점수: 0</div>
-            <div class="pill" id="pillTimer" title="전체 시험 제한시간">⏱ 10:00</div>
+            <div class="pill" id="pillTimer">남은시간: 10:00</div>
+            <div class="pill" id="pillScore100">100점: 0</div>
           </div>
           <div class="mini muted" id="quizRangeInfo"></div>
         </div>
@@ -298,9 +312,9 @@
           <label><input type="checkbox" id="saveToggle" checked /> 진행상황 자동 저장</label>
           <label><input type="checkbox" id="autoPronounceToggle" checked /> 문제 표시 시 자동 발음</label>
 
-          <button class="btn" id="btnStart">퀴즈 시작/재시작</button>
-          <button class="btn secondary" id="btnWrongOnly" disabled>오답만 다시</button>
-          <button class="btn danger" id="btnReset">완전 초기화</button>
+          <button type="button" class="btn" id="btnStart">퀴즈 시작/재시작</button>
+          <button type="button" class="btn secondary" id="btnWrongOnly" disabled>오답만 다시</button>
+          <button type="button" class="btn danger" id="btnReset">완전 초기화</button>
         </div>
 
         <div class="progressbar" aria-label="progress">
@@ -310,11 +324,10 @@
         <!-- 스코어보드 -->
         <div class="scoreboard" id="scoreboard">
           <div style="font-weight:1000; font-size:16px;">스코어보드</div>
-          <!-- ✅ 요청: 이 문구 삭제 -->
-          <!-- <div class="mini muted">총 응시/정답/오답, 연속 정답(스트릭)</div> -->
+          <!-- ✅ 요청대로: 아래 설명 문구 삭제 -->
           <div class="scoregrid">
             <div class="scoreitem">
-              <div class="scorelabel">응시(채점 완료)</div>
+              <div class="scorelabel">응시</div>
               <div class="scorevalue" id="sbAnswered">0</div>
             </div>
             <div class="scoreitem">
@@ -326,18 +339,21 @@
               <div class="scorevalue" id="sbWrong">0</div>
             </div>
             <div class="scoreitem">
-              <div class="scorelabel">연속 정답</div>
+              <div class="scorelabel">스트릭</div>
               <div class="scorevalue" id="sbStreak">0</div>
             </div>
+            <div class="scoreitem">
+              <div class="scorelabel">최고 스트릭</div>
+              <div class="scorevalue" id="sbBest">0</div>
+            </div>
           </div>
-          <div class="mini muted" id="sbNote" style="margin-top:8px;"></div>
         </div>
 
         <div class="qbox" id="qbox"></div>
 
         <div class="footer">
-          <button class="btn secondary" id="btnPrev">이전</button>
-          <button class="btn" id="btnNext">다음</button>
+          <button type="button" class="btn secondary" id="btnPrev">이전</button>
+          <button type="button" class="btn" id="btnNext">다음</button>
         </div>
 
         <div id="summary"></div>
@@ -346,7 +362,7 @@
   </div>
 
   <script id="DATA">
-    // ✅ DB: 1451–1700 (사용자 제공 목록 반영)
+    // ✅ DB: 1451–1700 (전체 포함)
     const VOCAB_DATA = [
       { num:1451, word:"impartial", meaning:"공정한, 편견이 없는" },
       { num:1452, word:"confederate", meaning:"공범, 공모자" },
@@ -505,6 +521,7 @@
       { num:1598, word:"respondent", meaning:"응답자" },
       { num:1599, word:"alleviate", meaning:"완화하다, 경감시키다" },
       { num:1600, word:"alienate", meaning:"멀리하다, 소원하게 하다" },
+
       { num:1601, word:"aristocrat", meaning:"귀족, 상류 계급의 사람" },
       { num:1602, word:"savage", meaning:"무참히 공격하다" },
       { num:1603, word:"summon", meaning:"소환하다, 소집하다, 호출하다" },
@@ -614,23 +631,27 @@
   </script>
 
   <script>
-    /** =========================
-     *  (2) 테마(다크/화이트) 저장
-     *  ========================= */
+    /* =========================
+       (A) 테마(다크/화이트) 저장
+       ========================= */
     const THEME_KEY = "vocab_theme_1451_1700";
     function setTheme(mode){
       document.documentElement.setAttribute("data-theme", mode);
       localStorage.setItem(THEME_KEY, mode);
-      document.getElementById("themeLabel").textContent = (mode === "light") ? "화이트" : "다크";
+      const tl = document.getElementById("themeLabel");
+      if (tl) tl.textContent = (mode === "light") ? "화이트" : "다크";
     }
     function initTheme(){
       const saved = localStorage.getItem(THEME_KEY);
       setTheme(saved === "light" ? "light" : "dark");
     }
 
-    /** =========================
-     *  (3) 화면 전환(홈/단어장/퀴즈)
-     *  ========================= */
+    /* =========================
+       (B) 화면 전환(홈/단어장/퀴즈)
+       - 첫 페이지 클릭 안 되던 문제 방지:
+         1) 버튼 type="button"
+         2) DOMContentLoaded 이후 바인딩
+       ========================= */
     const viewHome = document.getElementById("viewHome");
     const viewWordbook = document.getElementById("viewWordbook");
     const viewQuiz = document.getElementById("viewQuiz");
@@ -641,14 +662,13 @@
       viewWordbook.style.display = (which === "wordbook") ? "" : "none";
       viewQuiz.style.display = (which === "quiz") ? "" : "none";
       btnHome.style.display = (which === "home") ? "none" : "";
-      if (which !== "quiz") stopExamTimer();
       if (which === "quiz") render();
       if (which === "wordbook") renderWordbook();
     }
 
-    /** =========================
-     *  (4) 발음(TTS)
-     *  ========================= */
+    /* =========================
+       (C) 발음(TTS)
+       ========================= */
     let userInteracted = false;
     let lastSpokenKey = "";
 
@@ -682,9 +702,9 @@
       window.speechSynthesis.onvoiceschanged = () => {};
     }
 
-    /** =========================
-     *  (5) 공용 유틸
-     *  ========================= */
+    /* =========================
+       (D) 공용 유틸
+       ========================= */
     function escapeHtml(s){
       return String(s).replace(/[&<>"']/g, m => ({
         "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"
@@ -698,10 +718,87 @@
       return arr;
     }
     function clamp(n, a, b){ return Math.max(a, Math.min(b, n)); }
+    function pad2(n){ return String(n).padStart(2,"0"); }
 
-    /** =========================
-     *  (6) 단어장(Wordbook)
-     *  ========================= */
+    /* =========================
+       (E) 오답 설명 + 연상 이미지(그림)
+       ========================= */
+    const PREFIX_HINTS = [
+      ["in", "부정/안"], ["im","부정(또는 in- 변형)"], ["dis","반대/떼어"],
+      ["re","다시"], ["pre","미리"], ["con","함께"], ["com","함께"],
+      ["sub","아래/뒤"], ["pro","앞/찬성"], ["de","떼어/없애"]
+    ];
+    const ROOT_HINTS = [
+      ["cred","믿"], ["dict","말"], ["scribe","쓰"], ["graph","기록"],
+      ["spect","보"], ["tract","끌"], ["duc","이끌"], ["mit","보내"],
+      ["port","옮기"], ["rupt","깨"], ["fract","부수"], ["form","형태"],
+      ["ploy","쓰다/활용"], ["stat","서다"], ["therm","열"], ["geo","땅"]
+    ];
+    const SUFFIX_HINTS = [
+      ["tion","명사(과정/결과)"], ["sion","명사(과정/결과)"], ["ment","명사(행동/결과)"],
+      ["ity","~성/상태"], ["ness","~함/상태"], ["ive","~한(형용사)"],
+      ["al","~의"], ["ic","~의"], ["ous","~한"], ["ly","~하게"]
+    ];
+
+    function guessPrinciple(word){
+      const w = String(word||"").toLowerCase();
+      let pre = PREFIX_HINTS.find(([p]) => w.startsWith(p) && w.length > p.length + 2);
+      let suf = SUFFIX_HINTS.find(([s]) => w.endsWith(s) && w.length > s.length + 2);
+      let root = ROOT_HINTS.find(([r]) => w.includes(r));
+      const parts = [];
+      if (pre) parts.push(`${pre[0]}- (${pre[1]})`);
+      if (root) parts.push(`${root[0]} (${root[1]} 관련)`);
+      if (suf) parts.push(`-${suf[0]} (${suf[1]})`);
+      if (!parts.length) return `이 단어는 “상황 그림(장면)”으로 외우는 게 가장 빠릅니다.`;
+      return `구성 힌트: ${parts.join(" + ")} → 뜻을 “조각”처럼 이어붙이면 기억이 오래 갑니다.`;
+    }
+
+    function makeMemoryScene(word, meaning){
+      // 심플한 연상 문장(짧게)
+      const w = String(word||"");
+      const m = String(meaning||"");
+      if (/impartial/i.test(w)) return `⚖️ 저울이 가운데! 편견 없이 공정`;
+      if (/banquet/i.test(w)) return `🍽️ 긴 테이블 연회(잔치)`;
+      if (/bankrupt/i.test(w)) return `🏦 ‘BANK’ + ‘RUPT(깨짐)’ → 은행이 깨짐(파산)`;
+      if (/queue/i.test(w)) return `🧍🧍🧍 줄 서 있는 장면`;
+      if (/embrace/i.test(w)) return `🤗 팔로 꽉 껴안기`;
+      if (/illuminate/i.test(w)) return `💡 어두운 곳을 밝히는 전구`;
+      return `🎬 “${w}”가 쓰이는 장면 1개를 머릿속에 고정하세요.`;
+    }
+
+    function buildSvgDataUri(word, meaning, principle, scene){
+      const bg = (document.documentElement.getAttribute("data-theme") === "light") ? "#ffffff" : "#0f1118";
+      const fg = (document.documentElement.getAttribute("data-theme") === "light") ? "#10131a" : "#e7e7e7";
+      const muted = (document.documentElement.getAttribute("data-theme") === "light") ? "#5b6075" : "#b9bdd0";
+
+      const safe = (s)=>String(s||"")
+        .replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;")
+        .replace(/"/g,"&quot;").replace(/'/g,"&#39;");
+
+      const svg = `
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="520">
+  <rect x="0" y="0" width="900" height="520" rx="28" fill="${bg}"/>
+  <text x="50" y="110" font-size="62" font-weight="800" fill="${fg}" font-family="system-ui, -apple-system, Segoe UI, Roboto, Arial">${safe(word)}</text>
+  <text x="50" y="160" font-size="28" font-weight="600" fill="${muted}" font-family="system-ui, -apple-system, Segoe UI, Roboto, Arial">${safe(meaning)}</text>
+
+  <rect x="50" y="205" width="800" height="2" fill="${muted}" opacity="0.25"/>
+
+  <text x="50" y="260" font-size="26" font-weight="800" fill="${fg}" font-family="system-ui, -apple-system, Segoe UI, Roboto, Arial">원리(간단)</text>
+  <text x="50" y="305" font-size="22" fill="${muted}" font-family="system-ui, -apple-system, Segoe UI, Roboto, Arial">${safe(principle)}</text>
+
+  <text x="50" y="370" font-size="26" font-weight="800" fill="${fg}" font-family="system-ui, -apple-system, Segoe UI, Roboto, Arial">그림 연상</text>
+  <text x="50" y="415" font-size="26" fill="${muted}" font-family="system-ui, -apple-system, Segoe UI, Roboto, Arial">${safe(scene)}</text>
+
+  <rect x="50" y="455" width="800" height="18" rx="9" fill="${muted}" opacity="0.10"/>
+  <text x="50" y="505" font-size="16" fill="${muted}" opacity="0.8" font-family="system-ui, -apple-system, Segoe UI, Roboto, Arial">Tip: 오답 노트에 이 이미지를 그대로 ‘장면’으로 복사해두면 기억이 빨라집니다.</text>
+</svg>`.trim();
+
+      return "data:image/svg+xml;charset=UTF-8," + encodeURIComponent(svg);
+    }
+
+    /* =========================
+       (F) 단어장(Wordbook)
+       ========================= */
     const wbList = document.getElementById("wbList");
     const wbPillCount = document.getElementById("wbPillCount");
     const wbPillRange = document.getElementById("wbPillRange");
@@ -740,8 +837,11 @@
     }
 
     function renderWordbook(){
-      const s0 = clamp(parseInt(wbStart.value||"1451",10), 1451, 1700);
-      const e0 = clamp(parseInt(wbEnd.value||"1700",10), 1451, 1700);
+      const minDb = Math.min(...VOCAB_DATA.map(x=>x.num));
+      const maxDb = Math.max(...VOCAB_DATA.map(x=>x.num));
+
+      const s0 = clamp(parseInt(wbStart.value||String(minDb),10), minDb, maxDb);
+      const e0 = clamp(parseInt(wbEnd.value||String(maxDb),10), minDb, maxDb);
       wbStart.value = s0;
       wbEnd.value = e0;
 
@@ -765,8 +865,8 @@
               <span class="wb-word">${escapeHtml(item.word)}</span>
             </div>
             <div class="wb-actions">
-              <button class="chip" data-act="speak">🔊</button>
-              <button class="chip" data-act="copy">복사</button>
+              <button type="button" class="chip" data-act="speak">🔊</button>
+              <button type="button" class="chip" data-act="copy">복사</button>
             </div>
           </div>
           <div class="wb-mean">${escapeHtml(item.meaning)}</div>
@@ -789,20 +889,15 @@
       }
     }
 
-    wbApply.addEventListener("click", () => { userInteracted = true; renderWordbook(); });
-    wbSearch.addEventListener("keydown", (e) => { if (e.key === "Enter"){ userInteracted=true; renderWordbook(); }});
-    wbSortNum.addEventListener("click", () => { userInteracted=true; wbSortMode="num"; renderWordbook(); });
-    wbSortWord.addEventListener("click", () => { userInteracted=true; wbSortMode="word"; renderWordbook(); });
-    wbSortShuffle.addEventListener("click", () => { userInteracted=true; wbSortMode="shuffle"; renderWordbook(); });
-
-    /** =========================
-     *  (7) 퀴즈(Quiz)
-     *  ========================= */
+    /* =========================
+       (G) 퀴즈(Quiz) + 10분 타이머
+       ========================= */
     const dom = {
       pillCount: document.getElementById("pillCount"),
       pillProgress: document.getElementById("pillProgress"),
       pillScore: document.getElementById("pillScore"),
       pillTimer: document.getElementById("pillTimer"),
+      pillScore100: document.getElementById("pillScore100"),
       quizRangeInfo: document.getElementById("quizRangeInfo"),
       bar: document.getElementById("bar"),
       qbox: document.getElementById("qbox"),
@@ -819,14 +914,14 @@
       sbCorrect: document.getElementById("sbCorrect"),
       sbWrong: document.getElementById("sbWrong"),
       sbStreak: document.getElementById("sbStreak"),
-      sbNote: document.getElementById("sbNote"),
+      sbBest: document.getElementById("sbBest"),
       startNum: document.getElementById("startNum"),
       endNum: document.getElementById("endNum"),
       questionCount: document.getElementById("questionCount"),
     };
 
     function getQuizKey(a,b,n){
-      return `vocab_quiz_1451_1700_${a}_${b}_n${n}_v1`;
+      return `vocab_quiz_1451_1700_${a}_${b}_n${n}_v2_timer10m`;
     }
 
     function defaultState(total){
@@ -922,7 +1017,7 @@
         dom.sbCorrect.textContent="0";
         dom.sbWrong.textContent="0";
         dom.sbStreak.textContent="0";
-        dom.sbNote.textContent="";
+        dom.sbBest.textContent="0";
         return;
       }
       const s = quiz.state;
@@ -930,166 +1025,98 @@
       dom.sbCorrect.textContent = String(s.correctCount);
       dom.sbWrong.textContent = String(s.wrongCount);
       dom.sbStreak.textContent = String(s.streak);
-      dom.sbNote.textContent = `최고 연속 정답: ${s.bestStreak}회`;
+      dom.sbBest.textContent = String(s.bestStreak);
     }
 
-    /** =========================
-     *  ✅ 전체 시험 타이머 (10분)
-     *  ========================= */
-    const EXAM_TOTAL_SECONDS = 10 * 60;
+    function calcScore100(){
+      if (!quiz.state) return 0;
+      const total = quiz.questions.length;
+      return total ? Math.round((quiz.state.score / total) * 100) : 0;
+    }
 
-    let examTimerId = null;
-    let examRemain = EXAM_TOTAL_SECONDS;
+    /* ===== 10분 타이머 ===== */
+    const TOTAL_TIME_SEC = 10 * 60; // 10:00
+    let timerId = null;
+    let timeLeftSec = TOTAL_TIME_SEC;
     let examEnded = false;
+    let finishPopupShown = false;
 
-    function fmtTime(sec){
-      const m = Math.floor(sec / 60);
-      const s = sec % 60;
-      return `${String(m).padStart(2,"0")}:${String(s).padStart(2,"0")}`;
+    function setTimerPill(){
+      const mm = Math.floor(timeLeftSec / 60);
+      const ss = timeLeftSec % 60;
+      dom.pillTimer.textContent = `남은시간: ${pad2(mm)}:${pad2(ss)}`;
     }
-
-    function updateTimerUI(){
-      if (!dom.pillTimer) return;
-      dom.pillTimer.textContent = `⏱ ${fmtTime(examRemain)}`;
-
-      if (examRemain <= 60) {
-        dom.pillTimer.style.borderColor = "var(--bad)";
-        dom.pillTimer.style.boxShadow = "0 0 0 2px rgba(224,82,82,.18)";
-      } else {
-        dom.pillTimer.style.borderColor = "";
-        dom.pillTimer.style.boxShadow = "";
+    function stopExamTimer(){
+      if (timerId){
+        clearInterval(timerId);
+        timerId = null;
       }
     }
-
-    function stopExamTimer(){
-      if (examTimerId) clearInterval(examTimerId);
-      examTimerId = null;
-    }
-
     function startExamTimer(){
       stopExamTimer();
+      timeLeftSec = TOTAL_TIME_SEC;
       examEnded = false;
-      examRemain = EXAM_TOTAL_SECONDS;
-      updateTimerUI();
+      finishPopupShown = false;
+      setTimerPill();
 
-      examTimerId = setInterval(() => {
-        if (examEnded) return;
-        examRemain = Math.max(0, examRemain - 1);
-        updateTimerUI();
-
-        if (examRemain <= 0) {
-          finishExamByTimeout();
+      timerId = setInterval(() => {
+        if (examEnded){
+          stopExamTimer();
+          return;
         }
+        timeLeftSec -= 1;
+        if (timeLeftSec <= 0){
+          timeLeftSec = 0;
+          setTimerPill();
+          finishExam("timeout");
+          return;
+        }
+        setTimerPill();
       }, 1000);
     }
 
-    function finishExamByTimeout(){
-      if (!quiz.state || examEnded) return;
+    function finishExam(reason){
+      if (examEnded) return;
       examEnded = true;
       stopExamTimer();
-      render();
 
-      const total = quiz.questions.length;
-      const s = quiz.state;
-      const score100 = total ? Math.round((s.score / total) * 100) : 0;
+      const score100 = calcScore100();
+      dom.pillScore100.textContent = `100점: ${score100}`;
 
-      alert(`시험이 종료되었습니다.\n100점 만점에 ${score100}점입니다.`);
-
-      dom.summary.innerHTML = `
-        <div class="hr"></div>
-        <div class="result bad">
-          <div><b>시험이 종료되었습니다.</b></div>
-          <div class="small">
-            100점 만점 환산: <b>${score100}점</b><br/>
-            원점수: <b>${s.score}</b> / ${total}
-          </div>
-        </div>
-      ` + dom.summary.innerHTML;
-    }
-
-    /** =========================
-     *  ✅ 오답: 간단 원리 + 연상 그림(SVG)
-     *  ========================= */
-    function mnemonicFor(word, meaning){
-      const w = String(word||"").toLowerCase();
-
-      const roots = [
-        { k:"pre", p:"pre- = '미리/이전' (pre + historic → 역사 이전)", icon:"⏳" },
-        { k:"sub", p:"sub- = '아래/밑' (sub + merge → 아래로 잠기다)", icon:"⬇️" },
-        { k:"inter", p:"inter- = '사이' (inter + ... → 사이/상호)", icon:"↔️" },
-        { k:"dis", p:"dis- = '흩어지게/반대로' (dis + seminate → 흩뿌리다)", icon:"💨" },
-        { k:"re", p:"re- = '다시' (re + build/construct → 다시 만들다)", icon:"🔁" },
-        { k:"in", p:"in-/im- = '부정/안' (in- + escapable → 피할 수 없는)", icon:"🚫" },
-        { k:"con", p:"con-/com- = '함께' (con + solidate → 함께 단단히, 통합)", icon:"🤝" },
-        { k:"de", p:"de- = '아래로/제거' (de + plete → 고갈시키다)", icon:"📉" },
-        { k:"en", p:"en- = '…하게 만들다' (en + chant → 매혹하게)", icon:"✨" },
-        { k:"over", p:"over- = '과도하게' (over + take/estimate)", icon:"📈" },
-        { k:"under", p:"under- = '부족하게' (under + estimate)", icon:"📉" },
-      ];
-
-      let principle = "";
-      for (const r of roots){
-        if (w.startsWith(r.k)) { principle = r.p; break; }
+      if (!finishPopupShown){
+        finishPopupShown = true;
+        alert(`시험이 종료되었습니다.\n100점 만점에 ${score100}점입니다.`);
       }
-      if (!principle) {
-        if (w.endsWith("tion") || w.endsWith("sion")) principle = "-tion/-sion = '명사화(행위/결과)'";
-        else if (w.endsWith("ive")) principle = "-ive = '…의/…하는'(형용사)";
-        else if (w.endsWith("ity")) principle = "-ity = '…함'(명사)";
-        else if (w.endsWith("ous")) principle = "-ous = '…한'(형용사)";
-        else if (w.endsWith("able") || w.endsWith("ible")) principle = "-able/-ible = '…할 수 있는'";
-        else principle = "핵심: 단어를 '장면(상황)'으로 고정하면 오래 갑니다.";
-      }
-
-      const scene = `장면 연상: “${word}”를 ${meaning} 상황으로 한 컷으로 고정`;
-      const icon = (principle.includes("pre-") ? "⏳" :
-                    principle.includes("sub-") ? "⬇️" :
-                    principle.includes("re-") ? "🔁" :
-                    principle.includes("con-") || principle.includes("com-") ? "🤝" :
-                    principle.includes("over-") ? "📈" :
-                    principle.includes("under-") ? "📉" :
-                    "💡");
-
-      const svg = `
-        <svg viewBox="0 0 520 180" width="100%" height="180" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="mnemonic">
-          <rect x="10" y="10" width="500" height="160" rx="18" ry="18" fill="none" stroke="currentColor" opacity=".35" />
-          <text x="28" y="48" font-size="22" fill="currentColor" font-weight="900">${escapeHtml(icon)} ${escapeHtml(word)}</text>
-          <text x="28" y="78" font-size="15" fill="currentColor" opacity=".85">${escapeHtml(meaning)}</text>
-
-          <rect x="28" y="96" width="464" height="56" rx="14" fill="none" stroke="currentColor" opacity=".22"/>
-          <text x="44" y="122" font-size="13" fill="currentColor" opacity=".85">그림으로 기억하기:</text>
-          <text x="44" y="144" font-size="15" fill="currentColor" font-weight="700">${escapeHtml(scene)}</text>
-        </svg>
-      `;
-
-      return { principle, svg };
+      render(); // 상태 반영
     }
-
-    let quiz = { entries:[], questions:[], state:null, key:"" };
 
     function render(){
       updateScoreboard();
-      updateTimerUI();
 
       if (!quiz.state){
         dom.qbox.innerHTML = `<div class="small muted">상단에서 범위를 지정하고 “퀴즈 시작/재시작”을 누르세요.</div>`;
         dom.pillCount.textContent = `문항: 0`;
         dom.pillProgress.textContent = `진행: 0/0`;
         dom.pillScore.textContent = `점수: 0`;
+        dom.pillScore100.textContent = `100점: 0`;
         dom.bar.style.width = "0%";
         dom.btnPrev.disabled = true;
         dom.btnNext.disabled = true;
         dom.btnWrongOnly.disabled = true;
         dom.summary.innerHTML = "";
+        setTimerPill();
         return;
       }
 
       const total = quiz.questions.length;
       const s = quiz.state;
       const done = s.checked.filter(Boolean).length;
+      const score100 = calcScore100();
 
       dom.pillCount.textContent = `문항: ${total}`;
       dom.pillProgress.textContent = `진행: ${done}/${total}`;
       dom.pillScore.textContent = `점수: ${s.score}`;
+      dom.pillScore100.textContent = `100점: ${score100}`;
       dom.bar.style.width = `${Math.round((done/total)*100)}%`;
 
       dom.btnPrev.disabled = s.idx === 0;
@@ -1108,7 +1135,7 @@
 
         <div class="qhead" style="margin-top:8px;">
           <div class="word">${escapeHtml(q.word)}</div>
-          <button class="iconbtn" id="btnSpeak" title="미국식 발음 재생">🔊 발음 듣기</button>
+          <button type="button" class="iconbtn" id="btnSpeak" title="미국식 발음 재생">🔊 발음 듣기</button>
           <span class="mini muted">${"speechSynthesis" in window ? "US 발음(TTS)" : "이 브라우저는 발음 기능 미지원"}</span>
         </div>
 
@@ -1139,42 +1166,57 @@
           if (examEnded) return;
           if (s.checked[s.idx]) return;
           s.selected[s.idx] = idx0;
-          checkAnswer();
+          checkAnswer(); // 즉시 채점
         });
         choicesEl.appendChild(el);
       });
 
       const resultArea = document.getElementById("resultArea");
+
       if (checked){
         const ok = chosen === q.correctIndex;
 
-        if (ok){
-          resultArea.innerHTML = `<div class="mini muted" style="margin-top:10px;">정답 처리됨 → 다음 문제로 이동합니다.</div>`;
-        } else {
-          const mn = mnemonicFor(q.word, q.meaning);
-          resultArea.innerHTML = `
-            <div class="result bad">
-              <div><b>오답</b></div>
-              <div class="small">
-                정답: <b>${q.correctIndex+1}</b> (${escapeHtml(q.options[q.correctIndex])})<br/>
-                선택: <b>${chosen+1}</b> (${escapeHtml(q.options[chosen])})
-              </div>
-            </div>
+        let whyHtml = "";
+        if (!ok){
+          const principle = guessPrinciple(q.word);
+          const scene = makeMemoryScene(q.word, q.meaning);
+          const imgSrc = buildSvgDataUri(q.word, q.meaning, principle, scene);
 
-            <div class="mnemo">
-              <div class="title">오답 기억 장치</div>
-              <div class="small"><b>원리(짧게):</b> ${escapeHtml(mn.principle)}</div>
-              <div class="small" style="margin-top:6px;"><b>한 줄 고정:</b> <span class="kbd">${escapeHtml(q.word)}</span> = <b>${escapeHtml(q.meaning)}</b></div>
-              <div class="svgwrap">${mn.svg}</div>
+          whyHtml = `
+            <div class="whybox">
+              <div class="whytitle">오답 해설(간단 원리 + 연상 그림)</div>
+              <div class="whygrid">
+                <div>
+                  <div class="small"><b>원리:</b> ${escapeHtml(principle)}</div>
+                  <div class="small" style="margin-top:8px;"><b>연상:</b> ${escapeHtml(scene)}</div>
+                </div>
+                <div class="whyimg">
+                  <img alt="memory image" src="${imgSrc}">
+                </div>
+              </div>
             </div>
           `;
         }
+
+        resultArea.innerHTML = `
+          <div class="result ${ok ? "good" : "bad"}">
+            <div><b>${ok ? "정답!" : "오답"}</b></div>
+            <div class="small">
+              정답: <b>${q.correctIndex+1}</b> (${escapeHtml(q.options[q.correctIndex])})<br/>
+              선택: <b>${chosen+1}</b> (${escapeHtml(q.options[chosen])})
+            </div>
+          </div>
+          ${whyHtml}
+        `;
       } else {
         resultArea.innerHTML = `<div class="small muted" style="margin-top:10px;">보기(답안)를 누르면 바로 채점됩니다.</div>`;
       }
 
-      if (done === total) renderSummary();
-      else dom.summary.innerHTML = "";
+      if (done === total){
+        renderSummary();
+      } else {
+        dom.summary.innerHTML = "";
+      }
 
       dom.btnWrongOnly.disabled = (done === 0);
 
@@ -1187,17 +1229,18 @@
       const total = quiz.questions.length;
       const s = quiz.state;
       const wrongOnly = s.wrong;
+      const score100 = calcScore100();
 
       dom.summary.innerHTML = `
         <div class="hr"></div>
         <div class="row">
           <div>
             <div style="font-weight:1000; font-size:18px;">결과</div>
-            <div class="small">총점: <b>${s.score}</b> / ${total}</div>
+            <div class="small">총점: <b>${s.score}</b> / ${total} &nbsp;|&nbsp; 100점 환산: <b>${score100}</b></div>
             <div class="small muted">완료: ${total}문항</div>
           </div>
           <div class="row">
-            <button class="btn secondary" id="btnGoFirst">첫 문제로</button>
+            <button type="button" class="btn secondary" id="btnGoFirst">첫 문제로</button>
           </div>
         </div>
 
@@ -1223,7 +1266,7 @@
       `;
 
       document.getElementById("btnGoFirst").addEventListener("click", () => {
-        if (examEnded) return;
+        if (!quiz.state) return;
         quiz.state.idx = 0;
         saveState();
         render();
@@ -1231,20 +1274,17 @@
     }
 
     function checkAnswer(){
-      if (examEnded) return;
-
       const s = quiz.state;
-      const total = quiz.questions.length;
       const qIndex = s.order[s.idx];
       const q = quiz.questions[qIndex];
 
       const chosen = s.selected[s.idx];
-      if (chosen === null || s.checked[s.idx]) return;
+      if (chosen === null || s.checked[s.idx] || examEnded) return;
 
       s.checked[s.idx] = true;
       s.answeredCount += 1;
 
-      const isCorrect = (chosen === q.correctIndex);
+      const isCorrect = chosen === q.correctIndex;
 
       if (isCorrect){
         s.score += 1;
@@ -1254,6 +1294,7 @@
       } else {
         s.wrongCount += 1;
         s.streak = 0;
+
         const qNo = s.idx + 1;
         if (!s.wrong.some(x => x.qNo === qNo)){
           s.wrong.push({
@@ -1268,17 +1309,19 @@
       saveState();
       render();
 
-      // ✅ 요청: 정답이면 바로 다음 페이지로 이동
+      // ✅ 모두 풀었으면: 타이머 멈추고 점수 팝업
+      if (quiz.state.checked.every(Boolean)){
+        finishExam("complete");
+        return;
+      }
+
+      // ✅ 정답이면 바로 다음 페이지로 자동 이동
       if (isCorrect){
         setTimeout(() => {
-          if (!quiz.state) return;
           if (examEnded) return;
-          if (s.idx < total - 1){
+          if (s.idx < quiz.questions.length - 1){
             s.idx += 1;
             saveState();
-            render();
-          } else {
-            // 마지막 문제 정답이면 요약 표시
             render();
           }
         }, 180);
@@ -1289,8 +1332,11 @@
       userInteracted = true;
       lastSpokenKey = "";
 
-      const a = clamp(parseInt(dom.startNum.value||"1451",10), 1451, 1700);
-      const b = clamp(parseInt(dom.endNum.value||"1700",10), 1451, 1700);
+      const minDb = Math.min(...VOCAB_DATA.map(x=>x.num));
+      const maxDb = Math.max(...VOCAB_DATA.map(x=>x.num));
+
+      const a = clamp(parseInt(dom.startNum.value||String(minDb),10), minDb, maxDb);
+      const b = clamp(parseInt(dom.endNum.value||String(maxDb),10), minDb, maxDb);
       const nReq = Math.max(1, parseInt(dom.questionCount.value||"30",10) || 30);
 
       dom.startNum.value = a;
@@ -1315,7 +1361,7 @@
 
       if (wrongOnly && loaded?.wrong?.length){
         const wrongWords = new Set(loaded.wrong.map(w => w.word.toLowerCase()));
-        const wrongEntries = picked.filter(e => wrongWords.has(e.word.toLowerCase()));
+        const wrongEntries = picked.filter(e => wrongWords.has(String(e.word).toLowerCase()));
         if (wrongEntries.length){
           quiz.entries = wrongEntries;
           quiz.questions = buildQuestions(wrongEntries);
@@ -1325,83 +1371,20 @@
         }
       }
 
+      // ✅ 타이머는 "퀴즈 시작"을 눌렀을 때 새로 10분 시작
+      startExamTimer();
+
       saveState();
       render();
-      startExamTimer();
     }
 
-    /** =========================
-     *  (8) 이벤트 바인딩
-     *  ========================= */
-    document.getElementById("goWordbook").addEventListener("click", () => { userInteracted=true; showView("wordbook"); });
-    document.getElementById("goQuiz").addEventListener("click", () => { userInteracted=true; showView("quiz"); });
-
-    btnHome.addEventListener("click", () => { userInteracted=true; showView("home"); });
-
-    document.getElementById("themeSwitch").addEventListener("click", () => {
-      userInteracted = true;
-      const now = document.documentElement.getAttribute("data-theme") === "light" ? "light" : "dark";
-      setTheme(now === "light" ? "dark" : "light");
-    });
-
-    dom.btnStart.addEventListener("click", () => startQuiz({ wrongOnly:false }));
-    dom.btnWrongOnly.addEventListener("click", () => startQuiz({ wrongOnly:true }));
-
-    dom.btnReset.addEventListener("click", () => {
-      userInteracted = true;
-      if (!quiz.key){
-        alert("초기화할 저장 데이터가 아직 없습니다. 먼저 퀴즈를 시작하세요.");
-        return;
-      }
-      if (!confirm("현재 설정(범위/문제수)의 저장된 진행상황을 완전 초기화할까요?")) return;
-      localStorage.removeItem(quiz.key);
-      quiz.state = null;
-      lastSpokenKey = "";
-      examEnded = false;
-      stopExamTimer();
-      examRemain = EXAM_TOTAL_SECONDS;
-      updateTimerUI();
-      render();
-    });
-
-    dom.btnPrev.addEventListener("click", () => {
-      userInteracted = true;
-      if (!quiz.state) return;
-      if (examEnded) return;
-      quiz.state.idx = Math.max(0, quiz.state.idx - 1);
-      saveState();
-      render();
-    });
-    dom.btnNext.addEventListener("click", () => {
-      userInteracted = true;
-      if (!quiz.state) return;
-      if (examEnded) return;
-      quiz.state.idx = Math.min(quiz.questions.length - 1, quiz.state.idx + 1);
-      saveState();
-      render();
-    });
-
-    dom.saveToggle.addEventListener("change", () => {
-      userInteracted = true;
-      if (!dom.saveToggle.checked){
-        alert("자동 저장이 꺼졌습니다. 새로고침하면 진행상황이 유지되지 않을 수 있어요.");
-      }
-    });
-
-    dom.autoPronounceToggle.addEventListener("change", () => {
-      userInteracted = true;
-      if (dom.autoPronounceToggle.checked && quiz.state){
-        const s = quiz.state;
-        const qIndex = s.order[s.idx];
-        const q = quiz.questions[qIndex];
-        speakWord(q.word, {force:true});
-      }
-    });
-
-    // ✅ 요청: 범위는 1451~1700 고정
+    /* =========================
+       (H) 초기 범위/타이틀 자동 반영
+       ========================= */
     function initBounds(){
-      const minNum = 1451;
-      const maxNum = 1700;
+      const nums = VOCAB_DATA.map(x=>x.num);
+      const minNum = nums.length ? Math.min(...nums) : 1451;
+      const maxNum = nums.length ? Math.max(...nums) : 1700;
 
       // 단어장
       wbStart.min = String(minNum);
@@ -1428,11 +1411,105 @@
         `처음 페이지에서 <b>단어장</b> / <b>시험(퀴즈)</b>를 선택할 수 있습니다. (현재 DB: ${minNum}–${maxNum})`;
     }
 
-    // 시작
-    initTheme();
-    initBounds();
-    updateTimerUI();
-    showView("home");
+    /* =========================
+       (I) 이벤트 바인딩 (DOMContentLoaded 이후)
+       ========================= */
+    document.addEventListener("DOMContentLoaded", () => {
+      initTheme();
+      initBounds();
+      showView("home");
+      setTimerPill();
+
+      // 홈 이동
+      btnHome.addEventListener("click", () => { userInteracted=true; showView("home"); });
+
+      // 홈 버튼들
+      document.getElementById("goWordbook").addEventListener("click", () => {
+        userInteracted=true; showView("wordbook");
+      });
+      document.getElementById("goQuiz").addEventListener("click", () => {
+        userInteracted=true; showView("quiz");
+      });
+
+      // 테마 스위치
+      const themeSwitch = document.getElementById("themeSwitch");
+      themeSwitch.addEventListener("click", () => {
+        userInteracted = true;
+        const now = document.documentElement.getAttribute("data-theme") === "light" ? "light" : "dark";
+        setTheme(now === "light" ? "dark" : "light");
+        // 오답 이미지 색도 테마 영향을 받으니, 화면 갱신(퀴즈/단어장 쪽이면)
+        if (viewQuiz.style.display !== "none") render();
+        if (viewWordbook.style.display !== "none") renderWordbook();
+      });
+      themeSwitch.addEventListener("keydown", (e) => {
+        if (e.key === "Enter" || e.key === " "){
+          e.preventDefault();
+          themeSwitch.click();
+        }
+      });
+
+      // 단어장
+      wbApply.addEventListener("click", () => { userInteracted = true; renderWordbook(); });
+      wbSearch.addEventListener("keydown", (e) => { if (e.key === "Enter"){ userInteracted=true; renderWordbook(); }});
+      wbSortNum.addEventListener("click", () => { userInteracted=true; wbSortMode="num"; renderWordbook(); });
+      wbSortWord.addEventListener("click", () => { userInteracted=true; wbSortMode="word"; renderWordbook(); });
+      wbSortShuffle.addEventListener("click", () => { userInteracted=true; wbSortMode="shuffle"; renderWordbook(); });
+
+      // 퀴즈
+      dom.btnStart.addEventListener("click", () => startQuiz({ wrongOnly:false }));
+      dom.btnWrongOnly.addEventListener("click", () => startQuiz({ wrongOnly:true }));
+
+      dom.btnReset.addEventListener("click", () => {
+        userInteracted = true;
+        if (!quiz.key){
+          alert("초기화할 저장 데이터가 아직 없습니다. 먼저 퀴즈를 시작하세요.");
+          return;
+        }
+        if (!confirm("현재 설정(범위/문제수)의 저장된 진행상황을 완전 초기화할까요?")) return;
+        localStorage.removeItem(quiz.key);
+        quiz.state = null;
+        lastSpokenKey = "";
+        stopExamTimer();
+        timeLeftSec = TOTAL_TIME_SEC;
+        examEnded = false;
+        finishPopupShown = false;
+        setTimerPill();
+        render();
+      });
+
+      dom.btnPrev.addEventListener("click", () => {
+        userInteracted = true;
+        if (!quiz.state || examEnded) return;
+        quiz.state.idx = Math.max(0, quiz.state.idx - 1);
+        saveState();
+        render();
+      });
+
+      dom.btnNext.addEventListener("click", () => {
+        userInteracted = true;
+        if (!quiz.state || examEnded) return;
+        quiz.state.idx = Math.min(quiz.questions.length - 1, quiz.state.idx + 1);
+        saveState();
+        render();
+      });
+
+      dom.saveToggle.addEventListener("change", () => {
+        userInteracted = true;
+        if (!dom.saveToggle.checked){
+          alert("자동 저장이 꺼졌습니다. 새로고침하면 진행상황이 유지되지 않을 수 있어요.");
+        }
+      });
+
+      dom.autoPronounceToggle.addEventListener("change", () => {
+        userInteracted = true;
+        if (dom.autoPronounceToggle.checked && quiz.state){
+          const s = quiz.state;
+          const qIndex = s.order[s.idx];
+          const q = quiz.questions[qIndex];
+          speakWord(q.word, {force:true});
+        }
+      });
+    });
   </script>
 </body>
 </html>
