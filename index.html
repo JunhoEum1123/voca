@@ -3,1018 +3,1174 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Vocabulary Quiz 1451–1600 (오답 어원/의미 생성 해설 강화 + 발음 + 스코어보드)</title>
+  <title>Vocabulary 1451–1700 | 단어장 + 퀴즈</title>
+
   <style>
-    :root { font-family: system-ui, -apple-system, Segoe UI, Roboto, "Noto Sans KR", Arial, sans-serif; }
-    body { margin: 0; background: #0b0c10; color: #e7e7e7; font-size: 18px; }
-    .wrap { max-width: 980px; margin: 0 auto; padding: 18px; }
-    .card { background: #14161d; border: 1px solid #232636; border-radius: 14px; padding: 18px; box-shadow: 0 6px 18px rgba(0,0,0,.25); }
-    h1 { margin: 0 0 10px; font-size: 22px; }
-    .sub { opacity: .85; font-size: 15px; margin-bottom: 14px; line-height: 1.55; }
-    .row { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; justify-content: space-between; }
-    .pill { background:#1c2030; border:1px solid #2b3250; padding: 8px 12px; border-radius: 999px; font-size: 14px; }
-    .btn { background:#2a63ff; border:0; color:white; padding:12px 14px; border-radius: 12px; cursor:pointer; font-weight:900; font-size: 15px; }
-    .btn.secondary { background:#2b3250; }
-    .btn.danger { background:#ff3b3b; }
-    .btn:disabled { opacity:.5; cursor:not-allowed; }
-    .progressbar { height: 12px; background:#0f1118; border:1px solid #232636; border-radius:999px; overflow:hidden; margin-top: 12px; }
-    .bar { height:100%; width:0%; background:#2a63ff; }
-    .qbox { margin-top: 14px; }
-    .qhead { display:flex; gap:12px; align-items:center; flex-wrap:wrap; }
-    .qnum { font-weight:900; font-size: 16px; opacity:.95; }
-    .word { font-size: 36px; font-weight:1000; letter-spacing:.3px; }
-    .meta { font-size: 13px; opacity:.85; }
-    .choices { display:grid; gap:12px; margin-top: 14px; }
-    .choice {
-      background:#0f1118; border:1px solid #2b3250; border-radius: 14px;
-      padding: 14px; cursor:pointer; display:flex; gap:12px; align-items:flex-start;
-      transition: transform .05s ease;
-      user-select:none;
-      font-size: 18px;
-      line-height: 1.5;
+    :root{
+      /* default = dark */
+      --bg: #0b0c10;
+      --fg: #e7e7e7;
+      --card: #14161d;
+      --border: #232636;
+      --muted: rgba(231,231,231,.75);
+      --pill: #1c2030;
+      --pillBorder:#2b3250;
+      --btn:#2a63ff;
+      --btn2:#2b3250;
+      --danger:#ff3b3b;
+      --choiceBg:#0f1118;
+      --choiceBorder:#2b3250;
+      --choiceHover:#121a34;
+      --good:#35d07f;
+      --bad:#ff6b6b;
+
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, "Noto Sans KR", Arial, sans-serif;
     }
-    .choice:hover { transform: translateY(-1px); }
-    .choice.selected { border-color:#86a3ff; background:#121a34; }
-    .choice.correct { border-color:#35d07f; background:#0f1f18; }
-    .choice.wrong { border-color:#ff6b6b; background:#231012; }
-    .tag { font-weight:1000; width: 30px; text-align:center; opacity:.95; }
-    .result { margin-top: 12px; padding: 14px; border-radius: 14px; border:1px solid #2b3250; background:#0f1118; }
-    .result.good { border-color:#35d07f; background:#0f1f18; }
-    .result.bad { border-color:#ff6b6b; background:#231012; }
-    .small { font-size: 15px; opacity:.95; line-height:1.6; }
-    .footer { margin-top: 14px; display:flex; gap:10px; flex-wrap:wrap; }
-    details { margin-top: 14px; }
-    summary { cursor:pointer; font-weight:1000; font-size: 16px; }
-    table { width:100%; border-collapse: collapse; margin-top: 10px; }
-    th, td { border-bottom:1px solid #232636; padding: 12px 8px; text-align:left; font-size: 15px; }
-    th { opacity:.9; }
-    .muted { opacity:.75; }
-    .controls { display:flex; gap:10px; flex-wrap:wrap; align-items:center; margin-top: 10px; }
-    select, input[type="checkbox"] { accent-color: #2a63ff; }
-    select {
-      background:#0f1118; color:#e7e7e7; border:1px solid #2b3250;
-      border-radius: 12px; padding: 10px 12px; font-weight:900; font-size: 15px;
+    [data-theme="light"]{
+      --bg:#f6f7fb;
+      --fg:#10131a;
+      --card:#ffffff;
+      --border:#d8dbe6;
+      --muted: rgba(16,19,26,.7);
+      --pill:#f1f3fb;
+      --pillBorder:#d8dbe6;
+      --btn:#2a63ff;
+      --btn2:#3a405f;
+      --danger:#e23b3b;
+      --choiceBg:#f6f7fb;
+      --choiceBorder:#d8dbe6;
+      --choiceHover:#eef2ff;
+      --good:#1fae63;
+      --bad:#e05252;
     }
-    label { font-size: 15px; opacity:.95; display:flex; gap:8px; align-items:center; }
-    .hr { border:0; border-top:1px solid #232636; margin:16px 0; }
-    .etymo {
-      margin-top: 10px;
-      padding: 14px;
-      border: 1px dashed #2b3250;
-      border-radius: 14px;
-      background: rgba(30,34,52,.35);
+
+    body{ margin:0; background:var(--bg); color:var(--fg); font-size:18px; }
+    .wrap{ max-width: 980px; margin:0 auto; padding:18px; }
+    .card{
+      background:var(--card); border:1px solid var(--border);
+      border-radius:14px; padding:18px; box-shadow:0 6px 18px rgba(0,0,0,.18);
     }
-    .etymo .title { font-weight:1000; margin-bottom: 8px; font-size: 16px; }
-    .etymo ul { margin: 10px 0 0; padding-left: 20px; }
-    .etymo li { margin: 8px 0; }
-    .kbd { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace; font-size: 13px; padding: 3px 8px; border:1px solid #2b3250; border-radius: 10px; background:#0f1118; }
-    .mini { font-size: 13px; opacity:.85; }
-    .iconbtn {
-      display:inline-flex; align-items:center; justify-content:center;
-      gap:8px;
-      padding: 10px 12px;
-      border-radius: 12px;
-      border: 1px solid #2b3250;
-      background: #0f1118;
-      color: #e7e7e7;
-      cursor: pointer;
-      font-weight: 1000;
-      font-size: 15px;
+    h1{ margin:0 0 10px; font-size:22px; }
+    .sub{ opacity:.9; font-size:15px; margin-bottom:14px; line-height:1.55; color:var(--muted); }
+    .row{ display:flex; gap:10px; flex-wrap:wrap; align-items:center; justify-content:space-between; }
+    .pill{ background:var(--pill); border:1px solid var(--pillBorder); padding:8px 12px; border-radius:999px; font-size:14px; }
+    .btn{
+      background:var(--btn); border:0; color:white; padding:12px 14px; border-radius:12px;
+      cursor:pointer; font-weight:900; font-size:15px;
     }
-    .iconbtn:hover { border-color:#86a3ff; background:#121a34; }
-    .scoreboard {
-      margin-top: 14px;
-      padding: 14px;
-      border-radius: 14px;
-      border: 1px solid #232636;
-      background: #0f1118;
+    .btn.secondary{ background:var(--btn2); }
+    .btn.danger{ background:var(--danger); }
+    .btn:disabled{ opacity:.5; cursor:not-allowed; }
+    .iconbtn{
+      display:inline-flex; align-items:center; justify-content:center; gap:8px;
+      padding:10px 12px; border-radius:12px; border:1px solid var(--pillBorder);
+      background:var(--choiceBg); color:var(--fg); cursor:pointer; font-weight:1000; font-size:15px;
     }
-    .scoregrid {
-      display:grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 10px;
-      margin-top: 10px;
+    .iconbtn:hover{ border-color:#86a3ff; background:var(--choiceHover); }
+    .progressbar{
+      height:12px; background:var(--choiceBg); border:1px solid var(--border);
+      border-radius:999px; overflow:hidden; margin-top:12px;
     }
-    .scoreitem {
-      background:#14161d;
-      border:1px solid #2b3250;
-      border-radius: 14px;
-      padding: 12px;
+    .bar{ height:100%; width:0%; background:var(--btn); }
+    .qbox{ margin-top:14px; }
+    .qhead{ display:flex; gap:12px; align-items:center; flex-wrap:wrap; }
+    .qnum{ font-weight:900; font-size:16px; opacity:.95; }
+    .word{ font-size:36px; font-weight:1000; letter-spacing:.3px; }
+    .meta{ font-size:13px; opacity:.85; color:var(--muted); }
+    .choices{ display:grid; gap:12px; margin-top:14px; }
+    .choice{
+      background:var(--choiceBg); border:1px solid var(--choiceBorder); border-radius:14px;
+      padding:14px; cursor:pointer; display:flex; gap:12px; align-items:flex-start;
+      transition:transform .05s ease; user-select:none; font-size:18px; line-height:1.5;
     }
-    .scorelabel { font-size: 13px; opacity:.75; font-weight:900; }
-    .scorevalue { font-size: 24px; font-weight:1000; margin-top: 4px; }
-    @media (min-width: 760px) {
-      .scoregrid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+    .choice:hover{ transform: translateY(-1px); background:var(--choiceHover); }
+    .choice.selected{ border-color:#86a3ff; }
+    .choice.correct{ border-color:var(--good); }
+    .choice.wrong{ border-color:var(--bad); }
+    .tag{ font-weight:1000; width:30px; text-align:center; opacity:.95; }
+    .result{ margin-top:12px; padding:14px; border-radius:14px; border:1px solid var(--choiceBorder); background:var(--choiceBg); }
+    .result.good{ border-color:var(--good); }
+    .result.bad{ border-color:var(--bad); }
+    .small{ font-size:15px; line-height:1.6; color:var(--fg); opacity:.95; }
+    .muted{ color:var(--muted); }
+    .footer{ margin-top:14px; display:flex; gap:10px; flex-wrap:wrap; }
+    details{ margin-top:14px; }
+    summary{ cursor:pointer; font-weight:1000; font-size:16px; }
+    table{ width:100%; border-collapse:collapse; margin-top:10px; }
+    th, td{ border-bottom:1px solid var(--border); padding:12px 8px; text-align:left; font-size:15px; }
+    th{ opacity:.9; }
+    .controls{ display:flex; gap:10px; flex-wrap:wrap; align-items:center; margin-top:10px; }
+    select, input[type="checkbox"], input[type="number"], input[type="text"]{ accent-color: var(--btn); }
+    select, input[type="number"], input[type="text"]{
+      background:var(--choiceBg); color:var(--fg); border:1px solid var(--choiceBorder);
+      border-radius:12px; padding:10px 12px; font-weight:900; font-size:15px;
     }
+    label{ font-size:15px; opacity:.95; display:flex; gap:8px; align-items:center; }
+    .hr{ border:0; border-top:1px solid var(--border); margin:16px 0; }
+    .kbd{ font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+      font-size:13px; padding:3px 8px; border:1px solid var(--choiceBorder); border-radius:10px; background:var(--choiceBg); }
+    .mini{ font-size:13px; opacity:.85; color:var(--muted); }
+
+    .scoreboard{
+      margin-top:14px; padding:14px; border-radius:14px; border:1px solid var(--border); background:var(--choiceBg);
+    }
+    .scoregrid{ display:grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap:10px; margin-top:10px; }
+    .scoreitem{ background:var(--card); border:1px solid var(--choiceBorder); border-radius:14px; padding:12px; }
+    .scorelabel{ font-size:13px; opacity:.75; font-weight:900; color:var(--muted); }
+    .scorevalue{ font-size:24px; font-weight:1000; margin-top:4px; }
+
+    @media (min-width:760px){
+      .scoregrid{ grid-template-columns: repeat(4, minmax(0, 1fr)); }
+    }
+
+    /* 홈(모드 선택) */
+    .modegrid{
+      display:grid; gap:12px; margin-top:12px;
+      grid-template-columns: 1fr;
+    }
+    .modecard{
+      border:1px solid var(--choiceBorder);
+      background:var(--choiceBg);
+      border-radius:14px;
+      padding:14px;
+    }
+    .modecard h2{ margin:0 0 8px; font-size:18px; }
+    .modecard p{ margin:0; color:var(--muted); font-size:14px; line-height:1.55; }
+    .topbar{ display:flex; gap:10px; flex-wrap:wrap; align-items:center; justify-content:space-between; }
+
+    /* 단어장 */
+    .wb-top{ display:flex; gap:10px; flex-wrap:wrap; align-items:center; justify-content:space-between; }
+    .wb-list{ margin-top:12px; display:grid; gap:10px; }
+    .wb-item{
+      border:1px solid var(--choiceBorder);
+      background:var(--choiceBg);
+      border-radius:14px;
+      padding:12px;
+    }
+    .wb-line1{ display:flex; gap:10px; align-items:center; justify-content:space-between; flex-wrap:wrap; }
+    .wb-num{ font-weight:1000; opacity:.9; }
+    .wb-word{ font-weight:1000; font-size:20px; }
+    .wb-mean{ margin-top:6px; color:var(--muted); font-size:15px; line-height:1.55; }
+    .wb-actions{ display:flex; gap:8px; flex-wrap:wrap; align-items:center; }
+    .chip{
+      border:1px solid var(--choiceBorder);
+      background:transparent;
+      color:var(--fg);
+      border-radius:999px;
+      padding:8px 10px;
+      font-weight:900;
+      cursor:pointer;
+      font-size:13px;
+    }
+    .chip:hover{ background:var(--choiceHover); }
+
+    /* 스위치(테마) */
+    .switch{
+      display:inline-flex; align-items:center; gap:10px; user-select:none;
+      border:1px solid var(--pillBorder); background:var(--choiceBg);
+      padding:8px 10px; border-radius:999px;
+      cursor:pointer; font-weight:1000; font-size:14px;
+    }
+    .dot{
+      width:34px; height:18px; border-radius:999px; position:relative;
+      background: rgba(127,127,127,.25);
+      border:1px solid var(--choiceBorder);
+    }
+    .dot::after{
+      content:""; position:absolute; top:2px; left:2px; width:14px; height:14px;
+      border-radius:999px; background: var(--btn);
+      transition: left .18s ease;
+    }
+    [data-theme="light"] .dot::after{ left:18px; }
   </style>
 </head>
+
 <body>
   <div class="wrap">
     <div class="card">
-      <div class="row">
+      <div class="topbar">
         <div>
-          <h1>Vocabulary Quiz (1451–1600) — 발음(미국식) + 스코어보드 + 오답 해설</h1>
-          <div class="sub">
-            - 보기(답안)를 누르면 <b>즉시 채점</b>됩니다.<br/>
-            - 문항이 뜨면 <b>미국식 발음</b>을 자동 재생(가능한 경우)하고, 🔊 버튼으로 <b>반복 청취</b>할 수 있습니다.<br/>
-            - 오답일 때만 “왜 그 뜻이 되는지(어원/의미 생성/암기/오답 방지)”를 단어별로 보여줍니다.
+          <h1 id="appTitle">Vocabulary 1451–1700</h1>
+          <div class="sub" id="appSubtitle">
+            처음 페이지에서 <b>단어장</b> / <b>시험(퀴즈)</b>를 선택할 수 있습니다. (테마: 다크/화이트 스위치 지원)
           </div>
         </div>
+
+        <div style="display:flex; gap:10px; flex-wrap:wrap; align-items:center;">
+          <div class="switch" id="themeSwitch" title="다크/화이트 모드 전환">
+            <span id="themeLabel">다크</span>
+            <span class="dot" aria-hidden="true"></span>
+          </div>
+          <button class="btn secondary" id="btnHome" style="display:none;">홈</button>
+        </div>
+      </div>
+
+      <!-- ===== 홈 화면(모드 선택) ===== -->
+      <div id="viewHome">
+        <div class="modegrid">
+          <div class="modecard">
+            <h2>📘 단어장 보기</h2>
+            <p>1451–1700 단어를 목록으로 확인하고, 검색/필터, 발음 듣기, 복사 등을 할 수 있어요.</p>
+            <div style="margin-top:10px;">
+              <button class="btn" id="goWordbook">단어장으로</button>
+            </div>
+          </div>
+
+          <div class="modecard">
+            <h2>📝 시험(퀴즈) 치기</h2>
+            <p>시작 번호/끝 번호, 문제 수량(랜덤 추출), 오답만 다시, 자동 저장/발음 등을 지원합니다.</p>
+            <div style="margin-top:10px;">
+              <button class="btn" id="goQuiz">시험 치기</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ===== 단어장 ===== -->
+      <div id="viewWordbook" style="display:none;">
+        <div class="wb-top">
+          <div class="row" style="justify-content:flex-start;">
+            <div class="pill" id="wbPillCount">단어: 0</div>
+            <div class="pill" id="wbPillRange">범위: -</div>
+          </div>
+          <div class="wb-actions">
+            <button class="chip" id="wbSortNum">번호순</button>
+            <button class="chip" id="wbSortWord">알파벳순</button>
+            <button class="chip" id="wbSortShuffle">섞기</button>
+          </div>
+        </div>
+
+        <div class="controls" style="margin-top:12px;">
+          <label>시작
+            <input type="number" id="wbStart" min="1451" max="1700" value="1451">
+          </label>
+          <label>끝
+            <input type="number" id="wbEnd" min="1451" max="1700" value="1700">
+          </label>
+          <label>검색
+            <input type="text" id="wbSearch" placeholder="예: intrinsic / 본질 / 1504" style="min-width:240px;">
+          </label>
+          <button class="btn secondary" id="wbApply">적용</button>
+        </div>
+
+        <div class="mini muted" style="margin-top:8px;">
+          🔊 발음은 브라우저 TTS(Web Speech API)로 재생됩니다(가능한 경우).
+        </div>
+
+        <div class="wb-list" id="wbList"></div>
+      </div>
+
+      <!-- ===== 퀴즈 ===== -->
+      <div id="viewQuiz" style="display:none;">
         <div class="row">
-          <div class="pill" id="pillCount">문항: 0</div>
-          <div class="pill" id="pillProgress">진행: 0/0</div>
-          <div class="pill" id="pillScore">점수: 0</div>
+          <div class="row" style="justify-content:flex-start;">
+            <div class="pill" id="pillCount">문항: 0</div>
+            <div class="pill" id="pillProgress">진행: 0/0</div>
+            <div class="pill" id="pillScore">점수: 0</div>
+          </div>
+          <div class="mini muted" id="quizRangeInfo"></div>
         </div>
-      </div>
 
-      <div class="controls">
-        <label>범위
-          <select id="rangeSelect">
-            <option value="1451-1600" selected>1451–1600 (전체)</option>
-            <option value="1451-1469">1451–1469</option>
-            <option value="1470-1489">1470–1489</option>
-            <option value="1490-1509">1490–1509</option>
-            <option value="1510-1529">1510–1529</option>
-            <option value="1530-1549">1530–1549</option>
-            <option value="1550-1569">1550–1569</option>
-            <option value="1570-1586">1570–1586</option>
-            <option value="1587-1600">1587–1600</option>
-          </select>
-        </label>
+        <div class="controls">
+          <label>시작 번호
+            <input type="number" id="startNum" min="1451" max="1700" value="1451" />
+          </label>
+          <label>끝 번호
+            <input type="number" id="endNum" min="1451" max="1700" value="1700" />
+          </label>
+          <label>문제 수
+            <input type="number" id="questionCount" min="1" max="250" value="30" />
+          </label>
 
-        <label><input type="checkbox" id="shuffleToggle" checked /> 문제 순서 섞기</label>
-        <label><input type="checkbox" id="saveToggle" checked /> 진행상황 자동 저장</label>
-        <label><input type="checkbox" id="autoPronounceToggle" checked /> 문제 표시 시 자동 발음</label>
+          <label><input type="checkbox" id="shuffleToggle" checked /> 문제 순서 섞기</label>
+          <label><input type="checkbox" id="saveToggle" checked /> 진행상황 자동 저장</label>
+          <label><input type="checkbox" id="autoPronounceToggle" checked /> 문제 표시 시 자동 발음</label>
 
-        <button class="btn" id="btnStart">퀴즈 시작/재시작</button>
-        <button class="btn secondary" id="btnWrongOnly" disabled>오답만 다시</button>
-        <button class="btn danger" id="btnReset">완전 초기화</button>
-      </div>
-
-      <div class="progressbar" aria-label="progress">
-        <div class="bar" id="bar"></div>
-      </div>
-
-      <div class="scoreboard" id="scoreboard">
-        <div style="font-weight:1000; font-size:16px;">스코어보드</div>
-        <div class="mini muted">총 응시/정답/오답, 연속 정답(스트릭)을 실시간 표시합니다.</div>
-        <div class="scoregrid">
-          <div class="scoreitem">
-            <div class="scorelabel">응시(채점 완료)</div>
-            <div class="scorevalue" id="sbAnswered">0</div>
-          </div>
-          <div class="scoreitem">
-            <div class="scorelabel">정답</div>
-            <div class="scorevalue" id="sbCorrect">0</div>
-          </div>
-          <div class="scoreitem">
-            <div class="scorelabel">오답</div>
-            <div class="scorevalue" id="sbWrong">0</div>
-          </div>
-          <div class="scoreitem">
-            <div class="scorelabel">연속 정답</div>
-            <div class="scorevalue" id="sbStreak">0</div>
-          </div>
+          <button class="btn" id="btnStart">퀴즈 시작/재시작</button>
+          <button class="btn secondary" id="btnWrongOnly" disabled>오답만 다시</button>
+          <button class="btn danger" id="btnReset">완전 초기화</button>
         </div>
-        <div class="mini muted" id="sbNote" style="margin-top:8px;"></div>
+
+        <div class="progressbar" aria-label="progress">
+          <div class="bar" id="bar"></div>
+        </div>
+
+        <!-- 스코어보드 -->
+        <div class="scoreboard" id="scoreboard">
+          <div style="font-weight:1000; font-size:16px;">스코어보드</div>
+          <div class="mini muted">총 응시/정답/오답, 연속 정답(스트릭)</div>
+          <div class="scoregrid">
+            <div class="scoreitem">
+              <div class="scorelabel">응시(채점 완료)</div>
+              <div class="scorevalue" id="sbAnswered">0</div>
+            </div>
+            <div class="scoreitem">
+              <div class="scorelabel">정답</div>
+              <div class="scorevalue" id="sbCorrect">0</div>
+            </div>
+            <div class="scoreitem">
+              <div class="scorelabel">오답</div>
+              <div class="scorevalue" id="sbWrong">0</div>
+            </div>
+            <div class="scoreitem">
+              <div class="scorelabel">연속 정답</div>
+              <div class="scorevalue" id="sbStreak">0</div>
+            </div>
+          </div>
+          <div class="mini muted" id="sbNote" style="margin-top:8px;"></div>
+        </div>
+
+        <div class="qbox" id="qbox"></div>
+
+        <div class="footer">
+          <button class="btn secondary" id="btnPrev">이전</button>
+          <button class="btn" id="btnNext">다음</button>
+        </div>
+
+        <div id="summary"></div>
       </div>
-
-      <div class="qbox" id="qbox"></div>
-
-      <div class="footer">
-        <button class="btn secondary" id="btnPrev">이전</button>
-        <button class="btn" id="btnNext">다음</button>
-      </div>
-
-      <div id="summary"></div>
     </div>
   </div>
 
-<script>
-/** =========================
- *  0) 발음(미국식) - Web Speech API
- *  ========================= */
-let userInteracted = false;
-let lastSpokenKey = "";
+  <!-- =========================
+       (1) DB 분리: data_1451_1700.js로 분리 가능한 블록
+       - 지금은 index.html 단독 실행을 위해 "내장" 형태로 넣어둠
+       - GitHub에서 분리하고 싶으면:
+         1) 아래 <script id="DATA"> ... </script> 내용을 data_1451_1700.js로 저장
+         2) index.html에서 이 스크립트 블록을 삭제하고
+            <script src="./data_1451_1700.js"></script> 로 교체
+     ========================= -->
+  <script id="DATA">
+    // ✅ DB: 1451–1700
+    // ⚠️ 현재 대화에서 사용자가 제공한 확정 데이터는 1451–1607까지입니다.
+    // 1608–1700을 여기에 같은 형식으로 추가하면 자동으로 전체가 반영됩니다.
+    // 형식: { num: 1608, word: "....", meaning: "...." }
 
-function pickUSVoice() {
-  const voices = window.speechSynthesis ? window.speechSynthesis.getVoices() : [];
-  let v = voices.find(x => (x.lang || "").toLowerCase() === "en-us");
-  if (v) return v;
-  v = voices.find(x => (x.lang || "").toLowerCase().includes("en-us"));
-  if (v) return v;
-  v = voices.find(x => (x.lang || "").toLowerCase().startsWith("en"));
-  return v || null;
-}
+    const VOCAB_DATA = [
+      { num:1451, word:"impartial", meaning:"공정한, 편견이 없는" },
+      { num:1452, word:"confederate", meaning:"공범, 공모자" },
+      { num:1453, word:"legislation", meaning:"법률(제정)" },
+      { num:1454, word:"inscription", meaning:"새기기, 명각" },
+      { num:1455, word:"versatile", meaning:"다재다능한, 다용도의" },
+      { num:1456, word:"limp", meaning:"기운이 없는, 축 처진" },
+      { num:1457, word:"intrinsic", meaning:"고유한, 본질적인" },
+      { num:1458, word:"limb", meaning:"팔, 다리, (새의) 날개" },
+      { num:1459, word:"prehistoric", meaning:"선사 시대의" },
 
-function speakWord(word, {force=false} = {}) {
-  if (!("speechSynthesis" in window) || !word) return;
-  try {
-    const key = `${word}`;
-    if (!force && key === lastSpokenKey) return;
+      { num:1460, word:"rush", meaning:"서두르다" },
+      { num:1461, word:"stale", meaning:"진부한, 신선하지 않은" },
+      { num:1462, word:"gratitude", meaning:"감사, 고마움" },
+      { num:1463, word:"garment", meaning:"의복, 옷" },
+      { num:1464, word:"reproach", meaning:"비난하다, 나무라다" },
+      { num:1465, word:"handicap", meaning:"불리하게 만들다, 방해하다" },
+      { num:1466, word:"spiny", meaning:"가시가 많은" },
+      { num:1467, word:"suspicion", meaning:"의심, 불신, 혐의" },
+      { num:1468, word:"spawn", meaning:"(알을) 낳다, 생산하다" },
+      { num:1469, word:"sedentary", meaning:"한곳에 머물러 사는, 정착하고 있는" },
 
-    window.speechSynthesis.cancel();
-    const u = new SpeechSynthesisUtterance(word);
-    u.lang = "en-US";
-    const v = pickUSVoice();
-    if (v) u.voice = v;
-    u.rate = 0.95;
-    u.pitch = 1.0;
-    u.volume = 1.0;
+      { num:1470, word:"humble", meaning:"겸손한" },
+      { num:1471, word:"incur", meaning:"(나쁜 상황을) 초래하다, (손해·빚을) 발생시키다" },
+      { num:1472, word:"indulge", meaning:"(욕구·쾌락에) 빠지다, 탐닉하다" },
+      { num:1473, word:"thaw", meaning:"녹다, 해동시키다" },
+      { num:1474, word:"inspection", meaning:"사찰, 점검, 정밀조사" },
+      { num:1475, word:"invert", meaning:"뒤집다, 도치시키다" },
+      { num:1476, word:"leftover", meaning:"(주로 복수로) 남은 음식" },
+      { num:1477, word:"liken", meaning:"~에 비유하다" },
+      { num:1478, word:"disseminate", meaning:"(정보·사상 등을) 퍼뜨리다, 전파하다" },
+      { num:1479, word:"linger", meaning:"남아 있다, 오래 끌다" },
 
-    lastSpokenKey = key;
-    window.speechSynthesis.speak(u);
-  } catch {}
-}
+      { num:1480, word:"circumstance", meaning:"상황, 환경" },
+      { num:1481, word:"martial", meaning:"싸움의, 전쟁의" },
+      { num:1482, word:"sorrowful", meaning:"슬픈" },
+      { num:1483, word:"peninsula", meaning:"반도" },
+      { num:1484, word:"monk", meaning:"수도자, 수도승" },
+      { num:1485, word:"maternal", meaning:"어머니의, 모성의" },
+      { num:1486, word:"minister", meaning:"성직자, 목사" },
+      { num:1487, word:"monetary", meaning:"통화[화폐]의, 금전의" },
+      { num:1488, word:"nostalgia", meaning:"향수(병)" },
+      { num:1489, word:"oblige", meaning:"의무적으로 ~하게 하다, 강요하다" },
+      { num:1490, word:"vocational", meaning:"직업과 관련된, 직무상의" },
+      { num:1491, word:"contestant", meaning:"(대회·시합의) 참가자" },
+      { num:1492, word:"subside", meaning:"가라앉다, 진정되다" },
+      { num:1493, word:"stiffen", meaning:"뻣뻣해지다, 경직되다" },
+      { num:1494, word:"onward", meaning:"앞으로, 나아가서" },
+      { num:1495, word:"outlaw", meaning:"불법화하다, 금하다" },
+      { num:1496, word:"outset", meaning:"착수, 시초, 발단" },
+      { num:1497, word:"overturn", meaning:"뒤집(히)다" },
+      { num:1498, word:"ramification", meaning:"파문, 영향" },
+      { num:1499, word:"pathway", meaning:"좁은 길, 통로" },
+      { num:1500, word:"pierce", meaning:"뚫다, 관통하다" },
+      { num:1501, word:"nutrient", meaning:"영양소, 영양분" },
 
-if ("speechSynthesis" in window) {
-  window.speechSynthesis.onvoiceschanged = () => {};
-}
+      { num:1502, word:"lodge", meaning:"오두막, 산장" },
+      { num:1503, word:"loom", meaning:"어렴풋이 나타나다, 곧 닥칠 것처럼 보이다" },
+      { num:1504, word:"mainstream", meaning:"(사상 등의) 주류, 대세" },
+      { num:1505, word:"manuscript", meaning:"(책·악보 등의) 원고, 사본" },
+      { num:1506, word:"erupt", meaning:"(화산이) 분출하다, 폭발하다" },
+      { num:1507, word:"mighty", meaning:"강력한, 힘센" },
+      { num:1508, word:"hull", meaning:"선체" },
+      { num:1509, word:"muddy", meaning:"진흙투성이인" },
+      { num:1510, word:"nuisance", meaning:"성가신 사람[일], 골칫거리" },
+      { num:1511, word:"splendid", meaning:"훌륭한, 멋진" },
+      { num:1512, word:"strife", meaning:"갈등, 불화, 다툼" },
+      { num:1513, word:"stature", meaning:"위상, 수준" },
+      { num:1514, word:"adversity", meaning:"역경, 고난" },
+      { num:1515, word:"spacious", meaning:"넓은" },
+      { num:1516, word:"unconsciously", meaning:"무의식적으로" },
+      { num:1517, word:"authoritative", meaning:"권위 있는" },
+      { num:1518, word:"actualize", meaning:"현실로 만들다, 실현하다" },
+      { num:1519, word:"console", meaning:"위로하다" },
+      { num:1520, word:"drag", meaning:"끌다, 끌고 가다" },
+      { num:1521, word:"authentic", meaning:"진정한, 진짜의" },
+      { num:1522, word:"mammal", meaning:"포유동물" },
+      { num:1523, word:"plunge", meaning:"돌입하다" },
 
-/** =========================
- *  1) 원문 데이터 (1451–1600)
- *  ========================= */
-const RAW = String.raw`
-1451 / impartial / 공정한, 편견이 없는
-1452 / confederate / 공범, 공모자
-1453 / legislation / 법률(제정)
-1454 / inscription / 새기기, 명각
-1455 / versatile / 다재다능한, 다용도의
-1456 / limp / 기운이 없는, 축 처진
-1457 / intrinsic / 고유한, 본질적인
-1458 / limb / 팔, 다리, (새의) 날개
-1459 / prehistoric / 선사 시대의
-1460 / rush / 서두르다
-1461 / stale / 진부한, 신선하지 않은
-1462 / gratitude / 감사, 고마움
-1463 / garment / 의복, 옷
-1464 / reproach / 비난하다, 나무라다
-1465 / handicap / 불리하게 만들다, 방해하다
-1466 / spiny / 가시가 많은
-1467 / suspicion / 의심, 불신, 혐의
-1468 / spawn / (알을) 낳다, 생산하다
-1469 / sedentary / 한곳에 머물러 사는, 정착하고 있는
-1470 / humble / 겸손한
-1471 / incur / (나쁜 상황을) 초래하다, (손해·빚을) 발생시키다
-1472 / indulge / (욕구·쾌락에) 빠지다, 탐닉하다
-1473 / thaw / 녹다, 해동시키다
-1474 / inspection / 사찰, 점검, 정밀조사
-1475 / invert / 뒤집다, 도치시키다
-1476 / leftover / (주로 복수로) 남은 음식
-1477 / liken / ~에 비유하다
-1478 / disseminate / (정보·사상 등을) 퍼뜨리다, 전파하다
-1479 / linger / 남아 있다, 오래 끌다
-1480 / circumstance / 상황, 환경
-1481 / martial / 싸움의, 전쟁의
-1482 / sorrowful / 슬픈
-1483 / peninsula / 반도
-1484 / monk / 수도자, 수도승
-1485 / maternal / 어머니의, 모성의
-1486 / minister / 성직자, 목사
-1487 / monetary / 통화[화폐]의, 금전의
-1488 / nostalgia / 향수(병)
-1489 / oblige / 의무적으로 ~하게 하다, 강요하다
-1490 / vocational / 직업과 관련된, 직무상의
-1491 / contestant / (대회·시합의) 참가자
-1492 / subside / 가라앉다, 진정되다
-1493 / stiffen / 뻣뻣해지다, 경직되다
-1494 / onward / 앞으로, 나아가서
-1495 / outlaw / 불법화하다, 금하다
-1496 / outset / 착수, 시초, 발단
-1497 / overturn / 뒤집(히)다
-1498 / ramification / 파문, 영향
-1499 / pathway / 좁은 길, 통로
-1500 / pierce / 뚫다, 관통하다
-1501 / nutrient / 영양소, 영양분
-1502 / lodge / 오두막, 산장
-1503 / loom / 어렴풋이 나타나다, 곧 닥칠 것처럼 보이다
-1504 / mainstream / (사상 등의) 주류, 대세
-1505 / manuscript / (책·악보 등의) 원고, 사본
-1506 / erupt / (화산이) 분출하다, 폭발하다
-1507 / mighty / 강력한, 힘센
-1508 / hull / 선체
-1509 / muddy / 진흙투성이인
-1510 / nuisance / 성가신 사람[일], 골칫거리
-1511 / splendid / 훌륭한, 멋진
-1512 / strife / 갈등, 불화, 다툼
-1513 / stature / 위상, 수준
-1514 / adversity / 역경, 고난
-1515 / spacious / 넓은
-1516 / unconsciously / 무의식적으로
-1517 / authoritative / 권위 있는
-1518 / actualize / 현실로 만들다, 실현하다
-1519 / console / 위로하다
-1520 / drag / 끌다, 끌고 가다
-1521 / authentic / 진정한, 진짜의
-1522 / mammal / 포유동물
-1523 / plunge / 돌입하다
-1524 / gigantic / 거대한
-1525 / predominate / 우세하다, 지배하다
-1526 / rust / 녹이 슬다, 부식하다[시키다]
-1527 / recede / 물러나다, 약해지다
-1528 / reprimand / 질책하다
-1529 / rhetorical / 수사적인, 웅변적인
-1530 / riddle / 구멍을 숭숭 뚫다, 벌집같이 만들다
-1531 / generalization / 일반화
-1532 / scramble / 기어 오르다
-1533 / speculate / 추측[짐작]하다
-1534 / stalk / (식물의) 줄기
-1535 / stroll / 산책하다, 거닐다
-1536 / stumble / 우연히 발견하다
-1537 / outrun / 더 빨리[멀리] 달리다
-1538 / squeeze / 짜다
-1539 / dumb / 멍청한
-1540 / stifle / 억누르다, 억압하다
-1541 / inescapable / 피할 수 없는
-1542 / supervision / 감독, 관리, 지휘
-1543 / synthetic / 합성한, 인조의
-1544 / peer / 응시하다, 유심히 보다
-1545 / reconstruct / 재구성[재현]하다
-1546 / enroll / 등록하다
-1547 / utilize / 활용[이용]하다
-1548 / dignity / 위엄, 품위, 존엄(성)
-1549 / slay / 죽이다
-1550 / presuppose / 상정하다, 전제로 하다
-1551 / examine / 검사[조사]하다
-1552 / saturate / 포화시키다, 포화 상태를 만들다
-1553 / generate / 발생시키다, 초래하다
-1554 / sprout / 싹이 나다
-1555 / offend / 기분을 상하게 하다
-1556 / infancy / 유아기
-1557 / stink / 악취를 풍기다, 냄새가 나다
-1558 / withdraw / 취소[철회]하다
-1559 / paddle / 노를 젓다, 첨벙거리다
-1560 / propose / (계획·생각을) 제안[제시]하다
-1561 / submerge / 물속에 넣다[잠기다]
-1562 / overtake / 추월하다, 능가하다
-1563 / expose / 드러내다, 노출시키다
-1564 / tariff / 관세
-1565 / utterly / 완전히, 순전히, 전혀
-1566 / underestimate / 너무 적게 잡다, 과소평가하다
-1567 / undue / 지나친, 과도한
-1568 / carve / 조각하다, 새기다
-1569 / descendant / 자손, 후예
-1570 / vein / 정맥, 혈관
-1571 / informative / 유익한, 교육적인
-1572 / predator / 포식자
-1573 / withhold / (~을) 주지 않다, 보류하다
-1574 / install / 설치하다, 장착하다
-1575 / absurd / 불합리한
-1576 / archaeology / 고고학
-1577 / apparatus / (신체의) 기관
-1578 / acclaim / 환호, 갈채
-1579 / herald / 알리다, 발표하다
-1580 / succumb / 굴복하다, (병 등으로) 쓰러지다
-1581 / stack / 쌓다, 쌓이다
-1582 / hostage / 인질
-1583 / thrift / 절약, 검약
-1584 / anonymous / 익명인, 신원 불명의
-1585 / landfill / 쓰레기 매립(지)
-1586 / astound / 경악시키다, 큰 충격을 주다
-1587 / uphold / (법·원칙 등을) 유지하다, 옹호하다
-1588 / terrain / 지형, 지역
-1589 / thermal / 열의, 뜨거운
-1590 / thrust / (거칠게) 밀치다, 찌르다
-1591 / vegetation / 초목, 식물
-1592 / passionate / 열정적인, 열렬한
-1593 / anthropology / 인류학
-1594 / aboriginal / (특히 오스트레일리아의) 원주민의
-1595 / abide / (규칙을) 지키다
-1596 / sediment / 침전[퇴적]물, 앙금
-1597 / magnify / 확대하다, 증대하다
-1598 / respondent / 응답자
-1599 / alleviate / 완화하다, 경감시키다
-1600 / alienate / 멀리하다, 소원하게 하다
-`;
+      { num:1524, word:"gigantic", meaning:"거대한" },
+      { num:1525, word:"predominate", meaning:"우세하다, 지배하다" },
+      { num:1526, word:"rust", meaning:"녹이 슬다, 부식하다[시키다]" },
+      { num:1527, word:"recede", meaning:"물러나다, 약해지다" },
+      { num:1528, word:"reprimand", meaning:"질책하다" },
+      { num:1529, word:"rhetorical", meaning:"수사적인, 웅변적인" },
+      { num:1530, word:"riddle", meaning:"구멍을 숭숭 뚫다, 벌집같이 만들다" },
+      { num:1531, word:"generalization", meaning:"일반화" },
+      { num:1532, word:"scramble", meaning:"기어 오르다" },
+      { num:1533, word:"speculate", meaning:"추측[짐작]하다" },
+      { num:1534, word:"stalk", meaning:"(식물의) 줄기" },
+      { num:1535, word:"stroll", meaning:"산책하다, 거닐다" },
+      { num:1536, word:"stumble", meaning:"우연히 발견하다" },
+      { num:1537, word:"outrun", meaning:"더 빨리[멀리] 달리다" },
+      { num:1538, word:"squeeze", meaning:"짜다" },
+      { num:1539, word:"dumb", meaning:"멍청한" },
+      { num:1540, word:"stifle", meaning:"억누르다, 억압하다" },
+      { num:1541, word:"inescapable", meaning:"피할 수 없는" },
+      { num:1542, word:"supervision", meaning:"감독, 관리, 지휘" },
+      { num:1543, word:"synthetic", meaning:"합성한, 인조의" },
+      { num:1544, word:"peer", meaning:"응시하다, 유심히 보다" },
+      { num:1545, word:"reconstruct", meaning:"재구성[재현]하다" },
+      { num:1546, word:"enroll", meaning:"등록하다" },
+      { num:1547, word:"utilize", meaning:"활용[이용]하다" },
+      { num:1548, word:"dignity", meaning:"위엄, 품위, 존엄(성)" },
+      { num:1549, word:"slay", meaning:"죽이다" },
+      { num:1550, word:"presuppose", meaning:"상정하다, 전제로 하다" },
+      { num:1551, word:"examine", meaning:"검사[조사]하다" },
+      { num:1552, word:"saturate", meaning:"포화시키다, 포화 상태를 만들다" },
+      { num:1553, word:"generate", meaning:"발생시키다, 초래하다" },
+      { num:1554, word:"sprout", meaning:"싹이 나다" },
+      { num:1555, word:"offend", meaning:"기분을 상하게 하다" },
+      { num:1556, word:"infancy", meaning:"유아기" },
+      { num:1557, word:"stink", meaning:"악취를 풍기다, 냄새가 나다" },
+      { num:1558, word:"withdraw", meaning:"취소[철회]하다" },
+      { num:1559, word:"paddle", meaning:"노를 젓다, 첨벙거리다" },
+      { num:1560, word:"propose", meaning:"(계획·생각을) 제안[제시]하다" },
+      { num:1561, word:"submerge", meaning:"물속에 넣다[잠기다]" },
+      { num:1562, word:"overtake", meaning:"추월하다, 능가하다" },
+      { num:1563, word:"expose", meaning:"드러내다, 노출시키다" },
+      { num:1564, word:"tariff", meaning:"관세" },
+      { num:1565, word:"utterly", meaning:"완전히, 순전히, 전혀" },
 
-/** =========================
- *  2) 정밀 해설(수동) - 필요시 추가
- *  ========================= */
-const ETYMO_STRONG = {
-  "impartial": [
-    ["어원/구성", "im-(not) + partial(부분/편파적인)"],
-    ["뜻이 만들어진 흐름", "‘편파적(partial)’이 ‘아님’ → 공정한/편견이 없는"],
-    ["오답 방지", "partial=부분/편파. impartial=그 반대(공정)."]
-  ],
-  "intrinsic": [
-    ["어원/구성", "intra-(안쪽) 계열 + -insic(내재)"],
-    ["뜻이 만들어진 흐름", "안에 ‘내재’한 성질 → 본질적인/고유한"],
-    ["오답 방지", "intrinsic(내재) ↔ extrinsic(외재)."]
-  ],
-  "disseminate": [
-    ["어원/기원", "dis-(흩어) + semin(씨앗)"],
-    ["뜻이 만들어진 흐름", "씨앗을 흩뿌리다 → 정보/사상을 퍼뜨리다"],
-    ["암기", "seed(씨앗) 느낌으로 ‘널리 퍼짐’ 고정"]
-  ],
-  "nostalgia": [
-    ["어원/구성", "nostos(귀향) + algia(고통)"],
-    ["뜻이 만들어진 흐름", "집/과거를 그리워하는 아픔 → 향수(병)"],
-    ["암기", "algia=통증(예: neuralgia) → ‘그리움의 아픔’"]
-  ],
-};
+      { num:1566, word:"underestimate", meaning:"너무 적게 잡다, 과소평가하다" },
+      { num:1567, word:"undue", meaning:"지나친, 과도한" },
+      { num:1568, word:"carve", meaning:"조각하다, 새기다" },
+      { num:1569, word:"descendant", meaning:"자손, 후예" },
+      { num:1570, word:"vein", meaning:"정맥, 혈관" },
+      { num:1571, word:"informative", meaning:"유익한, 교육적인" },
+      { num:1572, word:"predator", meaning:"포식자" },
+      { num:1573, word:"withhold", meaning:"(~을) 주지 않다, 보류하다" },
+      { num:1574, word:"install", meaning:"설치하다, 장착하다" },
+      { num:1575, word:"absurd", meaning:"불합리한" },
+      { num:1576, word:"archaeology", meaning:"고고학" },
+      { num:1577, word:"apparatus", meaning:"(신체의) 기관" },
+      { num:1578, word:"acclaim", meaning:"환호, 갈채" },
+      { num:1579, word:"herald", meaning:"알리다, 발표하다" },
+      { num:1580, word:"succumb", meaning:"굴복하다, (병 등으로) 쓰러지다" },
+      { num:1581, word:"stack", meaning:"쌓다, 쌓이다" },
+      { num:1582, word:"hostage", meaning:"인질" },
+      { num:1583, word:"thrift", meaning:"절약, 검약" },
+      { num:1584, word:"anonymous", meaning:"익명인, 신원 불명의" },
+      { num:1585, word:"landfill", meaning:"쓰레기 매립(지)" },
+      { num:1586, word:"astound", meaning:"경악시키다, 큰 충격을 주다" },
 
-/** =========================
- *  3) 자동 해설(개별화)
- *  ========================= */
-const PREFIX = [
-  ["anti", "반대"], ["auto","스스로"], ["bi","2"], ["co","함께"], ["con","함께/완전히"],
-  ["counter","반대/상쇄"], ["de","떼어/아래로/없애다"], ["dis","떼어/반대/없애다"],
-  ["en","~하게 하다/넣다"], ["ex","밖으로/전-"], ["im","부정/안으로(in- 변형)"],
-  ["in","부정(아니다)/안"], ["inter","사이에/서로"], ["mis","잘못"], ["non","아님"],
-  ["over","과하게"], ["pre","앞/미리"], ["pro","앞/찬성"], ["re","다시/뒤로"],
-  ["sub","아래/뒤"], ["trans","가로질러/건너"], ["under","아래/덜"]
-];
+      { num:1587, word:"uphold", meaning:"(법·원칙 등을) 유지하다, 옹호하다" },
+      { num:1588, word:"terrain", meaning:"지형, 지역" },
+      { num:1589, word:"thermal", meaning:"열의, 뜨거운" },
+      { num:1590, word:"thrust", meaning:"(거칠게) 밀치다, 찌르다" },
+      { num:1591, word:"vegetation", meaning:"초목, 식물" },
+      { num:1592, word:"passionate", meaning:"열정적인, 열렬한" },
+      { num:1593, word:"anthropology", meaning:"인류학" },
+      { num:1594, word:"aboriginal", meaning:"(특히 오스트레일리아의) 원주민의" },
+      { num:1595, word:"abide", meaning:"(규칙을) 지키다" },
+      { num:1596, word:"sediment", meaning:"침전[퇴적]물, 앙금" },
+      { num:1597, word:"magnify", meaning:"확대하다, 증대하다" },
+      { num:1598, word:"respondent", meaning:"응답자" },
+      { num:1599, word:"alleviate", meaning:"완화하다, 경감시키다" },
+      { num:1600, word:"alienate", meaning:"멀리하다, 소원하게 하다" },
 
-const SUFFIX = [
-  ["tion","명사(과정/결과)"], ["sion","명사(과정/결과)"], ["ment","명사(행동/결과)"],
-  ["ity","명사(성질/상태)"], ["ness","명사(상태)"], ["ive","형용사(성질)"],
-  ["al","형용사(~의)"], ["ic","형용사(~의)"], ["ous","형용사(~한)"],
-  ["ly","부사(~하게)"], ["able","형용사(~할 수 있는)"], ["ible","형용사(~할 수 있는)"],
-  ["ize","동사(~화하다)"], ["ify","동사(~하게 하다)"], ["ence","명사(성질)"], ["ance","명사(성질)"],
-  ["ary","형용사(~의)"], ["ent","형용사/명사"], ["ant","형용사/명사"]
-];
+      { num:1601, word:"aristocrat", meaning:"귀족, 상류 계급의 사람" },
+      { num:1602, word:"savage", meaning:"무참히 공격하다" },
+      { num:1603, word:"summon", meaning:"소환하다, 소집하다, 호출하다" },
+      { num:1604, word:"empathy", meaning:"공감, 감정이입" },
+      { num:1605, word:"unearth", meaning:"밝혀내다, 찾다" },
+      { num:1606, word:"assert", meaning:"주장하다, 단언하다" },
+      { num:1607, word:"forecast", meaning:"예측하다, 예보하다" },
 
-const ROOTS = [
-  ["part", "부분"], ["cred", "믿다"], ["aud", "듣다"], ["dict", "말하다"],
-  ["scrib", "쓰다"], ["script", "쓰다"], ["graph", "기록"],
-  ["port", "옮기다"], ["fer", "옮기다"], ["mit", "보내다"], ["miss", "보내다"],
-  ["duc", "이끌다"], ["duct", "이끌다"], ["tract", "끌다"],
-  ["press", "누르다"], ["struct", "세우다/쌓다"], ["gen", "태어나다/만들다"],
-  ["terr", "땅/지역"], ["bio", "생명"], ["archae", "고대"], ["therm", "열"],
-  ["spect", "보다"], ["vid", "보다"], ["vis", "보다"], ["semin", "씨앗"],
-  ["vert", "돌리다"], ["ceed", "가다"], ["cess", "가다"], ["sid", "앉다"],
-  ["rupt", "깨지다"], ["stalk", "줄기"], ["vege", "식물"], ["magn", "크다"]
-];
+      // ====== 1608–1700을 여기에 같은 형식으로 추가하면 자동 반영됩니다 ======
+      // { num:1608, word:"...", meaning:"..." },
+      // ...
+      // { num:1700, word:"...", meaning:"..." },
+    ];
+  </script>
 
-function normalizeWord(w){ return String(w||"").toLowerCase().trim(); }
-
-function detectPrefix(w){
-  for (const [p, mean] of PREFIX) {
-    if (w.startsWith(p) && w.length > p.length + 2) return [p, mean];
-  }
-  return null;
-}
-function detectSuffix(w){
-  for (const [s, mean] of SUFFIX) {
-    if (w.endsWith(s) && w.length > s.length + 2) return [s, mean];
-  }
-  return null;
-}
-function detectRoots(w){
-  const found = [];
-  const sorted = [...ROOTS].sort((a,b)=>b[0].length - a[0].length);
-  for (const [r, mean] of sorted) {
-    if (w.includes(r) && w.length > r.length + 1) {
-      found.push([r, mean]);
-      if (found.length >= 2) break;
+  <script>
+    /** =========================
+     *  (2) 테마(다크/화이트) 저장
+     *  ========================= */
+    const THEME_KEY = "vocab_theme_1451_1700";
+    function setTheme(mode){
+      document.documentElement.setAttribute("data-theme", mode);
+      localStorage.setItem(THEME_KEY, mode);
+      document.getElementById("themeLabel").textContent = (mode === "light") ? "화이트" : "다크";
     }
-  }
-  return found;
-}
-function inferPos(meaningKo){
-  const m = String(meaningKo||"");
-  if (m.includes("하다") || m.includes("되다")) return "동사";
-  if (m.includes("적인") || m.endsWith("의")) return "형용사";
-  if (m.includes("하게")) return "부사";
-  return "어휘";
-}
-function buildMeaningChain(pre, roots, suf){
-  const steps = [];
-  if (pre) steps.push(`① ${pre[0]} = “${pre[1]}”`);
-  if (roots.length) {
-    roots.forEach((r, i) => steps.push(`${pre ? (i===0 ? "②" : "③") : (i===0 ? "①":"②")} ${r[0]} = “${r[1]}”`));
-  }
-  if (suf) steps.push(`마지막: -${suf[0]} = “${suf[1]}”`);
-  if (!steps.length) steps.push("① (분해 단서 약함) → ‘대표 장면(이미지)’로 의미 고정");
-  return steps.join(" → ");
-}
-function buildAntiConfusion(word, pre, suf){
-  const tips = [];
-  if (pre && pre[0] === "re") tips.push("re- = 다시/뒤로 (반대 X)");
-  if (pre && pre[0] === "dis") tips.push("dis- = 분리/제거/반대 (in- 부정과 구분)");
-  if (pre && pre[0] === "inter") tips.push("inter- = 사이/서로 (끼어들기 이미지)");
-  if (pre && pre[0] === "over") tips.push("over- = 과하게(과장/과다)");
-  if (pre && pre[0] === "under") tips.push("under- = 덜/아래(과소/부족)");
-  if (suf && suf[0] === "tion") tips.push("-tion = 명사(과정/결과)");
-  if (suf && suf[0] === "ity") tips.push("-ity = ~성/상태");
-  if (word.endsWith("ly")) tips.push("-ly = 부사(~하게)");
-  if (!tips.length) tips.push("핵심 이미지 1개만 고정하면 오답이 확 줄어요.");
-  return tips.join(" / ");
-}
-function autoEtymo(word, meaningKo){
-  const w = normalizeWord(word);
-  const pre = detectPrefix(w);
-  const suf = detectSuffix(w);
-  const roots = detectRoots(w);
-  const pos = inferPos(meaningKo);
-
-  const breakdown = [];
-  if (pre) breakdown.push(`${pre[0]}- (${pre[1]})`);
-  if (roots.length) breakdown.push(...roots.map(r => `${r[0]} (${r[1]})`));
-  if (suf) breakdown.push(`-${suf[0]} (${suf[1]})`);
-  if (!breakdown.length) breakdown.push(`${w} (분해 단서 약함)`);
-
-  const chain = buildMeaningChain(pre, roots, suf);
-  const anti = buildAntiConfusion(w, pre, suf);
-
-  const reason = (() => {
-    if (pre || suf || roots.length) {
-      const core = roots.length ? roots.map(r=>r[1]).join(" + ") : "핵심 의미";
-      const dir = pre ? `“${pre[1]}” 방향을 먼저 잡고, ` : "";
-      const tail = suf ? ` 마지막에 “${suf[1]}”로 품사/느낌을 고정합니다.` : " 문맥에 맞게 품사를 고정합니다.";
-      return `${dir}${core}를 붙이면 뜻이 연결돼요.${tail} (품사: ${pos})`;
+    function initTheme(){
+      const saved = localStorage.getItem(THEME_KEY);
+      setTheme(saved === "light" ? "light" : "dark");
     }
-    return `이 단어는 분해보다 ‘장면’이 핵심입니다. ${w}가 쓰일 상황을 1개 떠올려 뜻을 고정하세요. (품사: ${pos})`;
-  })();
 
-  const mnemonic = (() => {
-    const parts = [];
-    if (pre) parts.push(`${pre[0]}(${pre[1]})`);
-    if (roots.length) parts.push(...roots.map(r=>`${r[0]}(${r[1]})`));
-    if (suf) parts.push(`-${suf[0]}(${suf[1]})`);
-    if (parts.length) return `암기: ${w} ≈ ${parts.join(" + ")} → 뜻을 “${parts.map(p=>p.split("(")[1].replace(")","")).join(" + ")}”로 연결.`;
-    return `암기: ${w}는 대표 장면 1개로 외우기(예: 행동/상황을 그림처럼 떠올리기).`;
-  })();
+    /** =========================
+     *  (3) 화면 전환(홈/단어장/퀴즈)
+     *  ========================= */
+    const viewHome = document.getElementById("viewHome");
+    const viewWordbook = document.getElementById("viewWordbook");
+    const viewQuiz = document.getElementById("viewQuiz");
+    const btnHome = document.getElementById("btnHome");
 
-  return [
-    ["어원/구성(자동·개별)", breakdown.join(" + ")],
-    ["뜻이 만들어진 흐름(자동·개별)", chain],
-    ["왜 이런 뜻이 되나(자동·개별)", reason],
-    ["중2 암기(자동·개별)", mnemonic],
-    ["오답 방지(자동·개별)", anti]
-  ];
-}
-function getEtymoCard(word, meaningKo) {
-  const key = normalizeWord(word);
-  if (ETYMO_STRONG[key]) return ETYMO_STRONG[key];
-  return autoEtymo(key, meaningKo);
-}
-
-/** =========================
- *  4) 파싱
- *  ========================= */
-function parseEntries(raw) {
-  const lines = raw.split(/\r?\n/);
-  const out = [];
-  // "1451 / word / meaning"
-  const re = /^\s*(\d{4})\s*\/\s*([A-Za-z-]+)\s*\/\s*(.+?)\s*$/;
-  for (const line of lines) {
-    const m = line.match(re);
-    if (!m) continue;
-    out.push({ num: parseInt(m[1],10), word: m[2].trim(), meaning: m[3].trim() });
-  }
-  return out;
-}
-const ALL = parseEntries(RAW);
-
-/** =========================
- *  5) 유사 오답 생성
- *  ========================= */
-function pickDistractors(correctMeaning, poolMeanings, count=3) {
-  const len = correctMeaning.length;
-  const similar = poolMeanings.filter(m => m !== correctMeaning && Math.abs(m.length - len) <= 6);
-
-  const picked = new Set();
-  function takeFrom(arr) {
-    const shuffled = shuffle([...arr]);
-    for (const x of shuffled) {
-      if (picked.size >= count) break;
-      if (x === correctMeaning) continue;
-      picked.add(x);
+    function showView(which){
+      viewHome.style.display = (which === "home") ? "" : "none";
+      viewWordbook.style.display = (which === "wordbook") ? "" : "none";
+      viewQuiz.style.display = (which === "quiz") ? "" : "none";
+      btnHome.style.display = (which === "home") ? "none" : "";
+      // 퀴즈 화면 들어갈 때만 render()가 의미 있음
+      if (which === "quiz") render();
+      if (which === "wordbook") renderWordbook();
     }
-  }
-  takeFrom(similar);
-  if (picked.size < count) takeFrom(poolMeanings);
-  return [...picked].slice(0, count);
-}
-function buildQuestions(entries) {
-  const meanings = entries.map(e => e.meaning);
-  return entries.map(e => {
-    const correct = e.meaning;
-    const distractors = pickDistractors(correct, meanings, 3);
-    const options = shuffle([correct, ...distractors]);
-    const correctIndex = options.indexOf(correct);
-    return { num: e.num, word: e.word, meaning: e.meaning, options, correctIndex };
-  });
-}
 
-/** =========================
- *  6) 상태/저장 + 스코어보드
- *  ========================= */
-const dom = {
-  pillCount: document.getElementById("pillCount"),
-  pillProgress: document.getElementById("pillProgress"),
-  pillScore: document.getElementById("pillScore"),
-  bar: document.getElementById("bar"),
-  qbox: document.getElementById("qbox"),
-  summary: document.getElementById("summary"),
-  rangeSelect: document.getElementById("rangeSelect"),
-  shuffleToggle: document.getElementById("shuffleToggle"),
-  saveToggle: document.getElementById("saveToggle"),
-  autoPronounceToggle: document.getElementById("autoPronounceToggle"),
-  btnStart: document.getElementById("btnStart"),
-  btnWrongOnly: document.getElementById("btnWrongOnly"),
-  btnReset: document.getElementById("btnReset"),
-  btnPrev: document.getElementById("btnPrev"),
-  btnNext: document.getElementById("btnNext"),
-  sbAnswered: document.getElementById("sbAnswered"),
-  sbCorrect: document.getElementById("sbCorrect"),
-  sbWrong: document.getElementById("sbWrong"),
-  sbStreak: document.getElementById("sbStreak"),
-  sbNote: document.getElementById("sbNote"),
-};
+    /** =========================
+     *  (4) 발음(TTS)
+     *  ========================= */
+    let userInteracted = false;
+    let lastSpokenKey = "";
 
-function getKey() {
-  const range = dom.rangeSelect.value;
-  return `vocab_quiz_1451_1600_etymo_${range}_v1_pronounce_scoreboard`;
-}
-
-function defaultState(total) {
-  return {
-    idx: 0,
-    selected: Array(total).fill(null),
-    checked: Array(total).fill(false),
-    score: 0,
-    wrong: [],
-    order: [...Array(total).keys()],
-    answeredCount: 0,
-    correctCount: 0,
-    wrongCount: 0,
-    streak: 0,
-    bestStreak: 0
-  };
-}
-
-function normalizeLoadedState(s, total) {
-  const base = defaultState(total);
-  const out = { ...base, ...s };
-
-  if (!Array.isArray(out.selected) || out.selected.length !== total) out.selected = base.selected;
-  if (!Array.isArray(out.checked) || out.checked.length !== total) out.checked = base.checked;
-  if (!Array.isArray(out.order) || out.order.length !== total) out.order = base.order;
-  if (!Array.isArray(out.wrong)) out.wrong = [];
-  for (const k of ["idx","score","answeredCount","correctCount","wrongCount","streak","bestStreak"]) {
-    out[k] = Number.isFinite(out[k]) ? out[k] : base[k];
-  }
-  out.idx = Math.max(0, Math.min(total-1, out.idx));
-  return out;
-}
-
-let quiz = { entries: [], questions: [], state: null };
-
-function saveState() {
-  if (!dom.saveToggle.checked) return;
-  localStorage.setItem(getKey(), JSON.stringify(quiz.state));
-}
-
-function loadState(total) {
-  if (!dom.saveToggle.checked) return null;
-  try {
-    const raw = localStorage.getItem(getKey());
-    if (!raw) return null;
-    const s = JSON.parse(raw);
-    if (!s) return null;
-    return normalizeLoadedState(s, total);
-  } catch { return null; }
-}
-
-function filterByRange(rangeStr) {
-  const [a,b] = rangeStr.split("-").map(x => parseInt(x,10));
-  return ALL.filter(e => e.num >= a && e.num <= b);
-}
-
-function updateScoreboard() {
-  if (!quiz.state) {
-    dom.sbAnswered.textContent = "0";
-    dom.sbCorrect.textContent = "0";
-    dom.sbWrong.textContent = "0";
-    dom.sbStreak.textContent = "0";
-    dom.sbNote.textContent = "";
-    return;
-  }
-  const s = quiz.state;
-  dom.sbAnswered.textContent = String(s.answeredCount);
-  dom.sbCorrect.textContent = String(s.correctCount);
-  dom.sbWrong.textContent = String(s.wrongCount);
-  dom.sbStreak.textContent = String(s.streak);
-  dom.sbNote.textContent = `최고 연속 정답: ${s.bestStreak}회`;
-}
-
-/** =========================
- *  7) 렌더
- *  ========================= */
-function render() {
-  updateScoreboard();
-
-  if (!quiz.state) {
-    dom.qbox.innerHTML = `<div class="small muted">상단에서 범위를 선택하고 “퀴즈 시작/재시작”을 누르세요.</div>`;
-    dom.pillCount.textContent = `문항: 0`;
-    dom.pillProgress.textContent = `진행: 0/0`;
-    dom.pillScore.textContent = `점수: 0`;
-    dom.bar.style.width = "0%";
-    dom.btnPrev.disabled = true;
-    dom.btnNext.disabled = true;
-    dom.btnWrongOnly.disabled = true;
-    dom.summary.innerHTML = "";
-    return;
-  }
-
-  const total = quiz.questions.length;
-  const s = quiz.state;
-  const done = s.checked.filter(Boolean).length;
-
-  dom.pillCount.textContent = `문항: ${total}`;
-  dom.pillProgress.textContent = `진행: ${done}/${total}`;
-  dom.pillScore.textContent = `점수: ${s.score}`;
-  dom.bar.style.width = `${Math.round((done/total)*100)}%`;
-
-  dom.btnPrev.disabled = s.idx === 0;
-  dom.btnNext.disabled = s.idx === total - 1;
-
-  const qIndex = s.order[s.idx];
-  const q = quiz.questions[qIndex];
-
-  const chosen = s.selected[s.idx];
-  const checked = s.checked[s.idx];
-
-  dom.qbox.innerHTML = `
-    <div class="qhead">
-      <div class="qnum">Q${s.idx+1} / ${total} <span class="meta">(단어번호 ${q.num})</span></div>
-    </div>
-
-    <div class="qhead" style="margin-top:8px;">
-      <div class="word">${escapeHtml(q.word)}</div>
-      <button class="iconbtn" id="btnSpeak" title="미국식 발음 재생">🔊 발음 듣기</button>
-      <span class="mini muted">${"speechSynthesis" in window ? "US 발음(TTS)" : "이 브라우저는 발음 기능 미지원"}</span>
-    </div>
-
-    <div class="choices" id="choices"></div>
-    <div id="resultArea"></div>
-  `;
-
-  const btnSpeak = document.getElementById("btnSpeak");
-  btnSpeak.disabled = !("speechSynthesis" in window);
-  btnSpeak.addEventListener("click", () => {
-    userInteracted = true;
-    speakWord(q.word, {force:true});
-  });
-
-  const choicesEl = document.getElementById("choices");
-  q.options.forEach((text, idx0) => {
-    let cls = "choice";
-    if (chosen === idx0) cls += " selected";
-    if (checked) {
-      if (idx0 === q.correctIndex) cls += " correct";
-      else if (chosen === idx0 && chosen !== q.correctIndex) cls += " wrong";
+    function pickUSVoice(){
+      const voices = window.speechSynthesis ? window.speechSynthesis.getVoices() : [];
+      let v = voices.find(x => (x.lang||"").toLowerCase() === "en-us");
+      if (v) return v;
+      v = voices.find(x => (x.lang||"").toLowerCase().includes("en-us"));
+      if (v) return v;
+      v = voices.find(x => (x.lang||"").toLowerCase().startsWith("en"));
+      return v || null;
     }
-    const el = document.createElement("div");
-    el.className = cls;
-    el.innerHTML = `<div class="tag">${idx0+1}</div><div>${escapeHtml(text)}</div>`;
-    el.addEventListener("click", () => {
-      userInteracted = true;
-      if (s.checked[s.idx]) return;
-      s.selected[s.idx] = idx0;
-      checkAnswer();
-    });
-    choicesEl.appendChild(el);
-  });
+    function speakWord(word, {force=false} = {}){
+      if (!("speechSynthesis" in window) || !word) return;
+      try{
+        const key = `${word}`;
+        if (!force && key === lastSpokenKey) return;
+        window.speechSynthesis.cancel();
+        const u = new SpeechSynthesisUtterance(word);
+        u.lang = "en-US";
+        const v = pickUSVoice();
+        if (v) u.voice = v;
+        u.rate = 0.95;
+        u.pitch = 1.0;
+        u.volume = 1.0;
+        lastSpokenKey = key;
+        window.speechSynthesis.speak(u);
+      } catch {}
+    }
+    if ("speechSynthesis" in window){
+      window.speechSynthesis.onvoiceschanged = () => {};
+    }
 
-  const resultArea = document.getElementById("resultArea");
+    /** =========================
+     *  (5) 공용 유틸
+     *  ========================= */
+    function escapeHtml(s){
+      return String(s).replace(/[&<>"']/g, m => ({
+        "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"
+      }[m]));
+    }
+    function shuffle(arr){
+      for (let i=arr.length-1; i>0; i--){
+        const j = Math.floor(Math.random() * (i+1));
+        [arr[i], arr[j]] = [arr[j], arr[i]];
+      }
+      return arr;
+    }
+    function clamp(n, a, b){ return Math.max(a, Math.min(b, n)); }
 
-  if (checked) {
-    const ok = chosen === q.correctIndex;
+    /** =========================
+     *  (6) 단어장(Wordbook)
+     *  ========================= */
+    const wbList = document.getElementById("wbList");
+    const wbPillCount = document.getElementById("wbPillCount");
+    const wbPillRange = document.getElementById("wbPillRange");
+    const wbStart = document.getElementById("wbStart");
+    const wbEnd = document.getElementById("wbEnd");
+    const wbSearch = document.getElementById("wbSearch");
+    const wbApply = document.getElementById("wbApply");
+    const wbSortNum = document.getElementById("wbSortNum");
+    const wbSortWord = document.getElementById("wbSortWord");
+    const wbSortShuffle = document.getElementById("wbSortShuffle");
 
-    let etymoHtml = "";
-    if (!ok) {
-      const card = getEtymoCard(q.word, q.meaning);
-      const safeCard = (Array.isArray(card) && card.length)
-        ? card
-        : [
-            ["어원/구성(기본)", "이 단어는 ‘핵심 이미지’로 외우는 게 좋습니다."],
-            ["뜻이 만들어진 흐름(기본)", "이미지 → 문맥 → 뜻 연결 순서로 기억하세요."],
-            ["중2 암기 팁(기본)", "오늘은 ‘그림 1개’만 고정해도 오답이 줄어요."]
-          ];
+    let wbSortMode = "num"; // num | word | shuffle
 
-      etymoHtml = `
-        <div class="etymo">
-          <div class="title">오답 감소 해설 (어원/의미 생성/암기)</div>
-          <div class="small muted">
-            단어: <span class="kbd">${escapeHtml(q.word)}</span>
-            <span style="margin-left:8px;">(해설 항목: ${safeCard.length}개)</span>
+    function getFilteredData(start, end, q){
+      const a = Math.min(start, end);
+      const b = Math.max(start, end);
+      const query = String(q||"").trim().toLowerCase();
+      let list = VOCAB_DATA.filter(x => x.num >= a && x.num <= b);
+
+      if (query){
+        list = list.filter(x =>
+          String(x.num).includes(query) ||
+          x.word.toLowerCase().includes(query) ||
+          x.meaning.toLowerCase().includes(query)
+        );
+      }
+
+      if (wbSortMode === "num"){
+        list.sort((x,y)=>x.num-y.num);
+      } else if (wbSortMode === "word"){
+        list.sort((x,y)=>x.word.localeCompare(y.word));
+      } else {
+        list = shuffle([...list]);
+      }
+      return { list, a, b };
+    }
+
+    function renderWordbook(){
+      const s0 = clamp(parseInt(wbStart.value||"1451",10), 1451, 1700);
+      const e0 = clamp(parseInt(wbEnd.value||"1700",10), 1451, 1700);
+      wbStart.value = s0;
+      wbEnd.value = e0;
+
+      const { list, a, b } = getFilteredData(s0, e0, wbSearch.value);
+      wbPillCount.textContent = `단어: ${list.length}`;
+      wbPillRange.textContent = `범위: ${a}–${b}`;
+
+      wbList.innerHTML = "";
+      if (!list.length){
+        wbList.innerHTML = `<div class="small muted">조건에 맞는 단어가 없습니다.</div>`;
+        return;
+      }
+
+      for (const item of list){
+        const el = document.createElement("div");
+        el.className = "wb-item";
+        el.innerHTML = `
+          <div class="wb-line1">
+            <div style="display:flex; gap:10px; align-items:baseline; flex-wrap:wrap;">
+              <span class="wb-num">#${item.num}</span>
+              <span class="wb-word">${escapeHtml(item.word)}</span>
+            </div>
+            <div class="wb-actions">
+              <button class="chip" data-act="speak">🔊</button>
+              <button class="chip" data-act="copy">복사</button>
+            </div>
           </div>
-          <ul class="small">
-            ${safeCard.map(([k,v]) => `<li><b>${escapeHtml(k)}</b>: ${escapeHtml(v)}</li>`).join("")}
-          </ul>
-        </div>
-      `;
+          <div class="wb-mean">${escapeHtml(item.meaning)}</div>
+        `;
+        el.querySelector('[data-act="speak"]').addEventListener("click", () => {
+          userInteracted = true;
+          speakWord(item.word, {force:true});
+        });
+        el.querySelector('[data-act="copy"]').addEventListener("click", async () => {
+          userInteracted = true;
+          const text = `${item.num} / ${item.word} / ${item.meaning}`;
+          try{
+            await navigator.clipboard.writeText(text);
+            alert("복사 완료:\n" + text);
+          } catch {
+            alert("복사 실패(브라우저 권한). 수동으로 복사해 주세요:\n" + text);
+          }
+        });
+        wbList.appendChild(el);
+      }
     }
 
-    resultArea.innerHTML = `
-      <div class="result ${ok ? "good" : "bad"}">
-        <div><b>${ok ? "정답!" : "오답"}</b></div>
-        <div class="small">
-          정답: <b>${q.correctIndex+1}</b> (${escapeHtml(q.options[q.correctIndex])})<br/>
-          선택: <b>${chosen+1}</b> (${escapeHtml(q.options[chosen])})
-        </div>
-      </div>
-      ${etymoHtml}
-    `;
-  } else {
-    resultArea.innerHTML = `<div class="small muted" style="margin-top:10px;">보기(답안)를 누르면 바로 채점됩니다.</div>`;
-  }
+    wbApply.addEventListener("click", () => { userInteracted = true; renderWordbook(); });
+    wbSearch.addEventListener("keydown", (e) => { if (e.key === "Enter"){ userInteracted=true; renderWordbook(); }});
+    wbSortNum.addEventListener("click", () => { userInteracted=true; wbSortMode="num"; renderWordbook(); });
+    wbSortWord.addEventListener("click", () => { userInteracted=true; wbSortMode="word"; renderWordbook(); });
+    wbSortShuffle.addEventListener("click", () => { userInteracted=true; wbSortMode="shuffle"; renderWordbook(); });
 
-  if (done === total) renderSummary();
-  else dom.summary.innerHTML = "";
+    /** =========================
+     *  (7) 퀴즈(Quiz)
+     *  - 시작/끝 번호 직접 입력
+     *  - 문제 수량 선택(랜덤 추출)
+     *  - 자동 저장/오답만 다시
+     *  ========================= */
 
-  dom.btnWrongOnly.disabled = (done === 0);
+    const dom = {
+      pillCount: document.getElementById("pillCount"),
+      pillProgress: document.getElementById("pillProgress"),
+      pillScore: document.getElementById("pillScore"),
+      quizRangeInfo: document.getElementById("quizRangeInfo"),
+      bar: document.getElementById("bar"),
+      qbox: document.getElementById("qbox"),
+      summary: document.getElementById("summary"),
+      shuffleToggle: document.getElementById("shuffleToggle"),
+      saveToggle: document.getElementById("saveToggle"),
+      autoPronounceToggle: document.getElementById("autoPronounceToggle"),
+      btnStart: document.getElementById("btnStart"),
+      btnWrongOnly: document.getElementById("btnWrongOnly"),
+      btnReset: document.getElementById("btnReset"),
+      btnPrev: document.getElementById("btnPrev"),
+      btnNext: document.getElementById("btnNext"),
+      sbAnswered: document.getElementById("sbAnswered"),
+      sbCorrect: document.getElementById("sbCorrect"),
+      sbWrong: document.getElementById("sbWrong"),
+      sbStreak: document.getElementById("sbStreak"),
+      sbNote: document.getElementById("sbNote"),
+      startNum: document.getElementById("startNum"),
+      endNum: document.getElementById("endNum"),
+      questionCount: document.getElementById("questionCount"),
+    };
 
-  if (dom.autoPronounceToggle.checked && userInteracted) {
-    setTimeout(() => {
-      speakWord(q.word, {force:false});
-    }, 80);
-  }
-}
+    function getQuizKey(a,b,n){
+      // 범위 + 문제수까지 포함(다른 세팅끼리 저장 충돌 방지)
+      return `vocab_quiz_1451_1700_${a}_${b}_n${n}_v1`;
+    }
 
-function renderSummary() {
-  const total = quiz.questions.length;
-  const s = quiz.state;
-  const wrongOnly = s.wrong;
+    function defaultState(total){
+      return {
+        idx:0,
+        selected:Array(total).fill(null),
+        checked:Array(total).fill(false),
+        score:0,
+        wrong:[],
+        order:[...Array(total).keys()],
+        answeredCount:0,
+        correctCount:0,
+        wrongCount:0,
+        streak:0,
+        bestStreak:0
+      };
+    }
 
-  dom.summary.innerHTML = `
-    <div class="hr"></div>
-    <div class="row">
-      <div>
-        <div style="font-weight:1000; font-size:18px;">결과</div>
-        <div class="small">총점: <b>${s.score}</b> / ${total}</div>
-        <div class="small muted">완료: ${total}문항</div>
-      </div>
-      <div class="row">
-        <button class="btn secondary" id="btnGoFirst">첫 문제로</button>
-      </div>
-    </div>
+    function normalizeLoadedState(s, total){
+      const base = defaultState(total);
+      const out = { ...base, ...s };
 
-    <details ${wrongOnly.length ? "open" : ""}>
-      <summary>오답 노트 (${wrongOnly.length}개)</summary>
-      ${wrongOnly.length ? `
-      <table>
-        <thead>
-          <tr><th>Q</th><th>단어</th><th>내 선택</th><th>정답</th></tr>
-        </thead>
-        <tbody>
-          ${wrongOnly.map(w => `
-            <tr>
-              <td>${w.qNo}</td>
-              <td><b>${escapeHtml(w.word)}</b></td>
-              <td>${escapeHtml(w.chosenText)}</td>
-              <td>${escapeHtml(w.correctText)}</td>
-            </tr>
-          `).join("")}
-        </tbody>
-      </table>` : `<div class="small muted" style="margin-top:10px;">오답이 없습니다.</div>`}
-    </details>
-  `;
+      if (!Array.isArray(out.selected) || out.selected.length !== total) out.selected = base.selected;
+      if (!Array.isArray(out.checked) || out.checked.length !== total) out.checked = base.checked;
+      if (!Array.isArray(out.order) || out.order.length !== total) out.order = base.order;
+      if (!Array.isArray(out.wrong)) out.wrong = [];
+      for (const k of ["idx","score","answeredCount","correctCount","wrongCount","streak","bestStreak"]){
+        out[k] = Number.isFinite(out[k]) ? out[k] : base[k];
+      }
+      out.idx = Math.max(0, Math.min(total-1, out.idx));
+      return out;
+    }
 
-  document.getElementById("btnGoFirst").addEventListener("click", () => {
-    quiz.state.idx = 0;
-    saveState();
-    render();
-  });
-}
+    let quiz = { entries:[], questions:[], state:null, key:"" };
 
-function checkAnswer() {
-  const s = quiz.state;
-  const qIndex = s.order[s.idx];
-  const q = quiz.questions[qIndex];
+    function saveState(){
+      if (!dom.saveToggle.checked) return;
+      localStorage.setItem(quiz.key, JSON.stringify(quiz.state));
+    }
+    function loadState(total){
+      if (!dom.saveToggle.checked) return null;
+      try{
+        const raw = localStorage.getItem(quiz.key);
+        if (!raw) return null;
+        const s = JSON.parse(raw);
+        if (!s) return null;
+        return normalizeLoadedState(s, total);
+      } catch { return null; }
+    }
 
-  const chosen = s.selected[s.idx];
-  if (chosen === null || s.checked[s.idx]) return;
+    function buildQuestions(entries){
+      const meanings = entries.map(e => e.meaning);
+      function pickDistractors(correctMeaning, poolMeanings, count=3){
+        const len = correctMeaning.length;
+        const similar = poolMeanings.filter(m => m !== correctMeaning && Math.abs(m.length - len) <= 6);
+        const picked = new Set();
+        function takeFrom(arr){
+          const sh = shuffle([...arr]);
+          for (const x of sh){
+            if (picked.size >= count) break;
+            if (x === correctMeaning) continue;
+            picked.add(x);
+          }
+        }
+        takeFrom(similar);
+        if (picked.size < count) takeFrom(poolMeanings);
+        return [...picked].slice(0, count);
+      }
 
-  s.checked[s.idx] = true;
-  s.answeredCount += 1;
-
-  if (chosen === q.correctIndex) {
-    s.score += 1;
-    s.correctCount += 1;
-    s.streak += 1;
-    if (s.streak > s.bestStreak) s.bestStreak = s.streak;
-  } else {
-    s.wrongCount += 1;
-    s.streak = 0;
-
-    const qNo = s.idx + 1;
-    if (!s.wrong.some(x => x.qNo === qNo)) {
-      s.wrong.push({
-        qNo,
-        word: q.word,
-        chosenText: q.options[chosen],
-        correctText: q.options[q.correctIndex],
+      return entries.map(e => {
+        const correct = e.meaning;
+        const distractors = pickDistractors(correct, meanings, 3);
+        const options = shuffle([correct, ...distractors]);
+        const correctIndex = options.indexOf(correct);
+        return { num:e.num, word:e.word, meaning:e.meaning, options, correctIndex };
       });
     }
-  }
 
-  saveState();
-  render();
-}
+    function sampleEntriesInRange(a,b,count){
+      const minN = Math.min(a,b), maxN = Math.max(a,b);
+      const pool = VOCAB_DATA.filter(x => x.num >= minN && x.num <= maxN);
 
-function startQuiz({ wrongOnly=false } = {}) {
-  userInteracted = true;
-  lastSpokenKey = "";
+      if (!pool.length) return { picked:[], poolSize:0 };
 
-  const range = dom.rangeSelect.value;
-  const entries = filterByRange(range);
-  const questions = buildQuestions(entries);
-
-  const total = questions.length;
-  const baseState = defaultState(total);
-  if (dom.shuffleToggle.checked) baseState.order = shuffle(baseState.order);
-
-  const loaded = loadState(total);
-
-  quiz.entries = entries;
-  quiz.questions = questions;
-  quiz.state = loaded ?? baseState;
-
-  if (wrongOnly && loaded?.wrong?.length) {
-    const wrongWords = new Set(loaded.wrong.map(w => w.word.toLowerCase()));
-    const wrongEntries = entries.filter(e => wrongWords.has(e.word.toLowerCase()));
-    if (wrongEntries.length) {
-      quiz.entries = wrongEntries;
-      quiz.questions = buildQuestions(wrongEntries);
-      quiz.state = defaultState(quiz.questions.length);
-      if (dom.shuffleToggle.checked) quiz.state.order = shuffle(quiz.state.order);
+      const n = clamp(count, 1, pool.length);
+      const shuffled = shuffle([...pool]);
+      return { picked: shuffled.slice(0, n), poolSize: pool.length };
     }
-  }
 
-  saveState();
-  render();
-}
+    function updateScoreboard(){
+      if (!quiz.state){
+        dom.sbAnswered.textContent="0";
+        dom.sbCorrect.textContent="0";
+        dom.sbWrong.textContent="0";
+        dom.sbStreak.textContent="0";
+        dom.sbNote.textContent="";
+        return;
+      }
+      const s = quiz.state;
+      dom.sbAnswered.textContent = String(s.answeredCount);
+      dom.sbCorrect.textContent = String(s.correctCount);
+      dom.sbWrong.textContent = String(s.wrongCount);
+      dom.sbStreak.textContent = String(s.streak);
+      dom.sbNote.textContent = `최고 연속 정답: ${s.bestStreak}회`;
+    }
 
-/** ===== 유틸 ===== */
-function shuffle(arr) {
-  for (let i = arr.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [arr[i], arr[j]] = [arr[j], arr[i]];
-  }
-  return arr;
-}
-function escapeHtml(s) {
-  return String(s).replace(/[&<>"']/g, m => ({
-    "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"
-  }[m]));
-}
+    function render(){
+      updateScoreboard();
 
-/** ===== 이벤트 ===== */
-dom.btnStart.addEventListener("click", () => startQuiz({ wrongOnly:false }));
-dom.btnWrongOnly.addEventListener("click", () => startQuiz({ wrongOnly:true }));
+      if (!quiz.state){
+        dom.qbox.innerHTML = `<div class="small muted">상단에서 범위를 지정하고 “퀴즈 시작/재시작”을 누르세요.</div>`;
+        dom.pillCount.textContent = `문항: 0`;
+        dom.pillProgress.textContent = `진행: 0/0`;
+        dom.pillScore.textContent = `점수: 0`;
+        dom.bar.style.width = "0%";
+        dom.btnPrev.disabled = true;
+        dom.btnNext.disabled = true;
+        dom.btnWrongOnly.disabled = true;
+        dom.summary.innerHTML = "";
+        return;
+      }
 
-dom.btnReset.addEventListener("click", () => {
-  userInteracted = true;
-  if (!confirm("선택한 범위의 저장된 진행상황을 완전 초기화할까요?")) return;
-  localStorage.removeItem(getKey());
-  quiz.state = null;
-  lastSpokenKey = "";
-  render();
-});
+      const total = quiz.questions.length;
+      const s = quiz.state;
+      const done = s.checked.filter(Boolean).length;
 
-dom.btnPrev.addEventListener("click", () => {
-  userInteracted = true;
-  if (!quiz.state) return;
-  quiz.state.idx = Math.max(0, quiz.state.idx - 1);
-  saveState();
-  render();
-});
-dom.btnNext.addEventListener("click", () => {
-  userInteracted = true;
-  if (!quiz.state) return;
-  quiz.state.idx = Math.min(quiz.questions.length - 1, quiz.state.idx + 1);
-  saveState();
-  render();
-});
+      dom.pillCount.textContent = `문항: ${total}`;
+      dom.pillProgress.textContent = `진행: ${done}/${total}`;
+      dom.pillScore.textContent = `점수: ${s.score}`;
+      dom.bar.style.width = `${Math.round((done/total)*100)}%`;
 
-dom.rangeSelect.addEventListener("change", () => {
-  quiz.state = null;
-  lastSpokenKey = "";
-  render();
-});
+      dom.btnPrev.disabled = s.idx === 0;
+      dom.btnNext.disabled = s.idx === total - 1;
 
-dom.saveToggle.addEventListener("change", () => {
-  userInteracted = true;
-  if (!dom.saveToggle.checked) {
-    alert("자동 저장이 꺼졌습니다. 새로고침하면 진행상황이 유지되지 않을 수 있어요.");
-  }
-});
+      const qIndex = s.order[s.idx];
+      const q = quiz.questions[qIndex];
 
-dom.autoPronounceToggle.addEventListener("change", () => {
-  userInteracted = true;
-  if (dom.autoPronounceToggle.checked && quiz.state) {
-    const s = quiz.state;
-    const qIndex = s.order[s.idx];
-    const q = quiz.questions[qIndex];
-    speakWord(q.word, {force:true});
-  }
-});
+      const chosen = s.selected[s.idx];
+      const checked = s.checked[s.idx];
 
-render();
-</script>
+      dom.qbox.innerHTML = `
+        <div class="qhead">
+          <div class="qnum">Q${s.idx+1} / ${total} <span class="meta">(단어번호 ${q.num})</span></div>
+        </div>
+
+        <div class="qhead" style="margin-top:8px;">
+          <div class="word">${escapeHtml(q.word)}</div>
+          <button class="iconbtn" id="btnSpeak" title="미국식 발음 재생">🔊 발음 듣기</button>
+          <span class="mini muted">${"speechSynthesis" in window ? "US 발음(TTS)" : "이 브라우저는 발음 기능 미지원"}</span>
+        </div>
+
+        <div class="choices" id="choices"></div>
+        <div id="resultArea"></div>
+      `;
+
+      const btnSpeak = document.getElementById("btnSpeak");
+      btnSpeak.disabled = !("speechSynthesis" in window);
+      btnSpeak.addEventListener("click", () => {
+        userInteracted = true;
+        speakWord(q.word, {force:true});
+      });
+
+      const choicesEl = document.getElementById("choices");
+      q.options.forEach((text, idx0) => {
+        let cls = "choice";
+        if (chosen === idx0) cls += " selected";
+        if (checked){
+          if (idx0 === q.correctIndex) cls += " correct";
+          else if (chosen === idx0 && chosen !== q.correctIndex) cls += " wrong";
+        }
+        const el = document.createElement("div");
+        el.className = cls;
+        el.innerHTML = `<div class="tag">${idx0+1}</div><div>${escapeHtml(text)}</div>`;
+        el.addEventListener("click", () => {
+          userInteracted = true;
+          if (s.checked[s.idx]) return;
+          s.selected[s.idx] = idx0;
+          checkAnswer();
+        });
+        choicesEl.appendChild(el);
+      });
+
+      const resultArea = document.getElementById("resultArea");
+      if (checked){
+        const ok = chosen === q.correctIndex;
+        resultArea.innerHTML = `
+          <div class="result ${ok ? "good" : "bad"}">
+            <div><b>${ok ? "정답!" : "오답"}</b></div>
+            <div class="small">
+              정답: <b>${q.correctIndex+1}</b> (${escapeHtml(q.options[q.correctIndex])})<br/>
+              선택: <b>${chosen+1}</b> (${escapeHtml(q.options[chosen])})
+            </div>
+          </div>
+          ${!ok ? `<div class="mini muted" style="margin-top:8px;">오답 감소 팁: 단어 <span class="kbd">${escapeHtml(q.word)}</span> 는 (뜻) <b>${escapeHtml(q.meaning)}</b> 로 고정!</div>` : ``}
+        `;
+      } else {
+        resultArea.innerHTML = `<div class="small muted" style="margin-top:10px;">보기(답안)를 누르면 바로 채점됩니다.</div>`;
+      }
+
+      if (done === total) renderSummary();
+      else dom.summary.innerHTML = "";
+
+      dom.btnWrongOnly.disabled = (done === 0);
+
+      if (dom.autoPronounceToggle.checked && userInteracted){
+        setTimeout(() => speakWord(q.word, {force:false}), 80);
+      }
+    }
+
+    function renderSummary(){
+      const total = quiz.questions.length;
+      const s = quiz.state;
+      const wrongOnly = s.wrong;
+
+      dom.summary.innerHTML = `
+        <div class="hr"></div>
+        <div class="row">
+          <div>
+            <div style="font-weight:1000; font-size:18px;">결과</div>
+            <div class="small">총점: <b>${s.score}</b> / ${total}</div>
+            <div class="small muted">완료: ${total}문항</div>
+          </div>
+          <div class="row">
+            <button class="btn secondary" id="btnGoFirst">첫 문제로</button>
+          </div>
+        </div>
+
+        <details ${wrongOnly.length ? "open" : ""}>
+          <summary>오답 노트 (${wrongOnly.length}개)</summary>
+          ${wrongOnly.length ? `
+          <table>
+            <thead>
+              <tr><th>Q</th><th>단어</th><th>내 선택</th><th>정답</th></tr>
+            </thead>
+            <tbody>
+              ${wrongOnly.map(w => `
+                <tr>
+                  <td>${w.qNo}</td>
+                  <td><b>${escapeHtml(w.word)}</b></td>
+                  <td>${escapeHtml(w.chosenText)}</td>
+                  <td>${escapeHtml(w.correctText)}</td>
+                </tr>
+              `).join("")}
+            </tbody>
+          </table>` : `<div class="small muted" style="margin-top:10px;">오답이 없습니다.</div>`}
+        </details>
+      `;
+
+      document.getElementById("btnGoFirst").addEventListener("click", () => {
+        quiz.state.idx = 0;
+        saveState();
+        render();
+      });
+    }
+
+    function checkAnswer(){
+      const s = quiz.state;
+      const qIndex = s.order[s.idx];
+      const q = quiz.questions[qIndex];
+
+      const chosen = s.selected[s.idx];
+      if (chosen === null || s.checked[s.idx]) return;
+
+      s.checked[s.idx] = true;
+      s.answeredCount += 1;
+
+      if (chosen === q.correctIndex){
+        s.score += 1;
+        s.correctCount += 1;
+        s.streak += 1;
+        if (s.streak > s.bestStreak) s.bestStreak = s.streak;
+      } else {
+        s.wrongCount += 1;
+        s.streak = 0;
+        const qNo = s.idx + 1;
+        if (!s.wrong.some(x => x.qNo === qNo)){
+          s.wrong.push({
+            qNo,
+            word:q.word,
+            chosenText:q.options[chosen],
+            correctText:q.options[q.correctIndex]
+          });
+        }
+      }
+
+      saveState();
+      render();
+    }
+
+    function startQuiz({ wrongOnly=false } = {}){
+      userInteracted = true;
+      lastSpokenKey = "";
+
+      const a = clamp(parseInt(dom.startNum.value||"1451",10), 1451, 1700);
+      const b = clamp(parseInt(dom.endNum.value||"1700",10), 1451, 1700);
+      const nReq = Math.max(1, parseInt(dom.questionCount.value||"30",10) || 30);
+
+      dom.startNum.value = a;
+      dom.endNum.value = b;
+
+      const { picked, poolSize } = sampleEntriesInRange(a,b,nReq);
+
+      dom.quizRangeInfo.textContent = `현재 범위 내 단어: ${poolSize}개 / 출제: ${picked.length}개 (랜덤 추출)`;
+
+      const questions = buildQuestions(picked);
+      const total = questions.length;
+
+      quiz.entries = picked;
+      quiz.questions = questions;
+
+      quiz.key = getQuizKey(Math.min(a,b), Math.max(a,b), total);
+
+      const baseState = defaultState(total);
+      if (dom.shuffleToggle.checked) baseState.order = shuffle(baseState.order);
+
+      const loaded = loadState(total);
+      quiz.state = loaded ?? baseState;
+
+      if (wrongOnly && loaded?.wrong?.length){
+        const wrongWords = new Set(loaded.wrong.map(w => w.word.toLowerCase()));
+        const wrongEntries = picked.filter(e => wrongWords.has(e.word.toLowerCase()));
+        if (wrongEntries.length){
+          quiz.entries = wrongEntries;
+          quiz.questions = buildQuestions(wrongEntries);
+          quiz.state = defaultState(quiz.questions.length);
+          if (dom.shuffleToggle.checked) quiz.state.order = shuffle(quiz.state.order);
+          quiz.key = getQuizKey(Math.min(a,b), Math.max(a,b), quiz.questions.length) + "_wrongOnly";
+        }
+      }
+
+      saveState();
+      render();
+    }
+
+    /** =========================
+     *  (8) 이벤트 바인딩
+     *  ========================= */
+    document.getElementById("goWordbook").addEventListener("click", () => { userInteracted=true; showView("wordbook"); });
+    document.getElementById("goQuiz").addEventListener("click", () => { userInteracted=true; showView("quiz"); });
+
+    btnHome.addEventListener("click", () => { userInteracted=true; showView("home"); });
+
+    document.getElementById("themeSwitch").addEventListener("click", () => {
+      userInteracted = true;
+      const now = document.documentElement.getAttribute("data-theme") === "light" ? "light" : "dark";
+      setTheme(now === "light" ? "dark" : "light");
+    });
+
+    dom.btnStart.addEventListener("click", () => startQuiz({ wrongOnly:false }));
+    dom.btnWrongOnly.addEventListener("click", () => startQuiz({ wrongOnly:true }));
+
+    dom.btnReset.addEventListener("click", () => {
+      userInteracted = true;
+      if (!quiz.key){
+        alert("초기화할 저장 데이터가 아직 없습니다. 먼저 퀴즈를 시작하세요.");
+        return;
+      }
+      if (!confirm("현재 설정(범위/문제수)의 저장된 진행상황을 완전 초기화할까요?")) return;
+      localStorage.removeItem(quiz.key);
+      quiz.state = null;
+      lastSpokenKey = "";
+      render();
+    });
+
+    dom.btnPrev.addEventListener("click", () => {
+      userInteracted = true;
+      if (!quiz.state) return;
+      quiz.state.idx = Math.max(0, quiz.state.idx - 1);
+      saveState();
+      render();
+    });
+    dom.btnNext.addEventListener("click", () => {
+      userInteracted = true;
+      if (!quiz.state) return;
+      quiz.state.idx = Math.min(quiz.questions.length - 1, quiz.state.idx + 1);
+      saveState();
+      render();
+    });
+
+    dom.saveToggle.addEventListener("change", () => {
+      userInteracted = true;
+      if (!dom.saveToggle.checked){
+        alert("자동 저장이 꺼졌습니다. 새로고침하면 진행상황이 유지되지 않을 수 있어요.");
+      }
+    });
+
+    dom.autoPronounceToggle.addEventListener("change", () => {
+      userInteracted = true;
+      if (dom.autoPronounceToggle.checked && quiz.state){
+        const s = quiz.state;
+        const qIndex = s.order[s.idx];
+        const q = quiz.questions[qIndex];
+        speakWord(q.word, {force:true});
+      }
+    });
+
+    // 단어장/퀴즈 입력값 기본 범위 (DB 실제 존재 범위에 맞춰 자동 조정)
+    function initBounds(){
+      const nums = VOCAB_DATA.map(x=>x.num);
+      const minNum = nums.length ? Math.min(...nums) : 1451;
+      const maxNum = nums.length ? Math.max(...nums) : 1700;
+
+      // 단어장
+      wbStart.min = String(minNum);
+      wbStart.max = String(maxNum);
+      wbEnd.min = String(minNum);
+      wbEnd.max = String(maxNum);
+      wbStart.value = String(minNum);
+      wbEnd.value = String(maxNum);
+
+      // 퀴즈
+      dom.startNum.min = String(minNum);
+      dom.startNum.max = String(maxNum);
+      dom.endNum.min = String(minNum);
+      dom.endNum.max = String(maxNum);
+      dom.startNum.value = String(minNum);
+      dom.endNum.value = String(maxNum);
+
+      // 문제수 최대치(현재 DB 기준)
+      const total = VOCAB_DATA.filter(x => x.num >= minNum && x.num <= maxNum).length;
+      dom.questionCount.max = String(Math.max(1, total));
+
+      // 타이틀도 현재 DB 범위를 반영
+      document.getElementById("appTitle").textContent = `Vocabulary ${minNum}–${maxNum}`;
+      document.getElementById("appSubtitle").innerHTML =
+        `처음 페이지에서 <b>단어장</b> / <b>시험(퀴즈)</b>를 선택할 수 있습니다. (현재 DB: ${minNum}–${maxNum})`;
+    }
+
+    // 시작
+    initTheme();
+    initBounds();
+    showView("home"); // ✅ 처음 페이지에서 선택
+
+  </script>
 </body>
 </html>
