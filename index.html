@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>VOCA TEST (1451–1604)</title>
+  <title>Vocabulary 1451–1700 | 단어장 + 퀴즈</title>
 
   <style>
     :root{
@@ -183,11 +183,16 @@
     }
     [data-theme="light"] .dot::after{ left:18px; }
 
-    /* ✅ 타이머 경고 스타일(추가) */
-    .pill.timer-danger{
-      border-color: var(--bad);
-      box-shadow: 0 0 0 2px rgba(224,82,82,.18);
+    /* 오답 연상 그림 */
+    .mnemo{
+      margin-top:10px;
+      border:1px solid var(--choiceBorder);
+      border-radius:14px;
+      background:var(--choiceBg);
+      padding:12px;
     }
+    .mnemo .title{ font-weight:1000; margin-bottom:6px; }
+    .mnemo .svgwrap{ margin-top:8px; border:1px dashed var(--choiceBorder); border-radius:14px; padding:10px; background:transparent; }
   </style>
 </head>
 
@@ -216,7 +221,7 @@
         <div class="modegrid">
           <div class="modecard">
             <h2>📘 단어장 보기</h2>
-            <p>단어를 목록으로 확인하고, 발음 듣기, 복사 등을 할 수 있어요.</p>
+            <p>1451–1700 단어를 목록으로 확인하고, 검색/필터, 발음 듣기, 복사 등을 할 수 있어요.</p>
             <div style="margin-top:10px;">
               <button class="btn" id="goWordbook">단어장으로</button>
             </div>
@@ -273,8 +278,7 @@
             <div class="pill" id="pillCount">문항: 0</div>
             <div class="pill" id="pillProgress">진행: 0/0</div>
             <div class="pill" id="pillScore">점수: 0</div>
-            <!-- ✅ 타이머 pill (추가) -->
-            <div class="pill" id="pillTimer">시험시간: 10:00</div>
+            <div class="pill" id="pillTimer" title="전체 시험 제한시간">⏱ 10:00</div>
           </div>
           <div class="mini muted" id="quizRangeInfo"></div>
         </div>
@@ -306,7 +310,8 @@
         <!-- 스코어보드 -->
         <div class="scoreboard" id="scoreboard">
           <div style="font-weight:1000; font-size:16px;">스코어보드</div>
-          <div class="mini muted">총 응시/정답/오답, 연속 정답(스트릭)</div>
+          <!-- ✅ 요청: 이 문구 삭제 -->
+          <!-- <div class="mini muted">총 응시/정답/오답, 연속 정답(스트릭)</div> -->
           <div class="scoregrid">
             <div class="scoreitem">
               <div class="scorelabel">응시(채점 완료)</div>
@@ -341,11 +346,7 @@
   </div>
 
   <script id="DATA">
-    // ✅ DB: 1451–1700
-    // ⚠️ 현재 대화에서 사용자가 제공한 확정 데이터는 1451–1607까지입니다.
-    // 1608–1700을 여기에 같은 형식으로 추가하면 자동으로 전체가 반영됩니다.
-    // 형식: { num: 1608, word: "....", meaning: "...." }
-
+    // ✅ DB: 1451–1700 (사용자 제공 목록 반영)
     const VOCAB_DATA = [
       { num:1451, word:"impartial", meaning:"공정한, 편견이 없는" },
       { num:1452, word:"confederate", meaning:"공범, 공모자" },
@@ -504,7 +505,6 @@
       { num:1598, word:"respondent", meaning:"응답자" },
       { num:1599, word:"alleviate", meaning:"완화하다, 경감시키다" },
       { num:1600, word:"alienate", meaning:"멀리하다, 소원하게 하다" },
-
       { num:1601, word:"aristocrat", meaning:"귀족, 상류 계급의 사람" },
       { num:1602, word:"savage", meaning:"무참히 공격하다" },
       { num:1603, word:"summon", meaning:"소환하다, 소집하다, 호출하다" },
@@ -513,7 +513,103 @@
       { num:1606, word:"assert", meaning:"주장하다, 단언하다" },
       { num:1607, word:"forecast", meaning:"예측하다, 예보하다" },
 
-      // ====== 1608–1700을 여기에 같은 형식으로 추가하면 자동 반영됩니다 ======
+      { num:1608, word:"bankrupt", meaning:"파산한" },
+      { num:1609, word:"banquet", meaning:"연회" },
+      { num:1610, word:"scant", meaning:"부족한, 거의 없는" },
+      { num:1611, word:"bitterness", meaning:"신랄함, 쓰라림, 비통" },
+      { num:1612, word:"fuse", meaning:"융합시키다" },
+      { num:1613, word:"adapt", meaning:"맞추다, 적응하다" },
+      { num:1614, word:"willful", meaning:"계획적인, 고의의" },
+      { num:1615, word:"bureaucracy", meaning:"관료 제도, 관료 정치" },
+      { num:1616, word:"insurmountable", meaning:"극복할 수 없는" },
+      { num:1617, word:"inanimate", meaning:"무생물의" },
+      { num:1618, word:"layer", meaning:"층, 겹" },
+      { num:1619, word:"comply", meaning:"응하다, 따르다" },
+      { num:1620, word:"secular", meaning:"세속적인" },
+      { num:1621, word:"confess", meaning:"자백하다, 고백하다, 인정하다" },
+      { num:1622, word:"confide", meaning:"(비밀을) 털어놓다" },
+      { num:1623, word:"considerate", meaning:"사려 깊은, 배려하는" },
+      { num:1624, word:"discrepancy", meaning:"차이, 불일치" },
+      { num:1625, word:"daze", meaning:"멍하게 하다, 어리둥절하게 하다" },
+      { num:1626, word:"decency", meaning:"품위, 체면" },
+      { num:1627, word:"enclose", meaning:"동봉하다" },
+      { num:1628, word:"swap", meaning:"바꾸다, 교환하다" },
+      { num:1629, word:"cluster", meaning:"무리, 송이" },
+
+      { num:1630, word:"dart", meaning:"쏜살같이 움직이다" },
+      { num:1631, word:"empathic", meaning:"감정 이입의, 공감할 수 있는" },
+      { num:1632, word:"consolidate", meaning:"통합하다, 합병하다" },
+      { num:1633, word:"emerge", meaning:"나오다, 드러나다" },
+      { num:1634, word:"breakdown", meaning:"붕괴, 몰락, 쇠약" },
+      { num:1635, word:"brutal", meaning:"잔혹한, 무자비한, 거친" },
+      { num:1636, word:"buoyancy", meaning:"부력" },
+      { num:1637, word:"catalyst", meaning:"촉매제, 자극" },
+      { num:1638, word:"inquire", meaning:"묻다, 알아보다" },
+      { num:1639, word:"clap", meaning:"박수를 치다" },
+      { num:1640, word:"conspire", meaning:"협력하다, 함께 작용하다" },
+      { num:1641, word:"invigorate", meaning:"기운 나게 하다, 활기를 띠게 하다" },
+      { num:1642, word:"capture", meaning:"포착하다" },
+      { num:1643, word:"pseudo", meaning:"허위의, 가짜의" },
+      { num:1644, word:"confrontation", meaning:"직면, 대립" },
+      { num:1645, word:"contemplate", meaning:"생각하다, 고려하다" },
+      { num:1646, word:"ritual", meaning:"(종교) 의식" },
+      { num:1647, word:"discipline", meaning:"훈육하다, 단련하다" },
+      { num:1648, word:"delicate", meaning:"미묘한, 미세한" },
+      { num:1649, word:"contend", meaning:"주장하다, 논쟁하다" },
+      { num:1650, word:"blunt", meaning:"둔화시키다, 무디게 하다" },
+      { num:1651, word:"edible", meaning:"먹을 수 있는" },
+
+      { num:1652, word:"launch", meaning:"시작하다, 개시하다" },
+      { num:1653, word:"aural", meaning:"청각의" },
+      { num:1654, word:"drowsy", meaning:"졸리는" },
+      { num:1655, word:"draft", meaning:"원고, 초안" },
+      { num:1656, word:"allegory", meaning:"우화, 풍유(법)" },
+      { num:1657, word:"destined", meaning:"~할 운명인, 예정된" },
+      { num:1658, word:"notorious", meaning:"악명 높은, 소문난" },
+      { num:1659, word:"futile", meaning:"헛된, 쓸모없는" },
+      { num:1660, word:"assembly", meaning:"의회, 입법 기관" },
+      { num:1661, word:"dormant", meaning:"휴지 상태의, 잠자고 있는" },
+      { num:1662, word:"compel", meaning:"강요하다, 억지로 ~하게 하다" },
+      { num:1663, word:"geology", meaning:"지질학" },
+      { num:1664, word:"dubious", meaning:"의심하는, 미심쩍어하는" },
+      { num:1665, word:"fragment", meaning:"조각, 파편, 일부분" },
+      { num:1666, word:"real estate", meaning:"부동산, 토지" },
+      { num:1667, word:"derail", meaning:"탈선하다" },
+      { num:1668, word:"exceptional", meaning:"극히 드문, 예외적인" },
+      { num:1669, word:"credential", meaning:"자격증, 증명서" },
+      { num:1670, word:"deploy", meaning:"배치하다, 동원하다" },
+      { num:1671, word:"rummage", meaning:"뒤지다, 샅샅이 찾다" },
+      { num:1672, word:"groan", meaning:"불평하다, 투덜대다" },
+      { num:1673, word:"grumble", meaning:"투덜거리다, 불평하다" },
+
+      { num:1674, word:"deplete", meaning:"격감시키다, 고갈시키다" },
+      { num:1675, word:"excavate", meaning:"발굴하다, 출토하다" },
+      { num:1676, word:"grant", meaning:"주다, 수여하다" },
+      { num:1677, word:"envision", meaning:"마음속에 그리다, 구상하다" },
+      { num:1678, word:"evade", meaning:"피하다, 모면하다" },
+      { num:1679, word:"detract", meaning:"(가치를) 떨어뜨리다" },
+      { num:1680, word:"friction", meaning:"마찰, 마찰력" },
+      { num:1681, word:"vulnerable", meaning:"취약한, 연약한" },
+      { num:1682, word:"queue", meaning:"(사람·자동차의) 줄" },
+      { num:1683, word:"embrace", meaning:"껴안다, 포옹하다" },
+      { num:1684, word:"geographic", meaning:"지리(학)의, 지리적인" },
+      { num:1685, word:"glimpse", meaning:"힐끗 보다" },
+      { num:1686, word:"enchant", meaning:"매혹하다, 황홀하게 만들다" },
+      { num:1687, word:"refugee", meaning:"난민, 망명자" },
+      { num:1688, word:"frantic", meaning:"광분한, 제정신이 아닌" },
+      { num:1689, word:"flap", meaning:"덮개, 늘어진 부분" },
+      { num:1690, word:"tilt", meaning:"기울이다, 기울다" },
+      { num:1691, word:"entrust", meaning:"맡기다, 위임하다" },
+      { num:1692, word:"foreshadow", meaning:"전조가 되다, 조짐을 나타내다" },
+      { num:1693, word:"formulate", meaning:"(세심히) 만들어내다" },
+      { num:1694, word:"grumble", meaning:"투덜거리다, 불평하다" },
+
+      { num:1695, word:"syllable", meaning:"음절, 한마디" },
+      { num:1696, word:"symmetry", meaning:"대칭, 균형" },
+      { num:1697, word:"swear", meaning:"맹세하다, 단언하다" },
+      { num:1698, word:"improvise", meaning:"즉흥적으로 하다, 임시변통으로 만들다" },
+      { num:1699, word:"humiliate", meaning:"굴욕감을 주다" },
+      { num:1700, word:"illuminate", meaning:"비추다, 밝게 하다" },
     ];
   </script>
 
@@ -545,10 +641,7 @@
       viewWordbook.style.display = (which === "wordbook") ? "" : "none";
       viewQuiz.style.display = (which === "quiz") ? "" : "none";
       btnHome.style.display = (which === "home") ? "none" : "";
-
-      // ✅ 퀴즈 화면을 벗어나면 타이머 정지(추가)
       if (which !== "quiz") stopExamTimer();
-
       if (which === "quiz") render();
       if (which === "wordbook") renderWordbook();
     }
@@ -704,16 +797,12 @@
 
     /** =========================
      *  (7) 퀴즈(Quiz)
-     *  - 시작/끝 번호 직접 입력
-     *  - 문제 수량 선택(랜덤 추출)
-     *  - 자동 저장/오답만 다시
      *  ========================= */
-
     const dom = {
       pillCount: document.getElementById("pillCount"),
       pillProgress: document.getElementById("pillProgress"),
       pillScore: document.getElementById("pillScore"),
-      pillTimer: document.getElementById("pillTimer"), // ✅ 타이머 DOM (추가)
+      pillTimer: document.getElementById("pillTimer"),
       quizRangeInfo: document.getElementById("quizRangeInfo"),
       bar: document.getElementById("bar"),
       qbox: document.getElementById("qbox"),
@@ -752,13 +841,7 @@
         correctCount:0,
         wrongCount:0,
         streak:0,
-        bestStreak:0,
-
-        // ✅ 타이머 상태(추가)
-        examEnded:false,
-        endReason:"",
-        timeTotal:600, // 10분
-        timeLeft:600
+        bestStreak:0
       };
     }
 
@@ -770,15 +853,10 @@
       if (!Array.isArray(out.checked) || out.checked.length !== total) out.checked = base.checked;
       if (!Array.isArray(out.order) || out.order.length !== total) out.order = base.order;
       if (!Array.isArray(out.wrong)) out.wrong = [];
-      for (const k of ["idx","score","answeredCount","correctCount","wrongCount","streak","bestStreak","timeTotal","timeLeft"]){
+      for (const k of ["idx","score","answeredCount","correctCount","wrongCount","streak","bestStreak"]){
         out[k] = Number.isFinite(out[k]) ? out[k] : base[k];
       }
       out.idx = Math.max(0, Math.min(total-1, out.idx));
-      out.examEnded = !!out.examEnded;
-      out.endReason = String(out.endReason||"");
-      // 안전: timeLeft 범위
-      out.timeTotal = Math.max(1, out.timeTotal);
-      out.timeLeft = Math.max(0, Math.min(out.timeTotal, out.timeLeft));
       return out;
     }
 
@@ -856,132 +934,141 @@
     }
 
     /** =========================
-     *  ✅ (7-1) 타이머 기능(추가)
+     *  ✅ 전체 시험 타이머 (10분)
      *  ========================= */
-    const EXAM_SECONDS = 10 * 60; // 10분
-    let timerId = null;
-    let lastSavedAt = 0;
+    const EXAM_TOTAL_SECONDS = 10 * 60;
 
-    function formatTime(sec){
+    let examTimerId = null;
+    let examRemain = EXAM_TOTAL_SECONDS;
+    let examEnded = false;
+
+    function fmtTime(sec){
       const m = Math.floor(sec / 60);
       const s = sec % 60;
       return `${String(m).padStart(2,"0")}:${String(s).padStart(2,"0")}`;
     }
 
-    function stopExamTimer(){
-      if (timerId){
-        clearInterval(timerId);
-        timerId = null;
+    function updateTimerUI(){
+      if (!dom.pillTimer) return;
+      dom.pillTimer.textContent = `⏱ ${fmtTime(examRemain)}`;
+
+      if (examRemain <= 60) {
+        dom.pillTimer.style.borderColor = "var(--bad)";
+        dom.pillTimer.style.boxShadow = "0 0 0 2px rgba(224,82,82,.18)";
+      } else {
+        dom.pillTimer.style.borderColor = "";
+        dom.pillTimer.style.boxShadow = "";
       }
-      dom.pillTimer.classList.remove("timer-danger");
-      dom.pillTimer.textContent = `시험시간: ${formatTime(EXAM_SECONDS)}`;
     }
 
-    function renderTimerPill(){
-      if (!quiz.state){
-        dom.pillTimer.classList.remove("timer-danger");
-        dom.pillTimer.textContent = `시험시간: ${formatTime(EXAM_SECONDS)}`;
-        return;
-      }
-      const s = quiz.state;
-      dom.pillTimer.textContent = `시험시간: ${formatTime(s.timeLeft)}`;
-      if (s.timeLeft <= 60 && !s.examEnded){
-        dom.pillTimer.classList.add("timer-danger");
-      } else {
-        dom.pillTimer.classList.remove("timer-danger");
-      }
+    function stopExamTimer(){
+      if (examTimerId) clearInterval(examTimerId);
+      examTimerId = null;
     }
 
     function startExamTimer(){
-      if (!quiz.state) return;
-      // 이미 종료 상태면 타이머 시작 X
-      if (quiz.state.examEnded) { renderTimerPill(); return; }
+      stopExamTimer();
+      examEnded = false;
+      examRemain = EXAM_TOTAL_SECONDS;
+      updateTimerUI();
 
-      // 기존 타이머 정지 후 시작
-      if (timerId) clearInterval(timerId);
+      examTimerId = setInterval(() => {
+        if (examEnded) return;
+        examRemain = Math.max(0, examRemain - 1);
+        updateTimerUI();
 
-      lastSavedAt = Date.now();
-      timerId = setInterval(() => {
-        if (!quiz.state) return;
-        if (quiz.state.examEnded) { stopExamTimer(); return; }
-
-        quiz.state.timeLeft = Math.max(0, quiz.state.timeLeft - 1);
-        renderTimerPill();
-
-        // 1분 경고(딱 60초 남을 때 1회)
-        if (quiz.state.timeLeft === 300){
-          try{ alert("⏰ 5분 남았습니다!"); } catch {}
-        }
-        
-        // 1분 경고(딱 60초 남을 때 1회)
-        if (quiz.state.timeLeft === 60){
-          try{ alert("⏰ 1분 남았습니다!"); } catch {}
-        }
-
-        // 너무 잦은 저장 방지: 10초마다만 저장
-        const now = Date.now();
-        if (now - lastSavedAt >= 10_000){
-          saveState();
-          lastSavedAt = now;
-        }
-
-        // 0초 → 자동 종료
-        if (quiz.state.timeLeft <= 0){
-          finishExam("timeup");
+        if (examRemain <= 0) {
+          finishExamByTimeout();
         }
       }, 1000);
-
-      renderTimerPill();
     }
 
-    function finishExam(reason){
-      if (!quiz.state) return;
-      const s = quiz.state;
-      if (s.examEnded) return;
+    function finishExamByTimeout(){
+      if (!quiz.state || examEnded) return;
+      examEnded = true;
+      stopExamTimer();
+      render();
 
-      s.examEnded = true;
-      s.endReason = reason || "timeup";
-
-      // 타이머 정지
-      if (timerId){
-        clearInterval(timerId);
-        timerId = null;
-      }
-
-      // 미응답을 "채점 완료(오답)"로 처리
       const total = quiz.questions.length;
-      for (let i=0; i<total; i++){
-        if (!s.checked[i]){
-          s.checked[i] = true;
-          s.answeredCount += 1;
-          s.wrongCount += 1;
-          s.streak = 0;
+      const s = quiz.state;
+      const score100 = total ? Math.round((s.score / total) * 100) : 0;
 
-          const qIndex = s.order[i];
-          const q = quiz.questions[qIndex];
-          const qNo = i + 1;
+      alert(`시험이 종료되었습니다.\n100점 만점에 ${score100}점입니다.`);
 
-          if (!s.wrong.some(x => x.qNo === qNo)){
-            s.wrong.push({
-              qNo,
-              word: q.word,
-              chosenText: "(미응답)",
-              correctText: q.options[q.correctIndex]
-            });
-          }
-        }
+      dom.summary.innerHTML = `
+        <div class="hr"></div>
+        <div class="result bad">
+          <div><b>시험이 종료되었습니다.</b></div>
+          <div class="small">
+            100점 만점 환산: <b>${score100}점</b><br/>
+            원점수: <b>${s.score}</b> / ${total}
+          </div>
+        </div>
+      ` + dom.summary.innerHTML;
+    }
+
+    /** =========================
+     *  ✅ 오답: 간단 원리 + 연상 그림(SVG)
+     *  ========================= */
+    function mnemonicFor(word, meaning){
+      const w = String(word||"").toLowerCase();
+
+      const roots = [
+        { k:"pre", p:"pre- = '미리/이전' (pre + historic → 역사 이전)", icon:"⏳" },
+        { k:"sub", p:"sub- = '아래/밑' (sub + merge → 아래로 잠기다)", icon:"⬇️" },
+        { k:"inter", p:"inter- = '사이' (inter + ... → 사이/상호)", icon:"↔️" },
+        { k:"dis", p:"dis- = '흩어지게/반대로' (dis + seminate → 흩뿌리다)", icon:"💨" },
+        { k:"re", p:"re- = '다시' (re + build/construct → 다시 만들다)", icon:"🔁" },
+        { k:"in", p:"in-/im- = '부정/안' (in- + escapable → 피할 수 없는)", icon:"🚫" },
+        { k:"con", p:"con-/com- = '함께' (con + solidate → 함께 단단히, 통합)", icon:"🤝" },
+        { k:"de", p:"de- = '아래로/제거' (de + plete → 고갈시키다)", icon:"📉" },
+        { k:"en", p:"en- = '…하게 만들다' (en + chant → 매혹하게)", icon:"✨" },
+        { k:"over", p:"over- = '과도하게' (over + take/estimate)", icon:"📈" },
+        { k:"under", p:"under- = '부족하게' (under + estimate)", icon:"📉" },
+      ];
+
+      let principle = "";
+      for (const r of roots){
+        if (w.startsWith(r.k)) { principle = r.p; break; }
+      }
+      if (!principle) {
+        if (w.endsWith("tion") || w.endsWith("sion")) principle = "-tion/-sion = '명사화(행위/결과)'";
+        else if (w.endsWith("ive")) principle = "-ive = '…의/…하는'(형용사)";
+        else if (w.endsWith("ity")) principle = "-ity = '…함'(명사)";
+        else if (w.endsWith("ous")) principle = "-ous = '…한'(형용사)";
+        else if (w.endsWith("able") || w.endsWith("ible")) principle = "-able/-ible = '…할 수 있는'";
+        else principle = "핵심: 단어를 '장면(상황)'으로 고정하면 오래 갑니다.";
       }
 
-      saveState();
-      render();        // 화면 갱신 + 결과 표시
-      renderSummary(); // 종료 문구 포함 결과
-      // 안내
-      try{ alert("시험이 종료되었습니다."); } catch {}
+      const scene = `장면 연상: “${word}”를 ${meaning} 상황으로 한 컷으로 고정`;
+      const icon = (principle.includes("pre-") ? "⏳" :
+                    principle.includes("sub-") ? "⬇️" :
+                    principle.includes("re-") ? "🔁" :
+                    principle.includes("con-") || principle.includes("com-") ? "🤝" :
+                    principle.includes("over-") ? "📈" :
+                    principle.includes("under-") ? "📉" :
+                    "💡");
+
+      const svg = `
+        <svg viewBox="0 0 520 180" width="100%" height="180" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="mnemonic">
+          <rect x="10" y="10" width="500" height="160" rx="18" ry="18" fill="none" stroke="currentColor" opacity=".35" />
+          <text x="28" y="48" font-size="22" fill="currentColor" font-weight="900">${escapeHtml(icon)} ${escapeHtml(word)}</text>
+          <text x="28" y="78" font-size="15" fill="currentColor" opacity=".85">${escapeHtml(meaning)}</text>
+
+          <rect x="28" y="96" width="464" height="56" rx="14" fill="none" stroke="currentColor" opacity=".22"/>
+          <text x="44" y="122" font-size="13" fill="currentColor" opacity=".85">그림으로 기억하기:</text>
+          <text x="44" y="144" font-size="15" fill="currentColor" font-weight="700">${escapeHtml(scene)}</text>
+        </svg>
+      `;
+
+      return { principle, svg };
     }
+
+    let quiz = { entries:[], questions:[], state:null, key:"" };
 
     function render(){
       updateScoreboard();
-      renderTimerPill();
+      updateTimerUI();
 
       if (!quiz.state){
         dom.qbox.innerHTML = `<div class="small muted">상단에서 범위를 지정하고 “퀴즈 시작/재시작”을 누르세요.</div>`;
@@ -1049,10 +1136,7 @@
         el.innerHTML = `<div class="tag">${idx0+1}</div><div>${escapeHtml(text)}</div>`;
         el.addEventListener("click", () => {
           userInteracted = true;
-
-          // ✅ 시험 종료 상태면 선택 금지(추가)
-          if (s.examEnded) return;
-
+          if (examEnded) return;
           if (s.checked[s.idx]) return;
           s.selected[s.idx] = idx0;
           checkAnswer();
@@ -1063,16 +1147,28 @@
       const resultArea = document.getElementById("resultArea");
       if (checked){
         const ok = chosen === q.correctIndex;
-        resultArea.innerHTML = `
-          <div class="result ${ok ? "good" : "bad"}">
-            <div><b>${ok ? "정답!" : "오답"}</b></div>
-            <div class="small">
-              정답: <b>${q.correctIndex+1}</b> (${escapeHtml(q.options[q.correctIndex])})<br/>
-              선택: <b>${chosen !== null ? chosen+1 : "-"}</b> (${chosen !== null ? escapeHtml(q.options[chosen]) : "(미응답)"})
+
+        if (ok){
+          resultArea.innerHTML = `<div class="mini muted" style="margin-top:10px;">정답 처리됨 → 다음 문제로 이동합니다.</div>`;
+        } else {
+          const mn = mnemonicFor(q.word, q.meaning);
+          resultArea.innerHTML = `
+            <div class="result bad">
+              <div><b>오답</b></div>
+              <div class="small">
+                정답: <b>${q.correctIndex+1}</b> (${escapeHtml(q.options[q.correctIndex])})<br/>
+                선택: <b>${chosen+1}</b> (${escapeHtml(q.options[chosen])})
+              </div>
             </div>
-          </div>
-          ${!ok ? `<div class="mini muted" style="margin-top:8px;">오답 감소 팁: 단어 <span class="kbd">${escapeHtml(q.word)}</span> 는 (뜻) <b>${escapeHtml(q.meaning)}</b> 로 고정!</div>` : ``}
-        `;
+
+            <div class="mnemo">
+              <div class="title">오답 기억 장치</div>
+              <div class="small"><b>원리(짧게):</b> ${escapeHtml(mn.principle)}</div>
+              <div class="small" style="margin-top:6px;"><b>한 줄 고정:</b> <span class="kbd">${escapeHtml(q.word)}</span> = <b>${escapeHtml(q.meaning)}</b></div>
+              <div class="svgwrap">${mn.svg}</div>
+            </div>
+          `;
+        }
       } else {
         resultArea.innerHTML = `<div class="small muted" style="margin-top:10px;">보기(답안)를 누르면 바로 채점됩니다.</div>`;
       }
@@ -1092,21 +1188,12 @@
       const s = quiz.state;
       const wrongOnly = s.wrong;
 
-      const score100 = total ? Math.round((s.score / total) * 100) : 0;
-      const endBanner = s.examEnded
-        ? `<div class="result bad" style="margin-top:0;">
-             <div><b>시험이 종료되었습니다</b></div>
-             <div class="small">100점 만점에 <b>${score100}점</b> 입니다. (정답 ${s.score}/${total})</div>
-           </div>`
-        : "";
-
       dom.summary.innerHTML = `
         <div class="hr"></div>
-        ${endBanner}
-        <div class="row" style="margin-top:12px;">
+        <div class="row">
           <div>
             <div style="font-weight:1000; font-size:18px;">결과</div>
-            <div class="small">총점: <b>${s.score}</b> / ${total} (100점 환산: <b>${score100}점</b>)</div>
+            <div class="small">총점: <b>${s.score}</b> / ${total}</div>
             <div class="small muted">완료: ${total}문항</div>
           </div>
           <div class="row">
@@ -1136,6 +1223,7 @@
       `;
 
       document.getElementById("btnGoFirst").addEventListener("click", () => {
+        if (examEnded) return;
         quiz.state.idx = 0;
         saveState();
         render();
@@ -1143,20 +1231,22 @@
     }
 
     function checkAnswer(){
+      if (examEnded) return;
+
       const s = quiz.state;
+      const total = quiz.questions.length;
       const qIndex = s.order[s.idx];
       const q = quiz.questions[qIndex];
 
       const chosen = s.selected[s.idx];
       if (chosen === null || s.checked[s.idx]) return;
 
-      // ✅ 시험 종료 상태면 채점 불가(추가)
-      if (s.examEnded) return;
-
       s.checked[s.idx] = true;
       s.answeredCount += 1;
 
-      if (chosen === q.correctIndex){
+      const isCorrect = (chosen === q.correctIndex);
+
+      if (isCorrect){
         s.score += 1;
         s.correctCount += 1;
         s.streak += 1;
@@ -1177,6 +1267,22 @@
 
       saveState();
       render();
+
+      // ✅ 요청: 정답이면 바로 다음 페이지로 이동
+      if (isCorrect){
+        setTimeout(() => {
+          if (!quiz.state) return;
+          if (examEnded) return;
+          if (s.idx < total - 1){
+            s.idx += 1;
+            saveState();
+            render();
+          } else {
+            // 마지막 문제 정답이면 요약 표시
+            render();
+          }
+        }, 180);
+      }
     }
 
     function startQuiz({ wrongOnly=false } = {}){
@@ -1191,7 +1297,6 @@
       dom.endNum.value = b;
 
       const { picked, poolSize } = sampleEntriesInRange(a,b,nReq);
-
       dom.quizRangeInfo.textContent = `현재 범위 내 단어: ${poolSize}개 / 출제: ${picked.length}개 (랜덤 추출)`;
 
       const questions = buildQuestions(picked);
@@ -1206,26 +1311,7 @@
       if (dom.shuffleToggle.checked) baseState.order = shuffle(baseState.order);
 
       const loaded = loadState(total);
-
-      // ✅ 새로 시작할 때는 항상 10분 리셋(추가)
-      // (단, 저장본을 불러오는 경우: 남은 시간도 이어서)
       quiz.state = loaded ?? baseState;
-
-      // 저장본이 없으면 10분 세팅
-      if (!loaded){
-        quiz.state.timeTotal = EXAM_SECONDS;
-        quiz.state.timeLeft = EXAM_SECONDS;
-      } else {
-        // 저장본이 있어도 혹시 시간이 비정상일 때 보정
-        quiz.state.timeTotal = EXAM_SECONDS;
-        quiz.state.timeLeft = clamp(quiz.state.timeLeft, 0, EXAM_SECONDS);
-      }
-
-      // 새 시작 버튼을 누른 경우엔 "종료 상태" 해제 + 10분 재시작
-      // (사용자가 명시적으로 재시작했으므로)
-      quiz.state.examEnded = false;
-      quiz.state.endReason = "";
-      quiz.state.timeLeft = EXAM_SECONDS;
 
       if (wrongOnly && loaded?.wrong?.length){
         const wrongWords = new Set(loaded.wrong.map(w => w.word.toLowerCase()));
@@ -1236,19 +1322,11 @@
           quiz.state = defaultState(quiz.questions.length);
           if (dom.shuffleToggle.checked) quiz.state.order = shuffle(quiz.state.order);
           quiz.key = getQuizKey(Math.min(a,b), Math.max(a,b), quiz.questions.length) + "_wrongOnly";
-
-          // 오답만 다시도 10분
-          quiz.state.timeTotal = EXAM_SECONDS;
-          quiz.state.timeLeft = EXAM_SECONDS;
-          quiz.state.examEnded = false;
-          quiz.state.endReason = "";
         }
       }
 
       saveState();
       render();
-
-      // ✅ 타이머 시작(추가)
       startExamTimer();
     }
 
@@ -1279,16 +1357,17 @@
       localStorage.removeItem(quiz.key);
       quiz.state = null;
       lastSpokenKey = "";
-
-      // ✅ 타이머 정지(추가)
+      examEnded = false;
       stopExamTimer();
-
+      examRemain = EXAM_TOTAL_SECONDS;
+      updateTimerUI();
       render();
     });
 
     dom.btnPrev.addEventListener("click", () => {
       userInteracted = true;
       if (!quiz.state) return;
+      if (examEnded) return;
       quiz.state.idx = Math.max(0, quiz.state.idx - 1);
       saveState();
       render();
@@ -1296,6 +1375,7 @@
     dom.btnNext.addEventListener("click", () => {
       userInteracted = true;
       if (!quiz.state) return;
+      if (examEnded) return;
       quiz.state.idx = Math.min(quiz.questions.length - 1, quiz.state.idx + 1);
       saveState();
       render();
@@ -1318,11 +1398,10 @@
       }
     });
 
-    // 단어장/퀴즈 입력값 기본 범위 (DB 실제 존재 범위에 맞춰 자동 조정)
+    // ✅ 요청: 범위는 1451~1700 고정
     function initBounds(){
-      const nums = VOCAB_DATA.map(x=>x.num);
-      const minNum = nums.length ? Math.min(...nums) : 1451;
-      const maxNum = nums.length ? Math.max(...nums) : 1700;
+      const minNum = 1451;
+      const maxNum = 1700;
 
       // 단어장
       wbStart.min = String(minNum);
@@ -1344,20 +1423,16 @@
       const total = VOCAB_DATA.filter(x => x.num >= minNum && x.num <= maxNum).length;
       dom.questionCount.max = String(Math.max(1, total));
 
-      // 타이틀도 현재 DB 범위를 반영
       document.getElementById("appTitle").textContent = `Vocabulary ${minNum}–${maxNum}`;
       document.getElementById("appSubtitle").innerHTML =
         `처음 페이지에서 <b>단어장</b> / <b>시험(퀴즈)</b>를 선택할 수 있습니다. (현재 DB: ${minNum}–${maxNum})`;
-
-      // ✅ 타이머 초기 표시(추가)
-      dom.pillTimer.textContent = `시험시간: ${formatTime(EXAM_SECONDS)}`;
     }
 
     // 시작
     initTheme();
     initBounds();
+    updateTimerUI();
     showView("home");
   </script>
 </body>
 </html>
-
