@@ -271,7 +271,7 @@
 <body>
   <div class="wrap">
     <div class="topbar">
-      <div class="title">단어 시험</div>
+      <div class="title">단어 시험 이얼쌤 올라프 닮아써용 ⛄ </div>
       <div class="pill">
         ⏱️ <span id="timer">00:00</span>
         <span style="opacity:.5">|</span>
@@ -391,214 +391,13 @@
    - 중복 번호는 '처음 나온 것'을 사용
 ========================= */
 const RAW_WORDS = `
-1451 / impartial / 공정한, 편견이 없는
-1452 / confederate / 공범, 공모자
-1453 / legislation / 법률(제정)
-1454 / inscription / 새기기, 명각
-1455 / versatile / 다재다능한, 다용도의
-1456 / limp / 기운이 없는, 축 처진
-1457 / intrinsic / 고유한, 본질적인
-1458 / limb / 팔, 다리, (새의) 날개
-1459 / prehistoric / 선사 시대의
-1460 / rush / 서두르다
-1461 / stale / 진부한, 신선하지 않은
-1462 / gratitude / 감사, 고마움
-1463 / garment / 의복, 옷
-1464 / reproach / 비난하다, 나무라다
-1465 / handicap / 불리하게 만들다, 방해하다
-1466 / spiny / 가시가 많은
-1467 / suspicion / 의심, 불신, 혐의
-1468 / spawn / (알을) 낳다, 생산하다
-1469 / sedentary / 한곳에 머물러 사는, 정착하고 있는
-1470 / humble / 겸손한
-1471 / incur / (나쁜 상황을) 초래하다, (손해·빚을) 발생시키다
-1472 / indulge / (욕구·쾌락에) 빠지다, 탐닉하다
-1473 / thaw / 녹다, 해동시키다
-1474 / inspection / 사찰, 점검, 정밀조사
-1475 / invert / 뒤집다, 도치시키다
-1476 / leftover / (주로 복수로) 남은 음식
-1477 / liken / ~에 비유하다
-1478 / disseminate / (정보·사상 등을) 퍼뜨리다, 전파하다
-1479 / linger / 남아 있다, 오래 끌다
-1480 / circumstance / 상황, 환경
-1481 / martial / 싸움의, 전쟁의
-1482 / sorrowful / 슬픈
-1483 / peninsula / 반도
-1484 / monk / 수도자, 수도승
-1485 / maternal / 어머니의, 모성의
-1486 / minister / 성직자, 목사
-1487 / monetary / 통화[화폐]의, 금전의
-1488 / nostalgia / 향수(병)
-1489 / oblige / 의무적으로 ~하게 하다, 강요하다
-1490 / vocational / 직업과 관련된, 직무상의
-1491 / contestant / (대회·시합의) 참가자
-1492 / subside / 가라앉다, 진정되다
-1493 / stiffen / 뻣뻣해지다, 경직되다
-1494 / onward / 앞으로, 나아가서
-1495 / outlaw / 불법화하다, 금하다
-1496 / outset / 착수, 시초, 발단
-1497 / overturn / 뒤집(히)다
-1498 / ramification / 파문, 영향
-1499 / pathway / 좁은 길, 통로
-1500 / pierce / 뚫다, 관통하다
-1501 / nutrient / 영양소, 영양분
-1502 / lodge / 오두막, 산장
-1503 / loom / 어렴풋이 나타나다, 곧 닥칠 것처럼 보이다
-1504 / mainstream / (사상 등의) 주류, 대세
-1505 / manuscript / (책·악보 등의) 원고, 사본
-1506 / erupt / (화산이) 분출하다, 폭발하다
-1507 / mighty / 강력한, 힘센
-1508 / hull / 선체
-1509 / muddy / 진흙투성이인
-1510 / nuisance / 성가신 사람[일], 골칫거리
-1511 / splendid / 훌륭한, 멋진
-1512 / strife / 갈등, 불화, 다툼
-1513 / stature / 위상, 수준
-1514 / adversity / 역경, 고난
-1515 / spacious / 넓은
-1516 / unconsciously / 무의식적으로
-1517 / authoritative / 권위 있는
-1518 / actualize / 현실로 만들다, 실현하다
-1519 / console / 위로하다
-1520 / drag / 끌다, 끌고 가다
-1521 / authentic / 진정한, 진짜의
-1522 / mammal / 포유동물
-1523 / plunge / 돌입하다
-1524 / gigantic / 거대한
-1525 / predominate / 우세하다, 지배하다
-1526 / rust / 녹이 슬다, 부식하다[시키다]
-1527 / recede / 물러나다, 약해지다
-1528 / reprimand / 질책하다
-1529 / rhetorical / 수사적인, 웅변적인
-1530 / riddle / 구멍을 숭숭 뚫다, 벌집같이 만들다
-1531 / generalization / 일반화
-1532 / scramble / 기어 오르다
-1533 / speculate / 추측[짐작]하다
-1534 / stalk / (식물의) 줄기
-1535 / stroll / 산책하다, 거닐다
-1536 / stumble / 우연히 발견하다
-1537 / outrun / 더 빨리[멀리] 달리다
-1538 / squeeze / 짜다
-1539 / dumb / 멍청한
-1540 / stifle / 억누르다, 억압하다
-1541 / inescapable / 피할 수 없는
-1542 / supervision / 감독, 관리, 지휘
-1543 / synthetic / 합성한, 인조의
-1544 / peer / 응시하다, 유심히 보다
-1545 / reconstruct / 재구성[재현]하다
-1546 / enroll / 등록하다
-1547 / utilize / 활용[이용]하다
-1548 / dignity / 위엄, 품위, 존엄(성)
-1549 / slay / 죽이다
-1550 / presuppose / 상정하다, 전제로 하다
-1551 / examine / 검사[조사]하다
-1552 / saturate / 포화시키다, 포화 상태를 만들다
-1553 / generate / 발생시키다, 초래하다
-1554 / sprout / 싹이 나다
-1555 / offend / 기분을 상하게 하다
-1556 / infancy / 유아기
-1557 / stink / 악취를 풍기다, 냄새가 나다
-1558 / withdraw / 취소[철회]하다
-1559 / paddle / 노를 젓다, 첨벙거리다
-1560 / propose / (계획·생각을) 제안[제시]하다
-1561 / submerge / 물속에 넣다[잠기다]
-1562 / overtake / 추월하다, 능가하다
-1563 / expose / 드러내다, 노출시키다
-1564 / tariff / 관세
-1565 / utterly / 완전히, 순전히, 전혀
-1566 / underestimate / 너무 적게 잡다, 과소평가하다
-1567 / undue / 지나친, 과도한
-1568 / carve / 조각하다, 새기다
-1569 / descendant / 자손, 후예
-1570 / vein / 정맥, 혈관
-1571 / informative / 유익한, 교육적인
-1572 / predator / 포식자
-1573 / withhold / (~을) 주지 않다, 보류하다
-1574 / install / 설치하다, 장착하다
-1575 / absurd / 불합리한
-1576 / archaeology / 고고학
-1577 / apparatus / (신체의) 기관
-1578 / acclaim / 환호, 갈채
-1579 / herald / 알리다, 발표하다
-1580 / succumb / 굴복하다, (병 등으로) 쓰러지다
-1581 / stack / 쌓다, 쌓이다
-1582 / hostage / 인질
-1583 / thrift / 절약, 검약
-1584 / anonymous / 익명인, 신원 불명의
-1585 / landfill / 쓰레기 매립(지)
-1586 / astound / 경악시키다, 큰 충격을 주다
-1587 / uphold / (법·원칙 등을) 유지하다, 옹호하다
-1588 / terrain / 지형, 지역
-1589 / thermal / 열의, 뜨거운
-1590 / thrust / (거칠게) 밀치다, 찌르다
-1591 / vegetation / 초목, 식물
-1592 / passionate / 열정적인, 열렬한
-1593 / anthropology / 인류학
-1594 / aboriginal / (특히 오스트레일리아의) 원주민의
-1595 / abide / (규칙을) 지키다
-1596 / sediment / 침전[퇴적]물, 앙금
-1597 / magnify / 확대하다, 증대하다
-1598 / respondent / 응답자
-1599 / alleviate / 완화하다, 경감시키다
-1600 / alienate / 멀리하다, 소원하게 하다
-1601 / aristocrat / 귀족, 상류 계급의 사람
-1602 / savage / 무참히 공격하다
-1603 / summon / 소환하다, 소집하다, 호출하다
-1604 / empathy / 공감, 감정이입
-1605 / unearth / 밝혀내다, 찾다
-1606 / assert / 주장하다, 단언하다
-1607 / forecast / 예측하다, 예보하다
-1608 / bankrupt / 파산한
-1609 / banquet / 연회
-1610 / scant / 부족한, 거의 없는
-1611 / bitterness / 신랄함, 쓰라림, 비통
-1612 / fuse / 융합시키다
-1613 / adapt / 맞추다, 적응하다
-1614 / willful / 계획적인, 고의의
-1615 / bureaucracy / 관료 제도, 관료 정치
-1616 / insurmountable / 극복할 수 없는
-1617 / inanimate / 무생물의
-1618 / layer / 층, 겹
-1619 / comply / 응하다, 따르다
-1620 / secular / 세속적인
-1621 / confess / 자백하다, 고백하다, 인정하다
-1622 / confide / (비밀을) 털어놓다
-1623 / considerate / 사려 깊은, 배려하는
-1624 / discrepancy / 차이, 불일치
-1625 / daze / 멍하게 하다, 어리둥절하게 하다
-1626 / decency / 품위, 체면
-1627 / enclose / 동봉하다
-1628 / swap / 바꾸다, 교환하다
-1629 / cluster / 무리, 송이
-1630 / dart / 쏜살같이 움직이다
-1631 / empathic / 감정 이입의, 공감할 수 있는
-1632 / consolidate / 통합하다, 합병하다
-1633 / emerge / 나오다, 드러나다
-1634 / breakdown / 붕괴, 몰락, 쇠약
-1635 / brutal / 잔혹한, 무자비한, 거친
-1636 / buoyancy / 부력
-1637 / catalyst / 촉매제, 자극
-1638 / inquire / 묻다, 알아보다
-1639 / clap / 박수를 치다
-1640 / conspire / 협력하다, 함께 작용하다
-1641 / invigorate / 기운 나게 하다, 활기를 띠게 하다
-1642 / capture / 포착하다
-1643 / pseudo / 허위의, 가짜의
-1644 / confrontation / 직면, 대립
-1645 / contemplate / 생각하다, 고려하다
-1646 / ritual / (종교) 의식
-1647 / discipline / 훈육하다, 단련하다
-1648 / delicate / 미묘한, 미세한
-1649 / contend / 주장하다, 논쟁하다
-1650 / blunt / 둔화시키다, 무디게 하다
-1651 / edible / 먹을 수 있는
-
 1695 / syllable / 음절, 한마디
 1696 / symmetry / 대칭, 균형
 1697 / swear / 맹세하다, 단언하다
 1698 / improvise / 즉흥적으로 하다, 임시변통으로 만들다
 1699 / humiliate / 굴욕감을 주다
 1700 / illuminate / 비추다, 밝게 하다
+
 1701 / hub / 중심지, 중추
 1702 / indefinitely / 무기한으로, 무한히
 1703 / nasty / 비열한, 심술궂은
@@ -613,6 +412,7 @@ const RAW_WORDS = `
 1712 / infrared / 적외선의
 1713 / midst / 중앙, 한가운데
 1714 / avail / 이익, 효용, 효력
+
 1715 / receptive / (제안·생각 등을) 잘 받아들이는, 수용적인
 1716 / ascend / 오르다, 올라가다
 1717 / handy / 편리한, 유용한, 다루기 쉬운
@@ -654,6 +454,7 @@ const RAW_WORDS = `
 1753 / posture / 자세, 태도
 1754 / pragmatic / 실용적인
 1755 / morale / 사기, 의욕
+
 1756 / mutter / 중얼거리다, 불평하다
 1757 / pedestrian / 보행자
 1758 / tersely / 간결하게
@@ -675,7 +476,1058 @@ const RAW_WORDS = `
 1774 / sag / 축 처지다
 1775 / horizon / 수평선, 지평선
 1776 / prescribe / 처방하다
-
+1777 / priest / 성직자
+1778 / stain / 얼룩지게 하다, 더럽히다
+1779 / dim / 어둑한, 흐릿한
+1780 / patent / 특허(권)
+1781 / reconciliation / 화해, 중재
+1782 / pitch / 음조, 음의 높이
+1783 / clarify / 명확하게 하다
+1784 / outbreak / (전쟁, 사고 등의) 발발, 발생
+1785 / trot / 빨리 걷다, 종종걸음치다
+1786 / wreck / 망가뜨리다, 파괴하다
+1787 / degradation / 좌천, 하락, 강등
+1788 / component / 구성 요소, 성분
+1789 / deduce / 추론하다, 연역하다
+1790 / channel / 보내다, 나르다
+1791 / relinquish / 포기하다, 내주다
+1792 / roar / 으르렁거리다, 굉음을 내다
+1793 / sack / 부대, 자루
+1794 / insurance / 보호, 예방 수단
+1795 / edify / 교화시키다
+1796 / slam / 쾅 닫다, 쾅 닫히다
+1797 / shrug / (어깨를) 으쓱하다
+1798 / priceless / 매우 귀중한, 값을 매길 수 없는
+1799 / proclaim / 선언하다, 선포하다
+1800 / procrastination / 미루는 버릇, 지연
+1801 / reckless / 무모한, 신중하지 못한
+1802 / innocent / 결백한, 무죄인
+1803 / bland / 단조로운, 자극적이지 않은
+1804 / uninterested / 흥미 없는, 무관심한
+1805 / trifling / 하찮은, 사소한
+1806 / primate / 영장류
+1807 / realm / 범위, 영역
+1808 / regress / 되돌아가다, 퇴보하다
+1809 / incentive / 자극, 동기
+1810 / remnant / 나머지, 잔존물
+1811 / reside / 살다, 거주하다
+1812 / ethic / 윤리, 도덕
+1813 / sabotage / 파괴하다, 방해하다
+1814 / ratio / 비율
+1815 / shovel / 삽
+1816 / inexplicable / 설명할 수 없는, 불가해한
+1817 / resolutely / 단호하게, 결연히
+1818 / shrub / 관목
+1819 / smash / 박살내다, 때려 부수다
+1820 / flourish / 번창하다, 번성하다
+1821 / desolate / 외로운, 황량한
+1822 / sparsely / 드문드문, 성기게
+1823 / depict / 그리다, 묘사하다
+1824 / embody / 포함하다, 담다
+1825 / supposedly / 아마, 추정상
+1826 / terrific / 훌륭한, 멋진
+1827 / congestion / 혼잡
+1828 / transparent / 투명한, 속이 보이는
+1829 / utmost / 최고의, 극도의
+1830 / turbulent / 격동의, 거친
+1831 / disperse / 흩어지다, 해산하다
+1832 / cater / (요구를) 만족시키다
+1833 / ventilation / 통풍, 환기
+1834 / stability / 안정, 안정성
+1835 / distort / (형체를) 비틀다
+1836 / impromptu / 즉석의
+1837 / verbal / 언어의, 구두의
+1838 / warehouse / 창고, 저장소
+1839 / adhere / 들러붙다, 고수하다
+1840 / antecedent / 선례, 전례
+1841 / smuggle / 밀수하다
+1842 / pause / 중단, 멈춤
+1843 / solidify / 굳어지다, 굳히다
+1844 / scarce / 부족한, 드문
+1845 / subset / 부분 집합
+1846 / stun / 멍하게 하다, 깜짝 놀라게 하다
+1847 / glance / 흘낏 봄
+1848 / depress / 우울하게 만들다
+1849 / virtually / 사실상, 실질적으로
+1850 / ample / 충분한, 풍부한
+1851 / amid / ~의 가운데에
+1852 / transcribe / 기록하다, 옮겨 쓰다
+1853 / unfold / 펼치다
+1854 / tumor / 종양
+1855 / sake / 동기, 이유, 목적
+1856 / vicinity / 근처, 주변
+1857 / steer / 조종하다, 이끌다
+1858 / tangle / 엉키게 하다
+1859 / wrath / 분노, 노여움
+1860 / transition / 변천, 변화
+1861 / monarchy / 왕실, 군주 일가
+1862 / spouse / 배우자
+1863 / agility / 민첩, 명민함
+1864 / engross / 몰두하게 하다, 열중하게 하다
+1865 / banish / 제거하다, 추방하다
+1866 / anguish / (극심한) 괴로움, 비통
+1867 / artery / 동맥
+1868 / superstitious / 미신적인, 미신을 믿는
+1869 / bewilder / 어리둥절하게 만들다, 당황하게 하다
+1870 / manipulate / 조종하다, 조작하다
+1871 / allot / 할당하다, 배당하다
+1872 / segregate / 분리하다, 구분하다
+1873 / valiant / 용맹한, 용감한
+1874 / vapor / 증기
+1875 / diabetes / 당뇨병
+1876 / latitude / 위도
+1877 / conceit / 자만심
+1878 / blossom / 꽃, 꽃이 피다
+1879 / blurry / 흐릿한, 모호한
+1880 / boast / 자랑하다, 뽐내다
+1881 / bribe / 뇌물을 주다, 매수하다
+1882 / bump / 돌출부, 튀어나온 부분
+1883 / cargo / 화물
+1884 / preserve / 지키다, 보호하다
+1885 / antipathy / 반감, 혐오
+1886 / albeit / 비록 ~일지라도
+1887 / basin / 분지, (강의) 유역
+1888 / vie / 경쟁하다, 우열을 다투다
+1889 / verse / 운문, 시
+1890 / awry / 잘못되어서, 엉망인
+1891 / benign / 온화한, 양호한
+1892 / allege / 단언하다, 주장하다
+1893 / burrow / 굴을 파다
+1894 / trace / 거슬러 올라가다, 추적하다
+1895 / mandatory / 의무적인, 필수적인
+1896 / viral / 바이러스성의
+1897 / transmit / 보내다, 전송하다
+1898 / apprentice / 견습생, 도제
+1899 / miser / 구두쇠
+1900 / dilate / 확장하다, 키우다
+1901 / bond / 유대감을 형성하다
+1902 / vanity / 자만심, 허영심
+1903 / cram / 밀어 넣다, 쑤셔 넣다
+1904 / incident / 사건, 일어난 일
+1905 / captive / 사로잡힌, 억류된
+1906 / census / 인구 조사
+1907 / label / ~에 표를 붙이다, ~라고 부르다
+1908 / prophecy / 예언, 계시
+1909 / clumsy / 어설픈, 서투른
+1910 / cope / 대처하다, 맞서다
+1911 / subscribe / 구독하다, 가입하다
+1912 / turnout / 투표율
+1913 / opponent / 상대방, 반대자, 적수
+1914 / liberate / 자유롭게 하다, 해방하다
+1915 / crash / 충돌 사고, 추락 사고
+1916 / flexibility / 유연성, 융통성
+1917 / hollow / (속이) 빈
+1918 / filtration / 여과
+1919 / crouch / 몸을 쭈그리다
+1920 / impending / 곧 닥칠, 임박한
+1921 / savor / 음미하다, 맛보다
+1922 / byproduct / 부산물, 부작용
+1923 / torch / 손전등, 횃불
+1924 / decompose / 분해하다
+1925 / eternal / 영원한, 끝없는
+1926 / reverse / 뒤바꾸다, 뒤집다
+1927 / disruption / 중단, 혼란
+1928 / probability / 확률, 개연성
+1929 / clash / 충돌
+1930 / clutch / 움켜잡다
+1931 / taxonomic / 분류의, 분류학상의
+1932 / complement / 보완하다
+1933 / complimentary / 무료의
+1934 / profile / 윤곽, 옆얼굴, 측면
+1935 / ailment / 질병
+1936 / conducive / ~에 좋은, 도움이 되는
+1937 / constituent / 구성 성분
+1938 / corpse / 시체
+1939 / activate / 작동시키다, 활성화시키다
+1940 / stall / 꼼짝 못 하게 되다
+1941 / crunchy / 아삭아삭한, 바삭바삭한
+1942 / dangle / 매달리다, 달랑거리다
+1943 / veterinarian / 수의사
+1944 / pharmacy / 약국
+1945 / compress / 압축하다
+1946 / craving / 갈망, 열망
+1947 / defy / 반항하다, 도전하다, 무시하다
+1948 / embark / 시작하다, 착수하다
+1949 / doctrine / 교리, 신조, 원칙
+1950 / delegate / 대표자, 사절
+1930 / obscure / 모호한, 이해하기 힘든
+1931 / fling / 던지다, 팽개치다
+1932 / fermentation / 발효
+1933 / pound / 뚜벅뚜벅 걷다
+1934 / construe / 이해하다, 해석하다
+1935 / drainage / 배수, 배수 시설
+1936 / falter / 불안정해지다, 흔들리다
+1937 / dispense / 나누어 주다, 분배하다
+1938 / sink / 몰락하다
+1939 / aggressive / 공격적인
+1940 / broaden / 넓어지다, 넓히다
+1941 / substandard / 기준 이하의, 수준 이하의
+1942 / fortify / 강화하다, 확고히 하다
+1943 / emphatic / 강한, 단호한
+1944 / dispose / 처리하다
+1945 / autopsy / (사체의) 검시, 부검
+1946 / convict / 죄인, 죄수
+1947 / compile / 편집하다, 편찬하다
+1948 / gem / 보석
+1949 / antibiotic / 항생제, 항생 물질
+1950 / crumple / 구기다, 구겨지다
+1951 / gust / 돌풍, 세찬 바람
+1952 / dissent / 반대
+1953 / foremost / 가장 중요한, 일류의
+1954 / fertility / 출생률
+1955 / figurative / 비유적인, 상징적인
+1956 / pioneer / 개척자, 선구자
+1957 / pesticide / 살충제, 농약
+1958 / fusion / 융합, 결합
+1959 / counter / 대응하다, 반박하다
+1960 / juror / 배심원
+1961 / formidable / 가공할, 무시무시한
+1962 / forthcoming / 준비되어 있는, 마련된
+1963 / executive / 임원, 경영진
+1964 / discharge / 방출하다
+1965 / invasive / 침입하는, 침략적인
+1966 / protest / 항의하다, 반대하다
+1967 / flee / 달아나다, 도망가다
+1968 / relocate / 이전하다, 이동하다
+1969 / detest / 몹시 싫어하다, 혐오하다
+1970 / astronomy / 천문학
+1971 / venture / 위험을 무릅쓰다, 과감히 하다
+1972 / protagonist / 주인공
+1973 / hail / 환호하다, 칭송하다
+1974 / heredity / 유전, 유전적 특징
+1975 / command / 지배력, 제어력
+1976 / pedagogical / 교육학적인
+1977 / stem / 생기다, 일어나다
+1978 / grieve / 비통해하다, 몹시 슬퍼하다
+1979 / output / 생산량, 산출량
+1980 / accelerate / 가속화하다
+1981 / ingenious / 독창적인, 기발한
+1982 / inflate / 부풀다, 부풀리다
+1983 / inflow / 유입, 유입량
+1984 / crawl / 기다, 기어가다
+1985 / rotation / 회전, (천체의) 자전
+1986 / phase / 단계적으로 실행하다
+1987 / slap / 찰싹 때리다
+1988 / viable / 실행 가능한
+1989 / fake / 위조하다, 날조하다
+1990 / legacy / 유산, 유물
+1991 / inevitable / 불가피한, 필연적인
+1992 / alert / 경고하다, 위험을 알리다
+1993 / mandate / 명령하다, 규정하다
+1994 / moss / 이끼
+1995 / harness / 이용하다, 활용하다
+1996 / incubate / (알을) 품다
+1997 / surpass / 능가하다, 뛰어넘다
+1998 / austerity / 검소, 내핍
+1999 / hurdle / 장애물, 난관
+2000 / impair / 악화시키다, 손상시키다
+2001 / impoverish / 가난하게 하다
+2002 / persecution / 박해, 탄압
+2003 / sacrifice / 희생하다, 바치다
+2004 / besiege / 포위하다, 에워싸다
+2005 / reluctant / 꺼리는, 주저하는
+2006 / herd / (가축을) 지키다, 몰다
+2007 / intertwine / 뒤얽히다, 서로 엮다
+2008 / intrusion / 침범, 침해
+2009 / kidney / 신장, 콩팥
+2010 / latch / 걸쇠, 자물쇠
+2011 / vibration / 진동, 동요
+2012 / erosion / 부식, 침식
+2013 / improbable / 사실 같지 않은, 있을 것 같지 않은
+2014 / poach / 밀렵하다
+2015 / lure / 유혹하다, 꾀다, 유인하다
+2016 / paramount / 가장 중요한
+2017 / marginalize / 사회적으로 무시하다, 소외하다
+2018 / alien / 이질적인, 다른
+2019 / mindset / 사고방식, 태도
+2020 / perplex / 당혹하게 하다, 곤란하게 하다
+2021 / overstate / 과장하다, 허풍떨다
+2022 / parasite / 기생 동물, 기생 식물
+2023 / exploit / 활용하다
+2024 / fluctuation / 변동, 동요, 불안정
+2025 / overview / 개관, 개요
+2026 / persevere / 인내하다, 꾸준히 계속하다
+2027 / retention / 보유, 유지
+2028 / injustice / 불평등, 부당함
+2029 / gravel / 자갈
+2030 / pervasive / 만연하는, 스며드는
+2031 / pinpoint / 정확히 찾아내다
+2032 / microscope / 현미경
+2033 / wail / 울부짖다, 한탄하다
+2034 / wander / 돌아다니다, 헤매다
+2035 / mow / (풀·곡물 등을) 베다
+2036 / pit / 움푹 들어가게 하다
+2037 / conception / 개념, 생각
+2038 / portable / 휴대용의, 이동이 쉬운
+2039 / collaboration / 협동, 합작
+2040 / onlooker / 방관자, 구경꾼
+2041 / soar / 날아오르다
+2042 / hatch / 부화하다
+2043 / ulcer / 궤양
+2044 / clan / 씨족, 일가, 집단
+2045 / villain / 악당, 범인
+2046 / meager / 빈약한, 불충분한
+2047 / ingenuity / 창의력, 독창성, 재간
+2048 / pastor / 목사, 사제
+2049 / patrol / 순찰, 정찰대
+2050 / insistence / 주장, 강조, 고집
+2051 / layoff / 일시 해고
+2052 / compound / 합성의, 복합의
+2053 / olfactory / 후각의
+2054 / fortress / 요새, 성채
+2055 / toddler / 걸음마를 시작한 아이
+2056 / vowel / 모음
+2057 / affluent / 부유한, 풍족한
+2058 / tempt / 유혹하다, 유도하다
+2059 / gasp / 숨이 막히다, 헐떡거리다
+2060 / predecessor / 이전의 것, 전임자
+2061 / formula / (일정한) 방식, 공식
+2062 / neural / 신경의
+2063 / reassure / 안심시키다
+2064 / congress / 의회, 국회
+2065 / sift / 체로 거르다
+2066 / rack / 괴롭히다, 시달리게 하다
+2067 / landslide / 산사태
+2068 / moan / 투덜거리다, 불평하다
+2069 / refute / 반박하다
+2070 / provision / 공급, 제공
+2071 / recovery / 회복, 복구
+2072 / refrain / 삼가다, 자제하다
+2073 / load / (짐을) 싣다
+2074 / owe / 빚지고 있다, 신세를 지고 있다
+2075 / cohesive / 응집력 있는, 화합하는
+2076 / scoop / (양손으로) 그러모으다
+2077 / scrape / 긁다, 긁어내다
+2078 / pollen / 꽃가루, 화분
+2079 / prevalent / 흔한, 널리 퍼진
+2080 / fierce / 사나운, 맹렬한
+2081 / plead / 간청하다, 애원하다
+2082 / predominant / 주된, 현저한
+2083 / beware / 조심하다, 주의하다
+2084 / elaborate / 정교하게 만들다
+2085 / proliferate / 급증하다, 증식하다
+2086 / prolific / 다작하는, 다산하는
+2087 / mount / 시작하다, (조직하여) 벌이다
+2088 / reimburse / 배상하다, 변상하다
+2089 / reclaim / 되찾다, 재생하다
+2090 / respectful / 경의를 표하는, 공손한
+2091 / enliven / 활기 있게 만들다, 생동감 있게 하다
+2092 / relentless / 끊임없는, 가차 없는
+2093 / pottery / 도자기
+2094 / mourn / 애도하다, 슬퍼하다
+2095 / retrospect / 회고, 회상
+2096 / sanction / 제재, 처벌, 허가
+2097 / satiety / 포만감
+2098 / dwindle / (점점) 줄어들다
+2099 / scribble / 낙서하다
+2100 / apprehension / 이해
+2101 / shabby / 낡은, 허름한
+2102 / endorse / 지지하다
+2103 / internalize / 내면화하다
+2104 / chicken / 닭고기
+2105 / ding / 흠집을 내다, 찌그러뜨리다
+2106 / offset / 상쇄하다, 벌충하다
+2107 / severance / 계약 해지, 해고
+2108 / stubborn / 완고한, 고집스러운
+2109 / entrepreneur / 사업가, 기업가
+2110 / memoir / 회고록
+2111 / temperate / (기후가) 온화한, 온난한
+2112 / subsidize / 보조금을 주다
+2113 / imprudent / 경솔한
+2114 / province / 지방, 지역
+2115 / luminous / 빛나는, 반짝이는
+2116 / amain / 전력을 다해, 맹렬히
+2117 / insulate / 절연하다, 단열·방음 처리하다
+2118 / commotion / 소란, 소동
+2119 / medication / 약, 약물
+2120 / irrigate / 관개하다, 물을 대다
+2121 / stride / 성큼성큼 걷다
+2122 / surveillance / 감시, 망보기
+2123 / efficacy / 효험, 효능
+2124 / despair / 절망
+2125 / strenuous / 몹시 힘든, 격렬한
+2126 / ridicule / 비웃다, 조롱하다
+2127 / swarm / 떼를 짓다
+2128 / statistics / 통계, 통계 자료
+2129 / anarchy / 무정부 상태, 난장판
+2130 / unveil / (비밀을) 밝히다, 공개하다
+2131 / secretion / 분비, 분비물
+2132 / subsidiary / 자회사
+2133 / deviation / 일탈, 탈선
+2134 / audit / (회계를) 감사하다
+2135 / shuffle / 섞다, 이리저리 바꾸다
+2136 / slash / 대폭 줄이다
+2137 / rod / 막대, 지팡이, 낚싯대
+2138 / wither / 시들다, 말라 죽다
+2139 / disclose / 드러내다, 폭로하다
+2140 / hemisphere / (지구·뇌 등의) 반구
+2141 / render / 주다, 제공하다
+2142 / spit / 침
+2143 / tow / 견인하다, 끌다
+2144 / stopover / 잠시 머무름, 단기 체류지
+2145 / deceive / 속이다, 기만하다
+2146 / harbor / 숨겨주다, ~의 거처가 되다
+2147 / presume / 추정하다, 가정하다
+2148 / hazard / 위험
+2149 / treaty / 조약
+2150 / loop / 고리, 올가미
+2151 / expel / 퇴학시키다, 제명하다
+2152 / blend / 섞다, 혼합하다
+2153 / congruent / 일치하는, 부합하는
+2154 / verdict / 평결, 판결
+2155 / dimension / 차원, 관점
+2156 / detach / 분리하다, 떼어내다
+2157 / chant / 연호하다
+2158 / drill / 구멍을 뚫다
+2159 / wade / 헤치며 걷다
+2160 / fulfill / 이행하다, 완수하다
+2161 / solemn / 엄숙한, 진지한
+2162 / aggravate / 악화시키다
+2163 / craft / 정교하게 만들다
+2164 / massive / 거대한
+2165 / clue / 단서, 실마리
+2166 / wary / 경계하는, 조심하는
+2167 / implicate / (나쁜 것에) 연루시키다
+2168 / sermon / 설교
+2169 / transcript / 성적 증명서
+2170 / bruise / 멍들다, 상하게 하다
+2171 / turmoil / 혼란, 소란
+2172 / align / 조정하다, 정렬하다
+2173 / vacant / 비어 있는
+2174 / dwell / 살다, 거주하다
+2175 / verge / 직전, 경계
+2176 / vomit / 토하다
+2177 / weep / 눈물을 흘리다
+2178 / worship / 예배하다, 숭배하다
+2179 / irreparable / 돌이킬 수 없는
+2180 / hind / 뒤쪽의
+2181 / typify / 대표하다, 특징을 나타내다
+2182 / grab / 움켜잡다
+2183 / agitate / 선동하다, 동요시키다
+2184 / coercion / 강제, 강압
+2185 / array / 배열하다, 진열하다
+2186 / assent / 승인, 찬성
+2187 / auction / 경매로 팔다
+2188 / whip / 채찍질하다
+2189 / gourmet / 미식가
+2190 / troop / 병력, 군대
+2191 / unravel / 풀다, 해결하다
+2192 / unrest / (사회·정치적) 불안
+2193 / unify / 통합하다
+2194 / axis / 축, 중심선
+2195 / differentiate / 구별하다
+2196 / commemorate / 기념하다
+2197 / barter / 물물교환하다
+2198 / velocity / 속도
+2199 / bulge / 부풀다, 불룩해지다
+2200 / conspicuous / 눈에 잘 띄는
+2201 / embed / 끼워 넣다
+2202 / externalize / 외면화하다
+2203 / compartment / 구획, 객실
+2204 / causality / 인과 관계
+2205 / converge / 모여들다
+2206 / refine / 개선하다, 세련되게 하다
+2207 / sway / 흔들리다
+2208 / oblivious / 의식하지 못하는
+2209 / covet / 탐내다
+2210 / solidarity / 연대, 결속
+2211 / certitude / 확신
+2212 / allude / 암시하다
+2213 / convince / 확신시키다, 납득시키다
+2214 / propel / 추진하다
+2215 / averse / 꺼리는, 반대하는
+2216 / arbitrary / 독단적인
+2217 / vitality / 생명력, 활력
+2218 / creek / 개울, 샛강
+2219 / counterfeit / 위조의
+2220 / revenue / 수익, 세입
+2221 / avenue / 수단, 방안
+2222 / ballot / 투표하다
+2223 / defendant / 피고인
+2224 / acquaintance / 지인, 아는 사람
+2225 / sturdy / 튼튼한
+2226 / gratify / 만족시키다
+2227 / daunt / 기를 죽이다
+2228 / competence / 능력, 역량
+2229 / defection / 이탈, 탈퇴
+2230 / squint / 눈을 가늘게 뜨다
+2231 / strive / 분투하다, 노력하다
+2232 / transitional / 과도기의
+2233 / contrive / 고안하다, 궁리하다
+2234 / multiply / 증가하다, 증식시키다
+2235 / modesty / 단정함, 얌전함
+2236 / joint / 공동의, 합동의
+2237 / acquisition / 습득, 취득
+2238 / lousy / 형편없는, 엉망인
+2239 / degenerate / 퇴화하다, 쇠퇴하다
+2240 / waive / (권리·요구 등을) 포기하다
+2241 / demolish / 파괴하다
+2242 / embezzle / 횡령하다, 착복하다
+2243 / overflow / 범람하다, 넘치다
+2244 / fuss / 호들갑, 야단법석
+2245 / discrete / 별개의, 분리된
+2246 / accustom / 익숙하게 하다
+2247 / disprove / 틀렸음을 입증하다
+2248 / diverge / (의견 등이) 나뉘다, 달라지다
+2249 / summarize / 요약하다
+2250 / bombard / 쏟아붓다, 퍼붓다
+2251 / economize / 절약하다, 아끼다
+2252 / prescient / 선견지명이 있는
+2253 / reckon / 생각하다, 판단하다
+2254 / devastate / 황폐화시키다, 완전히 파괴하다
+2255 / quote / 인용하다
+2256 / magnitude / 규모, 크기
+2257 / fabric / 구조, 뼈대
+2258 / precaution / 예방책, 예방 조치
+2259 / deflect / 방향을 바꾸다
+2260 / aggregation / 집단, 집합
+2261 / scholarship / 장학금
+2262 / denote / 나타내다, 의미하다
+2263 / reign / 군림하다, 지배하다
+2264 / adolescent / 청소년
+2265 / polish / 다듬다, 손질하다
+2266 / disdain / 업신여기다, 무시하다
+2267 / exquisite / 고상한, 세련된, 정교한
+2268 / ditch / 배수로, 도랑
+2269 / slip / 실수
+2270 / earnestly / 진지하게, 진정으로
+2271 / easygoing / 느긋한, 태평한
+2272 / undergo / 겪다, 경험하다
+2273 / emigrate / 이민을 가다
+2274 / encircle / 둘러싸다
+2275 / enlist / 도움을 구하여 얻다
+2276 / judicial / 사법의, 재판의
+2277 / rack / 고문하다, 괴롭히다
+2278 / applause / 박수갈채, 칭찬
+2279 / precision / 정확성, 정밀성
+2280 / breakthrough / 돌파구, 큰 발전
+2281 / swamp / 늪, 습지
+2282 / downsize / 줄이다, 축소하다
+2283 / empower / 권한을 주다
+2284 / extrinsic / 외적인, 외부의
+2285 / feasible / 실행 가능한
+2286 / gymnastics / 체조
+2287 / expedition / 탐험, 원정
+2288 / restrain / 억제하다, 제지하다
+2289 / retina / (눈의) 망막
+2290 / drain / (힘·돈 등을) 소모시키다
+2291 / offspring / 자식, 자손
+2292 / gist / 요지, 골자
+2293 / genesis / 기원, 발생
+2294 / alchemy / 연금술
+2295 / geometry / 기하학
+2296 / gland / 선, 샘, 분비 기관
+2297 / wilderness / 황야, 황무지
+2298 / vertical / 수직의, 세로의
+2299 / comparatively / 비교적
+2300 / dejected / 낙담한, 기운 없는
+2301 / exterior / (건물의) 외부, 바깥면
+2302 / cavity / 구멍
+2303 / vessel / 그릇, 용기
+2304 / glittering / 반짝반짝 빛나는
+2305 / exclaim / 소리치다, 외치다
+2306 / infamous / 악명 높은
+2307 / salient / 가장 두드러진, 중요한
+2308 / groom / 몸단장을 하다
+2309 / multitude / 다수, 대량
+2310 / forage / 먹이를 찾다
+2311 / flock / 모이다, 떼 지어 가다
+2312 / generic / 일반적인, 총칭의
+2313 / feeble / 부족한,
+2320 / initiative / 주도권
+2321 / ornamental / 장식용의
+2322 / sarcasm / 빈정댐, 비꼼
+2323 / persistence / 인내력, 집요함, 지속성
+2324 / grind / 갈다, 빻다
+2325 / individuality / 개성, 특성
+2326 / sneaky / 교활한, 은밀한
+2327 / eloquent / 설득력 있는, 유창한
+2328 / grapple / 붙잡다, 붙잡고 싸우다
+2329 / correlation / 상관관계, 연관성
+2330 / celestial / 하늘의, 천체의
+2331 / feverish / 열광적인
+2332 / intangible / 실체가 없는, 무형의
+2333 / bay / (작은) 만
+2334 / fiscal / 재정상의, 회계의
+2335 / eclipse / (일식·월식의) 식, 가리다
+2336 / hamper / 방해하다, 제한하다
+2337 / scout / 정찰하다, 돌아다니다
+2338 / permeate / 스며들다, 침투하다
+2339 / toll / (종을) 울리다
+2340 / physiology / 생리학
+2341 / triumph / 승리, 업적
+2342 / abrogate / 폐지하다, 무효화하다
+2343 / accentuate / 강조하다
+2344 / accumulation / 축적, 누적
+2345 / vigilant / 경계하는
+2346 / worrisome / 걱정되는, 꺼림칙한
+2347 / withdraw / 철회하다, 물러나다
+2348 / virtuous / 고결한, 도덕적인
+2349 / scandalous / 수치스러운, 불미스러운
+2350 / respectable / 존경할 만한, 단정한
+2351 / revocation / 폐지, 철회
+2352 / compulsory / 강제적인, 의무적인
+2353 / admiring / 감탄하는
+2354 / advertisement / 광고
+2355 / bail / 보석금, 보석으로 풀어주다
+2356 / boycott / 불매운동(하다)
+2357 / calm / 고요한, 차분한
+2358 / conserve / 보존하다, 보호하다
+2359 / contingency / 우발적인 사건, 뜻밖의 일
+2360 / contradictory / 모순되는
+2361 / debunk / 폭로하다, 허구를 밝
+2368 / allegation / 주장, 진술, 혐의
+2369 / belch / 트림하다, 내뿜다
+2370 / criticize / 비판하다, 비난하다
+2371 / envious / 부러워하는, 질투하는
+2372 / goal-oriented / 목표 지향적인
+2373 / frightened / 겁먹은, 무서워하는
+2374 / charitable / 자비로운, 관대한, 자선의
+2375 / hierarchical / 계층의, 위계적인
+2376 / horizontal / 수평의, 가로의
+2377 / i.e. / 즉, 다시 말해
+2378 / insolent / 무례한, 건방진
+2379 / intimidation / 협박, 위협
+2380 / amalgamation / 합병, 혼합
+2381 / brownie point / 아부해서 얻은 점수
+2382 / insincerity / 불성실, 무성의
+2383 / infliction / 가함, 고통, 형벌
+2384 / algorithm / 알고리즘
+2385 / compatibility / 양립 가능성, 호환성
+2386 / hoard / 비축하다, 사재기하다
+2387 / alms / 자선금, 구호품
+2388 / laissez-faire / 자유방임주의
+2389 / malefactor / 악인, 범인
+2390 / mediation / 중재, 조정
+2391 / nervousness / 신경 과민, 긴장
+2392 / couvade / 의만(남편의 산고 체험)
+2393 / occupation / 직업, 점유, 거주, 임기
+2394 / ordinance / 법령, 조례
+2395 / detective / 형사, 탐정
+2396 / animosity / 반감, 적대감
+2397 / felony / 중죄, 흉악 범죄
+2398 / boastfully / 자랑스럽게, 허풍 떨며
+2399 / methodically / 체계적으로
+2400 / substantially / 실질적으로, 상당히
+2401 / outspoken / 솔직한, 노골적인
+2402 / punitive / 징벌적인, 처벌의
+2403 / overwhelming / 압도적인
+2404 / scrupulous / 양심적인, 꼼꼼한
+2405 / satisfied / 만족스러운
+2406 / termination / 종료, 계약 만료
+2407 / terms / 조건, 조항, 관계, 기간
+2408 / umpire / 심판, 중재하다
+2409 / rescind / 폐지하다, 철회하다
+2410 / ashamed / 부끄러운, 수치스러운
+2411 / superordinate / 상위의, 상급의
+2412 / misguided / 잘못 인도된
+2413 / judiciary / 사법부, 사법 제도
+2414 / arbitrary / 독단적인, 임의의
+2415 / imprisoned / 수감된
+2416 / intimidating / 위협적인
+2417 / condolence / 애도, 조의
+2418 / impetus / 추진력, 자극
+2419 / detriment / 손해, 손실
+2420 / bluff / 허세를 부리다, 엄포를 놓다
+2421 / occupation ordinance / 직업·점유 / 법령·조례
+2422 / bureaucratic / 관료의, 관료주의적인
+2423 / compassionate / 인정 많은, 동정적인
+2424 / descriptive / 서술하는, 설명적인
+2425 / hypocritical / 위선적인
+2426 / laureate / 수상자, 영예를 받은 사람
+2427 / lighthearted / 쾌활한, 걱정 없는
+2428 / disobedient / 반항적인, 불복하는
+2429 / malicious / 악의적인, 고의의
+2430 / nondiscriminating / 차별하지 않는, 무차별적인
+2431 / irredeemable / 구제불능의, 되돌릴 수 없는
+2432 / penal / 형벌의
+2433 / prerogative / 특권, 특전
+2434 / perpetrator / 가해자, 범인
+2435 / perpetration / 범죄 행위
+2436 / perjury / 위증, 위증죄
+2437 / misdemeanor / 경범죄, 비행
+2438 / misbehavior / 비행, 나쁜 짓
+2439 / confinement / 감금, 제한
+2440 / penitence / 회개, 참회
+2441 / classification / 분류, 분류법
+2442 / proficiency / 숙달, 능숙
+2443 / obscure / 불분명한, 무명의; 가리다
+2444 / mitigate / 완화하다, 진정시키다
+2445 / irritate / 짜증나게 하다
+2446 / differ / 다르다, 의견이 다르다
+2447 / corroborate / 확증하다, 입증하다
+2448 / hallmark / 특징, 품질 보증 표시
+2449 / ordain / 정하다, 명령하다, 규정하다
+2450 / rectify / 바로잡다, 수정하다
+2451 / remit / 송금하다; 늦추다
+2452 / stutter / 말을 더듬다
+2453 / tension / 긴장, 팽팽함
+2454 / systemicity / 체계성
+2455 / superstition / 미신
+2456 / schema / 개요, 윤곽, 도식
+2457 / mutilation / 절단, 훼손
+2458 / conviction / 유죄 판결, 확신
+2459 / meditation / 명상, 심사숙고
+2460 / charter / 특허장, 헌장, 계약서
+2461 / disintegration / 분해, 붕괴
+2462 / possession / 소유, 소유물
+2463 / protocol / 의정서, 규약, 의례
+2464 / recession / 경기 후퇴, 불황
+2465 / sleek / 윤이 나는, 매끈한
+2466 / proud / 자랑스러운, 거만한
+2467 / pleased / 기쁜, 만족한
+2468 / persuasive / 설득력 있는
+2469 / irreversible / 되돌릴 수 없는
+2470 / irretrievable / 회복 불가능한
+2471 / in search of / ~을 찾아서
+2472 / multidirectional / 다방면의, 다각적인
+2473 / snoopy / 참견하는, 남의 일에 지나치게 관심 있는
+2474 / extravagant / 낭비하는, 사치스러운
+2475 / approving / 찬성하는, 승인하는
+2476 / statutory / 법정의, 법령의
+2477 / awesome / 굉장한, 인상적인; 무시무시한
+2478 / unanimous / 만장일치의
+2479 / unassailable / 난공불락의, 논쟁의 여지가 없는
+2480 / article / 조항; (신문) 기사; 물품
+2481 / vandalism / 반달리즘, 문화재 파괴 행위
+2482 / vigilance / 경계, 조심, 불침번
+2483 / principal / 교장; 주요한
+2484 / engaging / 재미있는, 매력적인
+2485 / atmosphere / 분위기; 대기
+2486 / promising / 전도유망한
+2487 / recent / 최근의
+2488 / downtime / (고장 등으로 인한) 작업 중단 시간
+2489 / anticipation / 기대(감)
+2490 / letdown / 실망, 낙담
+2491 / closet / 벽장, 옷장
+2492 / stillness / 고요함, 정적
+2493 / warrior / 전사
+2494 / expulsion / 추방, 제명, 축출
+2495 / attorney / 변호사, 대리인
+2496 / whisper / 속삭이다; 속삭임
+2497 / gentle / 부드러운, 온화한
+2498 / respect / 존경하다, 존중하다
+2499 / relief / 안도, 안심
+2500 / buzz / 바삐 돌아다니다; 윙윙거리다
+2501 / seasoning / 양념, 조미료
+2502 / count / 세다; 중요하다, 인정되다
+2503 / unusual / 독특한, 이상한
+2504 / origin / 기원, 근원
+2505 / personal / 개인적인
+2506 / competent / 유능한, 능력이 있는
+2507 / unique / 고유한, 독특한
+2508 / prejudiced / 편견이 있는
+2509 / equate / 동일시하다, 같게 보다
+2510 / democratic / 민주적인, 민주주의의
+2511 / overemphasize / 지나치게 강조하다
+2512 / veracity / 진실성, 정확성
+2513 / attire / 의복, 옷차림
+2514 / politician / 정치인
+2515 / continuous / 지속적인, 계속되는
+2516 / corporation / 법인, 기업
+2517 / advancement / 진보, 향상, 승진
+2518 / rebellion / 반란, 반항
+2519 / uneasy / 불안한, 불편한
+2520 / audacious / 대담한, 뻔뻔한
+2521 / connivance / 묵인, 공모
+2522 / typical / 일반적인, 전형적인
+2523 / fulfillment / 성취
+2524 / multiple / 많은, 다수의, 복합적인
+2525 / immediate / 즉각적인, 당장의, 당면한
+2526 / discontent / 불만, 불평
+2527 / curriculum / 교육 과정
+2528 / chaotic / 혼잡한, 혼란스러운
+2529 / objective / 객관적인; 목표
+2530 / era / 시대
+2531 / perishable / 상하기 쉬운
+2532 / agency / 대행사; 주체성, 힘
+2533 / cryptically / 수수께끼 같이, 비밀스럽게
+2534 / inclined / 경사진; ~하는 경향이 있는
+2535 / compute / 산출하다, 계산하다
+2536 / retail / 소매; 소매의
+2537 / disappearance / 사라짐, 소실, 실종
+2538 / rural / 시골의, 농촌의
+2539 / elbow / 팔꿈치
+2540 / receptacle / 용기, 그릇
+2541 / undeniable / 부인하기 어려운, 명백한
+2542 / unremarkable / 별다를 것 없는, 평범한
+2543 / unqualified / 자격이 없는; 무조건의
+2544 / disciplinary / 징계의
+2545 / culprit / 범인
+2546 / exploitation / 이용, 착취, 개발
+2547 / distribution / 분포, 분배, 배급
+2548 / regulate / 통제하다, 규제하다, 조절하다
+2549 / durable / 오래가는, 내구성 있는
+2550 / conjoin / 결합하다, 연결하다
+2551 / repression / 억압
+2552 / predisposition / 성향, 소인, 기질
+2553 / disgust / 혐오(감); 역겹게 하다
+2554 / determine / 결정하다, 결심하게 하다
+2555 / paradoxical / 역설적인, 모순적인
+2556 / tailor / 맞추다; 재단사
+2557 / distort / 왜곡하다
+2558 / embellish / 미화하다, 장식하다
+2559 / coincidence / 우연(의 일치)
+2560 / pretend / ~인 척하다
+2561 / reflection / 성찰; 반사; 반영
+2562 / desire / 욕망, 욕구; 바라다
+2563 / upscale / 고급의, 고소득의
+2564 / sincere / 진실한, 진심 어린
+2565 / unscientific / 비과학적인
+2566 / consequential / 결과의, 중대한
+2567 / expiration / 만료, 만기, 종결
+2568 / portrayal / 묘사
+2569 / ordinary / 일상적인, 평범한
+2520 / audacious / 대담한, 뻔뻔한
+2521 / connivance / 묵인, 공모
+2522 / typical / 일반적인, 전형적인
+2523 / fulfillment / 성취
+2524 / multiple / 많은, 다수의, 복합적인
+2525 / immediate / 즉각적인, 당장의, 당면한
+2526 / discontent / 불만, 불평
+2527 / curriculum / 교육 과정
+2528 / chaotic / 혼잡한, 혼란스러운
+2529 / objective / 객관적인; 목표
+2530 / era / 시대
+2531 / perishable / 상하기 쉬운
+2532 / agency / 대행사; 주체성, 힘
+2533 / cryptically / 수수께끼 같이, 비밀스럽게
+2534 / inclined / 경사진; ~하는 경향이 있는
+2535 / compute / 산출하다, 계산하다
+2536 / retail / 소매; 소매의
+2537 / disappearance / 사라짐, 소실, 실종
+2538 / rural / 시골의, 농촌의
+2539 / elbow / 팔꿈치
+2540 / receptacle / 용기, 그릇
+2541 / undeniable / 부인하기 어려운, 명백한
+2542 / unremarkable / 별다를 것 없는, 평범한
+2543 / unqualified / 자격이 없는; 무조건의
+2544 / disciplinary / 징계의
+2545 / culprit / 범인
+2546 / exploitation / 이용, 착취, 개발
+2547 / distribution / 분포, 분배, 배급
+2548 / regulate / 통제하다, 규제하다, 조절하다
+2549 / durable / 오래가는, 내구성 있는
+2550 / conjoin / 결합하다, 연결하다
+2551 / repression / 억압
+2552 / predisposition / 성향, 소인, 기질
+2553 / disgust / 혐오(감); 역겹게 하다
+2554 / determine / 결정하다, 결심하게 하다
+2555 / paradoxical / 역설적인, 모순적인
+2556 / tailor / 맞추다; 재단사
+2557 / distort / 왜곡하다
+2558 / embellish / 미화하다, 장식하다
+2559 / coincidence / 우연(의 일치)
+2560 / pretend / ~인 척하다
+2561 / reflection / 성찰; 반사; 반영
+2562 / desire / 욕망, 욕구; 바라다
+2563 / upscale / 고급의, 고소득의
+2564 / sincere / 진실한, 진심 어린
+2565 / unscientific / 비과학적인
+2566 / consequential / 결과의, 중대한
+2567 / expiration / 만료, 만기, 종결
+2568 / portrayal / 묘사
+2569 / ordinary / 일상적인, 평범한
+2570 / embarrassed / 당황한, 어색한
+2571 / unquenchable / 채울 수 없는, 억제할 수 없는
+2572 / textile / 직물, 옷감, 섬유
+2573 / cunning / 교활한, 정교한
+2574 / neuron / 뉴런, 신경 세포
+2575 / household / 가정의, 가사의
+2576 / partial / 부분적인, 편파적인
+2577 / upbeat / 경쾌한, 낙관적인
+2578 / district / 구역, 지역, 지구
+2579 / expectant / 기대하는
+2580 / unsurpassed / 능가할 자가 없는
+2581 / solid / 단단한, 고체의
+2582 / sculptor / 조각가
+2583 / renovation / 보수 공사, 개보수
+2584 / given / ~을 고려할 때, 특정한
+2585 / opinion / 의견
+2586 / independent / 독립적인, 별개의
+2587 / obey / 복종하다, 따르다
+2588 / conformity / 순응
+2589 / openness / 개방성
+2590 / likelihood / 가능성
+2591 / thrill / 짜릿함, 전율
+2592 / digress / 탈선하다, 벗어나다
+2593 / basement / 지하층, 지하실
+2594 / vocal / 말이 많은; 목소리의
+2595 / solitary / 혼자의, 단 하나의
+2596 / diligently / 부지런히, 열심히
+2597 / assumption / 가정, 추정
+2598 / construct / 구성하다, 만들다, 건설하다
+2599 / analysis / 분석
+2600 / official / 공식의; 공무원
+2601 / tragic / 비극적인
+2602 / soundness / 건전성, 견실성
+2603 / fuel / 연료; 자극하다, 공급하다
+2604 / expert / 전문가
+2605 / coverage / 취재, 보도; 범위
+2606 / fanciful / 기발한, 공상의
+2607 / approach / 접근하다; 접근 방식
+2608 / scent / 향기, 냄새
+2609 / odor / 냄새
+2610 / dissonance / 불협화음, 불화
+2611 / approval / 승인
+2612 / virtual / 가상의, 사실상의
+2613 / empowerment / 권한 부여, 자율권
+2614 / protection / 보호
+2615 / spontaneously / 자발적으로
+2616 / experiment / 실험; 실험하다
+2617 / willingness / 의지, 자발성
+2618 / purposeful / 목적이 있는
+2619 / dodge / 회피하다
+2620 / collateral / 담보물; 부수적인
+2621 / disposition / 성향, 기질
+2622 / characterize / 특징짓다
+2623 / guidance / 지침, 안내, 유도
+2624 / bullying / 괴롭힘
+2625 / acculturate / (다른 문화에) 동화시키다
+2626 / installation / 설치
+2627 / proper / 올바른, 적절한
+2628 / hardly / 거의 ~않는
+2629 / score / 점수; 득점하다; 점수를 매기다
+2630 / assistant / 보조자; 보조의
+2631 / aspiring / 장차 ~이 되려는
+2632 / faithful / 충실한
+2633 / empty / 비우다; 빈; 공허한
+2634 / proceeds / 수익금
+2635 / resistance / 저항, 반항; 저항력
+2636 / sympathy / 연민, 동정심
+2637 / annoying / 짜증스러운
+2638 / bang / (세게) 두드리다
+2639 / extraordinary / 놀라운, 비범한
+2640 / vigor / 활력, 활기
+2641 / obtain / 구하다, 얻다
+2642 / exhausting / 진을 빼는, 고단한
+2643 / idol / 우상, 숭배물; 모범
+2644 / euphemism / 완곡어법
+2645 / exhortative / 권고적인
+2646 / untreated / 미처리의; 돌보지 않은
+2647 / unwarranted / 보증되지 않은; 근거 없는
+2648 / primary / 주요한; 초등의
+2649 / playwright / 극작가
+2650 / botanist / 식물학자
+2651 / considerable / 상당한
+2652 / morality / 도덕, 도덕성
+2653 / slavery / 노예 제도; 노예
+2654 / relativism / 상대주의
+2655 / description / 설명; 기술; 묘사
+2656 / judgment / 판단
+2657 / geography / 지리학; 지형
+2658 / fertile / 비옥한
+2659 / structure / 구조, 구성
+2660 / footprint / (환경) 발자국
+2661 / landscape / 경관, 풍경; 조경하다
+2662 / underlying / 근본적인, 기저의
+2663 / emphasis / 강조, 초점
+2664 / disproportionate / 불균형적인
+2665 / harvest / 수확하다; 수확물
+2666 / wildlife / 야생 동물; 야생 동물의
+2667 / conscious / 의식하는, 의식적인
+2668 / orientate / 지향하게 하다; 방향을 잡다; 적응시키다
+2669 / conservation / 보존, 보호; 보호 구역
+2670 / exhortative / 권고적인
+2671 / untreated / 미처리의, 돌보지 않은
+2672 / unwarranted / 근거 없는
+2673 / primary / 주요한
+2674 / playwright / 극작가
+2675 / botanist / 식물학자
+2676 / considerable / 상당한
+2677 / morality / 도덕성
+2678 / slavery / 노예 제도
+2679 / relativism / 상대주의
+2680 / description / 설명
+2681 / judgment / 판단
+2682 / geography / 지리학
+2683 / fertile / 비옥한
+2684 / structure / 구조
+2685 / footprint / 환경 발자국
+2686 / landscape / 풍경
+2687 / underlying / 근본적인
+2688 / emphasis / 강조
+2689 / disproportionate / 불균형적인
+2690 / harvest / 수확하다
+2691 / wildlife / 야생 동물
+2692 / conscious / 의식적인
+2693 / orientate / 방향을 잡다
+2694 / conservation / 보존, 보호
+2620 / collateral / 담보물; 부수적인
+2621 / disposition / 성향, 기질
+2622 / characterize / 특징짓다
+2623 / guidance / 지침, 안내, 유도
+2624 / bullying / 괴롭힘
+2625 / acculturate / (다른 문화에) 동화시키다
+2626 / installation / 설치
+2627 / proper / 올바른, 적절한
+2628 / hardly / 거의 ~않는
+2629 / score / 점수; 득점하다; 점수를 매기다
+2630 / assistant / 보조자; 보조의
+2631 / aspiring / 장차 ~이 되려는
+2632 / faithful / 충실한
+2633 / empty / 비우다; 빈; 공허한
+2634 / proceeds / 수익금
+2635 / resistance / 저항, 반항; 저항력
+2636 / sympathy / 연민, 동정심
+2637 / annoying / 짜증스러운
+2638 / bang / (세게) 두드리다
+2639 / extraordinary / 놀라운, 비범한
+2640 / vigor / 활력, 활기
+2641 / obtain / 구하다, 얻다
+2642 / exhausting / 진을 빼는, 고단한
+2643 / idol / 우상, 숭배물; 모범
+2644 / euphemism / 완곡어법
+2645 / exhortative / 권고적인
+2646 / untreated / 미처리의; 돌보지 않은
+2647 / unwarranted / 보증되지 않은; 근거 없는
+2648 / primary / 주요한; 초등의
+2649 / playwright / 극작가
+2650 / botanist / 식물학자
+2651 / considerable / 상당한
+2652 / morality / 도덕, 도덕성
+2653 / slavery / 노예 제도; 노예
+2654 / relativism / 상대주의
+2655 / description / 설명; 기술; 묘사
+2656 / judgment / 판단
+2657 / geography / 지리학; 지형
+2658 / fertile / 비옥한
+2659 / structure / 구조, 구성
+2660 / footprint / (환경) 발자국
+2661 / landscape / 경관, 풍경; 조경하다
+2662 / underlying / 근본적인, 기저의
+2663 / emphasis / 강조, 초점
+2664 / disproportionate / 불균형적인
+2665 / harvest / 수확하다; 수확물
+2666 / wildlife / 야생 동물; 야생 동물의
+2667 / conscious / 의식하는, 의식적인
+2668 / orientate / 지향하게 하다; 방향을 잡다; 적응시키다
+2669 / conservation / 보존, 보호; 보호 구역
+2670 / exhortative / 권고적인
+2671 / untreated / 미처리의, 돌보지 않은
+2672 / unwarranted / 근거 없는
+2673 / primary / 주요한
+2674 / playwright / 극작가
+2675 / botanist / 식물학자
+2676 / considerable / 상당한
+2677 / morality / 도덕성
+2678 / slavery / 노예 제도
+2679 / relativism / 상대주의
+2680 / description / 설명
+2681 / judgment / 판단
+2682 / geography / 지리학
+2683 / fertile / 비옥한
+2684 / structure / 구조
+2685 / footprint / 환경 발자국
+2686 / landscape / 풍경
+2687 / underlying / 근본적인
+2688 / emphasis / 강조
+2689 / disproportionate / 불균형적인
+2690 / harvest / 수확하다
+2691 / wildlife / 야생 동물
+2692 / conscious / 의식적인
+2693 / orientate / 방향을 잡다
+2694 / conservation / 보존, 보호
 2694 / codify / 법전으로 편찬하다, 체계적으로 정리하다
 2695 / nest / 둥지를 틀다; 둥지, 집
 2696 / diverse / 다양한
@@ -751,6 +1603,7 @@ const RAW_WORDS = `
 2766 / adhere to / ~에 들러붙다; 고수하다
 2767 / keep to / (규칙·계획 등을) 따르다
 2768 / amount to / 총액이 ~에 달하다
+
 2769 / hang around / 어슬렁거리다; 시간을 보내다
 2770 / show around / 구경시키다, 안내하다
 2771 / bring around / 정신 차리게 하다; 설득하다
@@ -801,6 +1654,7 @@ const RAW_WORDS = `
 2816 / call out / 큰 소리로 외치다
 2817 / read out / 큰 소리로 읽다
 2818 / set up / 시작하다; 창설하다
+
 2819 / count out / 제외하다
 2820 / fade out / 점점 희미해지다; 서서히 사라지다
 2821 / help out / 돕다
@@ -851,6 +1705,7 @@ const RAW_WORDS = `
 2866 / turn into / ~이 되다; ~으로 변하다
 2867 / bring out / 끌어내다; (능력 등을) 발휘하게 하다
 2868 / check out / (호텔 등에서) 계산하고 나오다
+
 2869 / get out of / ~에서 나가다; 떠나다
 2870 / keep out / 들어오지 못하게 하다
 2871 / see out / (현관까지) 배웅하다
@@ -1446,3 +2301,4 @@ restartBtn.addEventListener("click", ()=>{
 </script>
 </body>
 </html>
+
