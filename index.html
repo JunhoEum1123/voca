@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>중2 영단어 마스터 (하드코어 & 스마트 리뷰)</title>
+    <title>중2 영단어 마스터 (시험 범위 지정 & 스마트 리뷰)</title>
     <style>
         /* 기본 (화이트 모드) 컬러 변수 */
         :root {
@@ -46,18 +46,14 @@
             box-sizing: border-box;
         }
 
-        /* 정답 시 화면 깜빡임 애니메이션 (보상 효과) */
+        /* 정답 시 화면 깜빡임 애니메이션 */
         @keyframes correctFlash {
             0% { background-color: var(--bg-color); }
             30% { background-color: rgba(56, 161, 105, 0.2); }
             100% { background-color: var(--bg-color); }
         }
-        body.flash-correct {
-            animation: correctFlash 0.6s ease-out;
-        }
-        body.dark-mode.flash-correct {
-            animation: correctFlashDark 0.6s ease-out;
-        }
+        body.flash-correct { animation: correctFlash 0.6s ease-out; }
+        body.dark-mode.flash-correct { animation: correctFlashDark 0.6s ease-out; }
         @keyframes correctFlashDark {
             0% { background-color: var(--bg-color); }
             30% { background-color: rgba(104, 211, 145, 0.3); }
@@ -78,23 +74,13 @@
 
         /* 헤더 영역 */
         .app-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-            border-bottom: 2px solid var(--border-color);
-            padding-bottom: 15px;
+            display: flex; justify-content: space-between; align-items: center;
+            margin-bottom: 20px; border-bottom: 2px solid var(--border-color); padding-bottom: 15px;
         }
 
         .theme-toggle {
-            background: none;
-            border: 2px solid var(--border-color);
-            color: var(--text-main);
-            padding: 6px 12px;
-            border-radius: 20px;
-            cursor: pointer;
-            font-weight: bold;
-            font-size: 13px;
+            background: none; border: 2px solid var(--border-color); color: var(--text-main);
+            padding: 6px 12px; border-radius: 20px; cursor: pointer; font-weight: bold; font-size: 13px;
         }
 
         .timer { font-weight: 800; color: var(--wrong-color); font-size: 16px; }
@@ -102,7 +88,12 @@
         h1 { font-size: 22px; color: var(--primary-color); margin: 0 0 5px 0; text-align: center; }
         h2 { font-size: 14px; color: var(--text-muted); margin-bottom: 20px; text-align: center; }
 
-        /* 공통 버튼 */
+        /* 공통 폼 & 버튼 */
+        .input-box {
+            width: 100%; padding: 12px; border-radius: 8px; border: 2px solid var(--border-color); 
+            background: var(--card-bg); color: var(--text-main); font-size: 15px; outline: none; box-sizing: border-box;
+        }
+        
         .btn {
             display: block; width: 100%; padding: 14px; margin: 10px 0;
             border: none; border-radius: 12px; font-size: 16px; font-weight: bold;
@@ -130,26 +121,20 @@
         .option-btn.wrong { background-color: var(--wrong-color) !important; border-color: var(--wrong-color) !important; color: white !important; }
         .option-btn:hover:not([disabled]) { border-color: var(--primary-color); }
 
-        /* 오답 심층 해설 영역 (단계별 읽기) */
+        /* 오답 심층 해설 영역 */
         .feedback-area {
-            margin-top: 25px; padding: 25px 20px;
-            background-color: var(--feedback-bg); border-radius: 16px;
-            display: none; text-align: left;
-            border: 2px dashed var(--wrong-color);
+            margin-top: 25px; padding: 25px 20px; background-color: var(--feedback-bg); 
+            border-radius: 16px; display: none; text-align: left; border: 2px dashed var(--wrong-color);
         }
         .feedback-title { font-size: 16px; font-weight: 800; color: var(--wrong-color); margin-bottom: 15px; }
         
         .exp-step {
             background-color: rgba(255,255,255,0.6); padding: 12px; border-radius: 8px;
             font-size: 15px; line-height: 1.6; color: var(--text-main); margin-bottom: 10px;
-            border-left: 4px solid var(--wrong-color);
-            animation: fadeIn 0.3s ease-in-out;
+            border-left: 4px solid var(--wrong-color); animation: fadeIn 0.3s ease-in-out;
         }
         body.dark-mode .exp-step { background-color: rgba(0,0,0,0.3); }
-
-        .step-btn {
-            background-color: var(--text-main); color: var(--card-bg); margin-top: 15px;
-        }
+        .step-btn { background-color: var(--text-main); color: var(--card-bg); margin-top: 15px; }
 
         /* 단어장 리스트 */
         .word-list-container { max-height: 60vh; overflow-y: auto; text-align: left; border: 2px solid var(--border-color); border-radius: 12px; padding: 10px; margin-bottom: 20px;}
@@ -175,12 +160,19 @@
         <h2>까다로운 보기 & 심층 어원 읽기</h2>
         
         <div style="text-align: left; margin: 30px 0;">
-            <label style="font-weight: bold; display: block; margin-bottom: 8px; font-size: 14px;">📝 문제 수 선택</label>
-            <select id="questionCountSelect" style="width: 100%; padding: 12px; border-radius: 8px; border: 2px solid var(--border-color); background: var(--card-bg); color: var(--text-main); font-size: 15px; outline: none;">
+            <label style="font-weight: bold; display: block; margin-bottom: 8px; font-size: 14px;">🎯 시험 범위 (단어 번호)</label>
+            <div style="display: flex; gap: 10px; align-items: center; margin-bottom: 20px;">
+                <input type="number" id="startNum" class="input-box" placeholder="시작 (예:1701)">
+                <span style="font-weight: bold;">~</span>
+                <input type="number" id="endNum" class="input-box" placeholder="끝 (예:3000)">
+            </div>
+
+            <label style="font-weight: bold; display: block; margin-bottom: 8px; font-size: 14px;">📝 출제 문항 수</label>
+            <select id="questionCountSelect" class="input-box">
                 <option value="10">10문제 (가볍게 몸풀기)</option>
                 <option value="20">20문제 (적당히 실력체크)</option>
                 <option value="50">50문제 (빡세게 집중!)</option>
-                <option value="all">전체 다 풀기 (도전!)</option>
+                <option value="all">범위 내 전체 다 풀기</option>
             </select>
         </div>
 
@@ -201,10 +193,7 @@
 
         <div class="feedback-area" id="feedbackArea">
             <div class="feedback-title">🚨 오답입니다. 아래 해설을 한 문장씩 꼼꼼히 읽어주세요!</div>
-            
-            <div id="explanationContainer">
-                </div>
-
+            <div id="explanationContainer"></div>
             <button class="btn step-btn" id="stepConfirmBtn" onclick="showNextExplanationStep()">다음 해설 읽기 ➔</button>
         </div>
     </div>
@@ -213,7 +202,6 @@
         <h1 style="margin-top: 10px;">📝 시험 결과</h1>
         <div id="finalScore" class="score-circle">90점</div>
         <div id="resultMsg" style="font-size: 16px; margin-bottom: 25px; line-height: 1.6; color: var(--text-main); text-align: center;"></div>
-        
         <button class="btn btn-primary" onclick="goHome()">🏠 메인으로 돌아가기</button>
     </div>
 
@@ -1666,9 +1654,8 @@ const rawData = `
 `;
 
 // ==========================================
-// 2. 심층 해설 DB (문장 단위로 쪼개어 배열로 작성)
+// 2. 심층 해설 DB (문장 단위)
 // ==========================================
-// ※ 배열의 각 요소가 버튼을 누를 때마다 하나씩 나타납니다.
 const detailedExplanationDB = {
     "disclose": [
         "🔍 [어원 분석] dis(반대, 열다) + close(닫다).",
@@ -1678,8 +1665,7 @@ const detailedExplanationDB = {
     ],
     "hub": [
         "🚲 자전거 바퀴를 보면 한가운데 쇠축이 있고 거기로 모든 바퀴살이 모여들죠? 그 중심축을 '허브(hub)'라고 부릅니다.",
-        "따라서 모든 것이 모이는 '중심지, 중추'라는 뜻을 가집니다.",
-        "💡 (예: IT 기기를 여러 개 꽂는 USB 허브, 전 세계 비행기가 모이는 허브 공항)"
+        "따라서 모든 것이 모이는 '중심지, 중추'라는 뜻을 가집니다."
     ],
     "arousal": [
         "🔍 [어원 분석] arouse(불러일으키다, 자극하다) + al(명사형 접미사).",
@@ -1688,8 +1674,8 @@ const detailedExplanationDB = {
     ],
     "inject": [
         "🔍 [어원 분석] in(안으로) + ject(던지다).",
-        "'ject'는 던지다(throw)라는 뜻을 가진 중요한 어근이에요. (project: 앞으로 던지다->계획하다).",
-        "inject는 약물을 몸 안으로(in) 쑥 밀어 던져 넣는(ject) 것이므로 '주사하다, (사상이나 자금을) 도입하다'라는 뜻이 됩니다."
+        "'ject'는 던지다(throw)라는 뜻을 가진 중요한 어근이에요.",
+        "inject는 약물을 몸 안으로(in) 쑥 밀어 던져 넣는(ject) 것이므로 '주사하다, 도입하다'라는 뜻이 됩니다."
     ],
     "legitimate": [
         "🔍 [어원 분석] 라틴어 legis(법)에서 출발한 단어입니다. (legal과 뿌리가 같아요).",
@@ -1704,17 +1690,26 @@ let score = 0;
 let timerInterval = null;
 let timeLeft = 600;
 
-// 해설 단계 관리를 위한 변수
+// 해설 단계 변수
 let currentExpSteps = [];
 let currentStepIndex = 0;
 
-function init() { vocabList = parseData(rawData); }
+function init() { 
+    vocabList = parseData(rawData); 
+    // 데이터 로드 시 시작/끝 번호 자동 세팅
+    if(vocabList.length > 0) {
+        document.getElementById('startNum').value = vocabList[0].id;
+        document.getElementById('endNum').value = vocabList[vocabList.length - 1].id;
+    }
+}
+
 function parseData(text) {
     return text.trim().split('\n').map(line => {
         const parts = line.split('/').map(p => p.trim());
-        if (parts.length >= 3) return { id: parts[0], word: parts[1], meaning: parts[2] };
+        // id를 숫자로 변환하여 저장
+        if (parts.length >= 3) return { id: parseInt(parts[0], 10), word: parts[1], meaning: parts[2] };
         return null;
-    }).filter(item => item !== null);
+    }).filter(item => item !== null && !isNaN(item.id));
 }
 
 function showScreen(screenId) {
@@ -1742,18 +1737,40 @@ function showWordList() {
     vocabList.forEach(v => {
         const div = document.createElement('div');
         div.className = 'word-item';
-        div.innerHTML = `<span class="en">${v.word}</span> <span class="ko">${v.meaning}</span>`;
+        div.innerHTML = `<span class="en">${v.id}. ${v.word}</span> <span class="ko">${v.meaning}</span>`;
         container.appendChild(div);
     });
     showScreen('studyScreen');
 }
 
+// 퀴즈 시작 (범위 필터링 추가)
 function startQuiz() {
     if(vocabList.length === 0) init();
-    const count = document.getElementById('questionCountSelect').value === 'all' ? vocabList.length : parseInt(document.getElementById('questionCountSelect').value);
+
+    const startIdx = parseInt(document.getElementById('startNum').value, 10);
+    const endIdx = parseInt(document.getElementById('endNum').value, 10);
+
+    if (startIdx > endIdx) {
+        alert("시작 번호가 끝 번호보다 클 수 없습니다!");
+        return;
+    }
+
+    // 범위에 맞는 단어만 추출
+    let rangedList = vocabList.filter(v => v.id >= startIdx && v.id <= endIdx);
+
+    if (rangedList.length < 4) {
+        alert("해당 범위에 단어가 너무 적습니다. 최소 4개 이상의 단어가 포함되도록 번호를 지정해주세요.");
+        return;
+    }
+
+    const countSelect = document.getElementById('questionCountSelect').value;
+    const count = countSelect === 'all' ? rangedList.length : parseInt(countSelect);
     
-    let shuffled = [...vocabList].sort(() => Math.random() - 0.5);
+    // 범위 내 단어 섞기
+    let shuffled = [...rangedList].sort(() => Math.random() - 0.5);
+    // 지정된 문제 수 만큼 자르기
     quizQueue = shuffled.slice(0, count);
+    
     currentIndex = 0; score = 0; timeLeft = 600;
     
     showScreen('quizScreen');
@@ -1773,25 +1790,20 @@ function startTimer() {
     }, 1000);
 }
 
-// ==========================================
-// 3. 까다로운 난이도의 오답 생성 로직 (품사 매칭)
-// ==========================================
+// 까다로운 오답 출제 알고리즘 (품사 매칭)
 function getTrickyDistractors(correctMeaning, allVocabs) {
     let distractors = [];
     let pool = allVocabs.filter(v => v.meaning !== correctMeaning);
     
-    // 정답의 끝말을 분석하여 품사 유추
     let isVerb = correctMeaning.endsWith('다');
     let isAdjective = correctMeaning.endsWith('한') || correctMeaning.endsWith('적인') || correctMeaning.endsWith('운');
     let isAdverb = correctMeaning.endsWith('히') || correctMeaning.endsWith('으로');
 
-    // 같은 품사(끝말)를 가진 오답을 우선적으로 필터링
     let trickyPool = [];
     if (isVerb) trickyPool = pool.filter(v => v.meaning.endsWith('다'));
     else if (isAdjective) trickyPool = pool.filter(v => v.meaning.endsWith('한') || v.meaning.endsWith('적인') || v.meaning.endsWith('운'));
     else if (isAdverb) trickyPool = pool.filter(v => v.meaning.endsWith('히') || v.meaning.endsWith('으로'));
     
-    // 비슷한 품사의 보기가 있다면 우선 채워넣기
     if (trickyPool.length > 0) {
         trickyPool.sort(() => Math.random() - 0.5);
         for(let i=0; i<trickyPool.length && distractors.length < 3; i++) {
@@ -1799,12 +1811,9 @@ function getTrickyDistractors(correctMeaning, allVocabs) {
         }
     }
     
-    // 3개가 안 채워졌으면 랜덤으로 나머지 채우기
     pool.sort(() => Math.random() - 0.5);
     for(let i=0; distractors.length < 3 && i < pool.length; i++) {
-        if(!distractors.includes(pool[i].meaning)) {
-            distractors.push(pool[i].meaning);
-        }
+        if(!distractors.includes(pool[i].meaning)) distractors.push(pool[i].meaning);
     }
     
     return distractors;
@@ -1819,7 +1828,6 @@ function loadQuestion() {
     document.getElementById('progressText').innerText = `문제 ${currentIndex + 1} / ${quizQueue.length}`;
     document.getElementById('quizWord').innerText = currentWord.word;
 
-    // 까다로운 오답 3개 가져오기
     let distractors = getTrickyDistractors(currentWord.meaning, vocabList);
     let options = [currentWord.meaning, ...distractors].sort(() => Math.random() - 0.5);
 
@@ -1836,56 +1844,42 @@ function loadQuestion() {
 
 function checkAnswer(btn, selectedText, currentWord) {
     const buttons = document.querySelectorAll('.option-btn');
-    document.getElementById('optionsGrid').style.pointerEvents = 'none'; // 중복 클릭 방지
+    document.getElementById('optionsGrid').style.pointerEvents = 'none';
 
     if (selectedText === currentWord.meaning) {
-        // 정답 처리
         btn.classList.add('correct');
         score++;
         
-        // 정답 보상: 화면 깜빡임 효과 (Flash)
         document.body.classList.add('flash-correct');
         setTimeout(() => document.body.classList.remove('flash-correct'), 600);
-        
-        // 0.8초 후 자동으로 다음 문제로 넘어감
         setTimeout(nextQuestion, 800); 
     } else {
-        // 오답 처리
         btn.classList.add('wrong');
         buttons.forEach(b => { 
             if(b.innerText === currentWord.meaning) b.classList.add('correct');
-            else b.disabled = true; // 나머지 버튼 시각적 비활성화
+            else b.disabled = true; 
         });
-
-        // 오답 시 해설 영역 표시 및 단계별 읽기 시작
         startExplanation(currentWord);
     }
 }
 
-function nextQuestion() { 
-    currentIndex++; 
-    loadQuestion(); 
-}
+function nextQuestion() { currentIndex++; loadQuestion(); }
 
-// ==========================================
-// 4. 단계별 해설 읽기 로직 (오답 시 강제 확인)
-// ==========================================
+// 오답 단계별 해설
 function startExplanation(wordObj) {
     document.getElementById('feedbackArea').style.display = 'block';
     const container = document.getElementById('explanationContainer');
-    container.innerHTML = ''; // 초기화
+    container.innerHTML = ''; 
     
     const wordKey = wordObj.word.toLowerCase();
     
-    // DB에서 해설 가져오기 (없으면 자동 생성하여 배열로 만듦)
     if (detailedExplanationDB[wordKey]) {
         currentExpSteps = detailedExplanationDB[wordKey];
     } else {
-        // DB에 없을 경우 문장을 2~3개로 쪼개어 생성
         currentExpSteps = [
-            `<strong>[어원 팁]</strong> '${wordObj.word}' 단어를 잘 살펴보세요.`,
-            `자주 나오는 접두사나 접미사가 숨어있을 수 있습니다.`,
-            `뜻이 <strong>'${wordObj.meaning}'</strong>임을 기억하고, 공책에 철자를 한 번 적어보세요!`
+            `<strong>[단어 힌트]</strong> '${wordObj.word}' 단어의 뜻은 <strong>'${wordObj.meaning}'</strong>입니다.`,
+            `자주 나오는 접두사나 접미사가 숨어있을지 한번 생각해보세요.`,
+            `눈으로만 보지 말고 공책에 이 단어의 철자를 한 번 적어보세요!`
         ];
     }
     
@@ -1897,7 +1891,6 @@ function showNextExplanationStep() {
     const container = document.getElementById('explanationContainer');
     const btn = document.getElementById('stepConfirmBtn');
     
-    // 다음 문장 한 개를 화면에 추가
     const stepDiv = document.createElement('div');
     stepDiv.className = 'exp-step';
     stepDiv.innerHTML = currentExpSteps[currentStepIndex];
@@ -1905,19 +1898,15 @@ function showNextExplanationStep() {
     
     currentStepIndex++;
     
-    // 버튼 상태 업데이트
     if (currentStepIndex < currentExpSteps.length) {
         btn.innerText = `확인! 다음 줄 읽기 (${currentStepIndex}/${currentExpSteps.length}) ➔`;
-        btn.onclick = showNextExplanationStep; // 다음 줄 보여주기
+        btn.onclick = showNextExplanationStep; 
     } else {
         btn.innerText = `✅ 다 읽었어요! 다음 문제로 ➔`;
-        btn.onclick = nextQuestion; // 최종적으로 다음 문제 넘어가기
+        btn.onclick = nextQuestion; 
     }
 }
 
-// ==========================================
-// 5. 결과 화면
-// ==========================================
 function finishQuiz(isTimeOut) {
     clearInterval(timerInterval);
     showScreen('resultScreen');
