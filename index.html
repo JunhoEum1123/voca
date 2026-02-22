@@ -3,37 +3,55 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>중2 영단어 마스터 (시험 범위 지정 & 스마트 리뷰)</title>
+    <title>영단어 마스터 (Korean Air Edition)</title>
     <style>
-        /* 기본 (화이트 모드) 컬러 변수 */
-        :root {
-            --primary-color: #4A90E2;
-            --secondary-color: #50E3C2;
-            --wrong-color: #E53E3E;
-            --correct-color: #38A169;
-            --bg-color: #F4F7F6;
-            --card-bg: #FFFFFF;
-            --text-main: #2D3748;
-            --text-muted: #718096;
-            --border-color: #E2E8F0;
-            --feedback-bg: #FFF5F5;
+        /* 한진그룹 폰트 적용 */
+        @font-face {
+            font-family: 'HanjinGroupSans';
+            src: url('./HanjinGroupSans-Light.ttf') format('truetype');
+            font-weight: 300;
+        }
+        @font-face {
+            font-family: 'HanjinGroupSans';
+            src: url('./HanjinGroupSans-Regular.ttf') format('truetype');
+            font-weight: 400;
+        }
+        @font-face {
+            font-family: 'HanjinGroupSans';
+            src: url('./HanjinGroupSans-Bold.ttf') format('truetype');
+            font-weight: 700;
         }
 
-        /* 다크 모드 컬러 변수 */
+        /* 대한항공 컬러 팔레트 (화이트 모드) */
+        :root {
+            --kal-blue: #0064B2;    /* 대한항공 스카이블루 */
+            --kal-navy: #00205B;    /* 대한항공 네이비 */
+            --kal-light: #EBF3FA;   /* 옅은 하늘색 배경 */
+            --wrong-color: #D32F2F; /* 오답 레드 */
+            --correct-color: #008000;/* 정답 그린 */
+            --bg-color: #F8F9FA;
+            --card-bg: #FFFFFF;
+            --text-main: #333333;
+            --text-muted: #666666;
+            --border-color: #D0D9E1;
+        }
+
+        /* 대한항공 컬러 팔레트 (다크 모드 - 야간 비행 테마) */
         body.dark-mode {
-            --primary-color: #63B3ED;
-            --wrong-color: #FC8181;
-            --correct-color: #68D391;
-            --bg-color: #1A202C;
-            --card-bg: #2D3748;
-            --text-main: #F7FAFC;
-            --text-muted: #A0AEC0;
-            --border-color: #4A5568;
-            --feedback-bg: #3C2626;
+            --kal-blue: #3399FF;
+            --kal-navy: #66B2FF;
+            --kal-light: #00205B;
+            --wrong-color: #FF5252;
+            --correct-color: #4CAF50;
+            --bg-color: #0B132B;
+            --card-bg: #1C2541;
+            --text-main: #F0F4F8;
+            --text-muted: #A0B2C6;
+            --border-color: #2B3A55;
         }
 
         body {
-            font-family: 'Pretendard', 'Apple SD Gothic Neo', sans-serif;
+            font-family: 'HanjinGroupSans', sans-serif; /* 한진 폰트 기본 적용 */
             background-color: var(--bg-color);
             color: var(--text-main);
             margin: 0;
@@ -46,170 +64,125 @@
             box-sizing: border-box;
         }
 
-        /* 정답 시 화면 깜빡임 애니메이션 */
-        @keyframes correctFlash {
-            0% { background-color: var(--bg-color); }
-            30% { background-color: rgba(56, 161, 105, 0.2); }
-            100% { background-color: var(--bg-color); }
-        }
+        @keyframes correctFlash { 0% { background-color: var(--bg-color); } 30% { background-color: rgba(0, 128, 0, 0.15); } 100% { background-color: var(--bg-color); } }
         body.flash-correct { animation: correctFlash 0.6s ease-out; }
-        body.dark-mode.flash-correct { animation: correctFlashDark 0.6s ease-out; }
-        @keyframes correctFlashDark {
-            0% { background-color: var(--bg-color); }
-            30% { background-color: rgba(104, 211, 145, 0.3); }
-            100% { background-color: var(--bg-color); }
-        }
 
         .container {
-            background-color: var(--card-bg);
-            width: 100%;
-            max-width: 550px;
-            border-radius: 20px;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.08);
-            padding: 30px 20px;
-            box-sizing: border-box;
-            margin-bottom: 40px;
-            transition: 0.3s;
+            background-color: var(--card-bg); width: 100%; max-width: 550px;
+            border-radius: 16px; box-shadow: 0 10px 30px rgba(0,32,91,0.08);
+            padding: 30px 25px; box-sizing: border-box; margin-bottom: 40px; transition: 0.3s;
+            border-top: 6px solid var(--kal-blue); /* 대한항공 블루 포인트 */
         }
 
-        /* 헤더 영역 */
-        .app-header {
-            display: flex; justify-content: space-between; align-items: center;
-            margin-bottom: 20px; border-bottom: 2px solid var(--border-color); padding-bottom: 15px;
-        }
+        .app-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px; border-bottom: 1px solid var(--border-color); padding-bottom: 15px; }
+        .theme-toggle { background: none; border: 1px solid var(--border-color); color: var(--text-main); padding: 8px 14px; border-radius: 20px; cursor: pointer; font-weight: 400; font-size: 13px; font-family: 'HanjinGroupSans'; }
+        .timer { font-weight: 700; color: var(--wrong-color); font-size: 16px; letter-spacing: 1px;}
 
-        .theme-toggle {
-            background: none; border: 2px solid var(--border-color); color: var(--text-main);
-            padding: 6px 12px; border-radius: 20px; cursor: pointer; font-weight: bold; font-size: 13px;
-        }
+        h1 { font-size: 24px; color: var(--kal-navy); margin: 0 0 8px 0; text-align: center; font-weight: 700; letter-spacing: -0.5px; }
+        h2 { font-size: 15px; color: var(--text-muted); margin-bottom: 25px; text-align: center; font-weight: 300; }
+        body.dark-mode h1 { color: var(--kal-blue); }
 
-        .timer { font-weight: 800; color: var(--wrong-color); font-size: 16px; }
-
-        h1 { font-size: 22px; color: var(--primary-color); margin: 0 0 5px 0; text-align: center; }
-        h2 { font-size: 14px; color: var(--text-muted); margin-bottom: 20px; text-align: center; }
-
-        /* 공통 폼 & 버튼 */
-        .input-box {
-            width: 100%; padding: 12px; border-radius: 8px; border: 2px solid var(--border-color); 
-            background: var(--card-bg); color: var(--text-main); font-size: 15px; outline: none; box-sizing: border-box;
-        }
+        .input-box { width: 100%; padding: 14px; border-radius: 8px; border: 1px solid var(--border-color); background: var(--card-bg); color: var(--text-main); font-size: 15px; outline: none; box-sizing: border-box; font-family: 'HanjinGroupSans'; }
         
-        .btn {
-            display: block; width: 100%; padding: 14px; margin: 10px 0;
-            border: none; border-radius: 12px; font-size: 16px; font-weight: bold;
-            cursor: pointer; box-sizing: border-box; text-align: center;
-        }
-        .btn-primary { background-color: var(--primary-color); color: #fff; }
-        .btn-secondary { background-color: var(--border-color); color: var(--text-main); }
+        .btn { display: block; width: 100%; padding: 16px; margin: 12px 0; border: none; border-radius: 8px; font-size: 16px; font-weight: 700; cursor: pointer; box-sizing: border-box; text-align: center; font-family: 'HanjinGroupSans'; transition: 0.2s; letter-spacing: 0.5px;}
+        .btn-primary { background-color: var(--kal-blue); color: #fff; }
+        .btn-primary:hover { background-color: var(--kal-navy); }
+        .btn-secondary { background-color: var(--kal-light); color: var(--kal-navy); }
+        .btn-secondary:hover { background-color: #D0E3F5; }
         .btn:disabled { opacity: 0.6; cursor: not-allowed; }
 
-        /* 화면 전환 */
         .screen { display: none; animation: fadeIn 0.3s ease-in-out; }
         .screen.active { display: block; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
 
-        /* 퀴즈 UI */
-        .progress-text { font-size: 14px; font-weight: bold; color: var(--text-muted); margin-bottom: 10px; }
-        .quiz-word { font-size: 42px; font-weight: 900; margin: 30px 0; color: var(--text-main); text-align: center; }
+        .progress-text { font-size: 14px; font-weight: 700; color: var(--kal-blue); margin-bottom: 10px; text-transform: uppercase; letter-spacing: 1px;}
+        .quiz-word { font-size: 44px; font-weight: 700; margin: 25px 0 35px 0; color: var(--kal-navy); text-align: center; letter-spacing: -1px; }
+        body.dark-mode .quiz-word { color: #FFFFFF; }
         
-        .options-grid { display: grid; gap: 10px; }
-        .option-btn {
-            background-color: var(--card-bg); border: 2px solid var(--border-color); color: var(--text-main);
-            padding: 16px; border-radius: 12px; font-size: 15px; font-weight: 600; cursor: pointer; text-align: center; transition: 0.1s;
-        }
-        .option-btn.correct { background-color: var(--correct-color) !important; border-color: var(--correct-color) !important; color: white !important; }
-        .option-btn.wrong { background-color: var(--wrong-color) !important; border-color: var(--wrong-color) !important; color: white !important; }
-        .option-btn:hover:not([disabled]) { border-color: var(--primary-color); }
+        .options-grid { display: grid; gap: 12px; }
+        .option-btn { background-color: var(--card-bg); border: 1px solid var(--border-color); color: var(--text-main); padding: 18px; border-radius: 8px; font-size: 16px; font-weight: 400; cursor: pointer; text-align: center; transition: 0.2s; font-family: 'HanjinGroupSans'; }
+        .option-btn.correct { background-color: var(--correct-color) !important; border-color: var(--correct-color) !important; color: white !important; font-weight: 700; }
+        .option-btn.wrong { background-color: var(--wrong-color) !important; border-color: var(--wrong-color) !important; color: white !important; font-weight: 700;}
+        .option-btn:hover:not([disabled]) { border-color: var(--kal-blue); color: var(--kal-blue); box-shadow: 0 4px 10px rgba(0,100,178,0.1);}
 
         /* 오답 심층 해설 영역 */
-        .feedback-area {
-            margin-top: 25px; padding: 25px 20px; background-color: var(--feedback-bg); 
-            border-radius: 16px; display: none; text-align: left; border: 2px dashed var(--wrong-color);
-        }
-        .feedback-title { font-size: 16px; font-weight: 800; color: var(--wrong-color); margin-bottom: 15px; }
-        
-        .exp-step {
-            background-color: rgba(255,255,255,0.6); padding: 12px; border-radius: 8px;
-            font-size: 15px; line-height: 1.6; color: var(--text-main); margin-bottom: 10px;
-            border-left: 4px solid var(--wrong-color); animation: fadeIn 0.3s ease-in-out;
-        }
-        body.dark-mode .exp-step { background-color: rgba(0,0,0,0.3); }
-        .step-btn { background-color: var(--text-main); color: var(--card-bg); margin-top: 15px; }
+        .feedback-area { margin-top: 30px; padding: 25px 20px; background-color: var(--kal-light); border-radius: 8px; display: none; text-align: left; border-left: 4px solid var(--wrong-color); }
+        .feedback-title { font-size: 16px; font-weight: 700; color: var(--wrong-color); margin-bottom: 20px; display:flex; align-items:center; gap:8px;}
+        .exp-step { background-color: var(--card-bg); padding: 16px; border-radius: 6px; font-size: 15px; font-weight: 300; line-height: 1.6; color: var(--text-main); margin-bottom: 12px; border: 1px solid var(--border-color); animation: fadeIn 0.3s ease-in-out; }
+        .exp-step strong { font-weight: 700; color: var(--kal-navy); }
+        body.dark-mode .exp-step strong { color: var(--kal-blue); }
+        .step-btn { background-color: var(--kal-navy); color: #fff; margin-top: 20px; }
 
-        /* 단어장 리스트 */
-        .word-list-container { max-height: 60vh; overflow-y: auto; text-align: left; border: 2px solid var(--border-color); border-radius: 12px; padding: 10px; margin-bottom: 20px;}
-        .word-item { padding: 12px 5px; border-bottom: 1px solid var(--border-color); display: flex; flex-direction: column; }
-        .word-item span.en { font-weight: 800; color: var(--primary-color); font-size: 18px; margin-bottom: 4px;}
-        .word-item span.ko { font-size: 15px; color: var(--text-main); }
+        .word-list-container { max-height: 60vh; overflow-y: auto; text-align: left; border: 1px solid var(--border-color); border-radius: 8px; padding: 15px; margin-bottom: 20px;}
+        .word-item { padding: 14px 5px; border-bottom: 1px solid var(--border-color); display: flex; flex-direction: column; }
+        .word-item span.en { font-weight: 700; color: var(--kal-blue); font-size: 18px; margin-bottom: 6px;}
+        .word-item span.ko { font-size: 15px; font-weight: 300; color: var(--text-main); }
 
-        /* 성적표 */
-        .score-circle { width: 120px; height: 120px; background: var(--primary-color); color: white; border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 32px; font-weight: 900; margin: 20px auto; }
+        .score-circle { width: 130px; height: 130px; background: var(--kal-blue); color: white; border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 36px; font-weight: 700; margin: 30px auto; box-shadow: 0 10px 20px rgba(0,100,178,0.3);}
     </style>
 </head>
 <body>
 
 <div class="container">
-    
     <div class="app-header">
-        <button class="theme-toggle" onclick="toggleTheme()" id="themeBtn">🌙 다크 모드</button>
-        <span id="timerText" class="timer" style="display: none;">⏱️ 10:00</span>
+        <button class="theme-toggle" onclick="toggleTheme()" id="themeBtn">🌙 야간 비행 모드</button>
+        <span id="timerText" class="timer" style="display: none;">⏱ 10:00</span>
     </div>
 
     <div id="menuScreen" class="screen active">
-        <h1>🎓 중2 영단어 마스터</h1>
-        <h2>까다로운 보기 & 심층 어원 읽기</h2>
+        <h1>Korean Air Vocab Master</h1>
+        <h2>대한항공 폰트 & 프리미엄 심층 해설</h2>
         
         <div style="text-align: left; margin: 30px 0;">
-            <label style="font-weight: bold; display: block; margin-bottom: 8px; font-size: 14px;">🎯 시험 범위 (단어 번호)</label>
-            <div style="display: flex; gap: 10px; align-items: center; margin-bottom: 20px;">
-                <input type="number" id="startNum" class="input-box" placeholder="시작 (예:1701)">
-                <span style="font-weight: bold;">~</span>
-                <input type="number" id="endNum" class="input-box" placeholder="끝 (예:3000)">
+            <label style="font-weight: 700; display: block; margin-bottom: 10px; font-size: 14px; color: var(--kal-navy);">📍 비행 구간 (단어 번호)</label>
+            <div style="display: flex; gap: 10px; align-items: center; margin-bottom: 25px;">
+                <input type="number" id="startNum" class="input-box" placeholder="출발 번호">
+                <span style="font-weight: 700; color:var(--text-muted);">~</span>
+                <input type="number" id="endNum" class="input-box" placeholder="도착 번호">
             </div>
 
-            <label style="font-weight: bold; display: block; margin-bottom: 8px; font-size: 14px;">📝 출제 문항 수</label>
+            <label style="font-weight: 700; display: block; margin-bottom: 10px; font-size: 14px; color: var(--kal-navy);">📝 탑승 문항 수</label>
             <select id="questionCountSelect" class="input-box">
-                <option value="10">10문제 (가볍게 몸풀기)</option>
-                <option value="20">20문제 (적당히 실력체크)</option>
-                <option value="50">50문제 (빡세게 집중!)</option>
-                <option value="all">범위 내 전체 다 풀기</option>
+                <option value="10">10문제 (단거리 비행)</option>
+                <option value="20">20문제 (중거리 비행)</option>
+                <option value="50">50문제 (장거리 비행)</option>
+                <option value="all">구간 내 전체 다 풀기</option>
             </select>
         </div>
 
-        <button class="btn btn-primary" onclick="startQuiz()">🔥 시험 치기 시작</button>
-        <button class="btn btn-secondary" onclick="showWordList()">📖 단어장 전체 보기</button>
+        <button class="btn btn-primary" onclick="startQuiz()">✈️ 시험 비행 시작</button>
+        <button class="btn btn-secondary" onclick="showWordList()">📖 전체 단어장 보기</button>
     </div>
 
     <div id="studyScreen" class="screen">
-        <h1 style="margin-bottom: 15px;">📖 단어 목록</h1>
+        <h1 style="margin-bottom: 20px; text-align:left;">📖 Vocabulary List</h1>
         <div class="word-list-container" id="wordListContainer"></div>
-        <button class="btn btn-secondary" onclick="goHome()">🏠 메인으로 돌아가기</button>
+        <button class="btn btn-secondary" onclick="goHome()">🏠 메인 화면으로</button>
     </div>
 
     <div id="quizScreen" class="screen">
-        <div class="progress-text" id="progressText">문제 1 / 10</div>
+        <div class="progress-text" id="progressText">FLIGHT 1 / 10</div>
         <div class="quiz-word" id="quizWord">Loading...</div>
         <div class="options-grid" id="optionsGrid"></div>
 
         <div class="feedback-area" id="feedbackArea">
-            <div class="feedback-title">🚨 오답입니다. 아래 해설을 한 문장씩 꼼꼼히 읽어주세요!</div>
+            <div class="feedback-title">⚠️ 오답입니다. 심층 해설을 확인해 주십시오.</div>
             <div id="explanationContainer"></div>
-            <button class="btn step-btn" id="stepConfirmBtn" onclick="showNextExplanationStep()">다음 해설 읽기 ➔</button>
+            <button class="btn step-btn" id="stepConfirmBtn" onclick="showNextExplanationStep()">다음 문장 확인 ➔</button>
         </div>
     </div>
 
     <div id="resultScreen" class="screen">
-        <h1 style="margin-top: 10px;">📝 시험 결과</h1>
+        <h1 style="margin-top: 10px;">📊 Flight Report</h1>
         <div id="finalScore" class="score-circle">90점</div>
-        <div id="resultMsg" style="font-size: 16px; margin-bottom: 25px; line-height: 1.6; color: var(--text-main); text-align: center;"></div>
-        <button class="btn btn-primary" onclick="goHome()">🏠 메인으로 돌아가기</button>
+        <div id="resultMsg" style="font-size: 16px; font-weight: 300; margin-bottom: 30px; line-height: 1.6; color: var(--text-main); text-align: center;"></div>
+        <button class="btn btn-primary" onclick="goHome()">🏠 터미널로 돌아가기</button>
     </div>
-
 </div>
 
 <script>
 // ==========================================
-// 1. 단어 데이터 (선생님이 추가할 부분)
+// 1. 단어 데이터 (여기에 1701~3000 복사 붙여넣기)
 // ==========================================
 const rawData = `
 1701 / hub / 중심지, 중추
@@ -1654,35 +1627,96 @@ const rawData = `
 `;
 
 // ==========================================
-// 2. 심층 해설 DB (문장 단위)
+// 2. 완벽한 맞춤형 심층 해설 DB 
+// (사용자가 별도로 생성한 데이터를 이곳에 붙여넣습니다)
 // ==========================================
 const detailedExplanationDB = {
-    "disclose": [
-        "🔍 [어원 분석] dis(반대, 열다) + close(닫다).",
-        "굳게 닫혀(close) 있던 것을 반대로 열어젖히는(dis) 모습을 상상해 보세요.",
-        "감춰져 있던 비밀이나 정보를 밖으로 꺼내기 때문에 '드러내다, 폭로하다'라는 뜻이 됩니다.",
-        "💡 (예: 비밀을 폭로하다 = disclose a secret)"
-    ],
     "hub": [
         "🚲 자전거 바퀴를 보면 한가운데 쇠축이 있고 거기로 모든 바퀴살이 모여들죠? 그 중심축을 '허브(hub)'라고 부릅니다.",
-        "따라서 모든 것이 모이는 '중심지, 중추'라는 뜻을 가집니다."
+        "따라서 비행기 노선이 모이는 공항이나 데이터가 모이는 곳 등 모든 것이 모여드는 <strong>'중심지, 중추'</strong>라는 뜻을 가집니다."
     ],
-    "arousal": [
-        "🔍 [어원 분석] arouse(불러일으키다, 자극하다) + al(명사형 접미사).",
-        "원래 rouse는 '잠에서 깨우다'라는 뜻이에요. 여기에 강조를 뜻하는 a-가 붙어 '감정이나 본능을 확 일깨우다'가 되었습니다.",
-        "따라서 arousal은 잠에서 완전히 깨어난 '각성' 상태나 주의를 '환기'시키는 것을 의미합니다."
+    "indefinitely": [
+        "🔍 <strong>[어원 분석]</strong> in(부정: not) + definite(확실한, 한정된) + ly(부사형 접미사).",
+        "끝나는 기간이 확실하게(definite) 정해져 있지 않다(in)는 뜻이에요.",
+        "기약이 없기 때문에 <strong>'무기한으로, 무한히'</strong>라는 의미가 완성됩니다."
+    ],
+    "nasty": [
+        "🤢 <strong>[연상법]</strong> 코를 찌르는 고약한 냄새나 성격이 못된 사람을 봤을 때의 표정을 지어보세요.",
+        "발음해보세요. '내스티! (내 스타일이 아니야, 끔찍해!)'라고 외우면 절대 안 까먹습니다. <strong>'비열한, 심술궂은'</strong> 뜻입니다."
     ],
     "inject": [
-        "🔍 [어원 분석] in(안으로) + ject(던지다).",
-        "'ject'는 던지다(throw)라는 뜻을 가진 중요한 어근이에요.",
-        "inject는 약물을 몸 안으로(in) 쑥 밀어 던져 넣는(ject) 것이므로 '주사하다, 도입하다'라는 뜻이 됩니다."
+        "🔍 <strong>[어원 분석]</strong> in(안으로) + ject(던지다).",
+        "'ject'는 던지다(throw)라는 뜻을 가진 아주 중요한 어근이에요. (reject: 뒤로 던지다=거절하다).",
+        "약물이 든 주사기를 몸 안으로(in) 쑥 던져 넣는(ject) 모습을 상상하세요. <strong>'주사하다, 도입하다'</strong>라는 뜻입니다."
+    ],
+    "inventory": [
+        "📦 <strong>[개념 이해]</strong> 게임 좋아하나요? 게임에서 아이템을 열어보는 가방을 보통 '인벤토리'라고 하죠!",
+        "실제 상점이나 공장 창고에 쌓여있는 <strong>'재고, 재고품, 물품 목록'</strong>을 뜻하는 아주 중요한 비즈니스 단어입니다."
+    ],
+    "breed": [
+        "🐕 <strong>[연상법]</strong> 빵(bread)은 구워내지만, 브리드(breed)는 생명을 만들어냅니다.",
+        "동물이 <strong>'새끼를 낳다, 번식하다'</strong>라는 동사로 쓰이고, 명사로는 강아지나 고양이의 <strong>'품종'</strong>을 뜻하기도 해요."
+    ],
+    "specify": [
+        "🔍 <strong>[어원 분석]</strong> specific(구체적인) + fy(동사로 만들어주는 꼬리표: ~화 하다).",
+        "뭉뚱그려 말하지 않고, 아주 구체적으로 하나하나 딱 꼬집어서 말하는 행동입니다.",
+        "그래서 <strong>'명시하다, 구체적으로 말하다'</strong>라는 뜻이 됩니다."
     ],
     "legitimate": [
-        "🔍 [어원 분석] 라틴어 legis(법)에서 출발한 단어입니다. (legal과 뿌리가 같아요).",
-        "어떤 행동이 법의 테두리 안에 안전하게 들어와 있기 때문에 '합법적인, 정당한, 타당한'이라는 의미로 쓰입니다."
+        "🔍 <strong>[어원 분석]</strong> 라틴어 legis(법)에서 출발한 단어입니다. 법률을 뜻하는 'legal'과 뿌리가 완전히 같아요.",
+        "어떤 행동이나 결정이 법의 테두리 안에 안전하게 들어와 있다는 뜻이에요. 그래서 <strong>'합법적인, 정당한'</strong>이라는 의미로 쓰입니다."
+    ],
+    "democracy": [
+        "🔍 <strong>[어원 분석]</strong> demo(국민, 민중) + cracy(지배, 통치).",
+        "과거에는 왕 한 명이 통치(cracy)했지만, 지금은 수많은 국민(demo)들이 투표로 통치합니다. 이것이 바로 <strong>'민주주의'</strong>입니다."
+    ],
+    "magnetic": [
+        "🧲 <strong>[개념 이해]</strong> 자석을 영어로 'magnet'이라고 합니다. 이 단어의 형용사형이죠.",
+        "철을 끌어당기는 <strong>'자성의'</strong>라는 뜻도 있지만, 사람들을 자석처럼 훅 끌어당기는 <strong>'매력적인'</strong> 사람을 뜻하기도 해요."
+    ],
+    "lurk": [
+        "👀 <strong>[연상법]</strong> 어두운 골목길에 몰래 숨어서 누군가를 기다리는 소름 돋는 모습을 상상해 보세요.",
+        "인터넷 커뮤니티에서 글은 안 쓰고 남의 글만 몰래 훔쳐보는 행동을 영어로 '눈팅(Lurking)'이라고 합니다. <strong>'숨다, 잠복하다'</strong> 뜻이죠."
+    ],
+    "infrared": [
+        "🔍 <strong>[어원 분석]</strong> infra(아래에, 넘어서) + red(빨간색).",
+        "빛의 스펙트럼 중에서 빨간색 바깥쪽에 있어서 우리 눈에 보이지 않는 빛. 바로 군인들의 야간 투시경에 쓰이는 <strong>'적외선'</strong>입니다."
+    ],
+    "midst": [
+        "🔍 <strong>[어원 팁]</strong> middle(중간)과 뿌리가 같은 단어입니다.",
+        "군중 속 한가운데, 혹은 어떤 일이 벌어지는 <strong>'중앙, 한가운데'</strong>를 의미합니다. (예: in the midst of ~의 한가운데에)"
+    ],
+    "avail": [
+        "🔍 <strong>[어원 팁]</strong> 라틴어 valere(강하다, 가치 있다)에서 왔습니다. (value와 같은 어원).",
+        "나에게 가치가 있고 쓸모가 있다는 뜻에서 <strong>'이익, 효용, 쓸모'</strong>를 의미합니다."
+    ],
+    "receptive": [
+        "🔍 <strong>[어원 분석]</strong> receive(받다) + ive(형용사 꼬리표).",
+        "새로운 아이디어나 제안을 마음을 열고 잘 받아들이는 태도를 말합니다. 즉, <strong>'수용적인'</strong>이라는 뜻입니다."
+    ],
+    "ascend": [
+        "🔍 <strong>[어원 분석]</strong> ad(쪽으로) + scandere(오르다).",
+        "비행기가 이륙해서 하늘로 올라가거나, 산을 오르는 등 위를 향해 <strong>'오르다, 올라가다'</strong>라는 뜻입니다. (반대말: descend 내려가다)"
+    ],
+    "handy": [
+        "✋ <strong>[연상법]</strong> 손(hand)에 쏙 들어오고 늘 손이 닿는 곳에 있다는 느낌을 떠올려보세요.",
+        "언제든 쉽게 꺼내 쓸 수 있어서 <strong>'편리한, 유용한, 다루기 쉬운'</strong>이라는 뜻이 됩니다."
+    ],
+    "parasitic": [
+        "🔍 <strong>[어원 팁]</strong> parasite(기생충, 기생식물) + ic(형용사 꼬리표).",
+        "스스로 살지 못하고 남에게 붙어서 영양분을 빼앗아 먹고 사는 <strong>'기생하는'</strong>이라는 뜻입니다. (영화 '기생충'의 영어 제목이 Parasite죠!)"
+    ],
+    "originality": [
+        "🔍 <strong>[구조 분석]</strong> original(독창적인, 원래의) + ity(명사 꼬리표).",
+        "남을 베끼지 않고 자신만의 고유하고 새로운 것을 만들어내는 능력, 바로 <strong>'독창성'</strong>을 의미합니다."
+    ],
+    "implicit": [
+        "🔍 <strong>[어원 분석]</strong> im(안으로) + plic(접다).",
+        "의미를 밖으로 펼쳐서 보여주지 않고 안으로 꾹꾹 접어 숨겨두었다는 뜻입니다. 대놓고 말하지 않고 <strong>'암시된, 내포된'</strong>이라는 의미입니다."
     ]
 };
 
+// ... 이하 자바스크립트 로직 (동적 분석기 포함)은 이전 V6 버전과 동일하게 작성 ...
 let vocabList = [];
 let quizQueue = [];
 let currentIndex = 0;
@@ -1690,13 +1724,11 @@ let score = 0;
 let timerInterval = null;
 let timeLeft = 600;
 
-// 해설 단계 변수
 let currentExpSteps = [];
 let currentStepIndex = 0;
 
 function init() { 
     vocabList = parseData(rawData); 
-    // 데이터 로드 시 시작/끝 번호 자동 세팅
     if(vocabList.length > 0) {
         document.getElementById('startNum').value = vocabList[0].id;
         document.getElementById('endNum').value = vocabList[vocabList.length - 1].id;
@@ -1706,7 +1738,6 @@ function init() {
 function parseData(text) {
     return text.trim().split('\n').map(line => {
         const parts = line.split('/').map(p => p.trim());
-        // id를 숫자로 변환하여 저장
         if (parts.length >= 3) return { id: parseInt(parts[0], 10), word: parts[1], meaning: parts[2] };
         return null;
     }).filter(item => item !== null && !isNaN(item.id));
@@ -1727,7 +1758,7 @@ function toggleTheme() {
     const body = document.body;
     const btn = document.getElementById('themeBtn');
     body.classList.toggle('dark-mode');
-    btn.innerText = body.classList.contains('dark-mode') ? '☀️ 화이트 모드' : '🌙 다크 모드';
+    btn.innerText = body.classList.contains('dark-mode') ? '☀️ 주간 비행 모드' : '🌙 야간 비행 모드';
 }
 
 function showWordList() {
@@ -1743,39 +1774,25 @@ function showWordList() {
     showScreen('studyScreen');
 }
 
-// 퀴즈 시작 (범위 필터링 추가)
 function startQuiz() {
     if(vocabList.length === 0) init();
 
     const startIdx = parseInt(document.getElementById('startNum').value, 10);
     const endIdx = parseInt(document.getElementById('endNum').value, 10);
 
-    if (startIdx > endIdx) {
-        alert("시작 번호가 끝 번호보다 클 수 없습니다!");
-        return;
-    }
+    if (startIdx > endIdx) { alert("출발 번호가 도착 번호보다 클 수 없습니다."); return; }
 
-    // 범위에 맞는 단어만 추출
     let rangedList = vocabList.filter(v => v.id >= startIdx && v.id <= endIdx);
-
-    if (rangedList.length < 4) {
-        alert("해당 범위에 단어가 너무 적습니다. 최소 4개 이상의 단어가 포함되도록 번호를 지정해주세요.");
-        return;
-    }
+    if (rangedList.length < 4) { alert("해당 구간에 단어가 너무 적습니다. 최소 4단어 이상 지정해주세요."); return; }
 
     const countSelect = document.getElementById('questionCountSelect').value;
     const count = countSelect === 'all' ? rangedList.length : parseInt(countSelect);
     
-    // 범위 내 단어 섞기
     let shuffled = [...rangedList].sort(() => Math.random() - 0.5);
-    // 지정된 문제 수 만큼 자르기
     quizQueue = shuffled.slice(0, count);
     
     currentIndex = 0; score = 0; timeLeft = 600;
-    
-    showScreen('quizScreen');
-    startTimer();
-    loadQuestion();
+    showScreen('quizScreen'); startTimer(); loadQuestion();
 }
 
 function startTimer() {
@@ -1785,37 +1802,33 @@ function startTimer() {
         timeLeft--;
         const min = Math.floor(timeLeft / 60);
         const sec = timeLeft % 60;
-        document.getElementById('timerText').innerText = `⏱️ ${min}:${sec < 10 ? '0'+sec : sec}`;
+        document.getElementById('timerText').innerText = `⏱ ${min}:${sec < 10 ? '0'+sec : sec}`;
         if (timeLeft <= 0) { clearInterval(timerInterval); finishQuiz(true); }
     }, 1000);
 }
 
-// 까다로운 오답 출제 알고리즘 (품사 매칭)
 function getTrickyDistractors(correctMeaning, allVocabs) {
     let distractors = [];
     let pool = allVocabs.filter(v => v.meaning !== correctMeaning);
     
     let isVerb = correctMeaning.endsWith('다');
-    let isAdjective = correctMeaning.endsWith('한') || correctMeaning.endsWith('적인') || correctMeaning.endsWith('운');
+    let isAdjective = correctMeaning.endsWith('한') || correctMeaning.endsWith('적인') || correctMeaning.endsWith('운') || correctMeaning.endsWith('의');
     let isAdverb = correctMeaning.endsWith('히') || correctMeaning.endsWith('으로');
 
     let trickyPool = [];
     if (isVerb) trickyPool = pool.filter(v => v.meaning.endsWith('다'));
-    else if (isAdjective) trickyPool = pool.filter(v => v.meaning.endsWith('한') || v.meaning.endsWith('적인') || v.meaning.endsWith('운'));
+    else if (isAdjective) trickyPool = pool.filter(v => v.meaning.endsWith('한') || v.meaning.endsWith('적인') || v.meaning.endsWith('운') || v.meaning.endsWith('의'));
     else if (isAdverb) trickyPool = pool.filter(v => v.meaning.endsWith('히') || v.meaning.endsWith('으로'));
     
     if (trickyPool.length > 0) {
         trickyPool.sort(() => Math.random() - 0.5);
-        for(let i=0; i<trickyPool.length && distractors.length < 3; i++) {
-            distractors.push(trickyPool[i].meaning);
-        }
+        for(let i=0; i<trickyPool.length && distractors.length < 3; i++) distractors.push(trickyPool[i].meaning);
     }
     
     pool.sort(() => Math.random() - 0.5);
     for(let i=0; distractors.length < 3 && i < pool.length; i++) {
         if(!distractors.includes(pool[i].meaning)) distractors.push(pool[i].meaning);
     }
-    
     return distractors;
 }
 
@@ -1825,7 +1838,7 @@ function loadQuestion() {
     if (currentIndex >= quizQueue.length) { finishQuiz(false); return; }
 
     const currentWord = quizQueue[currentIndex];
-    document.getElementById('progressText').innerText = `문제 ${currentIndex + 1} / ${quizQueue.length}`;
+    document.getElementById('progressText').innerText = `FLIGHT ${currentIndex + 1} / ${quizQueue.length}`;
     document.getElementById('quizWord').innerText = currentWord.word;
 
     let distractors = getTrickyDistractors(currentWord.meaning, vocabList);
@@ -1847,9 +1860,7 @@ function checkAnswer(btn, selectedText, currentWord) {
     document.getElementById('optionsGrid').style.pointerEvents = 'none';
 
     if (selectedText === currentWord.meaning) {
-        btn.classList.add('correct');
-        score++;
-        
+        btn.classList.add('correct'); score++;
         document.body.classList.add('flash-correct');
         setTimeout(() => document.body.classList.remove('flash-correct'), 600);
         setTimeout(nextQuestion, 800); 
@@ -1865,7 +1876,6 @@ function checkAnswer(btn, selectedText, currentWord) {
 
 function nextQuestion() { currentIndex++; loadQuestion(); }
 
-// 오답 단계별 해설
 function startExplanation(wordObj) {
     document.getElementById('feedbackArea').style.display = 'block';
     const container = document.getElementById('explanationContainer');
@@ -1876,11 +1886,33 @@ function startExplanation(wordObj) {
     if (detailedExplanationDB[wordKey]) {
         currentExpSteps = detailedExplanationDB[wordKey];
     } else {
-        currentExpSteps = [
-            `<strong>[단어 힌트]</strong> '${wordObj.word}' 단어의 뜻은 <strong>'${wordObj.meaning}'</strong>입니다.`,
-            `자주 나오는 접두사나 접미사가 숨어있을지 한번 생각해보세요.`,
-            `눈으로만 보지 말고 공책에 이 단어의 철자를 한 번 적어보세요!`
-        ];
+        currentExpSteps = [];
+        currentExpSteps.push(`💡 <strong>[기본 뜻 확인]</strong> 아쉽네요! '${wordObj.word}'의 진짜 뜻은 <strong>'${wordObj.meaning}'</strong>입니다.`);
+        
+        let affixFound = false;
+        if (wordKey.endsWith("tion") || wordKey.endsWith("ment") || wordKey.endsWith("ness")) {
+            currentExpSteps.push(`🔍 <strong>[구조 분석]</strong> 단어가 <strong>'-${wordKey.substring(wordKey.length-4)}'</strong>로 끝나고 있죠? 보통 이런 꼬리표가 붙으면 상태를 나타내는 '명사'가 됩니다.`);
+            affixFound = true;
+        } else if (wordKey.endsWith("ly")) {
+            currentExpSteps.push(`🔍 <strong>[구조 분석]</strong> 단어 끝에 <strong>'-ly'</strong>가 붙어있네요. 형용사 뒤에 붙어서 '~하게'라는 부사를 만들어주는 아주 흔한 꼬리표입니다.`);
+            affixFound = true;
+        }
+
+        if (wordKey.startsWith("un") || wordKey.startsWith("in") || wordKey.startsWith("im") || wordKey.startsWith("dis")) {
+            currentExpSteps.push(`🔍 <strong>[어원 분석]</strong> 단어 맨 앞에 있는 <strong>'${wordKey.substring(0,2)}-'</strong>는 보통 '반대(not)'의 의미를 가집니다. 원래 의미의 반대를 상상해 보세요.`);
+            affixFound = true;
+        } else if (wordKey.startsWith("re")) {
+            currentExpSteps.push(`🔍 <strong>[어원 분석]</strong> <strong>'re-'</strong>로 시작하네요! 이건 '다시(again)'나 '뒤로(back)'라는 뜻을 더해주는 마법의 접두사입니다.`);
+            affixFound = true;
+        } else if (wordKey.startsWith("pre")) {
+            currentExpSteps.push(`🔍 <strong>[어원 분석]</strong> <strong>'pre-'</strong>는 '미리, 앞서서(before)'라는 뜻이에요. 시간적으로 먼저 일어난다는 느낌을 기억하세요.`);
+            affixFound = true;
+        }
+
+        if (!affixFound) {
+            currentExpSteps.push(`🔍 <strong>[어원 팁]</strong> 이 단어는 접두사보다는 어근(단어 자체)이 핵심입니다. 눈을 감고 스펠링을 허공에 적어보세요!`);
+        }
+        currentExpSteps.push(`📝 <strong>[나만의 암기법]</strong> 뜻 '${wordObj.meaning}'과 영어 발음을 엮어서 웃긴 연상 문장을 한 번 만들어보세요!`);
     }
     
     currentStepIndex = 0;
@@ -1899,10 +1931,10 @@ function showNextExplanationStep() {
     currentStepIndex++;
     
     if (currentStepIndex < currentExpSteps.length) {
-        btn.innerText = `확인! 다음 줄 읽기 (${currentStepIndex}/${currentExpSteps.length}) ➔`;
+        btn.innerText = `확인! 다음 문장 확인 (${currentStepIndex}/${currentExpSteps.length}) ➔`;
         btn.onclick = showNextExplanationStep; 
     } else {
-        btn.innerText = `✅ 다 읽었어요! 다음 문제로 ➔`;
+        btn.innerText = `✅ 확인 완료! 다음 문제로 ➔`;
         btn.onclick = nextQuestion; 
     }
 }
@@ -1919,16 +1951,9 @@ function finishQuiz(isTimeOut) {
     
     let msg = isTimeOut ? "⏰ 시간이 초과되어 남은 문제는 오답 처리되었습니다.<br><br>" : "";
     
-    if (finalScore === 100) {
-        msg += "🏆 퍼펙트! 오답 하나 없이 훌륭합니다!";
-        scoreCircle.style.backgroundColor = "var(--correct-color)";
-    } else if (finalScore >= 80) {
-        msg += "👏 훌륭해요! 방금 꼼꼼히 읽은 오답노트가 실력이 될 거예요.";
-        scoreCircle.style.backgroundColor = "var(--primary-color)";
-    } else {
-        msg += "💪 방금 읽은 심층 해설들을 다시 한번 떠올려보며 복습해보세요.";
-        scoreCircle.style.backgroundColor = "var(--wrong-color)";
-    }
+    if (finalScore === 100) { msg += "🏆 퍼펙트! 목적지에 무사히 도착하셨습니다."; scoreCircle.style.backgroundColor = "var(--correct-color)"; } 
+    else if (finalScore >= 80) { msg += "👏 아주 훌륭한 비행이었습니다! 방금 읽은 심층 해설이 큰 힘이 될 것입니다."; scoreCircle.style.backgroundColor = "var(--kal-blue)"; } 
+    else { msg += "💪 조금 난기류가 있었네요. 해설 노트를 다시 한번 확인해주시기 바랍니다."; scoreCircle.style.backgroundColor = "var(--wrong-color)"; }
     document.getElementById('resultMsg').innerHTML = msg;
 }
 
