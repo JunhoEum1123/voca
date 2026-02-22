@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>중2 영단어 마스터 (심층 오답노트)</title>
+    <title>중2 영단어 마스터 (하드코어 & 스마트 리뷰)</title>
     <style>
         /* 기본 (화이트 모드) 컬러 변수 */
         :root {
@@ -16,7 +16,7 @@
             --text-main: #2D3748;
             --text-muted: #718096;
             --border-color: #E2E8F0;
-            --review-bg: #F7FAFC;
+            --feedback-bg: #FFF5F5;
         }
 
         /* 다크 모드 컬러 변수 */
@@ -29,7 +29,7 @@
             --text-main: #F7FAFC;
             --text-muted: #A0AEC0;
             --border-color: #4A5568;
-            --review-bg: #1A202C;
+            --feedback-bg: #3C2626;
         }
 
         body {
@@ -39,11 +39,29 @@
             margin: 0;
             display: flex;
             justify-content: center;
-            align-items: flex-start; /* 스크롤을 위해 위쪽 정렬 */
+            align-items: flex-start;
             min-height: 100vh;
             transition: background-color 0.3s, color 0.3s;
             padding: 20px 15px;
             box-sizing: border-box;
+        }
+
+        /* 정답 시 화면 깜빡임 애니메이션 (보상 효과) */
+        @keyframes correctFlash {
+            0% { background-color: var(--bg-color); }
+            30% { background-color: rgba(56, 161, 105, 0.2); }
+            100% { background-color: var(--bg-color); }
+        }
+        body.flash-correct {
+            animation: correctFlash 0.6s ease-out;
+        }
+        body.dark-mode.flash-correct {
+            animation: correctFlashDark 0.6s ease-out;
+        }
+        @keyframes correctFlashDark {
+            0% { background-color: var(--bg-color); }
+            30% { background-color: rgba(104, 211, 145, 0.3); }
+            100% { background-color: var(--bg-color); }
         }
 
         .container {
@@ -55,6 +73,7 @@
             padding: 30px 20px;
             box-sizing: border-box;
             margin-bottom: 40px;
+            transition: 0.3s;
         }
 
         /* 헤더 영역 */
@@ -91,6 +110,7 @@
         }
         .btn-primary { background-color: var(--primary-color); color: #fff; }
         .btn-secondary { background-color: var(--border-color); color: var(--text-main); }
+        .btn:disabled { opacity: 0.6; cursor: not-allowed; }
 
         /* 화면 전환 */
         .screen { display: none; animation: fadeIn 0.3s ease-in-out; }
@@ -106,44 +126,30 @@
             background-color: var(--card-bg); border: 2px solid var(--border-color); color: var(--text-main);
             padding: 16px; border-radius: 12px; font-size: 15px; font-weight: 600; cursor: pointer; text-align: center; transition: 0.1s;
         }
-        .option-btn.correct { background-color: var(--correct-color); border-color: var(--correct-color); color: white; }
-        .option-btn.wrong { background-color: var(--wrong-color); border-color: var(--wrong-color); color: white; }
+        .option-btn.correct { background-color: var(--correct-color) !important; border-color: var(--correct-color) !important; color: white !important; }
+        .option-btn.wrong { background-color: var(--wrong-color) !important; border-color: var(--wrong-color) !important; color: white !important; }
+        .option-btn:hover:not([disabled]) { border-color: var(--primary-color); }
 
-        /* 오답노트 / 리뷰 UI */
-        .review-header { font-size: 18px; font-weight: bold; margin: 30px 0 15px 0; padding-bottom: 10px; border-bottom: 2px solid var(--border-color); }
-        .review-item {
-            background-color: var(--review-bg);
-            border: 1px solid var(--border-color);
-            border-radius: 12px;
-            padding: 15px;
-            margin-bottom: 15px;
-            text-align: left;
+        /* 오답 심층 해설 영역 (단계별 읽기) */
+        .feedback-area {
+            margin-top: 25px; padding: 25px 20px;
+            background-color: var(--feedback-bg); border-radius: 16px;
+            display: none; text-align: left;
+            border: 2px dashed var(--wrong-color);
         }
-        .review-item.wrong-item { border-left: 5px solid var(--wrong-color); }
-        .review-item.correct-item { border-left: 5px solid var(--correct-color); }
+        .feedback-title { font-size: 16px; font-weight: 800; color: var(--wrong-color); margin-bottom: 15px; }
         
-        .review-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
-        .review-word { font-size: 18px; font-weight: 900; color: var(--primary-color); }
-        .badge { padding: 4px 8px; border-radius: 6px; font-size: 12px; font-weight: bold; color: white; }
-        .badge.wrong { background-color: var(--wrong-color); }
-        .badge.correct { background-color: var(--correct-color); }
-        
-        .review-choices { font-size: 14px; margin-bottom: 12px; line-height: 1.6; }
-        .review-choices span { display: block; }
-        .review-choices .my-answer { color: var(--text-muted); }
-        .review-choices .real-answer { font-weight: bold; color: var(--text-main); }
-        
-        /* 심층 해설 박스 */
-        .explanation-box {
-            background-color: rgba(74, 144, 226, 0.1);
-            padding: 12px;
-            border-radius: 8px;
-            font-size: 14px;
-            line-height: 1.6;
-            color: var(--text-main);
-            margin-top: 10px;
+        .exp-step {
+            background-color: rgba(255,255,255,0.6); padding: 12px; border-radius: 8px;
+            font-size: 15px; line-height: 1.6; color: var(--text-main); margin-bottom: 10px;
+            border-left: 4px solid var(--wrong-color);
+            animation: fadeIn 0.3s ease-in-out;
         }
-        .explanation-box strong { color: var(--primary-color); }
+        body.dark-mode .exp-step { background-color: rgba(0,0,0,0.3); }
+
+        .step-btn {
+            background-color: var(--text-main); color: var(--card-bg); margin-top: 15px;
+        }
 
         /* 단어장 리스트 */
         .word-list-container { max-height: 60vh; overflow-y: auto; text-align: left; border: 2px solid var(--border-color); border-radius: 12px; padding: 10px; margin-bottom: 20px;}
@@ -151,6 +157,7 @@
         .word-item span.en { font-weight: 800; color: var(--primary-color); font-size: 18px; margin-bottom: 4px;}
         .word-item span.ko { font-size: 15px; color: var(--text-main); }
 
+        /* 성적표 */
         .score-circle { width: 120px; height: 120px; background: var(--primary-color); color: white; border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 32px; font-weight: 900; margin: 20px auto; }
     </style>
 </head>
@@ -165,7 +172,7 @@
 
     <div id="menuScreen" class="screen active">
         <h1>🎓 중2 영단어 마스터</h1>
-        <h2>완벽한 어원 해설과 오답노트</h2>
+        <h2>까다로운 보기 & 심층 어원 읽기</h2>
         
         <div style="text-align: left; margin: 30px 0;">
             <label style="font-weight: bold; display: block; margin-bottom: 8px; font-size: 14px;">📝 문제 수 선택</label>
@@ -191,27 +198,30 @@
         <div class="progress-text" id="progressText">문제 1 / 10</div>
         <div class="quiz-word" id="quizWord">Loading...</div>
         <div class="options-grid" id="optionsGrid"></div>
+
+        <div class="feedback-area" id="feedbackArea">
+            <div class="feedback-title">🚨 오답입니다. 아래 해설을 한 문장씩 꼼꼼히 읽어주세요!</div>
+            
+            <div id="explanationContainer">
+                </div>
+
+            <button class="btn step-btn" id="stepConfirmBtn" onclick="showNextExplanationStep()">다음 해설 읽기 ➔</button>
         </div>
+    </div>
 
     <div id="resultScreen" class="screen">
         <h1 style="margin-top: 10px;">📝 시험 결과</h1>
         <div id="finalScore" class="score-circle">90점</div>
         <div id="resultMsg" style="font-size: 16px; margin-bottom: 25px; line-height: 1.6; color: var(--text-main); text-align: center;"></div>
         
-        <button class="btn btn-secondary" onclick="goHome()">🏠 메인으로 돌아가기</button>
-
-        <div class="review-header">📘 오답노트 / 리뷰 (최근 순)</div>
-        <div id="reviewContainer">
-            </div>
-        
-        <button class="btn btn-primary" onclick="goHome()" style="margin-top: 20px;">학습 마치기</button>
+        <button class="btn btn-primary" onclick="goHome()">🏠 메인으로 돌아가기</button>
     </div>
 
 </div>
 
 <script>
 // ==========================================
-// 1. 단어 데이터 (사용자가 추가할 데이터)
+// 1. 단어 데이터 (선생님이 추가할 부분)
 // ==========================================
 const rawData = `
 1701 / hub / 중심지, 중추
@@ -1656,20 +1666,35 @@ const rawData = `
 `;
 
 // ==========================================
-// 2. 교육적 심층 해설 DB (중2 수준 맞춤형)
+// 2. 심층 해설 DB (문장 단위로 쪼개어 배열로 작성)
 // ==========================================
+// ※ 배열의 각 요소가 버튼을 누를 때마다 하나씩 나타납니다.
 const detailedExplanationDB = {
-    "disclose": "<strong>[어원 분석]</strong> dis(반대, 열다) + close(닫다).<br>굳게 닫혀(close) 있던 것을 반대로 열어젖히는(dis) 모습을 상상해 보세요. 감춰져 있던 비밀이나 정보를 밖으로 꺼내기 때문에 <strong>'드러내다, 폭로하다'</strong>라는 뜻이 됩니다. (예: 비밀을 폭로하다 = disclose a secret)",
-    
-    "hub": "<strong>[개념 연상]</strong> 자전거 바퀴를 보면 한가운데 쇠축이 있고 거기로 모든 바퀴살이 모여들죠? 그 중심축을 '허브(hub)'라고 부릅니다. <br>따라서 모든 것이 모이는 <strong>'중심지, 중추'</strong>라는 뜻을 가집니다. (예: IT 기기를 여러 개 꽂는 USB 허브, 전 세계 비행기가 모이는 허브 공항)",
-    
-    "arousal": "<strong>[어원 분석]</strong> arouse(불러일으키다, 자극하다) + al(명사형 접미사).<br>원래 rouse는 '잠에서 깨우다'라는 뜻이에요. 여기에 강조를 뜻하는 a-가 붙어 '감정이나 본능을 확 일깨우다'가 되었습니다. 따라서 arousal은 잠에서 완전히 깨어난 <strong>'각성'</strong> 상태나 주의를 <strong>'환기'</strong>시키는 것을 의미합니다.",
-    
-    "inject": "<strong>[어원 분석]</strong> in(안으로) + ject(던지다).<br>'ject'는 던지다(throw)라는 뜻을 가진 중요한 어원이에요. (project: 앞으로 던지다->계획하다 / reject: 뒤로 던지다->거절하다). <br>inject는 약물을 몸 안으로(in) 쑥 밀어 던져 넣는(ject) 것이므로 <strong>'주사하다, (사상이나 자금을) 도입하다'</strong>라는 뜻이 됩니다.",
-    
-    "legitimate": "<strong>[어원 분석]</strong> 라틴어 legis(법)에서 출발한 단어입니다. 우리가 흔히 아는 legal(법률의)과 뿌리가 같아요.<br>어떤 행동이 법의 테두리 안에 안전하게 들어와 있기 때문에 <strong>'합법적인, 정당한, 타당한'</strong>이라는 의미로 쓰입니다.",
-    
-    "indefinitely": "<strong>[어원 분석]</strong> in(부정: not) + definite(확실한, 한정된) + ly(부사형 접미사).<br>끝나는 기간이 확실하게(definite) 정해져 있지 않다(in)는 뜻이에요. 따라서 기약 없이 <strong>'무기한으로, 무한히'</strong>라는 의미가 됩니다."
+    "disclose": [
+        "🔍 [어원 분석] dis(반대, 열다) + close(닫다).",
+        "굳게 닫혀(close) 있던 것을 반대로 열어젖히는(dis) 모습을 상상해 보세요.",
+        "감춰져 있던 비밀이나 정보를 밖으로 꺼내기 때문에 '드러내다, 폭로하다'라는 뜻이 됩니다.",
+        "💡 (예: 비밀을 폭로하다 = disclose a secret)"
+    ],
+    "hub": [
+        "🚲 자전거 바퀴를 보면 한가운데 쇠축이 있고 거기로 모든 바퀴살이 모여들죠? 그 중심축을 '허브(hub)'라고 부릅니다.",
+        "따라서 모든 것이 모이는 '중심지, 중추'라는 뜻을 가집니다.",
+        "💡 (예: IT 기기를 여러 개 꽂는 USB 허브, 전 세계 비행기가 모이는 허브 공항)"
+    ],
+    "arousal": [
+        "🔍 [어원 분석] arouse(불러일으키다, 자극하다) + al(명사형 접미사).",
+        "원래 rouse는 '잠에서 깨우다'라는 뜻이에요. 여기에 강조를 뜻하는 a-가 붙어 '감정이나 본능을 확 일깨우다'가 되었습니다.",
+        "따라서 arousal은 잠에서 완전히 깨어난 '각성' 상태나 주의를 '환기'시키는 것을 의미합니다."
+    ],
+    "inject": [
+        "🔍 [어원 분석] in(안으로) + ject(던지다).",
+        "'ject'는 던지다(throw)라는 뜻을 가진 중요한 어근이에요. (project: 앞으로 던지다->계획하다).",
+        "inject는 약물을 몸 안으로(in) 쑥 밀어 던져 넣는(ject) 것이므로 '주사하다, (사상이나 자금을) 도입하다'라는 뜻이 됩니다."
+    ],
+    "legitimate": [
+        "🔍 [어원 분석] 라틴어 legis(법)에서 출발한 단어입니다. (legal과 뿌리가 같아요).",
+        "어떤 행동이 법의 테두리 안에 안전하게 들어와 있기 때문에 '합법적인, 정당한, 타당한'이라는 의미로 쓰입니다."
+    ]
 };
 
 let vocabList = [];
@@ -1679,9 +1704,9 @@ let score = 0;
 let timerInterval = null;
 let timeLeft = 600;
 
-// 시험 중 사용자의 답안 이력을 저장하는 배열
-// 형식: { wordObj: 객체, selected: 선택한답, isCorrect: 정답여부, order: 문제번호 }
-let userHistory = []; 
+// 해설 단계 관리를 위한 변수
+let currentExpSteps = [];
+let currentStepIndex = 0;
 
 function init() { vocabList = parseData(rawData); }
 function parseData(text) {
@@ -1698,7 +1723,6 @@ function showScreen(screenId) {
     const target = document.getElementById(screenId);
     target.style.display = 'block';
     setTimeout(() => target.classList.add('active'), 10);
-    
     document.getElementById('timerText').style.display = (screenId === 'quizScreen') ? 'block' : 'none';
 }
 
@@ -1730,10 +1754,7 @@ function startQuiz() {
     
     let shuffled = [...vocabList].sort(() => Math.random() - 0.5);
     quizQueue = shuffled.slice(0, count);
-    currentIndex = 0; 
-    score = 0; 
-    timeLeft = 600;
-    userHistory = []; // 이력 초기화
+    currentIndex = 0; score = 0; timeLeft = 600;
     
     showScreen('quizScreen');
     startTimer();
@@ -1743,7 +1764,6 @@ function startQuiz() {
 function startTimer() {
     clearInterval(timerInterval);
     document.getElementById('timerText').style.display = 'block';
-    
     timerInterval = setInterval(() => {
         timeLeft--;
         const min = Math.floor(timeLeft / 60);
@@ -1753,7 +1773,45 @@ function startTimer() {
     }, 1000);
 }
 
+// ==========================================
+// 3. 까다로운 난이도의 오답 생성 로직 (품사 매칭)
+// ==========================================
+function getTrickyDistractors(correctMeaning, allVocabs) {
+    let distractors = [];
+    let pool = allVocabs.filter(v => v.meaning !== correctMeaning);
+    
+    // 정답의 끝말을 분석하여 품사 유추
+    let isVerb = correctMeaning.endsWith('다');
+    let isAdjective = correctMeaning.endsWith('한') || correctMeaning.endsWith('적인') || correctMeaning.endsWith('운');
+    let isAdverb = correctMeaning.endsWith('히') || correctMeaning.endsWith('으로');
+
+    // 같은 품사(끝말)를 가진 오답을 우선적으로 필터링
+    let trickyPool = [];
+    if (isVerb) trickyPool = pool.filter(v => v.meaning.endsWith('다'));
+    else if (isAdjective) trickyPool = pool.filter(v => v.meaning.endsWith('한') || v.meaning.endsWith('적인') || v.meaning.endsWith('운'));
+    else if (isAdverb) trickyPool = pool.filter(v => v.meaning.endsWith('히') || v.meaning.endsWith('으로'));
+    
+    // 비슷한 품사의 보기가 있다면 우선 채워넣기
+    if (trickyPool.length > 0) {
+        trickyPool.sort(() => Math.random() - 0.5);
+        for(let i=0; i<trickyPool.length && distractors.length < 3; i++) {
+            distractors.push(trickyPool[i].meaning);
+        }
+    }
+    
+    // 3개가 안 채워졌으면 랜덤으로 나머지 채우기
+    pool.sort(() => Math.random() - 0.5);
+    for(let i=0; distractors.length < 3 && i < pool.length; i++) {
+        if(!distractors.includes(pool[i].meaning)) {
+            distractors.push(pool[i].meaning);
+        }
+    }
+    
+    return distractors;
+}
+
 function loadQuestion() {
+    document.getElementById('feedbackArea').style.display = 'none';
     document.getElementById('optionsGrid').style.pointerEvents = 'auto';
     if (currentIndex >= quizQueue.length) { finishQuiz(false); return; }
 
@@ -1761,13 +1819,9 @@ function loadQuestion() {
     document.getElementById('progressText').innerText = `문제 ${currentIndex + 1} / ${quizQueue.length}`;
     document.getElementById('quizWord').innerText = currentWord.word;
 
-    let options = [currentWord.meaning];
-    let distractors = [];
-    while(distractors.length < 3) {
-        let rand = vocabList[Math.floor(Math.random() * vocabList.length)].meaning;
-        if (rand !== currentWord.meaning && !distractors.includes(rand)) distractors.push(rand);
-    }
-    options = [...options, ...distractors].sort(() => Math.random() - 0.5);
+    // 까다로운 오답 3개 가져오기
+    let distractors = getTrickyDistractors(currentWord.meaning, vocabList);
+    let options = [currentWord.meaning, ...distractors].sort(() => Math.random() - 0.5);
 
     const grid = document.getElementById('optionsGrid');
     grid.innerHTML = '';
@@ -1782,34 +1836,87 @@ function loadQuestion() {
 
 function checkAnswer(btn, selectedText, currentWord) {
     const buttons = document.querySelectorAll('.option-btn');
-    document.getElementById('optionsGrid').style.pointerEvents = 'none';
+    document.getElementById('optionsGrid').style.pointerEvents = 'none'; // 중복 클릭 방지
 
-    const isCorrect = (selectedText === currentWord.meaning);
-    
-    // 이력 저장
-    userHistory.push({
-        order: currentIndex + 1,
-        wordObj: currentWord,
-        selected: selectedText,
-        isCorrect: isCorrect
-    });
-
-    if (isCorrect) {
+    if (selectedText === currentWord.meaning) {
+        // 정답 처리
         btn.classList.add('correct');
         score++;
+        
+        // 정답 보상: 화면 깜빡임 효과 (Flash)
+        document.body.classList.add('flash-correct');
+        setTimeout(() => document.body.classList.remove('flash-correct'), 600);
+        
+        // 0.8초 후 자동으로 다음 문제로 넘어감
+        setTimeout(nextQuestion, 800); 
     } else {
+        // 오답 처리
         btn.classList.add('wrong');
-        buttons.forEach(b => { if(b.innerText === currentWord.meaning) b.classList.add('correct'); });
-    }
+        buttons.forEach(b => { 
+            if(b.innerText === currentWord.meaning) b.classList.add('correct');
+            else b.disabled = true; // 나머지 버튼 시각적 비활성화
+        });
 
-    // 흐름이 끊기지 않게 0.6초 대기 후 곧바로 다음 문제 진행
-    setTimeout(nextQuestion, 600); 
+        // 오답 시 해설 영역 표시 및 단계별 읽기 시작
+        startExplanation(currentWord);
+    }
 }
 
-function nextQuestion() { currentIndex++; loadQuestion(); }
+function nextQuestion() { 
+    currentIndex++; 
+    loadQuestion(); 
+}
 
 // ==========================================
-// 3. 시험 종료 및 오답노트 렌더링
+// 4. 단계별 해설 읽기 로직 (오답 시 강제 확인)
+// ==========================================
+function startExplanation(wordObj) {
+    document.getElementById('feedbackArea').style.display = 'block';
+    const container = document.getElementById('explanationContainer');
+    container.innerHTML = ''; // 초기화
+    
+    const wordKey = wordObj.word.toLowerCase();
+    
+    // DB에서 해설 가져오기 (없으면 자동 생성하여 배열로 만듦)
+    if (detailedExplanationDB[wordKey]) {
+        currentExpSteps = detailedExplanationDB[wordKey];
+    } else {
+        // DB에 없을 경우 문장을 2~3개로 쪼개어 생성
+        currentExpSteps = [
+            `<strong>[어원 팁]</strong> '${wordObj.word}' 단어를 잘 살펴보세요.`,
+            `자주 나오는 접두사나 접미사가 숨어있을 수 있습니다.`,
+            `뜻이 <strong>'${wordObj.meaning}'</strong>임을 기억하고, 공책에 철자를 한 번 적어보세요!`
+        ];
+    }
+    
+    currentStepIndex = 0;
+    showNextExplanationStep();
+}
+
+function showNextExplanationStep() {
+    const container = document.getElementById('explanationContainer');
+    const btn = document.getElementById('stepConfirmBtn');
+    
+    // 다음 문장 한 개를 화면에 추가
+    const stepDiv = document.createElement('div');
+    stepDiv.className = 'exp-step';
+    stepDiv.innerHTML = currentExpSteps[currentStepIndex];
+    container.appendChild(stepDiv);
+    
+    currentStepIndex++;
+    
+    // 버튼 상태 업데이트
+    if (currentStepIndex < currentExpSteps.length) {
+        btn.innerText = `확인! 다음 줄 읽기 (${currentStepIndex}/${currentExpSteps.length}) ➔`;
+        btn.onclick = showNextExplanationStep; // 다음 줄 보여주기
+    } else {
+        btn.innerText = `✅ 다 읽었어요! 다음 문제로 ➔`;
+        btn.onclick = nextQuestion; // 최종적으로 다음 문제 넘어가기
+    }
+}
+
+// ==========================================
+// 5. 결과 화면
 // ==========================================
 function finishQuiz(isTimeOut) {
     clearInterval(timerInterval);
@@ -1824,68 +1931,16 @@ function finishQuiz(isTimeOut) {
     let msg = isTimeOut ? "⏰ 시간이 초과되어 남은 문제는 오답 처리되었습니다.<br><br>" : "";
     
     if (finalScore === 100) {
-        msg += "🏆 퍼펙트! 완벽합니다!";
+        msg += "🏆 퍼펙트! 오답 하나 없이 훌륭합니다!";
         scoreCircle.style.backgroundColor = "var(--correct-color)";
     } else if (finalScore >= 80) {
-        msg += "👏 훌륭해요! 아래 리뷰를 통해 틀린 부분을 확인하세요.";
+        msg += "👏 훌륭해요! 방금 꼼꼼히 읽은 오답노트가 실력이 될 거예요.";
         scoreCircle.style.backgroundColor = "var(--primary-color)";
     } else {
-        msg += "💪 아래 상세한 오답노트를 읽어보고 어원을 파악해보세요.";
+        msg += "💪 방금 읽은 심층 해설들을 다시 한번 떠올려보며 복습해보세요.";
         scoreCircle.style.backgroundColor = "var(--wrong-color)";
     }
     document.getElementById('resultMsg').innerHTML = msg;
-
-    renderReviewNotes();
-}
-
-// 오답노트(리뷰) 생성 함수 (최근 푼 순서대로 = 역순)
-function renderReviewNotes() {
-    const container = document.getElementById('reviewContainer');
-    container.innerHTML = ''; // 초기화
-
-    // 배열을 복사한 뒤 뒤집어서 최신 문제가 위로 오게 함
-    const reversedHistory = [...userHistory].reverse();
-
-    reversedHistory.forEach(record => {
-        const itemDiv = document.createElement('div');
-        itemDiv.className = `review-item ${record.isCorrect ? 'correct-item' : 'wrong-item'}`;
-        
-        const badgeClass = record.isCorrect ? 'badge correct' : 'badge wrong';
-        const badgeText = record.isCorrect ? '정답' : '오답';
-        
-        // 1. 공통 부분: 문제번호, 영단어, 정답/오답 뱃지
-        let html = `
-            <div class="review-top">
-                <span class="review-word">${record.order}. [영→한] ${record.wordObj.word}</span>
-                <span class="${badgeClass}">${badgeText}</span>
-            </div>
-            <div class="review-choices">
-                <span class="my-answer">선택: ${record.selected}</span>
-                <span class="real-answer">정답: ${record.wordObj.meaning}</span>
-            </div>
-        `;
-
-        // 2. 심층 해설 추가 (DB에 설명이 등록되어 있는 경우)
-        const wordKey = record.wordObj.word.toLowerCase();
-        let expText = "";
-        
-        if (detailedExplanationDB[wordKey]) {
-            expText = detailedExplanationDB[wordKey];
-        } else {
-            // DB에 없으면 기본 스마트 형태소 분석 제공
-            if (wordKey.startsWith("un") || wordKey.startsWith("in") || wordKey.startsWith("dis")) {
-                expText = `<strong>[단어 구조 힌트]</strong> 앞부분의 <strong>'${wordKey.substring(0,2)}-'</strong> 등은 '반대(not)'의 뜻을 가진 부정 접두사일 확률이 높습니다.`;
-            } else if (wordKey.endsWith("tion") || wordKey.endsWith("ment") || wordKey.endsWith("ness")) {
-                expText = `<strong>[단어 구조 힌트]</strong> 끝부분이 <strong>'-${wordKey.substring(wordKey.length-4)}'</strong>로 끝나면 형태를 명사로 만들어주는 역할을 합니다.`;
-            } else {
-                expText = `<strong>[학습 팁]</strong> 사전을 찾아 예문을 1개만 읽어보세요. 단어가 문장 속에서 어떻게 쓰이는지 보면 암기에 큰 도움이 됩니다.`;
-            }
-        }
-        
-        html += `<div class="explanation-box">${expText}</div>`;
-        itemDiv.innerHTML = html;
-        container.appendChild(itemDiv);
-    });
 }
 
 window.onload = init;
