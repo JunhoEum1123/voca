@@ -3,65 +3,32 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>영단어 마스터 (Korean Air Edition)</title>
+    <title>영단어 마스터 (Korean Air Edition - V8)</title>
     <style>
         /* 한진그룹 폰트 적용 */
-        @font-face {
-            font-family: 'HanjinGroupSans';
-            src: url('./HanjinGroupSans-Light.ttf') format('truetype');
-            font-weight: 300;
-        }
-        @font-face {
-            font-family: 'HanjinGroupSans';
-            src: url('./HanjinGroupSans-Regular.ttf') format('truetype');
-            font-weight: 400;
-        }
-        @font-face {
-            font-family: 'HanjinGroupSans';
-            src: url('./HanjinGroupSans-Bold.ttf') format('truetype');
-            font-weight: 700;
-        }
+        @font-face { font-family: 'HanjinGroupSans'; src: url('./HanjinGroupSans-Light.ttf') format('truetype'); font-weight: 300; }
+        @font-face { font-family: 'HanjinGroupSans'; src: url('./HanjinGroupSans-Regular.ttf') format('truetype'); font-weight: 400; }
+        @font-face { font-family: 'HanjinGroupSans'; src: url('./HanjinGroupSans-Bold.ttf') format('truetype'); font-weight: 700; }
 
-        /* 대한항공 컬러 팔레트 (화이트 모드) */
+        /* 대한항공 컬러 팔레트 */
         :root {
-            --kal-blue: #0064B2;    /* 대한항공 스카이블루 */
-            --kal-navy: #00205B;    /* 대한항공 네이비 */
-            --kal-light: #EBF3FA;   /* 옅은 하늘색 배경 */
-            --wrong-color: #D32F2F; /* 오답 레드 */
-            --correct-color: #008000;/* 정답 그린 */
-            --bg-color: #F8F9FA;
-            --card-bg: #FFFFFF;
-            --text-main: #333333;
-            --text-muted: #666666;
-            --border-color: #D0D9E1;
+            --kal-blue: #0064B2; --kal-navy: #00205B; --kal-light: #EBF3FA;
+            --wrong-color: #D32F2F; --correct-color: #008000;
+            --bg-color: #F8F9FA; --card-bg: #FFFFFF;
+            --text-main: #333333; --text-muted: #666666; --border-color: #D0D9E1;
         }
 
-        /* 대한항공 컬러 팔레트 (다크 모드 - 야간 비행 테마) */
         body.dark-mode {
-            --kal-blue: #3399FF;
-            --kal-navy: #66B2FF;
-            --kal-light: #00205B;
-            --wrong-color: #FF5252;
-            --correct-color: #4CAF50;
-            --bg-color: #0B132B;
-            --card-bg: #1C2541;
-            --text-main: #F0F4F8;
-            --text-muted: #A0B2C6;
-            --border-color: #2B3A55;
+            --kal-blue: #3399FF; --kal-navy: #66B2FF; --kal-light: #00205B;
+            --wrong-color: #FF5252; --correct-color: #4CAF50;
+            --bg-color: #0B132B; --card-bg: #1C2541;
+            --text-main: #F0F4F8; --text-muted: #A0B2C6; --border-color: #2B3A55;
         }
 
         body {
-            font-family: 'HanjinGroupSans', sans-serif; /* 한진 폰트 기본 적용 */
-            background-color: var(--bg-color);
-            color: var(--text-main);
-            margin: 0;
-            display: flex;
-            justify-content: center;
-            align-items: flex-start;
-            min-height: 100vh;
-            transition: background-color 0.3s, color 0.3s;
-            padding: 20px 15px;
-            box-sizing: border-box;
+            font-family: 'HanjinGroupSans', sans-serif; background-color: var(--bg-color); color: var(--text-main);
+            margin: 0; display: flex; justify-content: center; align-items: flex-start;
+            min-height: 100vh; transition: background-color 0.3s, color 0.3s; padding: 20px 15px; box-sizing: border-box;
         }
 
         @keyframes correctFlash { 0% { background-color: var(--bg-color); } 30% { background-color: rgba(0, 128, 0, 0.15); } 100% { background-color: var(--bg-color); } }
@@ -71,7 +38,7 @@
             background-color: var(--card-bg); width: 100%; max-width: 550px;
             border-radius: 16px; box-shadow: 0 10px 30px rgba(0,32,91,0.08);
             padding: 30px 25px; box-sizing: border-box; margin-bottom: 40px; transition: 0.3s;
-            border-top: 6px solid var(--kal-blue); /* 대한항공 블루 포인트 */
+            border-top: 6px solid var(--kal-blue);
         }
 
         .app-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px; border-bottom: 1px solid var(--border-color); padding-bottom: 15px; }
@@ -105,13 +72,21 @@
         .option-btn.wrong { background-color: var(--wrong-color) !important; border-color: var(--wrong-color) !important; color: white !important; font-weight: 700;}
         .option-btn:hover:not([disabled]) { border-color: var(--kal-blue); color: var(--kal-blue); box-shadow: 0 4px 10px rgba(0,100,178,0.1);}
 
-        /* 오답 심층 해설 영역 */
+        /* 오답 피드백 영역 */
         .feedback-area { margin-top: 30px; padding: 25px 20px; background-color: var(--kal-light); border-radius: 8px; display: none; text-align: left; border-left: 4px solid var(--wrong-color); }
         .feedback-title { font-size: 16px; font-weight: 700; color: var(--wrong-color); margin-bottom: 20px; display:flex; align-items:center; gap:8px;}
         .exp-step { background-color: var(--card-bg); padding: 16px; border-radius: 6px; font-size: 15px; font-weight: 300; line-height: 1.6; color: var(--text-main); margin-bottom: 12px; border: 1px solid var(--border-color); animation: fadeIn 0.3s ease-in-out; }
         .exp-step strong { font-weight: 700; color: var(--kal-navy); }
         body.dark-mode .exp-step strong { color: var(--kal-blue); }
         .step-btn { background-color: var(--kal-navy); color: #fff; margin-top: 20px; }
+
+        /* 타이핑 복습 영역 */
+        .typing-container { background-color: rgba(255,255,255,0.8); padding: 20px; border-radius: 8px; margin-top: 15px; border: 2px dashed var(--kal-blue); animation: fadeIn 0.3s ease-in-out; }
+        body.dark-mode .typing-container { background-color: rgba(0,0,0,0.3); }
+        .typing-step-title { font-size: 14px; font-weight: 700; color: var(--kal-navy); margin-bottom: 8px; }
+        body.dark-mode .typing-step-title { color: var(--kal-blue); }
+        .target-word { font-size: 24px; font-weight: 700; color: var(--wrong-color); margin-bottom: 10px; letter-spacing: 1px;}
+        .target-meaning { font-size: 18px; font-weight: 700; color: var(--wrong-color); margin-bottom: 10px; }
 
         .word-list-container { max-height: 60vh; overflow-y: auto; text-align: left; border: 1px solid var(--border-color); border-radius: 8px; padding: 15px; margin-bottom: 20px;}
         .word-item { padding: 14px 5px; border-bottom: 1px solid var(--border-color); display: flex; flex-direction: column; }
@@ -131,7 +106,7 @@
 
     <div id="menuScreen" class="screen active">
         <h1>Korean Air Vocab Master</h1>
-        <h2>대한항공 폰트 & 프리미엄 심층 해설</h2>
+        <h2>[1951~2200] 음성 읽기 & 타이핑 복습 탑재</h2>
         
         <div style="text-align: left; margin: 30px 0;">
             <label style="font-weight: 700; display: block; margin-bottom: 10px; font-size: 14px; color: var(--kal-navy);">📍 비행 구간 (단어 번호)</label>
@@ -166,9 +141,23 @@
         <div class="options-grid" id="optionsGrid"></div>
 
         <div class="feedback-area" id="feedbackArea">
-            <div class="feedback-title">⚠️ 오답입니다. 심층 해설을 확인해 주십시오.</div>
+            <div class="feedback-title">⚠️ 오답입니다. 심층 해설을 꼼꼼히 확인해 주십시오.</div>
             <div id="explanationContainer"></div>
             <button class="btn step-btn" id="stepConfirmBtn" onclick="showNextExplanationStep()">다음 문장 확인 ➔</button>
+
+            <div id="typingContainer" class="typing-container" style="display:none;">
+                <div class="typing-step-title">✍️ [1단계] 아래 영단어를 똑같이 타이핑하세요.</div>
+                <div class="target-word" id="targetEng"></div>
+                <input type="text" id="typeEngInput" class="input-box" placeholder="영어 단어 입력" autocomplete="off" oninput="checkEngTyping(event)">
+
+                <div id="korTypingSection" style="display:none; margin-top:20px;">
+                    <div class="typing-step-title">✍️ [2단계] 아래 한글 뜻을 띄어쓰기까지 똑같이 타이핑하세요.</div>
+                    <div class="target-meaning" id="targetKor"></div>
+                    <input type="text" id="typeKorInput" class="input-box" placeholder="한글 뜻 입력" autocomplete="off" oninput="checkKorTyping(event)">
+                </div>
+
+                <button class="btn btn-primary" id="typingNextBtn" style="display:none; margin-top:20px;" onclick="nextQuestion()">✅ 완벽합니다! 다음 문제로 ➔</button>
+            </div>
         </div>
     </div>
 
@@ -182,321 +171,9 @@
 
 <script>
 // ==========================================
-// 1. 단어 데이터 (여기에 1701~3000 복사 붙여넣기)
+// 1. 단어 데이터 (1951 ~ 2200)
 // ==========================================
 const rawData = `
-1701 / hub / 중심지, 중추
-1702 / indefinitely / 무기한으로, 무한히
-1703 / nasty / 비열한, 심술궂은
-1704 / inject / (다른 것을) 도입하다, 넣다
-1705 / inventory / 재고(품)
-1706 / breed / 새끼를 낳다
-1707 / specify / 명시하다
-1708 / legitimate / 합법적인, 정당한
-1709 / democracy / 민주주의
-1710 / magnetic / 자성의, 자석 같은
-1711 / lurk / 숨다, 잠복하다
-1712 / infrared / 적외선의
-1713 / midst / 중앙, 한가운데
-1714 / avail / 이익, 효용, 효력
-1715 / receptive / (제안·생각 등을) 잘 받아들이는, 수용적인
-1716 / ascend / 오르다, 올라가다
-1717 / handy / 편리한, 유용한, 다루기 쉬운
-1718 / parasitic / 기생하는
-1719 / originality / 독창성
-1720 / implicit / 암시된, 내포된
-1721 / malady / 질병
-1722 / inflame / 흥분시키다, 격분시키다, 부추기다
-1723 / inhale / 숨을 들이쉬다, 흡입하다
-1724 / distribute / 나누어 주다, 분배하다
-1725 / keen / 간절히 ~하고 싶은, 열망하는
-1726 / lean / 기울다, 기울이다
-1727 / leather / 가죽
-1728 / mediocre / 보통의, 평범한
-1729 / rapport / (친밀한) 관계, 유대
-1730 / integrate / 통합하다, 통합되다
-1731 / timid / 소심한, 겁 많은
-1732 / meticulous / 꼼꼼한, 세심한
-1733 / pervade / 만연하다, 스며들다
-1734 / mold / 틀
-1735 / deformity / 기형
-1736 / nibble / 조금씩 먹다
-1737 / bulk / 부피가 커지다, 덩어리가 되다
-1738 / complicit / 연루된, 공모한
-1739 / prerequisite / 전제 조건
-1740 / haul / 세게 끌다, 질질 끌고 가다
-1741 / maneuver / 교묘하게 다루다, 조종하다
-1742 / outcompete / 경쟁에서 이기다
-1743 / toss / 던지다
-1744 / outrage / 격분, 격노
-1745 / pavement / 포장도로, 노면, 인도
-1746 / pension / 연금, 생활 보조금
-1747 / prohibit / 금하다, 금지하다
-1748 / fascinate / 매혹하다, 반하게 하다
-1749 / loosen / 느슨하게 하다
-1750 / oval / 타원형
-1751 / plagiarism / 표절, 도용
-1752 / porch / 현관, 베란다
-1753 / posture / 자세, 태도
-1754 / pragmatic / 실용적인
-1755 / morale / 사기, 의욕
-
-1756 / mutter / 중얼거리다, 불평하다
-1757 / pedestrian / 보행자
-1758 / tersely / 간결하게
-1759 / torment / 괴롭히다, 고통을 주다
-1760 / torture / 고문하다, 괴롭히다
-1761 / tread / 밟기, 걸음걸이
-1762 / overhear / 우연히 듣다, 엿듣다
-1763 / petty / 사소한, 하찮은
-1764 / suppress / 억압하다, 진압하다
-1765 / arrange / 정렬하다, 배열하다
-1766 / paw / (동물의) 발
-1767 / peripheral / 주변적인, 지엽적인
-1768 / weird / 기이한, 기묘한, 이상한
-1769 / quota / 할당량
-1770 / petition / 탄원하다, 청원하다
-1771 / pitfall / 위험, 함정
-1772 / trail / 자국, 흔적
-1773 / asthma / 천식
-1774 / sag / 축 처지다
-1775 / horizon / 수평선, 지평선
-1776 / prescribe / 처방하다
-1777 / priest / 성직자
-1778 / stain / 얼룩지게 하다, 더럽히다
-1779 / dim / 어둑한, 흐릿한
-1780 / patent / 특허(권)
-1781 / reconciliation / 화해, 중재
-1782 / pitch / 음조, 음의 높이
-1783 / clarify / 명확하게 하다
-1784 / outbreak / (전쟁, 사고 등의) 발발, 발생
-1785 / trot / 빨리 걷다, 종종걸음치다
-1786 / wreck / 망가뜨리다, 파괴하다
-1787 / degradation / 좌천, 하락, 강등
-1788 / component / 구성 요소, 성분
-1789 / deduce / 추론하다, 연역하다
-1790 / channel / 보내다, 나르다
-1791 / relinquish / 포기하다, 내주다
-1792 / roar / 으르렁거리다, 굉음을 내다
-1793 / sack / 부대, 자루
-1794 / insurance / 보호, 예방 수단
-1795 / edify / 교화시키다
-1796 / slam / 쾅 닫다, 쾅 닫히다
-1797 / shrug / (어깨를) 으쓱하다
-1798 / priceless / 매우 귀중한, 값을 매길 수 없는
-1799 / proclaim / 선언하다, 선포하다
-1800 / procrastination / 미루는 버릇, 지연
-1801 / reckless / 무모한, 신중하지 못한
-1802 / innocent / 결백한, 무죄인
-1803 / bland / 단조로운, 자극적이지 않은
-1804 / uninterested / 흥미 없는, 무관심한
-1805 / trifling / 하찮은, 사소한
-1806 / primate / 영장류
-1807 / realm / 범위, 영역
-1808 / regress / 되돌아가다, 퇴보하다
-1809 / incentive / 자극, 동기
-1810 / remnant / 나머지, 잔존물
-1811 / reside / 살다, 거주하다
-1812 / ethic / 윤리, 도덕
-1813 / sabotage / 파괴하다, 방해하다
-1814 / ratio / 비율
-1815 / shovel / 삽
-1816 / inexplicable / 설명할 수 없는, 불가해한
-1817 / resolutely / 단호하게, 결연히
-1818 / shrub / 관목
-1819 / smash / 박살내다, 때려 부수다
-1820 / flourish / 번창하다, 번성하다
-1821 / desolate / 외로운, 황량한
-1822 / sparsely / 드문드문, 성기게
-1823 / depict / 그리다, 묘사하다
-1824 / embody / 포함하다, 담다
-1825 / supposedly / 아마, 추정상
-1826 / terrific / 훌륭한, 멋진
-1827 / congestion / 혼잡
-1828 / transparent / 투명한, 속이 보이는
-1829 / utmost / 최고의, 극도의
-1830 / turbulent / 격동의, 거친
-1831 / disperse / 흩어지다, 해산하다
-1832 / cater / (요구를) 만족시키다
-1833 / ventilation / 통풍, 환기
-1834 / stability / 안정, 안정성
-1835 / distort / (형체를) 비틀다
-1836 / impromptu / 즉석의
-1837 / verbal / 언어의, 구두의
-1838 / warehouse / 창고, 저장소
-1839 / adhere / 들러붙다, 고수하다
-1840 / antecedent / 선례, 전례
-1841 / smuggle / 밀수하다
-1842 / pause / 중단, 멈춤
-1843 / solidify / 굳어지다, 굳히다
-1844 / scarce / 부족한, 드문
-1845 / subset / 부분 집합
-1846 / stun / 멍하게 하다, 깜짝 놀라게 하다
-1847 / glance / 흘낏 봄
-1848 / depress / 우울하게 만들다
-1849 / virtually / 사실상, 실질적으로
-1850 / ample / 충분한, 풍부한
-1851 / amid / ~의 가운데에
-1852 / transcribe / 기록하다, 옮겨 쓰다
-1853 / unfold / 펼치다
-1854 / tumor / 종양
-1855 / sake / 동기, 이유, 목적
-1856 / vicinity / 근처, 주변
-1857 / steer / 조종하다, 이끌다
-1858 / tangle / 엉키게 하다
-1859 / wrath / 분노, 노여움
-1860 / transition / 변천, 변화
-1861 / monarchy / 왕실, 군주 일가
-1862 / spouse / 배우자
-1863 / agility / 민첩, 명민함
-1864 / engross / 몰두하게 하다, 열중하게 하다
-1865 / banish / 제거하다, 추방하다
-1866 / anguish / (극심한) 괴로움, 비통
-1867 / artery / 동맥
-1868 / superstitious / 미신적인, 미신을 믿는
-1869 / bewilder / 어리둥절하게 만들다, 당황하게 하다
-1870 / manipulate / 조종하다, 조작하다
-1871 / allot / 할당하다, 배당하다
-1872 / segregate / 분리하다, 구분하다
-1873 / valiant / 용맹한, 용감한
-1874 / vapor / 증기
-1875 / diabetes / 당뇨병
-1876 / latitude / 위도
-1877 / conceit / 자만심
-1878 / blossom / 꽃, 꽃이 피다
-1879 / blurry / 흐릿한, 모호한
-1880 / boast / 자랑하다, 뽐내다
-1881 / bribe / 뇌물을 주다, 매수하다
-1882 / bump / 돌출부, 튀어나온 부분
-1883 / cargo / 화물
-1884 / preserve / 지키다, 보호하다
-1885 / antipathy / 반감, 혐오
-1886 / albeit / 비록 ~일지라도
-1887 / basin / 분지, (강의) 유역
-1888 / vie / 경쟁하다, 우열을 다투다
-1889 / verse / 운문, 시
-1890 / awry / 잘못되어서, 엉망인
-1891 / benign / 온화한, 양호한
-1892 / allege / 단언하다, 주장하다
-1893 / burrow / 굴을 파다
-1894 / trace / 거슬러 올라가다, 추적하다
-1895 / mandatory / 의무적인, 필수적인
-1896 / viral / 바이러스성의
-1897 / transmit / 보내다, 전송하다
-1898 / apprentice / 견습생, 도제
-1899 / miser / 구두쇠
-1900 / dilate / 확장하다, 키우다
-1901 / bond / 유대감을 형성하다
-1902 / vanity / 자만심, 허영심
-1903 / cram / 밀어 넣다, 쑤셔 넣다
-1904 / incident / 사건, 일어난 일
-1905 / captive / 사로잡힌, 억류된
-1906 / census / 인구 조사
-1907 / label / ~에 표를 붙이다, ~라고 부르다
-1908 / prophecy / 예언, 계시
-1909 / clumsy / 어설픈, 서투른
-1910 / cope / 대처하다, 맞서다
-1911 / subscribe / 구독하다, 가입하다
-1912 / turnout / 투표율
-1913 / opponent / 상대방, 반대자, 적수
-1914 / liberate / 자유롭게 하다, 해방하다
-1915 / crash / 충돌 사고, 추락 사고
-1916 / flexibility / 유연성, 융통성
-1917 / hollow / (속이) 빈
-1918 / filtration / 여과
-1919 / crouch / 몸을 쭈그리다
-1920 / impending / 곧 닥칠, 임박한
-1921 / savor / 음미하다, 맛보다
-1922 / byproduct / 부산물, 부작용
-1923 / torch / 손전등, 횃불
-1924 / decompose / 분해하다
-1925 / eternal / 영원한, 끝없는
-1926 / reverse / 뒤바꾸다, 뒤집다
-1927 / disruption / 중단, 혼란
-1928 / probability / 확률, 개연성
-1929 / clash / 충돌
-1930 / clutch / 움켜잡다
-1931 / taxonomic / 분류의, 분류학상의
-1932 / complement / 보완하다
-1933 / complimentary / 무료의
-1934 / profile / 윤곽, 옆얼굴, 측면
-1935 / ailment / 질병
-1936 / conducive / ~에 좋은, 도움이 되는
-1937 / constituent / 구성 성분
-1938 / corpse / 시체
-1939 / activate / 작동시키다, 활성화시키다
-1940 / stall / 꼼짝 못 하게 되다
-1941 / crunchy / 아삭아삭한, 바삭바삭한
-1942 / dangle / 매달리다, 달랑거리다
-1943 / veterinarian / 수의사
-1944 / pharmacy / 약국
-1945 / compress / 압축하다
-1946 / craving / 갈망, 열망
-1947 / defy / 반항하다, 도전하다, 무시하다
-1948 / embark / 시작하다, 착수하다
-1949 / doctrine / 교리, 신조, 원칙
-1950 / delegate / 대표자, 사절
-1930 / obscure / 모호한, 이해하기 힘든
-1931 / fling / 던지다, 팽개치다
-1932 / fermentation / 발효
-1933 / pound / 뚜벅뚜벅 걷다
-1934 / construe / 이해하다, 해석하다
-1935 / drainage / 배수, 배수 시설
-1936 / falter / 불안정해지다, 흔들리다
-1937 / dispense / 나누어 주다, 분배하다
-1938 / sink / 몰락하다
-1939 / aggressive / 공격적인
-1940 / broaden / 넓어지다, 넓히다
-1941 / substandard / 기준 이하의, 수준 이하의
-1942 / fortify / 강화하다, 확고히 하다
-1943 / emphatic / 강한, 단호한
-1944 / dispose / 처리하다
-1945 / autopsy / (사체의) 검시, 부검
-1946 / convict / 죄인, 죄수
-1947 / compile / 편집하다, 편찬하다
-1948 / gem / 보석
-1949 / antibiotic / 항생제, 항생 물질
-1950 / crumple / 구기다, 구겨지다
-1951 / gust / 돌풍, 세찬 바람
-1952 / dissent / 반대
-1953 / foremost / 가장 중요한, 일류의
-1954 / fertility / 출생률
-1955 / figurative / 비유적인, 상징적인
-1956 / pioneer / 개척자, 선구자
-1957 / pesticide / 살충제, 농약
-1958 / fusion / 융합, 결합
-1959 / counter / 대응하다, 반박하다
-1960 / juror / 배심원
-1961 / formidable / 가공할, 무시무시한
-1962 / forthcoming / 준비되어 있는, 마련된
-1963 / executive / 임원, 경영진
-1964 / discharge / 방출하다
-1965 / invasive / 침입하는, 침략적인
-1966 / protest / 항의하다, 반대하다
-1967 / flee / 달아나다, 도망가다
-1968 / relocate / 이전하다, 이동하다
-1969 / detest / 몹시 싫어하다, 혐오하다
-1970 / astronomy / 천문학
-1971 / venture / 위험을 무릅쓰다, 과감히 하다
-1972 / protagonist / 주인공
-1973 / hail / 환호하다, 칭송하다
-1974 / heredity / 유전, 유전적 특징
-1975 / command / 지배력, 제어력
-1976 / pedagogical / 교육학적인
-1977 / stem / 생기다, 일어나다
-1978 / grieve / 비통해하다, 몹시 슬퍼하다
-1979 / output / 생산량, 산출량
-1980 / accelerate / 가속화하다
-1981 / ingenious / 독창적인, 기발한
-1982 / inflate / 부풀다, 부풀리다
-1983 / inflow / 유입, 유입량
-1984 / crawl / 기다, 기어가다
-1985 / rotation / 회전, (천체의) 자전
-1986 / phase / 단계적으로 실행하다
-1987 / slap / 찰싹 때리다
-1988 / viable / 실행 가능한
-1989 / fake / 위조하다, 날조하다
-1990 / legacy / 유산, 유물
 1991 / inevitable / 불가피한, 필연적인
 1992 / alert / 경고하다, 위험을 알리다
 1993 / mandate / 명령하다, 규정하다
@@ -1627,103 +1304,191 @@ const rawData = `
 `;
 
 // ==========================================
-// 2. 완벽한 맞춤형 심층 해설 DB 
-// (사용자가 별도로 생성한 데이터를 이곳에 붙여넣습니다)
+// 2. 심층 해설 DB (이어서 계속 붙여넣으세요)
 // ==========================================
 const detailedExplanationDB = {
-    "hub": [
-        "🚲 자전거 바퀴를 보면 한가운데 쇠축이 있고 거기로 모든 바퀴살이 모여들죠? 그 중심축을 '허브(hub)'라고 부릅니다.",
-        "따라서 비행기 노선이 모이는 공항이나 데이터가 모이는 곳 등 모든 것이 모여드는 <strong>'중심지, 중추'</strong>라는 뜻을 가집니다."
+    // ---- [1951 ~ 1990] 해설 세팅 완료! ----
+    "gust": [
+        "🌪️ <strong>[개념 이해]</strong> 평소에는 잔잔하다가 갑자기 휙! 하고 아주 강하게 불어닥치는 바람입니다.",
+        "태풍처럼 계속 부는 게 아니라 훅 불고 마는 <strong>'돌풍, 세찬 바람'</strong>을 뜻합니다."
     ],
-    "indefinitely": [
-        "🔍 <strong>[어원 분석]</strong> in(부정: not) + definite(확실한, 한정된) + ly(부사형 접미사).",
-        "끝나는 기간이 확실하게(definite) 정해져 있지 않다(in)는 뜻이에요.",
-        "기약이 없기 때문에 <strong>'무기한으로, 무한히'</strong>라는 의미가 완성됩니다."
+    "dissent": [
+        "🙅‍♂️ <strong>[어원 분석]</strong> dis(반대, 다르게) + sent(느끼다).",
+        "남들은 다 찬성(assent)하는데, 나 혼자만 다르게(dis) 생각하고 느끼는(sent) 태도입니다.",
+        "다수의 의견에 <strong>'반대, 이의를 제기하다'</strong>라는 뜻입니다."
     ],
-    "nasty": [
-        "🤢 <strong>[연상법]</strong> 코를 찌르는 고약한 냄새나 성격이 못된 사람을 봤을 때의 표정을 지어보세요.",
-        "발음해보세요. '내스티! (내 스타일이 아니야, 끔찍해!)'라고 외우면 절대 안 까먹습니다. <strong>'비열한, 심술궂은'</strong> 뜻입니다."
+    "foremost": [
+        "🥇 <strong>[어원 분석]</strong> fore(앞에) + most(가장).",
+        "수많은 사람이나 물건들 중에서 가장(most) 앞자리(fore)를 차지하고 있는 1등입니다.",
+        "<strong>'가장 중요한, 으뜸가는, 일류의'</strong>라는 뜻입니다."
     ],
-    "inject": [
-        "🔍 <strong>[어원 분석]</strong> in(안으로) + ject(던지다).",
-        "'ject'는 던지다(throw)라는 뜻을 가진 아주 중요한 어근이에요. (reject: 뒤로 던지다=거절하다).",
-        "약물이 든 주사기를 몸 안으로(in) 쑥 던져 넣는(ject) 모습을 상상하세요. <strong>'주사하다, 도입하다'</strong>라는 뜻입니다."
+    "fertility": [
+        "👶 <strong>[어원 팁]</strong> fertile(비옥한, 생식력이 있는) + ity(명사 꼬리표).",
+        "땅이 기름져서 농작물이 쑥쑥 잘 자라거나, 동물이 새끼를 잘 낳을 수 있는 능력입니다.",
+        "생물학적인 <strong>'출생률, 생식력, (토지의) 비옥함'</strong>을 뜻합니다."
     ],
-    "inventory": [
-        "📦 <strong>[개념 이해]</strong> 게임 좋아하나요? 게임에서 아이템을 열어보는 가방을 보통 '인벤토리'라고 하죠!",
-        "실제 상점이나 공장 창고에 쌓여있는 <strong>'재고, 재고품, 물품 목록'</strong>을 뜻하는 아주 중요한 비즈니스 단어입니다."
+    "figurative": [
+        "🎨 <strong>[연상법]</strong> 피규어(figure, 형태/모형)를 떠올려보세요.",
+        "단어의 뜻을 사전 그대로 딱딱하게 쓰는 게 아니라, 다른 사물의 형태(figure)에 빗대어 멋지게 표현하는 방식입니다.",
+        "<strong>'비유적인, 상징적인'</strong>이라는 뜻입니다. (반대말: literal 글자 그대로의)"
     ],
-    "breed": [
-        "🐕 <strong>[연상법]</strong> 빵(bread)은 구워내지만, 브리드(breed)는 생명을 만들어냅니다.",
-        "동물이 <strong>'새끼를 낳다, 번식하다'</strong>라는 동사로 쓰이고, 명사로는 강아지나 고양이의 <strong>'품종'</strong>을 뜻하기도 해요."
+    "pioneer": [
+        "🤠 <strong>[개념 이해]</strong> 아무도 가지 않은 위험한 숲이나 우주에 가장 먼저 들어가서 길을 내는 사람입니다.",
+        "서부 개척 시대의 카우보이나 새로운 기술을 처음 만든 <strong>'개척자, 선구자'</strong>를 뜻합니다."
     ],
-    "specify": [
-        "🔍 <strong>[어원 분석]</strong> specific(구체적인) + fy(동사로 만들어주는 꼬리표: ~화 하다).",
-        "뭉뚱그려 말하지 않고, 아주 구체적으로 하나하나 딱 꼬집어서 말하는 행동입니다.",
-        "그래서 <strong>'명시하다, 구체적으로 말하다'</strong>라는 뜻이 됩니다."
+    "pesticide": [
+        "☠️ <strong>[어원 분석]</strong> pest(해충) + cide(죽이다: 자살은 suicide).",
+        "농작물을 갉아먹는 나쁜 벌레(pest)들을 싹 다 죽여버리는(cide) 독한 약입니다.",
+        "농사를 지을 때 뿌리는 <strong>'살충제, 농약'</strong>을 뜻합니다."
     ],
-    "legitimate": [
-        "🔍 <strong>[어원 분석]</strong> 라틴어 legis(법)에서 출발한 단어입니다. 법률을 뜻하는 'legal'과 뿌리가 완전히 같아요.",
-        "어떤 행동이나 결정이 법의 테두리 안에 안전하게 들어와 있다는 뜻이에요. 그래서 <strong>'합법적인, 정당한'</strong>이라는 의미로 쓰입니다."
+    "fusion": [
+        "⚛️ <strong>[연상법]</strong> 만화에서 두 명이 손가락을 맞대고 하나로 합체하는 기술이 퓨전(Fusion)이죠!",
+        "한식과 양식을 섞은 퓨전 요리처럼, 서로 다른 것들을 하나로 녹여 <strong>'융합, 결합'</strong>하는 것을 뜻합니다."
     ],
-    "democracy": [
-        "🔍 <strong>[어원 분석]</strong> demo(국민, 민중) + cracy(지배, 통치).",
-        "과거에는 왕 한 명이 통치(cracy)했지만, 지금은 수많은 국민(demo)들이 투표로 통치합니다. 이것이 바로 <strong>'민주주의'</strong>입니다."
+    "counter": [
+        "🥊 <strong>[개념 이해]</strong> 복싱에서 상대방이 주먹을 뻗을 때 피하면서 동시에 주먹을 날리는 기술을 '카운터 펀치'라고 합니다.",
+        "상대방의 의견이나 공격에 맞서 <strong>'대응하다, 반박하다'</strong>라는 뜻입니다."
     ],
-    "magnetic": [
-        "🧲 <strong>[개념 이해]</strong> 자석을 영어로 'magnet'이라고 합니다. 이 단어의 형용사형이죠.",
-        "철을 끌어당기는 <strong>'자성의'</strong>라는 뜻도 있지만, 사람들을 자석처럼 훅 끌어당기는 <strong>'매력적인'</strong> 사람을 뜻하기도 해요."
+    "juror": [
+        "👨‍⚖️ <strong>[어원 팁]</strong> jury(배심원단)에서 나온 단어입니다.",
+        "미국 재판에서는 일반 시민 12명이 모여서 피고인이 유죄인지 무죄인지 결정합니다. 그 무리 안의 한 명을 <strong>'배심원(juror)'</strong>이라고 합니다."
     ],
-    "lurk": [
-        "👀 <strong>[연상법]</strong> 어두운 골목길에 몰래 숨어서 누군가를 기다리는 소름 돋는 모습을 상상해 보세요.",
-        "인터넷 커뮤니티에서 글은 안 쓰고 남의 글만 몰래 훔쳐보는 행동을 영어로 '눈팅(Lurking)'이라고 합니다. <strong>'숨다, 잠복하다'</strong> 뜻이죠."
+    "formidable": [
+        "🦖 <strong>[연상법]</strong> 폼(form)이 너무 압도적이어서 감히 덤빌 수 없는 무시무시한 최종 보스의 모습입니다.",
+        "상대하기 벅차서 겁이 날 정도로 <strong>'가공할, 무시무시한'</strong>이라는 뜻입니다."
     ],
-    "infrared": [
-        "🔍 <strong>[어원 분석]</strong> infra(아래에, 넘어서) + red(빨간색).",
-        "빛의 스펙트럼 중에서 빨간색 바깥쪽에 있어서 우리 눈에 보이지 않는 빛. 바로 군인들의 야간 투시경에 쓰이는 <strong>'적외선'</strong>입니다."
+    "forthcoming": [
+        "🔜 <strong>[어원 분석]</strong> forth(앞으로) + coming(오고 있는).",
+        "영화 개봉일이나 중요한 파티 날짜가 내 코앞으로 다가오고 있는 상태입니다.",
+        "<strong>'곧 닥쳐올, 준비되어 있는'</strong>이라는 뜻입니다."
     ],
-    "midst": [
-        "🔍 <strong>[어원 팁]</strong> middle(중간)과 뿌리가 같은 단어입니다.",
-        "군중 속 한가운데, 혹은 어떤 일이 벌어지는 <strong>'중앙, 한가운데'</strong>를 의미합니다. (예: in the midst of ~의 한가운데에)"
+    "executive": [
+        "👔 <strong>[연상법]</strong> 회사에서 평사원이 아니라 가장 높은 층에서 결정권을 가진 CEO 같은 사람들입니다.",
+        "회사의 <strong>'임원, 경영진'</strong>을 뜻하며, 행정부를 뜻하기도 합니다."
     ],
-    "avail": [
-        "🔍 <strong>[어원 팁]</strong> 라틴어 valere(강하다, 가치 있다)에서 왔습니다. (value와 같은 어원).",
-        "나에게 가치가 있고 쓸모가 있다는 뜻에서 <strong>'이익, 효용, 쓸모'</strong>를 의미합니다."
+    "discharge": [
+        "⚡ <strong>[어원 분석]</strong> dis(반대로, 풀다) + charge(충전하다).",
+        "배터리를 꽉 채웠던(charge) 것을 반대로 다 써버려 방전되게(dis) 하거나, 뱃속에 가득 찬 짐을 밖으로 쏟아내는 것입니다.",
+        "가스를 <strong>'방출하다'</strong>, 환자를 <strong>'퇴원시키다'</strong>라는 뜻이 있습니다."
     ],
-    "receptive": [
-        "🔍 <strong>[어원 분석]</strong> receive(받다) + ive(형용사 꼬리표).",
-        "새로운 아이디어나 제안을 마음을 열고 잘 받아들이는 태도를 말합니다. 즉, <strong>'수용적인'</strong>이라는 뜻입니다."
+    "invasive": [
+        "🗡️ <strong>[어원 분석]</strong> in(안으로) + vas(가다: invade) + ive.",
+        "남의 나라나 남의 몸 안으로(in) 무기를 들고 마구 쳐들어가는(vas) 폭력적인 성향입니다.",
+        "<strong>'침입하는, 침략적인'</strong>이라는 뜻입니다."
     ],
-    "ascend": [
-        "🔍 <strong>[어원 분석]</strong> ad(쪽으로) + scandere(오르다).",
-        "비행기가 이륙해서 하늘로 올라가거나, 산을 오르는 등 위를 향해 <strong>'오르다, 올라가다'</strong>라는 뜻입니다. (반대말: descend 내려가다)"
+    "protest": [
+        "🪧 <strong>[연상법]</strong> 억울한 일을 당한 사람들이 거리에 모여 '우리는 프로(pro) 테스트(test) 중이다!'라며 시위하는 모습입니다.",
+        "잘못된 법이나 결정에 대해 <strong>'항의하다, 반대하다'</strong>라는 뜻입니다."
     ],
-    "handy": [
-        "✋ <strong>[연상법]</strong> 손(hand)에 쏙 들어오고 늘 손이 닿는 곳에 있다는 느낌을 떠올려보세요.",
-        "언제든 쉽게 꺼내 쓸 수 있어서 <strong>'편리한, 유용한, 다루기 쉬운'</strong>이라는 뜻이 됩니다."
+    "flee": [
+        "🏃 <strong>[연상법]</strong> 파리(flea)가 사람이 손을 뻗자마자 휙! 날아가 버리는 모습입니다. 발음이 똑같아요!",
+        "위험한 상황에서 살기 위해 아주 급하게 <strong>'달아나다, 도망가다'</strong>라는 뜻입니다."
     ],
-    "parasitic": [
-        "🔍 <strong>[어원 팁]</strong> parasite(기생충, 기생식물) + ic(형용사 꼬리표).",
-        "스스로 살지 못하고 남에게 붙어서 영양분을 빼앗아 먹고 사는 <strong>'기생하는'</strong>이라는 뜻입니다. (영화 '기생충'의 영어 제목이 Parasite죠!)"
+    "relocate": [
+        "🚚 <strong>[어원 분석]</strong> re(다시) + locate(위치를 정하다).",
+        "원래 있던 장소에서 짐을 다 싸서 새로운 장소로 다시(re) 자리를 잡는(locate) 행동입니다.",
+        "회사나 집을 <strong>'이전하다, 이동하다'</strong>라는 뜻입니다."
     ],
-    "originality": [
-        "🔍 <strong>[구조 분석]</strong> original(독창적인, 원래의) + ity(명사 꼬리표).",
-        "남을 베끼지 않고 자신만의 고유하고 새로운 것을 만들어내는 능력, 바로 <strong>'독창성'</strong>을 의미합니다."
+    "detest": [
+        "🤮 <strong>[연상법]</strong> 너무너무 싫어하는 시험(test)을 또 보라고 해서 속이 뒤집어질 정도로 싫은 감정입니다.",
+        "hate보다 훨씬 강렬하게 <strong>'몹시 싫어하다, 혐오하다'</strong>라는 뜻입니다."
     ],
-    "implicit": [
-        "🔍 <strong>[어원 분석]</strong> im(안으로) + plic(접다).",
-        "의미를 밖으로 펼쳐서 보여주지 않고 안으로 꾹꾹 접어 숨겨두었다는 뜻입니다. 대놓고 말하지 않고 <strong>'암시된, 내포된'</strong>이라는 의미입니다."
+    "astronomy": [
+        "🔭 <strong>[어원 분석]</strong> astro(별, 우주) + nomy(학문).",
+        "별과 우주를 과학적으로 연구하는 <strong>'천문학'</strong>을 뜻합니다. (우주비행사는 astronaut!)"
+    ],
+    "venture": [
+        "🧗‍♂️ <strong>[어원 팁]</strong> adventure(모험)에서 앞부분이 떨어져 나간 단어입니다.",
+        "실패할 위험을 뻔히 알면서도 대박을 노리고 <strong>'위험을 무릅쓰다'</strong>라는 뜻입니다. (벤처 기업!)"
+    ],
+    "protagonist": [
+        "🦸‍♂️ <strong>[어원 분석]</strong> proto(첫 번째의) + agon(배우) + ist(사람).",
+        "연극이나 영화에서 가장 첫 번째(proto)로 중요하게 등장하는 사람입니다.",
+        "이야기의 <strong>'주인공'</strong>을 뜻합니다."
+    ],
+    "hail": [
+        "🙌 <strong>[개념 이해]</strong> 겨울에 떨어지는 우박이라는 뜻도 있지만, 사람에게 쓰이면 뜻이 다릅니다!",
+        "택시를 소리쳐 부르거나, 영웅이 나타났을 때 만세를 외치며 <strong>'환호하다, 칭송하다'</strong>라는 뜻입니다."
+    ],
+    "heredity": [
+        "🧬 <strong>[어원 팁]</strong> heir(상속인)와 뿌리가 같은 단어입니다.",
+        "부모님의 신체나 성격 특징들이 유전자를 타고 자식에게 물려지는 생물학적인 <strong>'유전'</strong>을 뜻합니다."
+    ],
+    "command": [
+        "🗣️ <strong>[연상법]</strong> 장군이 부하들에게 돌격하라고 입 밖으로 내뱉는 강한 명령입니다.",
+        "<strong>'지배력, 제어력'</strong>을 뜻하기도 하고, 외국어를 자유자재로 구사하는 능력을 뜻하기도 합니다."
+    ],
+    "pedagogical": [
+        "🧑‍🏫 <strong>[어원 팁]</strong> 고대 그리스에서 아이들을 학교에 데려다주고 가르치던 노예(선생님)에서 유래한 단어입니다.",
+        "아이들을 가르치는 방법과 관련된 <strong>'교육학적인'</strong>이라는 고급 단어입니다."
+    ],
+    "stem": [
+        "🌱 <strong>[연상법]</strong> 식물의 뿌리에서 위로 길게 뻗어 나온 '줄기(stem)'입니다.",
+        "주로 'stem from (~로부터)' 형태로 쓰여서 원인으로부터 결과가 <strong>'생기다, 일어나다'</strong>라는 뜻이 됩니다."
+    ],
+    "grieve": [
+        "😭 <strong>[연상법]</strong> 사랑하는 사람이나 동물이 떠났을 때 마음이 갈기갈기 찢어지는 엄청난 슬픔입니다.",
+        "눈물을 흘리며 <strong>'비통해하다, 몹시 슬퍼하다'</strong>라는 뜻입니다."
+    ],
+    "output": [
+        "🏭 <strong>[어원 분석]</strong> out(밖으로) + put(놓다).",
+        "공장에 원료(input)를 넣고 기계를 돌려서 최종적으로 밖으로(out) 툭 내놓은(put) 결과물입니다.",
+        "회사나 공장의 <strong>'생산량, 산출량'</strong>을 뜻합니다."
+    ],
+    "accelerate": [
+        "🏎️ <strong>[연상법]</strong> 자동차에서 속도를 낼 때 밟는 '엑셀(accelerator)'입니다.",
+        "물체의 속도를 올리거나, 어떤 일이 일어나는 속도를 <strong>'가속화하다'</strong>라는 뜻입니다."
+    ],
+    "ingenious": [
+        "💡 <strong>[어원 팁]</strong> 천재를 뜻하는 genius와 아주 비슷하게 생겼죠?",
+        "천재처럼 아이디어가 아주 <strong>'독창적인, 기발한'</strong>이라는 뜻입니다."
+    ],
+    "inflate": [
+        "🎈 <strong>[어원 분석]</strong> in(안으로) + flate(바람을 불다).",
+        "풍선이나 튜브 안으로 공기를 불어 넣어서 빵빵하게 <strong>'부풀다, 부풀리다'</strong>라는 뜻입니다. (물가가 부푸는 인플레이션의 어원!)"
+    ],
+    "inflow": [
+        "🌊 <strong>[어원 분석]</strong> in(안으로) + flow(흐르다).",
+        "바깥에 있던 물, 돈, 사람들이 내 나라나 회사 안으로(in) 물밀듯이 흘러(flow) 들어오는 것입니다.",
+        "<strong>'유입, 유입량'</strong>을 뜻합니다."
+    ],
+    "crawl": [
+        "👶 <strong>[연상법]</strong> 아기가 아직 걷지 못할 때 바닥에 배를 대고 엉금엉금 기어가는 모습입니다.",
+        "뱀이나 아기가 <strong>'기다, 기어가다'</strong>라는 뜻입니다."
+    ],
+    "rotation": [
+        "🌍 <strong>[개념 이해]</strong> 농구공을 손가락 위에서 빙글빙글 돌리는 모습이나, 지구가 하루에 한 바퀴씩 도는 현상입니다.",
+        "<strong>'회전, 자전'</strong> 또는 당번을 번갈아 하는 '교대'를 뜻합니다."
+    ],
+    "phase": [
+        "⏳ <strong>[개념 이해]</strong> 게임에서 '페이즈 1', '페이즈 2'로 넘어가면서 보스의 패턴이 달라지죠?",
+        "어떤 일의 <strong>'단계, 시기'</strong>를 뜻하거나, 동사로는 <strong>'단계적으로 실행하다'</strong>라는 뜻을 가집니다."
+    ],
+    "slap": [
+        "👋 <strong>[연상법]</strong> 주먹을 쥐고 때리는 게 아니라, 손바닥을 쫙 펴고 뺨을 '찰싹!' 소리 나게 때리는 동작입니다.",
+        "<strong>'찰싹 때리다'</strong>라는 뜻입니다."
+    ],
+    "viable": [
+        "✅ <strong>[어원 분석]</strong> vi(생명, 길) + able(~할 수 있는).",
+        "이 계획이 죽은 계획이 아니라 살아서 굴러갈 수 있는 진짜 쓸모있는 계획이라는 뜻입니다.",
+        "<strong>'실행 가능한'</strong>이라는 아주 중요한 비즈니스/학술 단어입니다."
+    ],
+    "fake": [
+        "🤥 <strong>[개념 이해]</strong> 진짜(real)가 아니라 가짜로 만들어 낸 것을 뜻하죠?",
+        "명사로는 '가짜', 동사로는 속이기 위해 <strong>'위조하다, 날조하다'</strong>라는 뜻입니다."
+    ],
+    "legacy": [
+        "🏺 <strong>[어원 팁]</strong> 법적으로 물려받는 재산이라는 뜻에서 출발했습니다.",
+        "조상이나 과거 시대가 훌륭하게 남겨준 <strong>'유산, 유물'</strong>을 뜻합니다. (좋은 유산일 수도 있고 나쁜 잔재일 수도 있어요!)"
     ]
 };
 
-// ... 이하 자바스크립트 로직 (동적 분석기 포함)은 이전 V6 버전과 동일하게 작성 ...
 let vocabList = [];
 let quizQueue = [];
 let currentIndex = 0;
 let score = 0;
 let timerInterval = null;
 let timeLeft = 600;
-
 let currentExpSteps = [];
 let currentStepIndex = 0;
 
@@ -1752,7 +1517,12 @@ function showScreen(screenId) {
     document.getElementById('timerText').style.display = (screenId === 'quizScreen') ? 'block' : 'none';
 }
 
-function goHome() { clearInterval(timerInterval); showScreen('menuScreen'); window.scrollTo(0,0); }
+function goHome() { 
+    clearInterval(timerInterval); 
+    window.speechSynthesis.cancel();
+    showScreen('menuScreen'); 
+    window.scrollTo(0,0); 
+}
 
 function toggleTheme() {
     const body = document.body;
@@ -1783,7 +1553,7 @@ function startQuiz() {
     if (startIdx > endIdx) { alert("출발 번호가 도착 번호보다 클 수 없습니다."); return; }
 
     let rangedList = vocabList.filter(v => v.id >= startIdx && v.id <= endIdx);
-    if (rangedList.length < 4) { alert("해당 구간에 단어가 너무 적습니다. 최소 4단어 이상 지정해주세요."); return; }
+    if (rangedList.length < 4) { alert("최소 4단어 이상 지정해주세요."); return; }
 
     const countSelect = document.getElementById('questionCountSelect').value;
     const count = countSelect === 'all' ? rangedList.length : parseInt(countSelect);
@@ -1792,6 +1562,13 @@ function startQuiz() {
     quizQueue = shuffled.slice(0, count);
     
     currentIndex = 0; score = 0; timeLeft = 600;
+    
+    // 권한을 얻기 위해 음성 합성 엔진 깨우기 (빈 소리)
+    if('speechSynthesis' in window) {
+        let msg = new SpeechSynthesisUtterance('');
+        msg.volume = 0; window.speechSynthesis.speak(msg);
+    }
+    
     showScreen('quizScreen'); startTimer(); loadQuestion();
 }
 
@@ -1807,10 +1584,28 @@ function startTimer() {
     }, 1000);
 }
 
+// 🔊 [핵심기능] 음성 3번 읽어주는 함수
+function speakWord(word, times) {
+    if (!('speechSynthesis' in window)) return;
+    window.speechSynthesis.cancel();
+    let count = 0;
+    function speakNext() {
+        if (count >= times) return;
+        let msg = new SpeechSynthesisUtterance(word);
+        msg.lang = 'en-US';
+        msg.rate = 0.85; // 학생들이 듣기 편하게 살짝 느리게
+        msg.onend = function() {
+            setTimeout(speakNext, 500); // 0.5초 쉬고 다음 반복
+        };
+        window.speechSynthesis.speak(msg);
+        count++;
+    }
+    speakNext();
+}
+
 function getTrickyDistractors(correctMeaning, allVocabs) {
     let distractors = [];
     let pool = allVocabs.filter(v => v.meaning !== correctMeaning);
-    
     let isVerb = correctMeaning.endsWith('다');
     let isAdjective = correctMeaning.endsWith('한') || correctMeaning.endsWith('적인') || correctMeaning.endsWith('운') || correctMeaning.endsWith('의');
     let isAdverb = correctMeaning.endsWith('히') || correctMeaning.endsWith('으로');
@@ -1833,13 +1628,21 @@ function getTrickyDistractors(correctMeaning, allVocabs) {
 }
 
 function loadQuestion() {
+    // 이전 문제 상태 초기화
     document.getElementById('feedbackArea').style.display = 'none';
+    document.getElementById('explanationContainer').style.display = 'none';
+    document.getElementById('stepConfirmBtn').style.display = 'block';
+    document.getElementById('typingContainer').style.display = 'none';
     document.getElementById('optionsGrid').style.pointerEvents = 'auto';
+    
     if (currentIndex >= quizQueue.length) { finishQuiz(false); return; }
 
     const currentWord = quizQueue[currentIndex];
     document.getElementById('progressText').innerText = `FLIGHT ${currentIndex + 1} / ${quizQueue.length}`;
     document.getElementById('quizWord').innerText = currentWord.word;
+
+    // 단어 화면에 출력하자마자 3번 읽어주기 실행
+    speakWord(currentWord.word, 3);
 
     let distractors = getTrickyDistractors(currentWord.meaning, vocabList);
     let options = [currentWord.meaning, ...distractors].sort(() => Math.random() - 0.5);
@@ -1856,6 +1659,7 @@ function loadQuestion() {
 }
 
 function checkAnswer(btn, selectedText, currentWord) {
+    window.speechSynthesis.cancel(); // 클릭하면 음성 중단
     const buttons = document.querySelectorAll('.option-btn');
     document.getElementById('optionsGrid').style.pointerEvents = 'none';
 
@@ -1874,10 +1678,14 @@ function checkAnswer(btn, selectedText, currentWord) {
     }
 }
 
-function nextQuestion() { currentIndex++; loadQuestion(); }
+function nextQuestion() { 
+    currentIndex++; 
+    loadQuestion(); 
+}
 
 function startExplanation(wordObj) {
     document.getElementById('feedbackArea').style.display = 'block';
+    document.getElementById('explanationContainer').style.display = 'block';
     const container = document.getElementById('explanationContainer');
     container.innerHTML = ''; 
     
@@ -1891,28 +1699,25 @@ function startExplanation(wordObj) {
         
         let affixFound = false;
         if (wordKey.endsWith("tion") || wordKey.endsWith("ment") || wordKey.endsWith("ness")) {
-            currentExpSteps.push(`🔍 <strong>[구조 분석]</strong> 단어가 <strong>'-${wordKey.substring(wordKey.length-4)}'</strong>로 끝나고 있죠? 보통 이런 꼬리표가 붙으면 상태를 나타내는 '명사'가 됩니다.`);
+            currentExpSteps.push(`🔍 <strong>[구조 힌트]</strong> 단어가 <strong>'-${wordKey.substring(wordKey.length-4)}'</strong>로 끝나고 있죠? 보통 상태를 나타내는 '명사'가 됩니다.`);
             affixFound = true;
         } else if (wordKey.endsWith("ly")) {
-            currentExpSteps.push(`🔍 <strong>[구조 분석]</strong> 단어 끝에 <strong>'-ly'</strong>가 붙어있네요. 형용사 뒤에 붙어서 '~하게'라는 부사를 만들어주는 아주 흔한 꼬리표입니다.`);
+            currentExpSteps.push(`🔍 <strong>[구조 힌트]</strong> 단어 끝에 <strong>'-ly'</strong>가 붙어있네요. 형용사 뒤에 붙어서 '~하게'라는 '부사'를 만듭니다.`);
             affixFound = true;
         }
 
         if (wordKey.startsWith("un") || wordKey.startsWith("in") || wordKey.startsWith("im") || wordKey.startsWith("dis")) {
-            currentExpSteps.push(`🔍 <strong>[어원 분석]</strong> 단어 맨 앞에 있는 <strong>'${wordKey.substring(0,2)}-'</strong>는 보통 '반대(not)'의 의미를 가집니다. 원래 의미의 반대를 상상해 보세요.`);
+            currentExpSteps.push(`🔍 <strong>[어원 힌트]</strong> 앞부분의 <strong>'${wordKey.substring(0,2)}-'</strong>는 보통 '반대(not)'의 의미를 가집니다.`);
             affixFound = true;
         } else if (wordKey.startsWith("re")) {
-            currentExpSteps.push(`🔍 <strong>[어원 분석]</strong> <strong>'re-'</strong>로 시작하네요! 이건 '다시(again)'나 '뒤로(back)'라는 뜻을 더해주는 마법의 접두사입니다.`);
-            affixFound = true;
-        } else if (wordKey.startsWith("pre")) {
-            currentExpSteps.push(`🔍 <strong>[어원 분석]</strong> <strong>'pre-'</strong>는 '미리, 앞서서(before)'라는 뜻이에요. 시간적으로 먼저 일어난다는 느낌을 기억하세요.`);
+            currentExpSteps.push(`🔍 <strong>[어원 힌트]</strong> <strong>'re-'</strong>는 '다시(again)'나 '뒤로(back)'라는 뜻을 더해주는 마법의 접두사입니다.`);
             affixFound = true;
         }
 
         if (!affixFound) {
-            currentExpSteps.push(`🔍 <strong>[어원 팁]</strong> 이 단어는 접두사보다는 어근(단어 자체)이 핵심입니다. 눈을 감고 스펠링을 허공에 적어보세요!`);
+            currentExpSteps.push(`🔍 <strong>[어원 팁]</strong> 이 단어는 접두사보다는 어근 자체가 핵심입니다. 발음을 소리내어 여러 번 읽어보세요!`);
         }
-        currentExpSteps.push(`📝 <strong>[나만의 암기법]</strong> 뜻 '${wordObj.meaning}'과 영어 발음을 엮어서 웃긴 연상 문장을 한 번 만들어보세요!`);
+        currentExpSteps.push(`📝 뜻 '${wordObj.meaning}'과 영어 발음을 엮어서 연상 문장을 한 번 만들어보세요!`);
     }
     
     currentStepIndex = 0;
@@ -1934,8 +1739,59 @@ function showNextExplanationStep() {
         btn.innerText = `확인! 다음 문장 확인 (${currentStepIndex}/${currentExpSteps.length}) ➔`;
         btn.onclick = showNextExplanationStep; 
     } else {
-        btn.innerText = `✅ 확인 완료! 다음 문제로 ➔`;
-        btn.onclick = nextQuestion; 
+        // 해설을 다 읽으면 버튼이 '타이핑 복습'으로 바뀜
+        btn.innerText = `✍️ 영단어 & 한글 타이핑 복습하기 ➔`;
+        btn.onclick = startTypingPractice; 
+    }
+}
+
+// ⌨️ [핵심기능] 강제 타이핑 복습 로직
+function startTypingPractice() {
+    // 해설 숨기고 타이핑 화면 등장
+    document.getElementById('explanationContainer').style.display = 'none';
+    document.getElementById('stepConfirmBtn').style.display = 'none';
+    document.getElementById('typingContainer').style.display = 'block';
+    
+    const cw = quizQueue[currentIndex];
+    document.getElementById('targetEng').innerText = cw.word;
+    document.getElementById('targetKor').innerText = cw.meaning;
+    
+    const engInput = document.getElementById('typeEngInput');
+    const korInput = document.getElementById('typeKorInput');
+    
+    engInput.value = '';
+    korInput.value = '';
+    engInput.disabled = false;
+    korInput.disabled = false;
+    
+    document.getElementById('korTypingSection').style.display = 'none';
+    document.getElementById('typingNextBtn').style.display = 'none';
+    
+    // 복습 시작 시 영어 발음 1번 더 들려주기
+    speakWord(cw.word, 1);
+    engInput.focus();
+}
+
+// 영어 입력 감지
+function checkEngTyping(e) {
+    const cw = quizQueue[currentIndex];
+    const input = e.target.value.trim().toLowerCase();
+    if (input === cw.word.toLowerCase()) {
+        e.target.disabled = true; // 정답이면 입력창 잠금
+        e.target.style.borderColor = "var(--correct-color)";
+        document.getElementById('korTypingSection').style.display = 'block';
+        document.getElementById('typeKorInput').focus();
+    }
+}
+
+// 한글 뜻 입력 감지 (띄어쓰기까지 완벽하게 동일해야 통과)
+function checkKorTyping(e) {
+    const cw = quizQueue[currentIndex];
+    const input = e.target.value.trim();
+    if (input === cw.meaning.trim()) {
+        e.target.disabled = true;
+        e.target.style.borderColor = "var(--correct-color)";
+        document.getElementById('typingNextBtn').style.display = 'block';
     }
 }
 
@@ -1952,8 +1808,8 @@ function finishQuiz(isTimeOut) {
     let msg = isTimeOut ? "⏰ 시간이 초과되어 남은 문제는 오답 처리되었습니다.<br><br>" : "";
     
     if (finalScore === 100) { msg += "🏆 퍼펙트! 목적지에 무사히 도착하셨습니다."; scoreCircle.style.backgroundColor = "var(--correct-color)"; } 
-    else if (finalScore >= 80) { msg += "👏 아주 훌륭한 비행이었습니다! 방금 읽은 심층 해설이 큰 힘이 될 것입니다."; scoreCircle.style.backgroundColor = "var(--kal-blue)"; } 
-    else { msg += "💪 조금 난기류가 있었네요. 해설 노트를 다시 한번 확인해주시기 바랍니다."; scoreCircle.style.backgroundColor = "var(--wrong-color)"; }
+    else if (finalScore >= 80) { msg += "👏 아주 훌륭한 비행이었습니다! 복습한 단어는 절대 잊지 않을 거예요."; scoreCircle.style.backgroundColor = "var(--kal-blue)"; } 
+    else { msg += "💪 조금 난기류가 있었네요. 직접 타이핑하며 복습한 단어들을 잊지 마세요!"; scoreCircle.style.backgroundColor = "var(--wrong-color)"; }
     document.getElementById('resultMsg').innerHTML = msg;
 }
 
