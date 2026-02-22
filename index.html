@@ -3,19 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>영단어 마스터 (Korean Air Edition - V8)</title>
+    <title>중학 영단어 마스터 [심화편]</title>
     <style>
         /* 한진그룹 폰트 적용 */
         @font-face { font-family: 'HanjinGroupSans'; src: url('./HanjinGroupSans-Light.ttf') format('truetype'); font-weight: 300; }
         @font-face { font-family: 'HanjinGroupSans'; src: url('./HanjinGroupSans-Regular.ttf') format('truetype'); font-weight: 400; }
         @font-face { font-family: 'HanjinGroupSans'; src: url('./HanjinGroupSans-Bold.ttf') format('truetype'); font-weight: 700; }
 
-        /* 대한항공 컬러 팔레트 */
+        /* 블루 & 네이비 컬러 팔레트 */
         :root {
             --kal-blue: #0064B2; --kal-navy: #00205B; --kal-light: #EBF3FA;
             --wrong-color: #D32F2F; --correct-color: #008000;
             --bg-color: #F8F9FA; --card-bg: #FFFFFF;
-            --text-main: #333333; --text-muted: #666666; --border-color: #D0D9E1;
+            --text-main: #222222; --text-muted: #555555; --border-color: #D0D9E1;
         }
 
         body.dark-mode {
@@ -35,26 +35,26 @@
         body.flash-correct { animation: correctFlash 0.6s ease-out; }
 
         .container {
-            background-color: var(--card-bg); width: 100%; max-width: 550px;
+            background-color: var(--card-bg); width: 100%; max-width: 600px; /* 폭을 넓혀 가시성 확보 */
             border-radius: 16px; box-shadow: 0 10px 30px rgba(0,32,91,0.08);
             padding: 30px 25px; box-sizing: border-box; margin-bottom: 40px; transition: 0.3s;
             border-top: 6px solid var(--kal-blue);
         }
 
         .app-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px; border-bottom: 1px solid var(--border-color); padding-bottom: 15px; }
-        .theme-toggle { background: none; border: 1px solid var(--border-color); color: var(--text-main); padding: 8px 14px; border-radius: 20px; cursor: pointer; font-weight: 400; font-size: 13px; font-family: 'HanjinGroupSans'; }
-        .timer { font-weight: 700; color: var(--wrong-color); font-size: 16px; letter-spacing: 1px;}
+        .theme-toggle { background: none; border: 2px solid var(--border-color); color: var(--text-main); padding: 8px 14px; border-radius: 20px; cursor: pointer; font-weight: 700; font-size: 14px; font-family: 'HanjinGroupSans'; }
+        .timer { font-weight: 700; color: var(--wrong-color); font-size: 18px; letter-spacing: 1px;}
 
-        h1 { font-size: 24px; color: var(--kal-navy); margin: 0 0 8px 0; text-align: center; font-weight: 700; letter-spacing: -0.5px; }
-        h2 { font-size: 15px; color: var(--text-muted); margin-bottom: 25px; text-align: center; font-weight: 300; }
+        h1 { font-size: 26px; color: var(--kal-navy); margin: 0 0 10px 0; text-align: center; font-weight: 700; letter-spacing: -0.5px; }
+        h2 { font-size: 16px; color: var(--text-muted); margin-bottom: 25px; text-align: center; font-weight: 400; }
         body.dark-mode h1 { color: var(--kal-blue); }
 
-        .input-box { width: 100%; padding: 14px; border-radius: 8px; border: 1px solid var(--border-color); background: var(--card-bg); color: var(--text-main); font-size: 15px; outline: none; box-sizing: border-box; font-family: 'HanjinGroupSans'; }
+        .input-box { width: 100%; padding: 15px; border-radius: 8px; border: 2px solid var(--border-color); background: var(--card-bg); color: var(--text-main); font-size: 16px; outline: none; box-sizing: border-box; font-family: 'HanjinGroupSans'; font-weight: 700;}
         
-        .btn { display: block; width: 100%; padding: 16px; margin: 12px 0; border: none; border-radius: 8px; font-size: 16px; font-weight: 700; cursor: pointer; box-sizing: border-box; text-align: center; font-family: 'HanjinGroupSans'; transition: 0.2s; letter-spacing: 0.5px;}
+        .btn { display: block; width: 100%; padding: 18px; margin: 12px 0; border: none; border-radius: 8px; font-size: 18px; font-weight: 700; cursor: pointer; box-sizing: border-box; text-align: center; font-family: 'HanjinGroupSans'; transition: 0.2s; letter-spacing: 0.5px;}
         .btn-primary { background-color: var(--kal-blue); color: #fff; }
         .btn-primary:hover { background-color: var(--kal-navy); }
-        .btn-secondary { background-color: var(--kal-light); color: var(--kal-navy); }
+        .btn-secondary { background-color: var(--kal-light); color: var(--kal-navy); border: 2px solid var(--kal-blue); }
         .btn-secondary:hover { background-color: #D0E3F5; }
         .btn:disabled { opacity: 0.6; cursor: not-allowed; }
 
@@ -62,116 +62,127 @@
         .screen.active { display: block; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
 
-        .progress-text { font-size: 14px; font-weight: 700; color: var(--kal-blue); margin-bottom: 10px; text-transform: uppercase; letter-spacing: 1px;}
-        .quiz-word { font-size: 44px; font-weight: 700; margin: 25px 0 35px 0; color: var(--kal-navy); text-align: center; letter-spacing: -1px; }
+        /* 퀴즈 메인 타이포그래피 강화 */
+        .progress-text { font-size: 16px; font-weight: 700; color: var(--text-muted); margin-bottom: 10px; }
+        
+        .quiz-word-container { display: flex; flex-direction: column; align-items: center; margin: 25px 0 35px 0; }
+        .quiz-word { font-size: 52px; font-weight: 700; color: var(--kal-navy); text-align: center; letter-spacing: -1px; margin-bottom: 15px; line-height: 1.1; }
         body.dark-mode .quiz-word { color: #FFFFFF; }
         
+        /* 발음 듣기 재생 버튼 */
+        .sound-btn { background-color: var(--kal-light); border: 1px solid var(--kal-blue); color: var(--kal-navy); font-size: 14px; font-weight: 700; padding: 8px 16px; border-radius: 20px; cursor: pointer; display: flex; align-items: center; gap: 5px; font-family: 'HanjinGroupSans'; transition: 0.2s; }
+        .sound-btn:hover { background-color: var(--kal-blue); color: white; }
+
         .options-grid { display: grid; gap: 12px; }
-        .option-btn { background-color: var(--card-bg); border: 1px solid var(--border-color); color: var(--text-main); padding: 18px; border-radius: 8px; font-size: 16px; font-weight: 400; cursor: pointer; text-align: center; transition: 0.2s; font-family: 'HanjinGroupSans'; }
-        .option-btn.correct { background-color: var(--correct-color) !important; border-color: var(--correct-color) !important; color: white !important; font-weight: 700; }
-        .option-btn.wrong { background-color: var(--wrong-color) !important; border-color: var(--wrong-color) !important; color: white !important; font-weight: 700;}
+        .option-btn { background-color: var(--card-bg); border: 2px solid var(--border-color); color: var(--text-main); padding: 20px; border-radius: 10px; font-size: 18px; font-weight: 700; cursor: pointer; text-align: center; transition: 0.2s; font-family: 'HanjinGroupSans'; line-height: 1.4; }
+        .option-btn.correct { background-color: var(--correct-color) !important; border-color: var(--correct-color) !important; color: white !important; font-size: 20px; }
+        .option-btn.wrong { background-color: var(--wrong-color) !important; border-color: var(--wrong-color) !important; color: white !important; }
         .option-btn:hover:not([disabled]) { border-color: var(--kal-blue); color: var(--kal-blue); box-shadow: 0 4px 10px rgba(0,100,178,0.1);}
 
         /* 오답 피드백 영역 */
-        .feedback-area { margin-top: 30px; padding: 25px 20px; background-color: var(--kal-light); border-radius: 8px; display: none; text-align: left; border-left: 4px solid var(--wrong-color); }
-        .feedback-title { font-size: 16px; font-weight: 700; color: var(--wrong-color); margin-bottom: 20px; display:flex; align-items:center; gap:8px;}
-        .exp-step { background-color: var(--card-bg); padding: 16px; border-radius: 6px; font-size: 15px; font-weight: 300; line-height: 1.6; color: var(--text-main); margin-bottom: 12px; border: 1px solid var(--border-color); animation: fadeIn 0.3s ease-in-out; }
-        .exp-step strong { font-weight: 700; color: var(--kal-navy); }
+        .feedback-area { margin-top: 30px; padding: 25px 20px; background-color: var(--kal-light); border-radius: 8px; display: none; text-align: left; border-left: 5px solid var(--wrong-color); }
+        .feedback-title { font-size: 18px; font-weight: 700; color: var(--wrong-color); margin-bottom: 20px; display:flex; align-items:center; gap:8px;}
+        .exp-step { background-color: var(--card-bg); padding: 18px; border-radius: 8px; font-size: 16px; font-weight: 400; line-height: 1.6; color: var(--text-main); margin-bottom: 15px; border: 1px solid var(--border-color); animation: fadeIn 0.3s ease-in-out; }
+        .exp-step strong { font-weight: 700; color: var(--kal-navy); font-size: 17px; }
         body.dark-mode .exp-step strong { color: var(--kal-blue); }
-        .step-btn { background-color: var(--kal-navy); color: #fff; margin-top: 20px; }
+        .step-btn { background-color: var(--kal-navy); color: #fff; margin-top: 20px; font-size: 16px; }
 
-        /* 타이핑 복습 영역 */
-        .typing-container { background-color: rgba(255,255,255,0.8); padding: 20px; border-radius: 8px; margin-top: 15px; border: 2px dashed var(--kal-blue); animation: fadeIn 0.3s ease-in-out; }
+        /* 타이핑 복습 영역 - 글자 크기 극대화 */
+        .typing-container { background-color: rgba(255,255,255,0.8); padding: 25px; border-radius: 12px; margin-top: 15px; border: 3px dashed var(--kal-blue); animation: fadeIn 0.3s ease-in-out; }
         body.dark-mode .typing-container { background-color: rgba(0,0,0,0.3); }
-        .typing-step-title { font-size: 14px; font-weight: 700; color: var(--kal-navy); margin-bottom: 8px; }
+        .typing-step-title { font-size: 16px; font-weight: 700; color: var(--kal-navy); margin-bottom: 12px; }
         body.dark-mode .typing-step-title { color: var(--kal-blue); }
-        .target-word { font-size: 24px; font-weight: 700; color: var(--wrong-color); margin-bottom: 10px; letter-spacing: 1px;}
-        .target-meaning { font-size: 18px; font-weight: 700; color: var(--wrong-color); margin-bottom: 10px; }
+        
+        .target-word { font-size: 32px; font-weight: 700; color: var(--wrong-color); margin-bottom: 15px; letter-spacing: 1px; text-align: center; }
+        .target-meaning { font-size: 24px; font-weight: 700; color: var(--kal-navy); margin-bottom: 15px; text-align: center; }
+        body.dark-mode .target-meaning { color: var(--kal-blue); }
 
-        .word-list-container { max-height: 60vh; overflow-y: auto; text-align: left; border: 1px solid var(--border-color); border-radius: 8px; padding: 15px; margin-bottom: 20px;}
-        .word-item { padding: 14px 5px; border-bottom: 1px solid var(--border-color); display: flex; flex-direction: column; }
-        .word-item span.en { font-weight: 700; color: var(--kal-blue); font-size: 18px; margin-bottom: 6px;}
-        .word-item span.ko { font-size: 15px; font-weight: 300; color: var(--text-main); }
-
-        .score-circle { width: 130px; height: 130px; background: var(--kal-blue); color: white; border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 36px; font-weight: 700; margin: 30px auto; box-shadow: 0 10px 20px rgba(0,100,178,0.3);}
+        .score-circle { width: 140px; height: 140px; background: var(--kal-blue); color: white; border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 40px; font-weight: 700; margin: 30px auto; box-shadow: 0 10px 20px rgba(0,100,178,0.3);}
     </style>
 </head>
 <body>
 
 <div class="container">
     <div class="app-header">
-        <button class="theme-toggle" onclick="toggleTheme()" id="themeBtn">🌙 야간 비행 모드</button>
+        <button class="theme-toggle" onclick="toggleTheme()" id="themeBtn">🌙 다크 모드</button>
         <span id="timerText" class="timer" style="display: none;">⏱ 10:00</span>
     </div>
 
     <div id="menuScreen" class="screen active">
-        <h1>Korean Air Vocab Master</h1>
-        <h2>[1951~2200] 음성 읽기 & 타이핑 복습 탑재</h2>
+        <h1>중학 영단어 마스터 [심화편]</h1>
+        <h2>음성 자동 읽기 & 타이핑 강제 복습 시스템</h2>
         
         <div style="text-align: left; margin: 30px 0;">
-            <label style="font-weight: 700; display: block; margin-bottom: 10px; font-size: 14px; color: var(--kal-navy);">📍 비행 구간 (단어 번호)</label>
+            <label style="font-weight: 700; display: block; margin-bottom: 10px; font-size: 15px; color: var(--kal-navy);">🎯 시험 범위 (단어 번호)</label>
             <div style="display: flex; gap: 10px; align-items: center; margin-bottom: 25px;">
-                <input type="number" id="startNum" class="input-box" placeholder="출발 번호">
-                <span style="font-weight: 700; color:var(--text-muted);">~</span>
-                <input type="number" id="endNum" class="input-box" placeholder="도착 번호">
+                <input type="number" id="startNum" class="input-box" placeholder="시작 번호">
+                <span style="font-weight: 700; font-size: 18px; color:var(--text-muted);">~</span>
+                <input type="number" id="endNum" class="input-box" placeholder="끝 번호">
             </div>
 
-            <label style="font-weight: 700; display: block; margin-bottom: 10px; font-size: 14px; color: var(--kal-navy);">📝 탑승 문항 수</label>
+            <label style="font-weight: 700; display: block; margin-bottom: 10px; font-size: 15px; color: var(--kal-navy);">📝 출제 문항 수</label>
             <select id="questionCountSelect" class="input-box">
-                <option value="10">10문제 (단거리 비행)</option>
-                <option value="20">20문제 (중거리 비행)</option>
-                <option value="50">50문제 (장거리 비행)</option>
-                <option value="all">구간 내 전체 다 풀기</option>
+                <option value="10">10문제 (가볍게 테스트)</option>
+                <option value="20">20문제 (실전 테스트)</option>
+                <option value="50">50문제 (집중 테스트)</option>
+                <option value="all">범위 내 전체 다 풀기</option>
             </select>
         </div>
 
-        <button class="btn btn-primary" onclick="startQuiz()">✈️ 시험 비행 시작</button>
+        <button class="btn btn-primary" onclick="startQuiz()">📝 시험 시작하기</button>
         <button class="btn btn-secondary" onclick="showWordList()">📖 전체 단어장 보기</button>
     </div>
 
     <div id="studyScreen" class="screen">
         <h1 style="margin-bottom: 20px; text-align:left;">📖 Vocabulary List</h1>
-        <div class="word-list-container" id="wordListContainer"></div>
-        <button class="btn btn-secondary" onclick="goHome()">🏠 메인 화면으로</button>
+        <div class="word-list-container" id="wordListContainer" style="max-height: 60vh; overflow-y: auto; text-align: left; border: 2px solid var(--border-color); border-radius: 8px; padding: 15px; margin-bottom: 20px;"></div>
+        <button class="btn btn-secondary" onclick="goHome()">🏠 메인 화면으로 돌아가기</button>
     </div>
 
     <div id="quizScreen" class="screen">
-        <div class="progress-text" id="progressText">FLIGHT 1 / 10</div>
-        <div class="quiz-word" id="quizWord">Loading...</div>
+        <div class="progress-text" id="progressText">문제 1 / 10</div>
+        
+        <div class="quiz-word-container">
+            <div class="quiz-word" id="quizWord">Loading...</div>
+            <button class="sound-btn" onclick="speakWord(document.getElementById('quizWord').innerText, 1)">
+                🔊 발음 다시 듣기
+            </button>
+        </div>
+
         <div class="options-grid" id="optionsGrid"></div>
 
         <div class="feedback-area" id="feedbackArea">
-            <div class="feedback-title">⚠️ 오답입니다. 심층 해설을 꼼꼼히 확인해 주십시오.</div>
+            <div class="feedback-title">⚠️ 오답입니다. 심층 해설을 꼼꼼히 확인하세요.</div>
             <div id="explanationContainer"></div>
             <button class="btn step-btn" id="stepConfirmBtn" onclick="showNextExplanationStep()">다음 문장 확인 ➔</button>
 
             <div id="typingContainer" class="typing-container" style="display:none;">
                 <div class="typing-step-title">✍️ [1단계] 아래 영단어를 똑같이 타이핑하세요.</div>
                 <div class="target-word" id="targetEng"></div>
-                <input type="text" id="typeEngInput" class="input-box" placeholder="영어 단어 입력" autocomplete="off" oninput="checkEngTyping(event)">
+                <input type="text" id="typeEngInput" class="input-box" placeholder="영어 단어 정확히 입력" autocomplete="off" oninput="checkEngTyping(event)">
 
-                <div id="korTypingSection" style="display:none; margin-top:20px;">
+                <div id="korTypingSection" style="display:none; margin-top:25px;">
                     <div class="typing-step-title">✍️ [2단계] 아래 한글 뜻을 띄어쓰기까지 똑같이 타이핑하세요.</div>
                     <div class="target-meaning" id="targetKor"></div>
-                    <input type="text" id="typeKorInput" class="input-box" placeholder="한글 뜻 입력" autocomplete="off" oninput="checkKorTyping(event)">
+                    <input type="text" id="typeKorInput" class="input-box" placeholder="한글 뜻 정확히 입력" autocomplete="off" oninput="checkKorTyping(event)">
                 </div>
 
-                <button class="btn btn-primary" id="typingNextBtn" style="display:none; margin-top:20px;" onclick="nextQuestion()">✅ 완벽합니다! 다음 문제로 ➔</button>
+                <button class="btn btn-primary" id="typingNextBtn" style="display:none; margin-top:25px;" onclick="nextQuestion()">✅ 완벽합니다! 다음 문제로 ➔</button>
             </div>
         </div>
     </div>
 
     <div id="resultScreen" class="screen">
-        <h1 style="margin-top: 10px;">📊 Flight Report</h1>
+        <h1 style="margin-top: 10px;">📊 시험 결과 리포트</h1>
         <div id="finalScore" class="score-circle">90점</div>
-        <div id="resultMsg" style="font-size: 16px; font-weight: 300; margin-bottom: 30px; line-height: 1.6; color: var(--text-main); text-align: center;"></div>
-        <button class="btn btn-primary" onclick="goHome()">🏠 터미널로 돌아가기</button>
+        <div id="resultMsg" style="font-size: 18px; font-weight: 700; margin-bottom: 30px; line-height: 1.6; color: var(--text-main); text-align: center;"></div>
+        <button class="btn btn-primary" onclick="goHome()">🏠 메인 화면으로 돌아가기</button>
     </div>
 </div>
 
 <script>
 // ==========================================
-// 1. 단어 데이터 (1951 ~ 2200)
+// 1. 단어 데이터 (여기에 1951~2200 혹은 전체 목록 유지)
 // ==========================================
 const rawData = `
 1991 / inevitable / 불가피한, 필연적인
@@ -1302,184 +1313,238 @@ const rawData = `
 2999 / go over / 반복하다; 검토하다; 자세히 살펴보다
 3000 / bottom line / 손익의 총결산; 핵심 결론
 `;
+// ※ 실제 적용 시 여기에 전체 목록을 넣으세요.
 
 // ==========================================
-// 2. 심층 해설 DB (이어서 계속 붙여넣으세요)
+// 2. 심층 해설 DB (이전에 추가한 것 유지 + 아래 2041~2090 추가)
 // ==========================================
 const detailedExplanationDB = {
-    // ---- [1951 ~ 1990] 해설 세팅 완료! ----
-    "gust": [
-        "🌪️ <strong>[개념 이해]</strong> 평소에는 잔잔하다가 갑자기 휙! 하고 아주 강하게 불어닥치는 바람입니다.",
-        "태풍처럼 계속 부는 게 아니라 훅 불고 마는 <strong>'돌풍, 세찬 바람'</strong>을 뜻합니다."
+    // ---- [이전에 만든 데이터들은 이 위에 계속 넣어주세요] ----
+    "soar": [
+        "🦅 <strong>[연상법]</strong> 하늘 높이 '쏘아(soar)' 올린 로켓을 상상해 보세요.",
+        "독수리나 비행기가 높이 <strong>'날아오르다'</strong>라는 뜻이고, 물건의 가격이 미친 듯이 <strong>'폭등하다'</strong>라는 뜻으로도 뉴스에 자주 나옵니다."
     ],
-    "dissent": [
-        "🙅‍♂️ <strong>[어원 분석]</strong> dis(반대, 다르게) + sent(느끼다).",
-        "남들은 다 찬성(assent)하는데, 나 혼자만 다르게(dis) 생각하고 느끼는(sent) 태도입니다.",
-        "다수의 의견에 <strong>'반대, 이의를 제기하다'</strong>라는 뜻입니다."
+    "hatch": [
+        "🐣 <strong>[개념 이해]</strong> 병아리가 알을 깨고 밖으로 나오는 것을 말합니다.",
+        "위로 열리는 문(잠수함이나 우주선의 문)을 뜻하기도 합니다. 알을 까고 <strong>'부화하다'</strong>라는 뜻입니다."
     ],
-    "foremost": [
-        "🥇 <strong>[어원 분석]</strong> fore(앞에) + most(가장).",
-        "수많은 사람이나 물건들 중에서 가장(most) 앞자리(fore)를 차지하고 있는 1등입니다.",
-        "<strong>'가장 중요한, 으뜸가는, 일류의'</strong>라는 뜻입니다."
+    "ulcer": [
+        "🤕 <strong>[의학 용어]</strong> 현대인들이 스트레스를 받으면 위장이나 입안의 피부가 깊게 패고 허는 병에 걸리죠.",
+        "위궤양(stomach ulcer)처럼 살이 헐어서 생기는 <strong>'궤양'</strong>을 뜻합니다."
     ],
-    "fertility": [
-        "👶 <strong>[어원 팁]</strong> fertile(비옥한, 생식력이 있는) + ity(명사 꼬리표).",
-        "땅이 기름져서 농작물이 쑥쑥 잘 자라거나, 동물이 새끼를 잘 낳을 수 있는 능력입니다.",
-        "생물학적인 <strong>'출생률, 생식력, (토지의) 비옥함'</strong>을 뜻합니다."
+    "clan": [
+        "⛺ <strong>[개념 이해]</strong> 유명한 게임 '클래시 오브 클랜(Clash of Clans)'을 아시나요?",
+        "공통된 조상을 가지고 함께 모여 사는 피가 섞인 <strong>'씨족, 일가, 집단'</strong>을 뜻합니다."
     ],
-    "figurative": [
-        "🎨 <strong>[연상법]</strong> 피규어(figure, 형태/모형)를 떠올려보세요.",
-        "단어의 뜻을 사전 그대로 딱딱하게 쓰는 게 아니라, 다른 사물의 형태(figure)에 빗대어 멋지게 표현하는 방식입니다.",
-        "<strong>'비유적인, 상징적인'</strong>이라는 뜻입니다. (반대말: literal 글자 그대로의)"
+    "villain": [
+        "🦹 <strong>[개념 이해]</strong> 영화나 만화에 나오는 매력적인 악당을 흔히 '빌런(villain)'이라고 부릅니다.",
+        "원래는 중세 시대의 '농노'를 뜻했지만, 시간이 흘러 <strong>'악당, 범인'</strong>으로 뜻이 변했습니다."
     ],
-    "pioneer": [
-        "🤠 <strong>[개념 이해]</strong> 아무도 가지 않은 위험한 숲이나 우주에 가장 먼저 들어가서 길을 내는 사람입니다.",
-        "서부 개척 시대의 카우보이나 새로운 기술을 처음 만든 <strong>'개척자, 선구자'</strong>를 뜻합니다."
+    "meager": [
+        "🥣 <strong>[어원 분석]</strong> 라틴어 macrum(마른, 비쩍 마른).",
+        "밥을 제대로 못 먹어서 살이 찌지 않고 뼈만 앙상하게 마른 상태입니다.",
+        "식사량이나 수입이 너무 적어서 <strong>'빈약한, 불충분한'</strong>이라는 뜻입니다."
     ],
-    "pesticide": [
-        "☠️ <strong>[어원 분석]</strong> pest(해충) + cide(죽이다: 자살은 suicide).",
-        "농작물을 갉아먹는 나쁜 벌레(pest)들을 싹 다 죽여버리는(cide) 독한 약입니다.",
-        "농사를 지을 때 뿌리는 <strong>'살충제, 농약'</strong>을 뜻합니다."
+    "ingenuity": [
+        "💡 <strong>[어원 분석]</strong> genius(천재)와 아주 가까운 친척 단어입니다.",
+        "천재처럼 남들이 생각하지 못한 기발하고 놀라운 발명을 해내는 능력, <strong>'창의력, 독창성, 재간'</strong>을 뜻합니다."
     ],
-    "fusion": [
-        "⚛️ <strong>[연상법]</strong> 만화에서 두 명이 손가락을 맞대고 하나로 합체하는 기술이 퓨전(Fusion)이죠!",
-        "한식과 양식을 섞은 퓨전 요리처럼, 서로 다른 것들을 하나로 녹여 <strong>'융합, 결합'</strong>하는 것을 뜻합니다."
+    "pastor": [
+        "⛪ <strong>[어원 분석]</strong> 라틴어로 '양치기'라는 뜻에서 유래했습니다.",
+        "길 잃은 양(신자들)을 올바른 길로 이끌어주는 영적인 지도자, 즉 <strong>'목사, 사제'</strong>를 뜻합니다."
     ],
-    "counter": [
-        "🥊 <strong>[개념 이해]</strong> 복싱에서 상대방이 주먹을 뻗을 때 피하면서 동시에 주먹을 날리는 기술을 '카운터 펀치'라고 합니다.",
-        "상대방의 의견이나 공격에 맞서 <strong>'대응하다, 반박하다'</strong>라는 뜻입니다."
+    "patrol": [
+        "🚓 <strong>[연상법]</strong> 경찰차를 영어로 '패트롤 카(patrol car)'라고 부릅니다. 강아지 구조대 애니메이션 원제도 'PAW Patrol'이죠!",
+        "사고나 범죄가 없는지 돌아다니며 지키는 <strong>'순찰, 정찰대'</strong>를 뜻합니다."
     ],
-    "juror": [
-        "👨‍⚖️ <strong>[어원 팁]</strong> jury(배심원단)에서 나온 단어입니다.",
-        "미국 재판에서는 일반 시민 12명이 모여서 피고인이 유죄인지 무죄인지 결정합니다. 그 무리 안의 한 명을 <strong>'배심원(juror)'</strong>이라고 합니다."
+    "insistence": [
+        "🗣️ <strong>[어원 분석]</strong> in(안에) + sist(서다) + ence.",
+        "남의 말을 듣지 않고 오직 자기 생각과 논리 안에 꼿꼿하게 서서 절대 물러서지 않는 태도입니다.",
+        "<strong>'강력한 주장, 강조, 고집'</strong>이라는 뜻입니다."
     ],
-    "formidable": [
-        "🦖 <strong>[연상법]</strong> 폼(form)이 너무 압도적이어서 감히 덤빌 수 없는 무시무시한 최종 보스의 모습입니다.",
-        "상대하기 벅차서 겁이 날 정도로 <strong>'가공할, 무시무시한'</strong>이라는 뜻입니다."
+    "layoff": [
+        "📦 <strong>[구조 분석]</strong> lay(내려놓다) + off(떨어져서).",
+        "회사가 돈이 없거나 사정이 어려워져서, 일하던 직원들의 손에서 일을 잠시 내려놓고 떨어져 있게 하는 슬픈 상황입니다.",
+        "<strong>'일시 해고, 정리 해고'</strong>를 뜻하는 경제 용어입니다."
     ],
-    "forthcoming": [
-        "🔜 <strong>[어원 분석]</strong> forth(앞으로) + coming(오고 있는).",
-        "영화 개봉일이나 중요한 파티 날짜가 내 코앞으로 다가오고 있는 상태입니다.",
-        "<strong>'곧 닥쳐올, 준비되어 있는'</strong>이라는 뜻입니다."
+    "compound": [
+        "🧪 <strong>[어원 분석]</strong> com(함께) + pound(두다).",
+        "과학 실험에서 수소와 산소를 하나로 섞어 물을 만드는 것처럼, 여러 가지 성분을 하나로 섞는 것입니다.",
+        "<strong>'합성의, 복합의'</strong> 또는 <strong>'혼합물, 화합물'</strong>이라는 뜻입니다."
     ],
-    "executive": [
-        "👔 <strong>[연상법]</strong> 회사에서 평사원이 아니라 가장 높은 층에서 결정권을 가진 CEO 같은 사람들입니다.",
-        "회사의 <strong>'임원, 경영진'</strong>을 뜻하며, 행정부를 뜻하기도 합니다."
+    "olfactory": [
+        "👃 <strong>[의학 용어]</strong> 라틴어 olfacere(냄새 맡다)에서 유래한 고급 전문 용어입니다.",
+        "코로 냄새를 맡고 뇌로 전달하는 감각기관인 <strong>'후각의'</strong>라는 뜻입니다. (시각은 visual, 청각은 auditory)"
     ],
-    "discharge": [
-        "⚡ <strong>[어원 분석]</strong> dis(반대로, 풀다) + charge(충전하다).",
-        "배터리를 꽉 채웠던(charge) 것을 반대로 다 써버려 방전되게(dis) 하거나, 뱃속에 가득 찬 짐을 밖으로 쏟아내는 것입니다.",
-        "가스를 <strong>'방출하다'</strong>, 환자를 <strong>'퇴원시키다'</strong>라는 뜻이 있습니다."
+    "fortress": [
+        "🏰 <strong>[어원 분석]</strong> fort(강한: force) + ress(장소).",
+        "스타크래프트 게임의 '포트리스(Fortress)'처럼 적의 강력한 대포나 마법 공격을 다 막아낼 수 있는 두껍고 튼튼한 건물입니다.",
+        "거대한 <strong>'요새, 성채'</strong>를 뜻합니다."
     ],
-    "invasive": [
-        "🗡️ <strong>[어원 분석]</strong> in(안으로) + vas(가다: invade) + ive.",
-        "남의 나라나 남의 몸 안으로(in) 무기를 들고 마구 쳐들어가는(vas) 폭력적인 성향입니다.",
-        "<strong>'침입하는, 침략적인'</strong>이라는 뜻입니다."
+    "toddler": [
+        "👶 <strong>[연상법]</strong> 아장아장 걷다(toddle) + er(사람).",
+        "아기(baby) 단계를 막 벗어나서 이제 두 발로 걷기 시작해 뒤뚱뒤뚱 귀엽게 걷는 아이들입니다.",
+        "<strong>'걸음마를 시작한 아이, 유아'</strong>를 뜻합니다."
     ],
-    "protest": [
-        "🪧 <strong>[연상법]</strong> 억울한 일을 당한 사람들이 거리에 모여 '우리는 프로(pro) 테스트(test) 중이다!'라며 시위하는 모습입니다.",
-        "잘못된 법이나 결정에 대해 <strong>'항의하다, 반대하다'</strong>라는 뜻입니다."
+    "vowel": [
+        "🅰️ <strong>[어원 팁]</strong> voice(목소리, 음성)와 같은 뿌리에서 나온 단어입니다.",
+        "영어의 a, e, i, o, u처럼 목청을 떨어서 부드럽게 내는 소리인 <strong>'모음'</strong>을 뜻합니다. (자음은 consonant 라고 해요.)"
     ],
-    "flee": [
-        "🏃 <strong>[연상법]</strong> 파리(flea)가 사람이 손을 뻗자마자 휙! 날아가 버리는 모습입니다. 발음이 똑같아요!",
-        "위험한 상황에서 살기 위해 아주 급하게 <strong>'달아나다, 도망가다'</strong>라는 뜻입니다."
+    "affluent": [
+        "💸 <strong>[어원 분석]</strong> af(~쪽으로) + flu(흐르다) + ent.",
+        "풍부한 돈과 재물이 마르지 않는 강물처럼 나를 향해 밀려 들어오는(flow) 행복한 상태입니다.",
+        "아주 <strong>'부유한, 풍족한'</strong>이라는 뜻입니다."
     ],
-    "relocate": [
-        "🚚 <strong>[어원 분석]</strong> re(다시) + locate(위치를 정하다).",
-        "원래 있던 장소에서 짐을 다 싸서 새로운 장소로 다시(re) 자리를 잡는(locate) 행동입니다.",
-        "회사나 집을 <strong>'이전하다, 이동하다'</strong>라는 뜻입니다."
+    "tempt": [
+        "🍎 <strong>[연상법]</strong> 달콤한 맛있는 냄새나 돈으로 '나한테 템(템플/달라붙어)!' 하고 꼬시는 상황을 연상해 보세요.",
+        "나쁜 짓인 줄 알면서도 하고 싶게 만드는 <strong>'유혹하다, 유도하다'</strong>라는 뜻입니다. (명사형은 temptation 유혹)."
     ],
-    "detest": [
-        "🤮 <strong>[연상법]</strong> 너무너무 싫어하는 시험(test)을 또 보라고 해서 속이 뒤집어질 정도로 싫은 감정입니다.",
-        "hate보다 훨씬 강렬하게 <strong>'몹시 싫어하다, 혐오하다'</strong>라는 뜻입니다."
+    "gasp": [
+        "😲 <strong>[연상법]</strong> 물속에 오래 잠수했다가 물 밖으로 나오면서 '가스읍!' 하고 급하게 공기를 들이마시는 소리입니다.",
+        "너무 놀라거나 숨이 차서 <strong>'숨이 막히다, 헐떡거리다'</strong>라는 뜻입니다."
     ],
-    "astronomy": [
-        "🔭 <strong>[어원 분석]</strong> astro(별, 우주) + nomy(학문).",
-        "별과 우주를 과학적으로 연구하는 <strong>'천문학'</strong>을 뜻합니다. (우주비행사는 astronaut!)"
+    "predecessor": [
+        "👑 <strong>[어원 분석]</strong> pre(먼저) + de(아래로) + cess(가다) + or(사람).",
+        "내가 이 학교(또는 회사)에 오기 전에 나보다 먼저 이 자리를 거쳐 간 사람입니다.",
+        "<strong>'전임자, 선배, 이전의 것'</strong>을 뜻합니다. (후임자는 successor입니다.)"
     ],
-    "venture": [
-        "🧗‍♂️ <strong>[어원 팁]</strong> adventure(모험)에서 앞부분이 떨어져 나간 단어입니다.",
-        "실패할 위험을 뻔히 알면서도 대박을 노리고 <strong>'위험을 무릅쓰다'</strong>라는 뜻입니다. (벤처 기업!)"
+    "formula": [
+        "🧮 <strong>[어원 분석]</strong> form(형태, 틀)에서 나온 단어입니다.",
+        "수학이나 과학에서 어떤 문제를 풀기 위해 딱 정해놓은 변하지 않는 틀. <strong>'공식, 방식'</strong>을 뜻합니다.",
+        "(아기들이 먹는 일정한 성분의 '분유'를 포뮬러라고 부르기도 해요!)"
     ],
-    "protagonist": [
-        "🦸‍♂️ <strong>[어원 분석]</strong> proto(첫 번째의) + agon(배우) + ist(사람).",
-        "연극이나 영화에서 가장 첫 번째(proto)로 중요하게 등장하는 사람입니다.",
-        "이야기의 <strong>'주인공'</strong>을 뜻합니다."
+    "neural": [
+        "🧠 <strong>[의학 용어]</strong> 뇌세포인 뉴런(neuron)과 같은 뿌리를 가진 단어입니다.",
+        "뇌와 우리 몸 전체를 전기 신호로 연결하여 정보를 전달하는 <strong>'신경의'</strong>라는 뜻입니다."
     ],
-    "hail": [
-        "🙌 <strong>[개념 이해]</strong> 겨울에 떨어지는 우박이라는 뜻도 있지만, 사람에게 쓰이면 뜻이 다릅니다!",
-        "택시를 소리쳐 부르거나, 영웅이 나타났을 때 만세를 외치며 <strong>'환호하다, 칭송하다'</strong>라는 뜻입니다."
+    "reassure": [
+        "😌 <strong>[어원 분석]</strong> re(다시) + assure(안심시키다, 보장하다).",
+        "불안해서 떨고 있는 친구의 손을 잡고 '진짜 괜찮아, 다 잘 될 거야'라고 다시 한번(re) 확실하게 말해주는 행동입니다.",
+        "<strong>'안심시키다, 재보증하다'</strong>라는 뜻입니다."
     ],
-    "heredity": [
-        "🧬 <strong>[어원 팁]</strong> heir(상속인)와 뿌리가 같은 단어입니다.",
-        "부모님의 신체나 성격 특징들이 유전자를 타고 자식에게 물려지는 생물학적인 <strong>'유전'</strong>을 뜻합니다."
+    "congress": [
+        "🏛️ <strong>[어원 분석]</strong> con(함께) + gress(가다, 모이다).",
+        "나라의 중요한 법을 만들고 예산을 정하기 위해 수많은 정치인들이 한곳에 함께 모인 곳입니다.",
+        "미국이나 중남미 국가의 <strong>'의회, 국회'</strong>를 뜻합니다. (한국이나 영국 국회는 보통 parliament나 assembly를 써요.)"
     ],
-    "command": [
-        "🗣️ <strong>[연상법]</strong> 장군이 부하들에게 돌격하라고 입 밖으로 내뱉는 강한 명령입니다.",
-        "<strong>'지배력, 제어력'</strong>을 뜻하기도 하고, 외국어를 자유자재로 구사하는 능력을 뜻하기도 합니다."
+    "sift": [
+        "👩‍🍳 <strong>[연상법]</strong> 요리할 때 덩어리진 밀가루를 얇은 철망(체)에 넣고 탁탁 쳐서 고운 가루만 떨어지게 하는 동작입니다.",
+        "<strong>'체로 거르다'</strong>라는 뜻도 있고, 경찰이 수많은 증거 중에서 진짜 증거만 가려내기 위해 <strong>'면밀히 조사하다'</strong>라는 뜻도 있습니다."
     ],
-    "pedagogical": [
-        "🧑‍🏫 <strong>[어원 팁]</strong> 고대 그리스에서 아이들을 학교에 데려다주고 가르치던 노예(선생님)에서 유래한 단어입니다.",
-        "아이들을 가르치는 방법과 관련된 <strong>'교육학적인'</strong>이라는 고급 단어입니다."
+    "rack": [
+        "🗄️ <strong>[개념 이해]</strong> 물건을 올려두는 '선반(rack)'이라는 뜻도 있지만, 옛날 서양의 끔찍한 고문 기구(사람의 팔다리를 묶어 당기는 틀)의 이름이기도 했습니다.",
+        "거기서 유래해서 사람의 마음이나 몸을 <strong>'괴롭히다, 시달리게 하다'</strong>라는 무서운 동사로도 쓰입니다."
     ],
-    "stem": [
-        "🌱 <strong>[연상법]</strong> 식물의 뿌리에서 위로 길게 뻗어 나온 '줄기(stem)'입니다.",
-        "주로 'stem from (~로부터)' 형태로 쓰여서 원인으로부터 결과가 <strong>'생기다, 일어나다'</strong>라는 뜻이 됩니다."
+    "landslide": [
+        "🏔️ <strong>[어원 분석]</strong> land(땅) + slide(미끄러지다).",
+        "비가 너무 많이 오거나 지진이 나서 산의 흙과 바위가 한꺼번에 와르르 미끄러져 내리는 <strong>'산사태'</strong>입니다.",
+        "선거에서 한쪽 후보가 표를 싹쓸이하여 <strong>'압승'</strong>하는 것을 뜻하기도 해요!"
     ],
-    "grieve": [
-        "😭 <strong>[연상법]</strong> 사랑하는 사람이나 동물이 떠났을 때 마음이 갈기갈기 찢어지는 엄청난 슬픔입니다.",
-        "눈물을 흘리며 <strong>'비통해하다, 몹시 슬퍼하다'</strong>라는 뜻입니다."
+    "moan": [
+        "😩 <strong>[연상법]</strong> 몸이 너무 아프거나 짜증이 날 때 '모오오온~' 하고 낮고 길게 앓는 소리를 내는 모습을 떠올려보세요.",
+        "<strong>'투덜거리다, 신음하다, 불평하다'</strong>라는 뜻입니다."
     ],
-    "output": [
-        "🏭 <strong>[어원 분석]</strong> out(밖으로) + put(놓다).",
-        "공장에 원료(input)를 넣고 기계를 돌려서 최종적으로 밖으로(out) 툭 내놓은(put) 결과물입니다.",
-        "회사나 공장의 <strong>'생산량, 산출량'</strong>을 뜻합니다."
+    "refute": [
+        "🙅 <strong>[어원 분석]</strong> re(뒤로) + fute(때리다, 치다).",
+        "토론이나 재판에서 상대방이 내놓은 가짜 증거나 거짓 주장을 팩트 폭행으로 완벽하게 뒤로 쳐내는 모습입니다.",
+        "상대의 말이 틀렸음을 입명하여 <strong>'반박하다, 논박하다'</strong>라는 뜻입니다."
     ],
-    "accelerate": [
-        "🏎️ <strong>[연상법]</strong> 자동차에서 속도를 낼 때 밟는 '엑셀(accelerator)'입니다.",
-        "물체의 속도를 올리거나, 어떤 일이 일어나는 속도를 <strong>'가속화하다'</strong>라는 뜻입니다."
+    "provision": [
+        "🍱 <strong>[어원 분석]</strong> pro(미리, 앞서) + vis(보다) + ion.",
+        "앞날에 태풍이 오거나 돈이 부족해질 것을 미리 내다보고, 창고에 식량이나 돈을 두둑하게 채워 두는 것입니다.",
+        "<strong>'공급, 제공'</strong> 또는 앞날에 대한 <strong>'대비, (법의) 조항'</strong>을 뜻합니다."
     ],
-    "ingenious": [
-        "💡 <strong>[어원 팁]</strong> 천재를 뜻하는 genius와 아주 비슷하게 생겼죠?",
-        "천재처럼 아이디어가 아주 <strong>'독창적인, 기발한'</strong>이라는 뜻입니다."
+    "recovery": [
+        "🏥 <strong>[어원 팁]</strong> recover(회복하다) + y(명사 꼬리표).",
+        "심하게 아팠던 몸이 원래의 건강한 상태로 돌아오거나, 고장 난 컴퓨터의 날아간 파일을 다시 살려내는 것입니다.",
+        "<strong>'회복, 복구'</strong>라는 뜻입니다."
     ],
-    "inflate": [
-        "🎈 <strong>[어원 분석]</strong> in(안으로) + flate(바람을 불다).",
-        "풍선이나 튜브 안으로 공기를 불어 넣어서 빵빵하게 <strong>'부풀다, 부풀리다'</strong>라는 뜻입니다. (물가가 부푸는 인플레이션의 어원!)"
+    "refrain": [
+        "🛑 <strong>[어원 분석]</strong> re(뒤로) + frain(고삐: bridle).",
+        "말이 앞으로 뛰쳐나가지 못하게 입에 물린 고삐를 뒤로(re) 꽉 잡아당겨 멈추게 하는 모습입니다.",
+        "하고 싶은 말이나 행동을 꾹 참고 <strong>'삼가다, 자제하다'</strong>라는 뜻입니다."
     ],
-    "inflow": [
-        "🌊 <strong>[어원 분석]</strong> in(안으로) + flow(흐르다).",
-        "바깥에 있던 물, 돈, 사람들이 내 나라나 회사 안으로(in) 물밀듯이 흘러(flow) 들어오는 것입니다.",
-        "<strong>'유입, 유입량'</strong>을 뜻합니다."
+    "load": [
+        "🚚 <strong>[연상법]</strong> 컴퓨터나 게임을 켤 때 '로딩(loading) 중입니다...'라는 화면을 매일 보죠?",
+        "트럭 짐칸에 무거운 짐을 가득 싣거나, 컴퓨터 메모리에 데이터를 싣는 것을 뜻합니다. <strong>'(짐을) 싣다, 짐, 화물'</strong>."
     ],
-    "crawl": [
-        "👶 <strong>[연상법]</strong> 아기가 아직 걷지 못할 때 바닥에 배를 대고 엉금엉금 기어가는 모습입니다.",
-        "뱀이나 아기가 <strong>'기다, 기어가다'</strong>라는 뜻입니다."
+    "owe": [
+        "🙏 <strong>[연상법]</strong> 친구에게 돈을 빌리거나 큰 도움을 받았을 때 '오우(owe), 내가 크게 빚졌네!'라고 말하는 상황을 연상해 보세요.",
+        "돈이나 은혜를 <strong>'빚지고 있다, 신세를 지고 있다'</strong>라는 뜻의 아주 중요한 동사입니다."
     ],
-    "rotation": [
-        "🌍 <strong>[개념 이해]</strong> 농구공을 손가락 위에서 빙글빙글 돌리는 모습이나, 지구가 하루에 한 바퀴씩 도는 현상입니다.",
-        "<strong>'회전, 자전'</strong> 또는 당번을 번갈아 하는 '교대'를 뜻합니다."
+    "cohesive": [
+        "🔗 <strong>[어원 분석]</strong> co(함께) + hes(붙다: adhere와 같은 뿌리) + ive.",
+        "강력한 접착제를 바른 것처럼 팀원들이나 분자들이 서로 단단하게 뭉쳐서 절대 떨어지지 않는 성질입니다.",
+        "팀워크가 <strong>'응집력 있는, 화합하는'</strong>이라는 칭찬의 뜻으로 많이 쓰입니다."
     ],
-    "phase": [
-        "⏳ <strong>[개념 이해]</strong> 게임에서 '페이즈 1', '페이즈 2'로 넘어가면서 보스의 패턴이 달라지죠?",
-        "어떤 일의 <strong>'단계, 시기'</strong>를 뜻하거나, 동사로는 <strong>'단계적으로 실행하다'</strong>라는 뜻을 가집니다."
+    "scoop": [
+        "🍨 <strong>[개념 이해]</strong> 배스킨라빈스에서 아이스크림을 동그랗게 푹 퍼내는 국자 모양의 도구를 '스쿱'이라고 부르죠?",
+        "동사로는 <strong>'(양손이나 도구로) 그러모으다, 푸다'</strong>라는 뜻이고, 신문 기자가 경쟁사보다 먼저 특종을 '퍼냈다'고 해서 <strong>'특종'</strong>이라는 뜻도 있습니다."
     ],
-    "slap": [
-        "👋 <strong>[연상법]</strong> 주먹을 쥐고 때리는 게 아니라, 손바닥을 쫙 펴고 뺨을 '찰싹!' 소리 나게 때리는 동작입니다.",
-        "<strong>'찰싹 때리다'</strong>라는 뜻입니다."
+    "scrape": [
+        "🔪 <strong>[연상법]</strong> 딱딱한 바닥이나 유리에 붙은 껌을 칼로 밀어낼 때 '스크레이이프' 하고 나는 마찰음을 상상해 보세요.",
+        "표면의 페인트나 먼지를 <strong>'긁다, 긁어내다'</strong>라는 뜻입니다."
     ],
-    "viable": [
-        "✅ <strong>[어원 분석]</strong> vi(생명, 길) + able(~할 수 있는).",
-        "이 계획이 죽은 계획이 아니라 살아서 굴러갈 수 있는 진짜 쓸모있는 계획이라는 뜻입니다.",
-        "<strong>'실행 가능한'</strong>이라는 아주 중요한 비즈니스/학술 단어입니다."
+    "pollen": [
+        "🌼 <strong>[개념 이해]</strong> 따뜻한 봄철만 되면 비염 환자들을 콧물과 재채기로 끔찍하게 괴롭히는 주범입니다!",
+        "꽃의 수술에서 날아다니는 노란 가루, 즉 <strong>'꽃가루, 화분'</strong>을 뜻합니다."
     ],
-    "fake": [
-        "🤥 <strong>[개념 이해]</strong> 진짜(real)가 아니라 가짜로 만들어 낸 것을 뜻하죠?",
-        "명사로는 '가짜', 동사로는 속이기 위해 <strong>'위조하다, 날조하다'</strong>라는 뜻입니다."
+    "prevalent": [
+        "🌍 <strong>[어원 분석]</strong> pre(앞서서, 멀리) + val(강하다, 널리 퍼지다) + ent.",
+        "어떤 유행병이나 패션 스타일이 사회 전체를 아주 강력하게 뒤덮어서 어디를 가든 흔하게 볼 수 있는 상태입니다.",
+        "<strong>'흔한, 널리 퍼진, 우세한'</strong>이라는 뜻입니다."
     ],
-    "legacy": [
-        "🏺 <strong>[어원 팁]</strong> 법적으로 물려받는 재산이라는 뜻에서 출발했습니다.",
-        "조상이나 과거 시대가 훌륭하게 남겨준 <strong>'유산, 유물'</strong>을 뜻합니다. (좋은 유산일 수도 있고 나쁜 잔재일 수도 있어요!)"
+    "fierce": [
+        "🐯 <strong>[연상법]</strong> 며칠을 굶주린 맹수나 화난 호랑이의 '피어스(피어오르는)' 분노를 연상해 보세요.",
+        "동물의 성격이나 사람들의 경쟁이 피가 튀길 정도로 <strong>'사나운, 맹렬한'</strong>이라는 뜻입니다."
+    ],
+    "plead": [
+        "🥺 <strong>[연상법]</strong> Please(제발)와 아주 비슷하게 생겼죠? 두 손을 모으고 눈물을 흘리며 제발 한 번만 용서해 달라고 비는 모습입니다.",
+        "<strong>'간청하다, 애원하다'</strong>라는 뜻이고, 법정에서 피고인이 자신의 유죄/무죄를 '답변하다'라는 뜻으로도 쓰입니다."
+    ],
+    "predominant": [
+        "👑 <strong>[어원 분석]</strong> pre(미리, 앞서) + domin(지배하다: dominate) + ant.",
+        "수많은 경쟁자들을 압도적으로 누르고 가장 크고 강력하게 힘을 발휘하여 분위기를 지배하는 것입니다.",
+        "<strong>'주된, 현저한, 지배적인'</strong>이라는 뜻입니다."
+    ],
+    "beware": [
+        "⚠️ <strong>[어원 분석]</strong> be(~해라) + ware(조심: aware).",
+        "서양의 집 앞 울타리에 사나운 개가 그려진 표지판 'Beware of dog(개 조심)'에서 가장 많이 볼 수 있는 단어입니다.",
+        "위험을 <strong>'조심하다, 주의하다'</strong>라는 뜻입니다."
+    ],
+    "elaborate": [
+        "💎 <strong>[어원 분석]</strong> e(밖으로) + labor(노동, 공들임) + ate.",
+        "대충 만든 것이 아니라 장인이 수십 일 동안 피땀 어린 노동(labor)을 쏟아부어 밖으로(e) 내놓은 예술 작품을 뜻합니다.",
+        "아주 <strong>'정교하게 만들다, 공들인, 복잡한'</strong>이라는 뜻입니다."
+    ],
+    "proliferate": [
+        "📈 <strong>[어원 분석]</strong> proli(자손) + fer(나르다, 낳다) + ate.",
+        "세포나 바이러스, 혹은 핵무기 같은 것들이 통제할 수 없을 정도로 순식간에 새끼를 치며 어마어마하게 불어나는 현상입니다.",
+        "<strong>'급증하다, 증식하다'</strong>라는 뜻입니다."
+    ],
+    "prolific": [
+        "✍️ <strong>[어원 분석]</strong> 위에 있는 proliferate(급증하다)와 뿌리가 같은 형용사입니다.",
+        "예술가나 작가가 쉴 새 없이 엄청나게 많은 작품을 쏟아내거나, 식물이 열매를 아주 많이 맺는 상태를 말합니다.",
+        "<strong>'다작하는, 다산하는, 풍부한'</strong>이라는 뜻입니다."
+    ],
+    "mount": [
+        "🐎 <strong>[개념 이해]</strong> 높은 산(mountain)에 오르듯, 말이나 자전거의 안장 위로 '올라타는' 것을 뜻합니다.",
+        "위로 올라간다는 뜻에서 확장되어, 커다란 캠페인이나 전시회를 위로 띄워 올려 <strong>'시작하다, 벌이다'</strong>라는 뜻으로 쓰입니다."
+    ],
+    "reimburse": [
+        "🧾 <strong>[어원 분석]</strong> re(다시) + im(안으로) + burse(지갑).",
+        "직원이 회사 일 때문에 자기 돈을 먼저 썼을 때, 회사가 그 영수증을 보고 돈을 다시(re) 직원의 지갑(burse) 안으로(im) 넣어주는 것입니다.",
+        "<strong>'배상하다, 변상하다, 환급하다'</strong>라는 중요한 비즈니스 단어입니다."
+    ],
+    "reclaim": [
+        "♻️ <strong>[어원 분석]</strong> re(다시) + claim(요구하다).",
+        "쓰레기 매립지였던 곳을 사람이 살 수 있는 땅으로 다시 내놓으라고 요구하여 개간하는 것, 또는 잃어버렸던 내 물건을 다시 찾는 것입니다.",
+        "<strong>'되찾다, 재생하다, (땅을) 개간하다'</strong>라는 뜻입니다."
+    ],
+    "respectful": [
+        "🙇 <strong>[어원 분석]</strong> respect(존경, 존중) + ful(가득 찬).",
+        "어른이나 훌륭한 사람을 대할 때, 건방지게 행동하지 않고 마음속에 존중하는 마음이 가득 담긴 아주 훌륭한 태도입니다.",
+        "<strong>'경의를 표하는, 공손한'</strong>이라는 뜻입니다. (각각의, 개별적인 이란 뜻인 respective와 절대 헷갈리지 마세요!)"
     ]
 };
 
@@ -1528,7 +1593,7 @@ function toggleTheme() {
     const body = document.body;
     const btn = document.getElementById('themeBtn');
     body.classList.toggle('dark-mode');
-    btn.innerText = body.classList.contains('dark-mode') ? '☀️ 주간 비행 모드' : '🌙 야간 비행 모드';
+    btn.innerText = body.classList.contains('dark-mode') ? '☀️ 라이트 모드' : '🌙 다크 모드';
 }
 
 function showWordList() {
@@ -1550,7 +1615,7 @@ function startQuiz() {
     const startIdx = parseInt(document.getElementById('startNum').value, 10);
     const endIdx = parseInt(document.getElementById('endNum').value, 10);
 
-    if (startIdx > endIdx) { alert("출발 번호가 도착 번호보다 클 수 없습니다."); return; }
+    if (startIdx > endIdx) { alert("시작 번호가 끝 번호보다 클 수 없습니다."); return; }
 
     let rangedList = vocabList.filter(v => v.id >= startIdx && v.id <= endIdx);
     if (rangedList.length < 4) { alert("최소 4단어 이상 지정해주세요."); return; }
@@ -1563,7 +1628,6 @@ function startQuiz() {
     
     currentIndex = 0; score = 0; timeLeft = 600;
     
-    // 권한을 얻기 위해 음성 합성 엔진 깨우기 (빈 소리)
     if('speechSynthesis' in window) {
         let msg = new SpeechSynthesisUtterance('');
         msg.volume = 0; window.speechSynthesis.speak(msg);
@@ -1584,7 +1648,6 @@ function startTimer() {
     }, 1000);
 }
 
-// 🔊 [핵심기능] 음성 3번 읽어주는 함수
 function speakWord(word, times) {
     if (!('speechSynthesis' in window)) return;
     window.speechSynthesis.cancel();
@@ -1593,9 +1656,9 @@ function speakWord(word, times) {
         if (count >= times) return;
         let msg = new SpeechSynthesisUtterance(word);
         msg.lang = 'en-US';
-        msg.rate = 0.85; // 학생들이 듣기 편하게 살짝 느리게
+        msg.rate = 0.85; 
         msg.onend = function() {
-            setTimeout(speakNext, 500); // 0.5초 쉬고 다음 반복
+            setTimeout(speakNext, 500); 
         };
         window.speechSynthesis.speak(msg);
         count++;
@@ -1628,7 +1691,6 @@ function getTrickyDistractors(correctMeaning, allVocabs) {
 }
 
 function loadQuestion() {
-    // 이전 문제 상태 초기화
     document.getElementById('feedbackArea').style.display = 'none';
     document.getElementById('explanationContainer').style.display = 'none';
     document.getElementById('stepConfirmBtn').style.display = 'block';
@@ -1638,10 +1700,9 @@ function loadQuestion() {
     if (currentIndex >= quizQueue.length) { finishQuiz(false); return; }
 
     const currentWord = quizQueue[currentIndex];
-    document.getElementById('progressText').innerText = `FLIGHT ${currentIndex + 1} / ${quizQueue.length}`;
+    document.getElementById('progressText').innerText = `문제 ${currentIndex + 1} / ${quizQueue.length}`;
     document.getElementById('quizWord').innerText = currentWord.word;
 
-    // 단어 화면에 출력하자마자 3번 읽어주기 실행
     speakWord(currentWord.word, 3);
 
     let distractors = getTrickyDistractors(currentWord.meaning, vocabList);
@@ -1659,7 +1720,7 @@ function loadQuestion() {
 }
 
 function checkAnswer(btn, selectedText, currentWord) {
-    window.speechSynthesis.cancel(); // 클릭하면 음성 중단
+    window.speechSynthesis.cancel(); 
     const buttons = document.querySelectorAll('.option-btn');
     document.getElementById('optionsGrid').style.pointerEvents = 'none';
 
@@ -1678,10 +1739,7 @@ function checkAnswer(btn, selectedText, currentWord) {
     }
 }
 
-function nextQuestion() { 
-    currentIndex++; 
-    loadQuestion(); 
-}
+function nextQuestion() { currentIndex++; loadQuestion(); }
 
 function startExplanation(wordObj) {
     document.getElementById('feedbackArea').style.display = 'block';
@@ -1739,15 +1797,12 @@ function showNextExplanationStep() {
         btn.innerText = `확인! 다음 문장 확인 (${currentStepIndex}/${currentExpSteps.length}) ➔`;
         btn.onclick = showNextExplanationStep; 
     } else {
-        // 해설을 다 읽으면 버튼이 '타이핑 복습'으로 바뀜
         btn.innerText = `✍️ 영단어 & 한글 타이핑 복습하기 ➔`;
         btn.onclick = startTypingPractice; 
     }
 }
 
-// ⌨️ [핵심기능] 강제 타이핑 복습 로직
 function startTypingPractice() {
-    // 해설 숨기고 타이핑 화면 등장
     document.getElementById('explanationContainer').style.display = 'none';
     document.getElementById('stepConfirmBtn').style.display = 'none';
     document.getElementById('typingContainer').style.display = 'block';
@@ -1763,28 +1818,27 @@ function startTypingPractice() {
     korInput.value = '';
     engInput.disabled = false;
     korInput.disabled = false;
+    engInput.style.borderColor = "var(--border-color)";
+    korInput.style.borderColor = "var(--border-color)";
     
     document.getElementById('korTypingSection').style.display = 'none';
     document.getElementById('typingNextBtn').style.display = 'none';
     
-    // 복습 시작 시 영어 발음 1번 더 들려주기
     speakWord(cw.word, 1);
     engInput.focus();
 }
 
-// 영어 입력 감지
 function checkEngTyping(e) {
     const cw = quizQueue[currentIndex];
     const input = e.target.value.trim().toLowerCase();
     if (input === cw.word.toLowerCase()) {
-        e.target.disabled = true; // 정답이면 입력창 잠금
+        e.target.disabled = true; 
         e.target.style.borderColor = "var(--correct-color)";
         document.getElementById('korTypingSection').style.display = 'block';
         document.getElementById('typeKorInput').focus();
     }
 }
 
-// 한글 뜻 입력 감지 (띄어쓰기까지 완벽하게 동일해야 통과)
 function checkKorTyping(e) {
     const cw = quizQueue[currentIndex];
     const input = e.target.value.trim();
@@ -1807,14 +1861,13 @@ function finishQuiz(isTimeOut) {
     
     let msg = isTimeOut ? "⏰ 시간이 초과되어 남은 문제는 오답 처리되었습니다.<br><br>" : "";
     
-    if (finalScore === 100) { msg += "🏆 퍼펙트! 목적지에 무사히 도착하셨습니다."; scoreCircle.style.backgroundColor = "var(--correct-color)"; } 
-    else if (finalScore >= 80) { msg += "👏 아주 훌륭한 비행이었습니다! 복습한 단어는 절대 잊지 않을 거예요."; scoreCircle.style.backgroundColor = "var(--kal-blue)"; } 
-    else { msg += "💪 조금 난기류가 있었네요. 직접 타이핑하며 복습한 단어들을 잊지 마세요!"; scoreCircle.style.backgroundColor = "var(--wrong-color)"; }
+    if (finalScore === 100) { msg += "🏆 퍼펙트! 시험을 완벽하게 통과했습니다."; scoreCircle.style.backgroundColor = "var(--correct-color)"; } 
+    else if (finalScore >= 80) { msg += "👏 훌륭한 성적입니다! 복습한 단어는 절대 잊지 않을 거예요."; scoreCircle.style.backgroundColor = "var(--kal-blue)"; } 
+    else { msg += "💪 조금 더 노력이 필요합니다. 직접 타이핑하며 복습한 단어들을 기억하세요!"; scoreCircle.style.backgroundColor = "var(--wrong-color)"; }
     document.getElementById('resultMsg').innerHTML = msg;
 }
 
 window.onload = init;
 </script>
-
 </body>
 </html>
