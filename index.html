@@ -29,10 +29,9 @@
             font-family: 'HanjinGroupSans', sans-serif; background-color: var(--bg-color); color: var(--text-main);
             margin: 0; display: flex; justify-content: center; align-items: flex-start;
             min-height: 100vh; transition: 0.3s; padding: 20px 15px; box-sizing: border-box;
-            user-select: none; -webkit-user-select: none; /* 드래그 금지 */
+            user-select: none; -webkit-user-select: none;
         }
         
-        /* 입력창은 타이핑을 위해 선택 허용 */
         input { user-select: auto; -webkit-user-select: auto; }
 
         #flashOverlay {
@@ -60,7 +59,6 @@
 
         .input-box { width: 100%; padding: 15px; border-radius: 8px; border: 2px solid var(--border-color); background: var(--card-bg); color: var(--text-main); font-size: 16px; font-weight: 700; font-family: 'HanjinGroupSans'; box-sizing: border-box; margin-bottom: 10px;}
         
-        /* 모드 선택 UI */
         .mode-select-container { display: flex; gap: 15px; margin-bottom: 25px; }
         .mode-label { flex: 1; cursor: pointer; display: block; }
         .mode-label input[type="radio"] { display: none; } 
@@ -79,7 +77,6 @@
         .screen.active { display: block; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
 
-        /* 상태바 (스코어보드 포함) */
         .status-bar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; border-bottom: 2px dashed var(--border-color); padding-bottom: 10px; }
         .progress-text { font-size: 17px; font-weight: 700; color: var(--kal-blue); }
         .score-board { font-size: 16px; font-weight: 700; display: flex; gap: 15px; }
@@ -97,10 +94,8 @@
         .option-btn.correct { background-color: var(--correct-color) !important; color: white !important; border-color: var(--correct-color) !important; font-size: 21px; }
         .option-btn.wrong { background-color: var(--wrong-color) !important; color: white !important; border-color: var(--wrong-color) !important; font-size: 21px; }
         
-        /* 5회 클릭 알림 */
         #testModeWarning { color: var(--wrong-color); font-weight: 700; text-align: center; margin-bottom: 15px; font-size: 16px; display: none; animation: blink 1s infinite; }
 
-        /* 피드백 영역 */
         .feedback-area { margin-top: 30px; padding: 25px; background-color: var(--kal-light); border-radius: 12px; display: none; border-left: 6px solid var(--wrong-color); }
         .exp-step { background-color: var(--card-bg); padding: 18px; border-radius: 8px; font-size: 17px; line-height: 1.6; margin-bottom: 15px; border: 1px solid var(--border-color); color: var(--text-main); }
         .exp-step strong { color: var(--kal-navy); font-weight: 700; }
@@ -144,7 +139,7 @@
                     <input type="radio" name="quizMode" value="test">
                     <div class="mode-box">
                         <div class="mode-title">실전고사</div>
-                        <div class="mode-desc">논스톱 타이머<br>오답 시 '5회 터치'</div>
+                        <div class="mode-desc">논스톱 타이머<br>오답 시 '음성 연동 5회 터치'</div>
                     </div>
                 </label>
             </div>
@@ -172,7 +167,6 @@
     </div>
 
     <div id="quizScreen" class="screen">
-        
         <div class="status-bar">
             <div class="progress-text" id="progressText">문제 1 / 10</div>
             <div class="score-board">
@@ -184,7 +178,7 @@
         <div class="quiz-word" id="quizWord">Loading...</div>
         <button class="sound-btn" onclick="speakWord(document.getElementById('quizWord').innerText, 1)">🔊 발음 다시 듣기</button>
 
-        <div id="testModeWarning">🚨 오답! 정답 버튼을 5번 터치하여 확실히 외우세요!<br><span style="font-size: 14px; font-weight:400; color:var(--text-main);">(※ 터치 시 2초 쿨타임 발생)</span></div>
+        <div id="testModeWarning">🚨 오답! 정답 버튼을 5번 터치하세요.<br><span style="font-size: 14px; font-weight:400; color:var(--text-main);">(※ 터치 시 발음이 끝날 때까지 대기해야 합니다.)</span></div>
 
         <div class="options-grid" id="optionsGrid"></div>
 
@@ -500,13 +494,13 @@ const rawData = `
 2799 / figure out / 이해하다; 알아내다
 2800 / make out / (애써) 이해하다
 `; 
-// ※ 실제 사용 시 이 자리에 전체 목록을 붙여넣으세요.
+// ※ 실제 사용 시 전체 목록을 복사하세요.
 
 // ==========================================
 // 2. 심층 해설 DB 세팅
 // ==========================================
 const detailedExplanationDB = {
-    // 예시 데이터 
+    // 만들어 드렸던 해설, 그리고 아래 2351번부터 제공되는 해설을 붙여넣으세요.
 };
 
 let vocabList = [];
@@ -522,7 +516,6 @@ let currentExpSteps = [];
 let currentStepIndex = 0;
 let audioCtx; 
 
-// 실전고사 5번 클릭 상태 변수
 let testModeClickCount = 0;
 
 function init() { 
@@ -595,7 +588,7 @@ function flashScreen(color) {
     }, 300);
 }
 
-// 🧠 스마트 단어 출제 알고리즘 (골고루 출제)
+// 🧠 스마트 단어 출제 알고리즘
 function startQuiz() {
     initAudio(); 
     currentMode = document.querySelector('input[name="quizMode"]:checked').value;
@@ -610,10 +603,8 @@ function startQuiz() {
     const countVal = document.getElementById('questionCountSelect').value;
     const count = countVal === 'all' ? targetList.length : parseInt(countVal);
 
-    // localStorage에서 단어별 출제 횟수 불러오기
     let stats = JSON.parse(localStorage.getItem('vocabStats') || '{}');
     
-    // 출제 횟수가 적은 단어가 우선적으로 뽑히도록 가중치 정렬
     let weightedList = targetList.map(v => {
         let playCount = stats[v.id] || 0;
         return { ...v, weight: (playCount * 100) + Math.random() * 100 };
@@ -622,7 +613,6 @@ function startQuiz() {
     
     quizQueue = weightedList.slice(0, count);
 
-    // 출제된 단어 횟수 1 증가 후 저장
     quizQueue.forEach(v => { stats[v.id] = (stats[v.id] || 0) + 1; });
     localStorage.setItem('vocabStats', JSON.stringify(stats));
 
@@ -655,6 +645,7 @@ function startTimer() {
     }, 1000);
 }
 
+// 기본 다중 재생용 함수
 function speakWord(word, times) {
     if(!('speechSynthesis' in window)) return;
     window.speechSynthesis.cancel();
@@ -674,6 +665,27 @@ function speakWord(word, times) {
         count++;
     }
     speak();
+}
+
+// 🎤 오답 페널티 전용: 1번만 재생하고 끝났을 때 콜백(callback) 실행
+function speakWordOnceWithCallback(word, callback) {
+    if(!('speechSynthesis' in window)) {
+        if(callback) setTimeout(callback, 1000); // TTS 안되면 1초 지연 대체
+        return;
+    }
+    window.speechSynthesis.cancel();
+    const msg = new SpeechSynthesisUtterance(word);
+    msg.lang = 'en-US';
+    msg.rate = 0.85;
+    const voices = window.speechSynthesis.getVoices();
+    const preferred = voices.find(v => v.name.includes("Google US English") || v.name.includes("Microsoft David")) || voices.find(v => v.lang === 'en-US');
+    if(preferred) msg.voice = preferred;
+
+    // 재생이 끝나면 콜백(버튼 활성화) 실행
+    msg.onend = () => { if(callback) callback(); };
+    msg.onerror = () => { if(callback) callback(); };
+
+    window.speechSynthesis.speak(msg);
 }
 
 function updateScoreBoard() {
@@ -699,7 +711,6 @@ function loadQuestion() {
 
     speakWord(cur.word, 3); 
 
-    // 오답 3개 무작위 추출
     let distractors = vocabList.filter(v => v.meaning !== cur.meaning).sort(() => Math.random() - 0.5).slice(0, 3);
     const options = [cur, ...distractors].sort(() => Math.random() - 0.5);
 
@@ -736,7 +747,7 @@ function checkAnswer(btn, selectedOpt, currentWord) {
         flashScreen('rgba(255, 0, 0, 0.4)'); 
 
         if(currentMode === 'test') {
-            // 실전고사 모드: 오답 5번 클릭 (2초 쿨타임 적용)
+            // 실전고사 5회 터치 & 음성 콜백 연동 로직
             document.getElementById('testModeWarning').style.display = 'block';
             document.getElementById('optionsGrid').style.pointerEvents = 'auto'; 
             testModeClickCount = 0;
@@ -753,22 +764,27 @@ function checkAnswer(btn, selectedOpt, currentWord) {
                         playClickSound();
                         
                         if(testModeClickCount < 5) {
-                            // 2초간 비활성화 및 시각적 피드백
-                            b.innerText = currentWord.meaning + ` (${testModeClickCount}/5) - 2초 대기...`;
+                            // 클릭 즉시 버튼 비활성화 (회색 처리)
+                            b.innerText = currentWord.meaning + ` (${testModeClickCount}/5) - 발음 재생 중...`;
                             b.style.pointerEvents = 'none';
-                            b.style.opacity = '0.7';
+                            b.style.opacity = '0.6';
                             
-                            setTimeout(() => {
+                            // 음성이 끝나면 콜백을 통해 다시 활성화
+                            speakWordOnceWithCallback(currentWord.word, () => {
                                 b.innerText = currentWord.meaning + ` (${testModeClickCount}/5) - 다시 터치!`;
                                 b.style.pointerEvents = 'auto';
                                 b.style.opacity = '1';
-                            }, 2000);
+                            });
                         } else {
-                            // 5회 완료
+                            // 5회 달성 시 
                             b.innerText = currentWord.meaning + ` (✅ 암기 완료)`;
                             b.style.pointerEvents = 'none';
                             b.style.opacity = '1';
-                            setTimeout(nextQuestion, 600);
+                            
+                            // 마지막 발음 재생 후 다음 문제로
+                            speakWordOnceWithCallback(currentWord.word, () => {
+                                setTimeout(nextQuestion, 500);
+                            });
                         }
                     };
                 } else {
@@ -847,7 +863,6 @@ function startTypingPractice() {
     engInput.focus();
 }
 
-// 특수문자 및 띄어쓰기 완전 제거 함수
 function cleanText(text) {
     return text.replace(/[().,\s]/g, '');
 }
