@@ -89,14 +89,15 @@
         .quiz-word { font-size: 56px; font-weight: 700; color: var(--kal-navy); text-align: center; margin: 20px 0; line-height: 1.1; }
         body.dark-mode .quiz-word { color: #FFFFFF; }
         
-        .sound-btn { background-color: var(--kal-light); border: 1px solid var(--kal-blue); color: var(--kal-navy); padding: 8px 16px; border-radius: 20px; font-weight: 700; cursor: pointer; display: block; margin: 0 auto 25px auto; font-family: 'HanjinGroupSans'; }
+        .sound-btn { background-color: var(--kal-light); border: 1px solid var(--kal-blue); color: var(--kal-navy); padding: 8px 16px; border-radius: 20px; font-weight: 700; cursor: pointer; display: block; margin: 0 auto 25px auto; font-family: 'HanjinGroupSans'; transition: 0.2s; }
+        .sound-btn:active { background-color: var(--kal-blue); color: white; }
 
         .options-grid { display: grid; gap: 12px; }
-        .option-btn { background-color: var(--card-bg); border: 2px solid var(--border-color); color: var(--text-main); padding: 22px; border-radius: 12px; font-size: 19px; font-weight: 700; cursor: pointer; transition: 0.1s; font-family: 'HanjinGroupSans'; line-height: 1.3; }
+        .option-btn { background-color: var(--card-bg); border: 2px solid var(--border-color); color: var(--text-main); padding: 22px; border-radius: 12px; font-size: 19px; font-weight: 700; cursor: pointer; transition: all 0.2s; font-family: 'HanjinGroupSans'; line-height: 1.3; }
         .option-btn.correct { background-color: var(--correct-color) !important; color: white !important; border-color: var(--correct-color) !important; font-size: 21px; }
         .option-btn.wrong { background-color: var(--wrong-color) !important; color: white !important; border-color: var(--wrong-color) !important; font-size: 21px; }
         
-        /* 3회 클릭 알림 */
+        /* 5회 클릭 알림 */
         #testModeWarning { color: var(--wrong-color); font-weight: 700; text-align: center; margin-bottom: 15px; font-size: 16px; display: none; animation: blink 1s infinite; }
 
         /* 피드백 영역 */
@@ -136,14 +137,14 @@
                     <input type="radio" name="quizMode" value="practice" checked>
                     <div class="mode-box">
                         <div class="mode-title">모의고사</div>
-                        <div class="mode-desc">오답 시 상세 해설<br>영/한 타이핑 강제 복습</div>
+                        <div class="mode-desc">상세 해설 확인<br>타이핑 강제 복습</div>
                     </div>
                 </label>
                 <label class="mode-label">
                     <input type="radio" name="quizMode" value="test">
                     <div class="mode-box">
                         <div class="mode-title">실전고사</div>
-                        <div class="mode-desc">논스톱 타이머<br>오답 시 '정답 3회 터치'</div>
+                        <div class="mode-desc">논스톱 타이머<br>오답 시 '5회 터치'</div>
                     </div>
                 </label>
             </div>
@@ -183,7 +184,7 @@
         <div class="quiz-word" id="quizWord">Loading...</div>
         <button class="sound-btn" onclick="speakWord(document.getElementById('quizWord').innerText, 1)">🔊 발음 다시 듣기</button>
 
-        <div id="testModeWarning">🚨 오답입니다! 정답 버튼을 3번 터치하여 확실히 외우세요!</div>
+        <div id="testModeWarning">🚨 오답! 정답 버튼을 5번 터치하여 확실히 외우세요!<br><span style="font-size: 14px; font-weight:400; color:var(--text-main);">(※ 터치 시 2초 쿨타임 발생)</span></div>
 
         <div class="options-grid" id="optionsGrid"></div>
 
@@ -195,12 +196,12 @@
             <div id="typingContainer" class="typing-container" style="display:none;">
                 <div class="guide-text">STEP 1. 영단어를 똑같이 타이핑하세요.</div>
                 <div class="target-text" id="targetEng"></div>
-                <input type="text" id="typeEngInput" class="input-box" placeholder="영어 입력 (복붙 금지)" autocomplete="off" oninput="checkEngTyping(event)" onpaste="return false;" oncopy="return false;" oncut="return false;">
+                <input type="text" id="typeEngInput" class="input-box" placeholder="영어 직접 타이핑 (복붙 불가)" autocomplete="off" oninput="checkEngTyping(event)" onpaste="return false;" oncopy="return false;" oncut="return false;">
 
                 <div id="korTypingSection" style="display:none; margin-top:25px;">
                     <div class="guide-text">STEP 2. 한글 뜻 타이핑 (괄호/점 무시)</div>
                     <div class="target-text" id="targetKor" style="font-size: 26px; color: var(--kal-navy);"></div>
-                    <input type="text" id="typeKorInput" class="input-box" placeholder="한글 입력 (복붙 금지)" autocomplete="off" oninput="checkKorTyping(event)" onpaste="return false;" oncopy="return false;" oncut="return false;">
+                    <input type="text" id="typeKorInput" class="input-box" placeholder="한글 뜻 직접 타이핑 (복붙 불가)" autocomplete="off" oninput="checkKorTyping(event)" onpaste="return false;" oncopy="return false;" oncut="return false;">
                 </div>
                 <button class="btn btn-primary" id="typingNextBtn" style="display:none; margin-top:25px;" onclick="nextQuestion()">✅ 복습 완료! 다음 문제 ➔</button>
             </div>
@@ -220,256 +221,7 @@
 // 1. 전체 단어 데이터 세팅 (1701~3000 복사)
 // ==========================================
 const rawData = `
-2401 / outspoken / 솔직한, 노골적인
-2402 / punitive / 징벌적인, 처벌의
-2403 / overwhelming / 압도적인
-2404 / scrupulous / 양심적인, 꼼꼼한
-2405 / satisfied / 만족스러운
-2406 / termination / 종료, 계약 만료
-2407 / terms / 조건, 조항, 관계, 기간
-2408 / umpire / 심판, 중재하다
-2409 / rescind / 폐지하다, 철회하다
-2410 / ashamed / 부끄러운, 수치스러운
-2411 / superordinate / 상위의, 상급의
-2412 / misguided / 잘못 인도된
-2413 / judiciary / 사법부, 사법 제도
-2414 / arbitrary / 독단적인, 임의의
-2415 / imprisoned / 수감된
-2416 / intimidating / 위협적인
-2417 / condolence / 애도, 조의
-2418 / impetus / 추진력, 자극
-2419 / detriment / 손해, 손실
-2420 / bluff / 허세를 부리다, 엄포를 놓다
-2421 / occupation ordinance / 직업·점유 / 법령·조례
-2422 / bureaucratic / 관료의, 관료주의적인
-2423 / compassionate / 인정 많은, 동정적인
-2424 / descriptive / 서술하는, 설명적인
-2425 / hypocritical / 위선적인
-2426 / laureate / 수상자, 영예를 받은 사람
-2427 / lighthearted / 쾌활한, 걱정 없는
-2428 / disobedient / 반항적인, 불복하는
-2429 / malicious / 악의적인, 고의의
-2430 / nondiscriminating / 차별하지 않는, 무차별적인
-2431 / irredeemable / 구제불능의, 되돌릴 수 없는
-2432 / penal / 형벌의
-2433 / prerogative / 특권, 특전
-2434 / perpetrator / 가해자, 범인
-2435 / perpetration / 범죄 행위
-2436 / perjury / 위증, 위증죄
-2437 / misdemeanor / 경범죄, 비행
-2438 / misbehavior / 비행, 나쁜 짓
-2439 / confinement / 감금, 제한
-2440 / penitence / 회개, 참회
-2441 / classification / 분류, 분류법
-2442 / proficiency / 숙달, 능숙
-2443 / obscure / 불분명한, 무명의; 가리다
-2444 / mitigate / 완화하다, 진정시키다
-2445 / irritate / 짜증나게 하다
-2446 / differ / 다르다, 의견이 다르다
-2447 / corroborate / 확증하다, 입증하다
-2448 / hallmark / 특징, 품질 보증 표시
-2449 / ordain / 정하다, 명령하다, 규정하다
-2450 / rectify / 바로잡다, 수정하다
-2451 / remit / 송금하다; 늦추다
-2452 / stutter / 말을 더듬다
-2453 / tension / 긴장, 팽팽함
-2454 / systemicity / 체계성
-2455 / superstition / 미신
-2456 / schema / 개요, 윤곽, 도식
-2457 / mutilation / 절단, 훼손
-2458 / conviction / 유죄 판결, 확신
-2459 / meditation / 명상, 심사숙고
-2460 / charter / 특허장, 헌장, 계약서
-2461 / disintegration / 분해, 붕괴
-2462 / possession / 소유, 소유물
-2463 / protocol / 의정서, 규약, 의례
-2464 / recession / 경기 후퇴, 불황
-2465 / sleek / 윤이 나는, 매끈한
-2466 / proud / 자랑스러운, 거만한
-2467 / pleased / 기쁜, 만족한
-2468 / persuasive / 설득력 있는
-2469 / irreversible / 되돌릴 수 없는
-2470 / irretrievable / 회복 불가능한
-2471 / in search of / ~을 찾아서
-2472 / multidirectional / 다방면의, 다각적인
-2473 / snoopy / 참견하는, 남의 일에 지나치게 관심 있는
-2474 / extravagant / 낭비하는, 사치스러운
-2475 / approving / 찬성하는, 승인하는
-2476 / statutory / 법정의, 법령의
-2477 / awesome / 굉장한, 인상적인; 무시무시한
-2478 / unanimous / 만장일치의
-2479 / unassailable / 난공불락의, 논쟁의 여지가 없는
-2480 / article / 조항; (신문) 기사; 물품
-2481 / vandalism / 반달리즘, 문화재 파괴 행위
-2482 / vigilance / 경계, 조심, 불침번
-2483 / principal / 교장; 주요한
-2484 / engaging / 재미있는, 매력적인
-2485 / atmosphere / 분위기; 대기
-2486 / promising / 전도유망한
-2487 / recent / 최근의
-2488 / downtime / (고장 등으로 인한) 작업 중단 시간
-2489 / anticipation / 기대(감)
-2490 / letdown / 실망, 낙담
-2491 / closet / 벽장, 옷장
-2492 / stillness / 고요함, 정적
-2493 / warrior / 전사
-2494 / expulsion / 추방, 제명, 축출
-2495 / attorney / 변호사, 대리인
-2496 / whisper / 속삭이다; 속삭임
-2497 / gentle / 부드러운, 온화한
-2498 / respect / 존경하다, 존중하다
-2499 / relief / 안도, 안심
-2500 / buzz / 바삐 돌아다니다; 윙윙거리다
-2501 / seasoning / 양념, 조미료
-2502 / count / 세다; 중요하다, 인정되다
-2503 / unusual / 독특한, 이상한
-2504 / origin / 기원, 근원
-2505 / personal / 개인적인
-2506 / competent / 유능한, 능력이 있는
-2507 / unique / 고유한, 독특한
-2508 / prejudiced / 편견이 있는
-2509 / equate / 동일시하다, 같게 보다
-2510 / democratic / 민주적인, 민주주의의
-2511 / overemphasize / 지나치게 강조하다
-2512 / veracity / 진실성, 정확성
-2513 / attire / 의복, 옷차림
-2514 / politician / 정치인
-2515 / continuous / 지속적인, 계속되는
-2516 / corporation / 법인, 기업
-2517 / advancement / 진보, 향상, 승진
-2518 / rebellion / 반란, 반항
-2519 / uneasy / 불안한, 불편한
-2520 / audacious / 대담한, 뻔뻔한
-2521 / connivance / 묵인, 공모
-2522 / typical / 일반적인, 전형적인
-2523 / fulfillment / 성취
-2524 / multiple / 많은, 다수의, 복합적인
-2525 / immediate / 즉각적인, 당장의, 당면한
-2526 / discontent / 불만, 불평
-2527 / curriculum / 교육 과정
-2528 / chaotic / 혼잡한, 혼란스러운
-2529 / objective / 객관적인; 목표
-2530 / era / 시대
-2531 / perishable / 상하기 쉬운
-2532 / agency / 대행사; 주체성, 힘
-2533 / cryptically / 수수께끼 같이, 비밀스럽게
-2534 / inclined / 경사진; ~하는 경향이 있는
-2535 / compute / 산출하다, 계산하다
-2536 / retail / 소매; 소매의
-2537 / disappearance / 사라짐, 소실, 실종
-2538 / rural / 시골의, 농촌의
-2539 / elbow / 팔꿈치
-2540 / receptacle / 용기, 그릇
-2541 / undeniable / 부인하기 어려운, 명백한
-2542 / unremarkable / 별다를 것 없는, 평범한
-2543 / unqualified / 자격이 없는; 무조건의
-2544 / disciplinary / 징계의
-2545 / culprit / 범인
-2546 / exploitation / 이용, 착취, 개발
-2547 / distribution / 분포, 분배, 배급
-2548 / regulate / 통제하다, 규제하다, 조절하다
-2549 / durable / 오래가는, 내구성 있는
-2550 / conjoin / 결합하다, 연결하다
-2551 / repression / 억압
-2552 / predisposition / 성향, 소인, 기질
-2553 / disgust / 혐오(감); 역겹게 하다
-2554 / determine / 결정하다, 결심하게 하다
-2555 / paradoxical / 역설적인, 모순적인
-2556 / tailor / 맞추다; 재단사
-2557 / distort / 왜곡하다
-2558 / embellish / 미화하다, 장식하다
-2559 / coincidence / 우연(의 일치)
-2560 / pretend / ~인 척하다
-2561 / reflection / 성찰; 반사; 반영
-2562 / desire / 욕망, 욕구; 바라다
-2563 / upscale / 고급의, 고소득의
-2564 / sincere / 진실한, 진심 어린
-2565 / unscientific / 비과학적인
-2566 / consequential / 결과의, 중대한
-2567 / expiration / 만료, 만기, 종결
-2568 / portrayal / 묘사
-2569 / ordinary / 일상적인, 평범한
-2520 / audacious / 대담한, 뻔뻔한
-2521 / connivance / 묵인, 공모
-2522 / typical / 일반적인, 전형적인
-2523 / fulfillment / 성취
-2524 / multiple / 많은, 다수의, 복합적인
-2525 / immediate / 즉각적인, 당장의, 당면한
-2526 / discontent / 불만, 불평
-2527 / curriculum / 교육 과정
-2528 / chaotic / 혼잡한, 혼란스러운
-2529 / objective / 객관적인; 목표
-2530 / era / 시대
-2531 / perishable / 상하기 쉬운
-2532 / agency / 대행사; 주체성, 힘
-2533 / cryptically / 수수께끼 같이, 비밀스럽게
-2534 / inclined / 경사진; ~하는 경향이 있는
-2535 / compute / 산출하다, 계산하다
-2536 / retail / 소매; 소매의
-2537 / disappearance / 사라짐, 소실, 실종
-2538 / rural / 시골의, 농촌의
-2539 / elbow / 팔꿈치
-2540 / receptacle / 용기, 그릇
-2541 / undeniable / 부인하기 어려운, 명백한
-2542 / unremarkable / 별다를 것 없는, 평범한
-2543 / unqualified / 자격이 없는; 무조건의
-2544 / disciplinary / 징계의
-2545 / culprit / 범인
-2546 / exploitation / 이용, 착취, 개발
-2547 / distribution / 분포, 분배, 배급
-2548 / regulate / 통제하다, 규제하다, 조절하다
-2549 / durable / 오래가는, 내구성 있는
-2550 / conjoin / 결합하다, 연결하다
-2551 / repression / 억압
-2552 / predisposition / 성향, 소인, 기질
-2553 / disgust / 혐오(감); 역겹게 하다
-2554 / determine / 결정하다, 결심하게 하다
-2555 / paradoxical / 역설적인, 모순적인
-2556 / tailor / 맞추다; 재단사
-2557 / distort / 왜곡하다
-2558 / embellish / 미화하다, 장식하다
-2559 / coincidence / 우연(의 일치)
-2560 / pretend / ~인 척하다
-2561 / reflection / 성찰; 반사; 반영
-2562 / desire / 욕망, 욕구; 바라다
-2563 / upscale / 고급의, 고소득의
-2564 / sincere / 진실한, 진심 어린
-2565 / unscientific / 비과학적인
-2566 / consequential / 결과의, 중대한
-2567 / expiration / 만료, 만기, 종결
-2568 / portrayal / 묘사
-2569 / ordinary / 일상적인, 평범한
-2570 / embarrassed / 당황한, 어색한
-2571 / unquenchable / 채울 수 없는, 억제할 수 없는
-2572 / textile / 직물, 옷감, 섬유
-2573 / cunning / 교활한, 정교한
-2574 / neuron / 뉴런, 신경 세포
-2575 / household / 가정의, 가사의
-2576 / partial / 부분적인, 편파적인
-2577 / upbeat / 경쾌한, 낙관적인
-2578 / district / 구역, 지역, 지구
-2579 / expectant / 기대하는
-2580 / unsurpassed / 능가할 자가 없는
-2581 / solid / 단단한, 고체의
-2582 / sculptor / 조각가
-2583 / renovation / 보수 공사, 개보수
-2584 / given / ~을 고려할 때, 특정한
-2585 / opinion / 의견
-2586 / independent / 독립적인, 별개의
-2587 / obey / 복종하다, 따르다
-2588 / conformity / 순응
-2589 / openness / 개방성
-2590 / likelihood / 가능성
-2591 / thrill / 짜릿함, 전율
-2592 / digress / 탈선하다, 벗어나다
-2593 / basement / 지하층, 지하실
-2594 / vocal / 말이 많은; 목소리의
-2595 / solitary / 혼자의, 단 하나의
-2596 / diligently / 부지런히, 열심히
-2597 / assumption / 가정, 추정
-2598 / construct / 구성하다, 만들다, 건설하다
-2599 / analysis / 분석
-2600 / official / 공식의; 공무원
+
 2601 / tragic / 비극적인
 2602 / soundness / 건전성, 견실성
 2603 / fuel / 연료; 자극하다, 공급하다
@@ -747,208 +499,6 @@ const rawData = `
 2798 / keep up with / 뒤처지지 않고 따라가다
 2799 / figure out / 이해하다; 알아내다
 2800 / make out / (애써) 이해하다
-2801 / stand out / 두드러지다; 눈에 띄다
-2802 / work out / (일이) 잘 되다; 결국 ~하게 되다
-2803 / speak out / 분명하게 말하다
-2804 / clean out / 말끔히 청소하다; 완전히 치우다
-2805 / dry out / 완전히 마르다
-2806 / fill out / (서류에) 필요 사항을 작성하다
-2807 / make out / (증서·수표 등을) 작성하다
-2808 / plan out / 면밀히 계획하다
-2809 / spell out / 철자를 하나하나 읽다[쓰다]; 상세히 설명하다
-2810 / try out / 시험해 보다
-2811 / hand out / 나누어 주다
-2812 / reach out / (손 등을) 내밀다; 도움을 요청하다
-2813 / find out / 알아내다; 발견하다
-2814 / point out / 가리키다; 지적하다
-2815 / turn out / 판명되다; 결국 ~임이 드러나다
-2816 / call out / 큰 소리로 외치다
-2817 / read out / 큰 소리로 읽다
-2818 / set up / 시작하다; 창설하다
-
-2819 / count out / 제외하다
-2820 / fade out / 점점 희미해지다; 서서히 사라지다
-2821 / help out / 돕다
-2822 / leave out / 빠뜨리다; 생략하다
-2823 / put out / (불·빛 등을) 끄다
-2824 / run out / 다 써버리다; 바닥나다
-2825 / wear out / 닳게 하다; 지치게 하다
-2826 / back up / 후원하다; 지지하다
-2827 / dig up / 파내다; (정보를) 찾아내다
-2828 / hang up / (옷을) 걸다; 전화를 끊다
-2829 / lift up / 들어 올리다
-2830 / pick up / 줍다; (차로) 태우다
-2831 / prop up / (버팀목으로) 받치다; 지탱하다
-2832 / sit up / 일어나 앉다
-2833 / stay up / 자지 않고 깨어 있다
-2834 / bring up / 키우다; (화제를) 꺼내다
-2835 / grow up / 자라다; 어른이 되다
-2836 / speak up / 큰 소리로 말하다
-2837 / step up / 증가시키다; 강화하다
-2838 / stand up for / ~을 옹호하다; 지지하다
-2839 / throw up / 토하다
-2840 / go up / (가격·온도 등이) 오르다
-2841 / put up / (집·천막 등을) 세우다
-2842 / speed up / 속도를 높이다
-2843 / turn up / (소리·불 등을) 키우다
-2844 / drop out / 낙오하다; 중퇴하다
-2845 / go out / (불·빛 등이) 꺼지다; 쇠퇴하다
-2846 / knock out / (남을) 때려눕히다
-2847 / pass out / 의식을 잃다; 기절하다
-2848 / rule out / 배제하다; 제외하다
-2849 / wash out / 씻어내다; (계획 등이) 실패하다
-2850 / wipe out / 쓸어버리다; 파괴하다
-2851 / build up / 쌓다; 축적하다; (신뢰·자신감 등을) 키우다
-2852 / get up / 일어나다
-2853 / hold up / 떠받치다; 지연시키다
-2854 / look up to / 존경하다
-2855 / pile up / 쌓이다; 쌓아 올리다
-2856 / burn out / 타버리다; (과로로) 지치게 하다
-2857 / cut out / 제거하다; 그만두다
-2858 / fight out / (해결될 때까지) 싸우다
-2859 / hear out / (~의 말을) 끝까지 듣다
-2860 / map out / 계획을 세밀하게 세우다
-2861 / sell out / 다 팔리다; 다 팔아버리다
-2862 / tire out / 녹초가 되게 하다
-2863 / give out / (빛·소리·냄새 등을) 발하다
-2864 / lay out / 펼치다; 진열하다; 설계하다
-2865 / spread out / 펼치다; (범위가) 퍼지다
-2866 / turn into / ~이 되다; ~으로 변하다
-2867 / bring out / 끌어내다; (능력 등을) 발휘하게 하다
-2868 / check out / (호텔 등에서) 계산하고 나오다
-
-2869 / get out of / ~에서 나가다; 떠나다
-2870 / keep out / 들어오지 못하게 하다
-2871 / see out / (현관까지) 배웅하다
-2872 / slip out / 무심코 말해지다
-2873 / stick out / 불쑥 나오다; 눈에 띄다
-2874 / break out / (화재·전쟁 등이) 발생하다
-2875 / check out / 검사하다; 점검하다
-2876 / bump into / 우연히 만나다; ~에 부딪치다
-2877 / get into / ~에 들어가다; 입학 허가를 받다; (옷·신발을) 입다
-2878 / look into / 조사하다; 연구하다
-2879 / talk into / 설득하여 ~하게 하다
-2880 / ask out / 데이트 신청하다
-2881 / burst out / 갑자기 ~하다; 터뜨리다
-2882 / eat out / 외식하다
-2883 / grow out of / ~에서 벗어나다; ~에서 생기다
-2884 / leak out / (정보가) 새다; 누설되다
-2885 / set out / 출발하다; 착수하다
-2886 / sort out / 정리하다; 가려내다
-2887 / take out / 꺼내다; 외출을 시켜주다
-2888 / carry out / 실행하다; 이행하다
-2889 / come out / 출판되다; 출시되다; 알려지다
-2890 / cheer up / 격려하다; 기운 나게 하다
-2891 / start up / (사업·기계 등을) 시작하다
-2892 / warm up / 준비 운동을 하다
-2893 / catch up / 따라잡다
-2894 / feel up to / ~을 할 기분(컨디션)이 들다
-2895 / live up to / (기대·기준 등에) 부응하다
-2896 / hold up / 지속하다; 견디다
-2897 / put up with / 참고 견디다
-2898 / let up / (비·눈 등이) 멎다
-2899 / blow up / 폭발하다; 폭파하다
-2900 / clean up / 청소하다; (부패·오염 등을) 정화하다
-2901 / cover up / 감추다; 은폐하다
-2902 / eat up / 소비하다; 써버리다
-2903 / draw up / (차 등이) 서다
-2904 / pull up / (차가) 멈추다
-2905 / check up on / 확인하다; 점검하다
-2906 / close up / 닫다; 폐쇄하다
-2907 / dress up / 잘 차려입다
-2908 / end up / 결국 ~이 되다
-2909 / follow up / 후속 조치하다; 더 철저히 알아보다
-2910 / hold up / 지연시키다
-2911 / look up / (사전·자료 등에서) 찾아보다
-2912 / shut up / 잠그다; 닫다
-2913 / use up / (연료·힘·돈 등을) 다 써버리다
-2914 / bring up / (문제 등을) 꺼내다; 거론하다
-2915 / draw up / (문서·계획 등을) 작성하다
-2916 / line up / 한 줄로 서다; 줄을 세우다
-2917 / pick up / 포착하다; (우연히) 얻다; 입수하다
-2918 / think up / 생각해 내다; 고안하다
-2919 / fill up / 채우다; 가득 차다
-2920 / give up / 그만두다; 포기하다
-2921 / lock up / 자물쇠를 채우다; 잠그다
-2922 / pay up / 전액을 납입하다; 다 갚다
-2923 / straighten up / 정리하다; 똑바로 하다
-2924 / wrap up / 싸다; (외투 등을) 입다; (회의·일을) 마치다
-2925 / come up with / 생각해 내다; 창안하다
-2926 / fix up / 마련해 주다; 수리하다; 정리해 주다
-2927 / make up / 구성하다; 지어내다; 날조하다
-2928 / show up / (모임 등에) 나타나다
-2929 / turn up / 도착하다; 나타나다
-2930 / sum up / 요약하다
-2931 / chop up / (칼 등으로) 잘게 썰다
-2932 / tear up / (갈기갈기) 찢다
-2933 / come down / (비·눈 등이) 내리다
-2934 / fall down / 넘어지다; 굴러떨어지다
-2935 / gulp down / (음료·음식 등을) 급하게 삼키다
-2936 / kneel down / 꿇어앉다
-2937 / pass down / 물려주다; (후대로) 전해주다
-2938 / add up / 합계하다
-2939 / break up / 산산조각으로 부서지다; (군중 등을) 해산시키다
-2940 / crush up / 눌러 으깨다
-2941 / bring down / (짐 등을) 내리다
-2942 / cut down / (나무 등을) 베어 넘어뜨리다
-2943 / go down / (해·달이) 지다; (배·비행기가) 침몰하다·추락하다
-2944 / hand down / (후대에) 전수하다, 물려주다
-2945 / knock down / 치어 쓰러뜨리다; (건물 등을) 헐다
-2946 / put down / 내려놓다
-2947 / run down / (자동차가 사람을) 치다
-2948 / step down / 사직하다; 은퇴하다
-2949 / bring down / 낮추다; 끌어내리다
-2950 / boil down to / 결국 ~이다; 요약되다
-2951 / come down / 감소하다
-2952 / count down / (수를) 큰 것부터 거꾸로 세다
-2953 / die down / 점점 조용해지다; 그치다
-2954 / settle down / 진정하다; (흥분 등이) 가라앉다
-2955 / turn down / (소리·열·불 등을) 줄이다
-2956 / hold down / (가격·비용 등을) 억제하다; 상승을 막다
-2957 / put down / (폭동·반란 등을) 진압하다
-2958 / close down / 폐쇄하다; 문을 닫다
-2959 / get down to / (일·공부 등을) 착수하다
-2960 / settle down / 자리 잡다; 정착하다
-2961 / tie down / 속박하다; 얽매다
-2962 / weigh down / (무게로) 내리누르다; 압박하다
-2963 / put down / 창피를 주며 비난하다
-2964 / sit down / 앉다
-2965 / take down / (아래로) 내리다; 기록하다
-2966 / boil down / 졸이다; 요약하다
-2967 / calm down / 가라앉다; 진정하다
-2968 / come down with / (질병에) 걸리다
-2969 / call on / ~에게 요청하다; 방문하다
-2970 / dwell on / ~에 대해 곰곰이 생각하다
-2971 / insist on / ~을 주장하다; 고집하다
-2972 / decide on / ~으로 결정하다
-2973 / hit on / 생각해 내다; 우연히 발견하다
-2974 / let on / (비밀 등을) 누설하다
-2975 / reflect on / ~을 반성하다; 되돌아보다
-2976 / work on / ~에 영향을 주다; 작용하다
-2977 / pick on / 비난하다; 못살게 굴다
-2978 / tell on / ~에 대해 고자질하다
-2979 / act on / (주의·명령 등에 따라) 행동하다
-2980 / count on / ~에 의지하다; 기대하다
-2981 / feed on / ~을 먹고 살다
-2982 / rely on / ~에 의존하다; 의지하다
-2983 / brush off / 털어버리다; 거부하다
-2984 / cut off / 베어내다; 잘라내다
-2985 / get off / (버스·지하철 등에서) 내리다
-2986 / shake off / (병·근심 등을) 없애 버리다
-2987 / turn off / 잠그다; 끄다
-2988 / lay off / 일시 해고하다
-2989 / show off / 과시하다; 허세 부리다
-2990 / pass over / 넘어가다; 간과하다
-2991 / bring over / 데리고 오다; 가지고 오다
-2992 / get over / (병에서) 회복되다; (어려움 등을) 극복하다
-2993 / run over / (차가 사람을) 치다; (액체·감정 등이) 넘치다
-2994 / bail out / ~를 구출하다; (위기에서) 벗어나다; 긴급 구제하다
-2995 / cling to / ~을 고수하다; ~에 매달리다
-2996 / be predisposed to / ~에 대한 성향을 갖다; ~하기 쉽다
-2997 / go through with / ~을 실행하다; 끝까지 완수하다
-2998 / turn over / (정보·권한 등을) 넘기다; 뒤집다
-2999 / go over / 반복하다; 검토하다; 자세히 살펴보다
-3000 / bottom line / 손익의 총결산; 핵심 결론
 `; 
 // ※ 실제 사용 시 이 자리에 전체 목록을 붙여넣으세요.
 
@@ -972,7 +522,7 @@ let currentExpSteps = [];
 let currentStepIndex = 0;
 let audioCtx; 
 
-// 실전고사 3번 클릭 상태 변수
+// 실전고사 5번 클릭 상태 변수
 let testModeClickCount = 0;
 
 function init() { 
@@ -1143,7 +693,8 @@ function loadQuestion() {
 
     const cur = quizQueue[currentIndex];
     
-    document.getElementById('progressText').innerText = `문제 ${currentIndex + 1} / ${quizQueue.length}`;
+    let prefix = currentMode === 'test' ? '실전고사' : '모의고사';
+    document.getElementById('progressText').innerText = `[${prefix}] ${currentIndex + 1} / ${quizQueue.length}`;
     document.getElementById('quizWord').innerText = cur.word;
 
     speakWord(cur.word, 3); 
@@ -1185,25 +736,39 @@ function checkAnswer(btn, selectedOpt, currentWord) {
         flashScreen('rgba(255, 0, 0, 0.4)'); 
 
         if(currentMode === 'test') {
-            // 실전고사 모드: 오답 시 정답을 3번 클릭하도록 유도
+            // 실전고사 모드: 오답 5번 클릭 (2초 쿨타임 적용)
             document.getElementById('testModeWarning').style.display = 'block';
-            document.getElementById('optionsGrid').style.pointerEvents = 'auto'; // 그리드 클릭 잠금 해제
+            document.getElementById('optionsGrid').style.pointerEvents = 'auto'; 
             testModeClickCount = 0;
 
             buttons.forEach(b => {
-                b.onclick = null; // 기존 클릭 이벤트 제거
+                b.onclick = null; 
                 if(b.innerText === currentWord.meaning) {
                     b.classList.add('correct');
-                    b.style.pointerEvents = 'auto'; // 정답 버튼만 활성화
-                    b.onclick = () => {
+                    b.style.pointerEvents = 'auto'; 
+                    b.innerText = currentWord.meaning + ` (0/5)`;
+                    
+                    b.onclick = function() {
                         testModeClickCount++;
                         playClickSound();
-                        if(testModeClickCount === 1) b.innerText += ' (1/3)';
-                        else if(testModeClickCount === 2) b.innerText = b.innerText.replace('(1/3)', '(2/3)');
-                        else if(testModeClickCount >= 3) {
-                            b.innerText = b.innerText.replace('(2/3)', '(✅ 완료)');
+                        
+                        if(testModeClickCount < 5) {
+                            // 2초간 비활성화 및 시각적 피드백
+                            b.innerText = currentWord.meaning + ` (${testModeClickCount}/5) - 2초 대기...`;
                             b.style.pointerEvents = 'none';
-                            setTimeout(nextQuestion, 500);
+                            b.style.opacity = '0.7';
+                            
+                            setTimeout(() => {
+                                b.innerText = currentWord.meaning + ` (${testModeClickCount}/5) - 다시 터치!`;
+                                b.style.pointerEvents = 'auto';
+                                b.style.opacity = '1';
+                            }, 2000);
+                        } else {
+                            // 5회 완료
+                            b.innerText = currentWord.meaning + ` (✅ 암기 완료)`;
+                            b.style.pointerEvents = 'none';
+                            b.style.opacity = '1';
+                            setTimeout(nextQuestion, 600);
                         }
                     };
                 } else {
@@ -1212,7 +777,7 @@ function checkAnswer(btn, selectedOpt, currentWord) {
                 }
             });
         } else {
-            // 모의고사 모드: 해설 및 타이핑
+            // 모의고사 모드
             buttons.forEach(b => { if(b.innerText === currentWord.meaning) b.classList.add('correct'); });
             isPaused = true; 
             startExplanation(currentWord);
