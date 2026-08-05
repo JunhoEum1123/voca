@@ -216,283 +216,76 @@
 // ==========================================
 const rawData = `
 
-2601 / tragic / 비극적인
-2602 / soundness / 건전성, 견실성
-2603 / fuel / 연료; 자극하다, 공급하다
-2604 / expert / 전문가
-2605 / coverage / 취재, 보도; 범위
-2606 / fanciful / 기발한, 공상의
-2607 / approach / 접근하다; 접근 방식
-2608 / scent / 향기, 냄새
-2609 / odor / 냄새
-2610 / dissonance / 불협화음, 불화
-2611 / approval / 승인
-2612 / virtual / 가상의, 사실상의
-2613 / empowerment / 권한 부여, 자율권
-2614 / protection / 보호
-2615 / spontaneously / 자발적으로
-2616 / experiment / 실험; 실험하다
-2617 / willingness / 의지, 자발성
-2618 / purposeful / 목적이 있는
-2619 / dodge / 회피하다
-2620 / collateral / 담보물; 부수적인
-2621 / disposition / 성향, 기질
-2622 / characterize / 특징짓다
-2623 / guidance / 지침, 안내, 유도
-2624 / bullying / 괴롭힘
-2625 / acculturate / (다른 문화에) 동화시키다
-2626 / installation / 설치
-2627 / proper / 올바른, 적절한
-2628 / hardly / 거의 ~않는
-2629 / score / 점수; 득점하다; 점수를 매기다
-2630 / assistant / 보조자; 보조의
-2631 / aspiring / 장차 ~이 되려는
-2632 / faithful / 충실한
-2633 / empty / 비우다; 빈; 공허한
-2634 / proceeds / 수익금
-2635 / resistance / 저항, 반항; 저항력
-2636 / sympathy / 연민, 동정심
-2637 / annoying / 짜증스러운
-2638 / bang / (세게) 두드리다
-2639 / extraordinary / 놀라운, 비범한
-2640 / vigor / 활력, 활기
-2641 / obtain / 구하다, 얻다
-2642 / exhausting / 진을 빼는, 고단한
-2643 / idol / 우상, 숭배물; 모범
-2644 / euphemism / 완곡어법
-2645 / exhortative / 권고적인
-2646 / untreated / 미처리의; 돌보지 않은
-2647 / unwarranted / 보증되지 않은; 근거 없는
-2648 / primary / 주요한; 초등의
-2649 / playwright / 극작가
-2650 / botanist / 식물학자
-2651 / considerable / 상당한
-2652 / morality / 도덕, 도덕성
-2653 / slavery / 노예 제도; 노예
-2654 / relativism / 상대주의
-2655 / description / 설명; 기술; 묘사
-2656 / judgment / 판단
-2657 / geography / 지리학; 지형
-2658 / fertile / 비옥한
-2659 / structure / 구조, 구성
-2660 / footprint / (환경) 발자국
-2661 / landscape / 경관, 풍경; 조경하다
-2662 / underlying / 근본적인, 기저의
-2663 / emphasis / 강조, 초점
-2664 / disproportionate / 불균형적인
-2665 / harvest / 수확하다; 수확물
-2666 / wildlife / 야생 동물; 야생 동물의
-2667 / conscious / 의식하는, 의식적인
-2668 / orientate / 지향하게 하다; 방향을 잡다; 적응시키다
-2669 / conservation / 보존, 보호; 보호 구역
-2670 / exhortative / 권고적인
-2671 / untreated / 미처리의, 돌보지 않은
-2672 / unwarranted / 근거 없는
-2673 / primary / 주요한
-2674 / playwright / 극작가
-2675 / botanist / 식물학자
-2676 / considerable / 상당한
-2677 / morality / 도덕성
-2678 / slavery / 노예 제도
-2679 / relativism / 상대주의
-2680 / description / 설명
-2681 / judgment / 판단
-2682 / geography / 지리학
-2683 / fertile / 비옥한
-2684 / structure / 구조
-2685 / footprint / 환경 발자국
-2686 / landscape / 풍경
-2687 / underlying / 근본적인
-2688 / emphasis / 강조
-2689 / disproportionate / 불균형적인
-2690 / harvest / 수확하다
-2691 / wildlife / 야생 동물
-2692 / conscious / 의식적인
-2693 / orientate / 방향을 잡다
-2694 / conservation / 보존, 보호
-2620 / collateral / 담보물; 부수적인
-2621 / disposition / 성향, 기질
-2622 / characterize / 특징짓다
-2623 / guidance / 지침, 안내, 유도
-2624 / bullying / 괴롭힘
-2625 / acculturate / (다른 문화에) 동화시키다
-2626 / installation / 설치
-2627 / proper / 올바른, 적절한
-2628 / hardly / 거의 ~않는
-2629 / score / 점수; 득점하다; 점수를 매기다
-2630 / assistant / 보조자; 보조의
-2631 / aspiring / 장차 ~이 되려는
-2632 / faithful / 충실한
-2633 / empty / 비우다; 빈; 공허한
-2634 / proceeds / 수익금
-2635 / resistance / 저항, 반항; 저항력
-2636 / sympathy / 연민, 동정심
-2637 / annoying / 짜증스러운
-2638 / bang / (세게) 두드리다
-2639 / extraordinary / 놀라운, 비범한
-2640 / vigor / 활력, 활기
-2641 / obtain / 구하다, 얻다
-2642 / exhausting / 진을 빼는, 고단한
-2643 / idol / 우상, 숭배물; 모범
-2644 / euphemism / 완곡어법
-2645 / exhortative / 권고적인
-2646 / untreated / 미처리의; 돌보지 않은
-2647 / unwarranted / 보증되지 않은; 근거 없는
-2648 / primary / 주요한; 초등의
-2649 / playwright / 극작가
-2650 / botanist / 식물학자
-2651 / considerable / 상당한
-2652 / morality / 도덕, 도덕성
-2653 / slavery / 노예 제도; 노예
-2654 / relativism / 상대주의
-2655 / description / 설명; 기술; 묘사
-2656 / judgment / 판단
-2657 / geography / 지리학; 지형
-2658 / fertile / 비옥한
-2659 / structure / 구조, 구성
-2660 / footprint / (환경) 발자국
-2661 / landscape / 경관, 풍경; 조경하다
-2662 / underlying / 근본적인, 기저의
-2663 / emphasis / 강조, 초점
-2664 / disproportionate / 불균형적인
-2665 / harvest / 수확하다; 수확물
-2666 / wildlife / 야생 동물; 야생 동물의
-2667 / conscious / 의식하는, 의식적인
-2668 / orientate / 지향하게 하다; 방향을 잡다; 적응시키다
-2669 / conservation / 보존, 보호; 보호 구역
-2670 / exhortative / 권고적인
-2671 / untreated / 미처리의, 돌보지 않은
-2672 / unwarranted / 근거 없는
-2673 / primary / 주요한
-2674 / playwright / 극작가
-2675 / botanist / 식물학자
-2676 / considerable / 상당한
-2677 / morality / 도덕성
-2678 / slavery / 노예 제도
-2679 / relativism / 상대주의
-2680 / description / 설명
-2681 / judgment / 판단
-2682 / geography / 지리학
-2683 / fertile / 비옥한
-2684 / structure / 구조
-2685 / footprint / 환경 발자국
-2686 / landscape / 풍경
-2687 / underlying / 근본적인
-2688 / emphasis / 강조
-2689 / disproportionate / 불균형적인
-2690 / harvest / 수확하다
-2691 / wildlife / 야생 동물
-2692 / conscious / 의식적인
-2693 / orientate / 방향을 잡다
-2694 / conservation / 보존, 보호
-2694 / codify / 법전으로 편찬하다, 체계적으로 정리하다
-2695 / nest / 둥지를 틀다; 둥지, 집
-2696 / diverse / 다양한
-2697 / dig / (땅을) 파다, 발굴하다
-2698 / minute / 미세한; (시간 단위의) 분
-2699 / essay / 수필, 에세이
-2700 / arousal / 각성, 환기
-2701 / break in / 침입하다
-2702 / fill in / 메우다; (서류에) 기입하다
-2703 / get in / 안으로 들어가다; (차에) 타다
-2704 / stay in / 집에 있다, 외출하지 않다
-2705 / break in / (대화·활동을) 방해하다
-2706 / engage in / ~에 관여하다, 참여하다
-2707 / listen in / 엿듣다, 도청하다
-2708 / step in / (사건·논쟁에) 개입하다
-2709 / hand in / 제출하다
-2710 / put in / (요구·의견 등을) 제출하다, 제기하다
-2711 / turn in / 제출하다
-2712 / get in / 도착하다
-2713 / believe in / ~의 존재를 믿다
-2714 / give in / 굴복하다, 양보하다
-2715 / break into / 침입하다; 말참견하다
-2716 / burst into / 갑자기 ~하다
-2717 / go into / (일·직업 등을) 시작하다
-2718 / run into / 우연히 만나다; 충돌하다
-2719 / drop in / 잠깐 들르다
-2720 / look in / 잠깐 들르다
-2721 / put in for / ~에 응모하다, 신청하다
-2722 / come in / 응모하다; 들어오다
-2723 / set in / 도착하다; (유행·추위 등이) 시작되다
-2724 / deal in / 매매하다, 장사하다
-2725 / be into / ~에 관심이 있다, 좋아하다
-2726 / come in / 입장하다; 수입으로 들어오다
-2727 / fit in / 잘 어울리다; 시간을 내다
-2728 / lie in / ~에 달려 있다; 늦잠을 자다
-2729 / take in / 숙박시키다; 섭취하다; 이해하다
-2730 / cut in / 끼어들다, 말을 자르다
-2731 / join in / 합류하다, 동참하다
-2732 / put in / 말참견하다
-2733 / come about / (일이) 일어나다, 생기다
-2734 / hear about / ~에 관해 알게 되다
-2735 / go after / 얻으려 하다, 뒤쫓다
-2736 / name after / ~의 이름을 따서 짓다
-2737 / ask after / ~의 안부를 묻다
-2738 / look after / 돌보다, 보살피다
-2739 / come across / 우연히 만나다; 이해되다
-2740 / get across / 전달되다; 이해시키다
-2741 / spread across / ~에 걸쳐 퍼지다
-2742 / come along / 나타나다; 진척되다; 회복되다
-2743 / go along / 동행하다; 찬성하다; 진전되다
-2744 / sleep through / 깨지 않고 계속 자다
-2745 / get by / 지나가다, 통과하다
-2746 / pass by / 지나가다
-2747 / call by / 잠깐 들르다
-2748 / drop by / 잠깐 들르다
-2749 / be ahead / 앞서 있다, 이기고 있다
-2750 / get ahead of / ~을 앞지르다
-2751 / go ahead with / 진행하다, 추진하다
-2752 / fall back / 뒤처지다, 후퇴하다
-2753 / look back / 회상하다
-2754 / cut back / 줄이다, 삭감하다
-2755 / bring back / 돌려주다; 상기시키다
-2756 / come back / 돌아오다; (기억·유행 등이) 다시 떠오르다
-2757 / give back / 돌려주다
-2758 / pay back / (돈을) 갚다; 복수하다
-2759 / tell from / ~와 구별하다
-2760 / attend to / ~에 주의를 기울이다; 돌보다
-2761 / come to / 정신이 들다; (생각이) 떠오르다
-2762 / get to / ~에 도착하다; ~을 시작하다
-2763 / look to / ~에 의지하다; 기대하다
-2764 / refer to / 언급하다; 가리키다
-2765 / turn to / ~에 의지하다; (성질·상태가) 변하다
-2766 / adhere to / ~에 들러붙다; 고수하다
-2767 / keep to / (규칙·계획 등을) 따르다
-2768 / amount to / 총액이 ~에 달하다
-
-2769 / hang around / 어슬렁거리다; 시간을 보내다
-2770 / show around / 구경시키다, 안내하다
-2771 / bring around / 정신 차리게 하다; 설득하다
-2772 / turn around / 방향을 바꾸다; 호전시키다
-2773 / break through / (장벽·난관 등을) 극복하다
-2774 / come through / 통과하다; 성공하다
-2775 / go through / (어려움·과정 등을) 겪다
-2776 / look through / 훑어보다; 재빨리 읽다
-2777 / put through / ~을 겪게 하다
-2778 / appeal to / ~에게 간청하다; 마음에 들다
-2779 / belong to / ~에 속하다
-2780 / contribute to / ~에 기여하다
-2781 / lead to / (어떤 결과에) 이르다
-2782 / occur to / (생각이) 떠오르다
-2783 / see to / ~을 돌보다; 처리하다
-2784 / yield to / ~에 굴복하다
-2785 / hold to / 고집하다, 고수하다
-2786 / stick to / ~을 고수하다; 따르다
-2787 / come to / 합계가 ~이 되다
-2788 / prefer to / ~을 더 좋아하다
-2789 / relate to / ~와 관련되다
-2790 / look forward to / ~을 기대하다
-2791 / come up to / (수준·기대 등에) 달하다
-2792 / make up for / (손해 등을) 보상하다
-2793 / keep up / (수준·상태 등을) 유지하다
-2794 / take up / 시작하다; (공간·시간을) 차지하다
-2795 / be up to / ~을 감당하다; ~의 책임이다
-2796 / come up against / (문제·반대 등에) 직면하다
-2797 / face up to / 용감하게 맞서다
-2798 / keep up with / 뒤처지지 않고 따라가다
-2799 / figure out / 이해하다; 알아내다
-2800 / make out / (애써) 이해하다
+0281 / aid / 원조, 지원; 돕다
+0282 / effort / 수고, 노력
+0283 / wage / 임금, 급료
+0284 / benefit / 혜택, 이익; 유익하다
+0285 / ancestor / 선조, 조상
+0286 / ideal / 이상적인; 이상
+0287 / continuous / 계속되는, 지속적인
+0288 / population / 인구, 주민
+0289 / odd / 이상한; 홀수의
+0290 / generally / 일반적으로
+0291 / whether / ~인지 아닌지
+0292 / defense / 방어, 방위
+0293 / contrast / 대조; 대조하다
+0294 / industrial / 산업의
+0295 / export / 수출하다; 수출
+0296 / mention / 말하다, 언급하다; 언급
+0297 / differ / 다르다
+0298 / invest / 투자하다
+0299 / contract / 계약; 계약하다
+0300 / force / 힘; 강요하다
+0301 / remind / 상기시키다, 생각나게 하다
+0302 / punish / 처벌하다, 벌주다
+0303 / advantage / 이점, 장점
+0304 / reasonable / 타당한, 합리적인
+0305 / capture / 붙잡다, 포획하다
+0306 / literature / 문학
+0307 / recent / 최근의
+0308 / worship / 숭배하다; 예배하다
+0309 / relative / 친척; 상대적인
+0310 / twisted / 뒤틀린, 일그러진
+0311 / recall / 기억해 내다; 회수하다
+0312 / contribute / 기부하다; 기여하다
+0313 / occasion / 때, 기회; 행사
+0314 / direction / 방향; 지시
+0315 / exhibition / 전시회, 전시
+0316 / current / 현재의; 조류, 해류
+0317 / custom / 관습; 풍습; 세관
+0318 / diligent / 근면한, 부지런한
+0319 / flesh / 살; 고기; 피부
+0320 / rather / 꽤, 상당히; 오히려
+0321 / frank / 솔직한
+0322 / support / 지지하다; 후원하다; 지지, 지원
+0323 / pressure / 압박, 압력
+0324 / observe / 관찰하다; 준수하다
+0325 / native / 태어난 곳의; 원주민
+0326 / tend / (~하는) 경향이 있다
+0327 / risky / 위험한
+0328 / adequate / 충분한, 적절한
+0329 / independent / 독립된, 독립적인
+0330 / conversation / 대화, 회화
+0331 / imitation / 모방; 모조품
+0332 / element / 요소; 원소
+0333 / anniversary / 기념일
+0334 / make a speech / 연설하다
+0335 / be sick of / ~에 넌더리 나다, 질리다
+0336 / inform / 알리다, 통지하다
+0337 / accept / 받아들이다, 수락하다
+0338 / precious / 값비싼, 귀중한, 소중한
+0339 / apparent / 분명한, 뚜렷한
+0340 / earn / (돈을) 벌다; 얻다; 획득하다
+0341 / survive / 살아남다, 생존하다
+0342 / criminal / 범죄의; 범죄자
+0343 / charity / 자선 단체; 자선
+0344 / mood / 기분; 분위기
+0345 / offer / 제공하다, 제안하다; 제의, 제안
+0346 / imaginative / 창의적인, 상상력이 풍부한
+0347 / die of[from] / (~병·노령 등으로) 죽다; (~사고·외상 등으로) 죽다
+0348 / come to an end / 끝나다
+0349 / grasp / 꽉 잡다; 이해하다
+0350 / democratic / 민주주의의, 민주적인
 `; 
 // ※ 실제 사용 시 전체 목록을 복사하세요.
 
