@@ -216,88 +216,180 @@
 // ==========================================
 const rawData = `
 
-0281 / aid / 원조, 지원; 돕다
-0282 / effort / 수고, 노력
-0283 / wage / 임금, 급료
-0284 / benefit / 혜택, 이익; 유익하다
-0285 / ancestor / 선조, 조상
-0286 / ideal / 이상적인; 이상
-0287 / continuous / 계속되는, 지속적인
-0288 / population / 인구, 주민
-0289 / odd / 이상한; 홀수의
-0290 / generally / 일반적으로
-0291 / whether / ~인지 아닌지
-0292 / defense / 방어, 방위
-0293 / contrast / 대조; 대조하다
-0294 / industrial / 산업의
-0295 / export / 수출하다; 수출
-0296 / mention / 언급하다; 언급
-0297 / differ / 다르다
-0298 / invest / 투자하다
-0299 / contract / 계약; 계약하다
-0300 / force / 힘; 강요하다
-0301 / remind / 상기시키다, 생각나게 하다
-0302 / punish / 처벌하다, 벌주다
-0303 / advantage / 이점, 장점
-0304 / reasonable / 타당한, 합리적인
-0305 / capture / 붙잡다, 포획하다
-0306 / literature / 문학
-0307 / recent / 최근의
-0308 / worship / 숭배하다; 예배하다
-0309 / relative / 친척; 상대적인
-0310 / twisted / 뒤틀린, 일그러진
-0311 / recall / 기억해 내다; 회수하다
-0312 / contribute / 기부하다; 기여하다
-0313 / occasion / 때; 기회
-0314 / direction / 방향; 지시
-0315 / exhibition / 전시회, 전시
-0316 / current / 현재의; 조류
-0317 / custom / 관습; 풍습; 세관
-0318 / diligent / 근면한, 부지런한
-0319 / flesh / 살; 고기; 피부
-0320 / rather / 꽤; 오히려
-0321 / frank / 솔직한
-0322 / support / 지지하다; 후원하다; 지원
-0323 / pressure / 압박, 압력
-0324 / observe / 관찰하다; 준수하다
-0325 / native / 태어난 곳의; 원주민
-0326 / tend / (~하는) 경향이 있다
-0327 / risky / 위험한
-0328 / adequate / 충분한, 적절한
-0329 / independent / 독립된, 독립적인
-0330 / conversation / 대화, 회화
-0331 / imitation / 모방; 모조품
-0332 / element / 요소; 원소
-0333 / anniversary / 기념일
-0334 / make a speech / 연설하다
-0335 / be sick of / ~에 넌더리 나다; 질리다
-0336 / inform / 알리다, 통지하다
-0337 / accept / 받아들이다; 수락하다
-0338 / precious / 값비싼; 귀중한; 소중한
-0339 / apparent / 분명한, 뚜렷한
-0340 / earn / 벌다; 얻다; 획득하다
-0341 / survive / 살아남다; 생존하다
-0342 / criminal / 범죄의; 범죄자
-0343 / charity / 자선; 자선 단체
-0344 / mood / 기분; 분위기
-0345 / offer / 제공하다; 제안하다; 제안
-0346 / imaginative / 창의적인; 상상력이 풍부한
-0347 / die of[from] / (~병·노령으로) 죽다; (~사고·재해로) 죽다
-0348 / come to an end / 끝나다
-0349 / grasp / 꽉 잡다; 이해하다
-0350 / democratic / 민주주의의, 민주적인
-0351 / capacity / 용량; 수용력; 능력
-0352 / trap / 덫; 가두다
-0353 / version / 판; 버전
-0354 / reward / 보상; 보답하다
-0355 / extreme / 극도의, 극심한
-0356 / pretend / ~인 척하다, 가장하다
-0357 / nuclear / 핵의, 원자력의
-0358 / abstract / 추상적인
-0359 / penalty / 처벌; 불이익
-0360 / hardly ever / 거의 ~않다
-0361 / give in / (~에) 굴복하다, 항복하다
-`; 
+0421 / involve / 수반[포함]하다, 관련[연루]시키다
+0422 / theme / 주제, 테마
+0423 / basis / 기반, 기초, 근거, 이유
+0424 / formal / 공식적인, 정식의
+0425 / tight / 단단한, 꽉 조여 있는, 빈틈없이 꽉 찬
+0426 / embarrass / 당황스럽게 만들다, 난처하게 하다
+0427 / adjust / 조정[조절]하다, 적응시키다
+0435 / suggestion / 제안, 제의
+0436 / demand / 요구하다, 요구, 수요
+0437 / philosophy / 철학
+0438 / acquire / 얻다, 습득하다, 획득[취득]하다
+0439 / check out / ~을 확인[조사]하다, (도서관 등에서) 대출하다
+0440 / only a few / only a little / 몇 안 되는, 아주 조금[적인]
+0441 / optimistic / 낙관적인, 낙천적인
+0442 / misunderstand / 오해하다
+0443 / empire / 제국
+0444 / unexpected / 예기치 않은, 예상 밖의
+0445 / burden / 부담, 짐, 부담을 지우다
+0446 / attractive / 매력적인
+0447 / deny / 부정[부인]하다, 거부하다
+0448 / frustrate / 좌절시키다
+0449 / refresh / 생기를 되찾게[상쾌하게] 하다
+0450 / profit / 이익, 이윤, 이득을 얻다
+0451 / seal / 밀봉[밀폐]하다
+0452 / comparison / 비교, 대조
+0453 / precise / 정확한, 정밀한
+0454 / amaze / (대단히) 놀라게 하다
+0455 / immediate / 즉각적인
+0456 / jealous / 질투하는
+0457 / suspension / 연기, 보류, 유예, 정직, 정지
+0458 / calculate / 계산하다
+0459 / as well as / ~뿐만 아니라
+0460 / on the other hand / 다른 한편으로는, 반면에
+0461 / distant / 먼, 떨어져 있는
+0462 / characteristic / 특유의, 특징, 특성
+0463 / expert / 전문가, 전문가의, 숙련된
+0464 / criticize / 비평[비판]하다, 비난하다
+0465 / welfare / 복지, 후생
+0466 / totally / 완전히, 전적으로
+0467 / dramatic / 극적인, 연극의
+0468 / justice / 정의, 공정, 공평, 사법, 재판
+0469 / accuse / 고발[기소]하다, 비난하다
+0470 / relationship / 관계, 관련, 연관성
+0471 / pray / 기도하다, 기원하다
+0472 / mutual / 상호 간의, 서로의
+0473 / loyal / 충실한, 충성스러운
+0474 / conclude / 결론을 내리다, 끝내다
+0475 / animate / 생기를 불어넣다, 살아 있는, 생물인
+0476 / public / 공공의, 대중의, 국가의
+0477 / visible / (눈에) 보이는, 가시적인, 뚜렷한
+0478 / insult / 모욕하다, 모욕, 무례
+0479 / fall off / 떨어지다
+0480 / take advantage of / ~을 이용하다, ~을 기회로 활용하다
+0481 / income / 소득, 수입
+0482 / participate / 참가하다, 참여하다
+0483 / supply / 공급하다, 공급, 보유량
+0484 / crisis / 위기
+0485 / wave / 파도, 물결, 파동, (손을) 흔들다
+0486 / float / (물 위나 공중에서) 떠가다, 뜨다
+0487 / beneath / ~ 아래에
+0488 / luxury / 호화로움, 사치
+0489 / noble / 고결한, 숭고한, 귀족의, 귀족
+0490 / purchase / 구입, 구매, 구입[구매]하다
+0491 / spoil / 망치다, (음식이) 상하다
+0492 / electricity / 전기, 전력
+0493 / device / 장치, 기기
+0494 / warn / 경고하다, 주의를 주다
+0495 / defeat / 패배시키다[물리치다], 패배
+0496 / athletic / 탄탄한, 강건한
+0497 / anticipate / 예상하다, 예측하다
+0498 / lecture / 강의, 강연, 강의하다, 강연하다
+0499 / stay up / 안 자다, 깨어 있다
+0500 / now that / ~이므로, ~이기 때문에
+0501 / purpose / 목적, 의도, 용도
+0502 / maintain / 유지하다, 지키다, 주장하다
+0503 / splendid / 정말 좋은[멋진], 훌륭한
+0504 / duty / 의무, 관세
+0505 / nowadays / 요즘에는, 오늘날에는
+0506 / explode / 터지다, 폭발하다
+0507 / wisdom / 지혜, 슬기, 현명함
+0508 / immigrate / (타국으로) 이주하다[이민을 오다]
+0509 / counselor / 상담사, 고문
+0510 / wound / 상처, 부상, 상처를 입히다
+0511 / intelligence / 지능, 이해력
+0512 / legal / 합법적인, 법률의, 법적인
+0513 / charm / 매력, (~으로) 매혹하다
+0514 / absorb / 흡수하다, 열중하다
+0515 / poverty / 가난, 빈곤
+0516 / summarize / 요약하다
+0517 / cultivate / 경작하다, 재배하다
+0518 / automatic / 자동의
+0519 / step on / ~을 (짓)밟다
+0520 / go across / ~을 건너다
+0521 / planet / 행성
+0522 / explore / 탐험하다, 조사[탐구]하다
+0523 / credit / 칭찬, 신용, 학점
+0524 / combine / 결합하다[되다], 합병하다[시키다]
+0525 / measure / 측정하다, 판단하다, 조치
+0526 / craft / 공예, 기술
+0527 / struggle / 투쟁하다, 싸우다, 투쟁
+0528 / require / ~을 필요로 하다, 요구하다
+0529 / legendary / 전설적인, 아주 유명한
+0530 / worth / ~의 가치가 있는, ~할 만한
+0531 / internal / 내부의, 체내의, 국내의
+0532 / accelerate / 속도를 높이다, 가속하다
+0533 / import / 수입하다, 수입품, 수입
+0534 / publication / 출판, 발행
+0535 / accompany / 동행하다, (일·현상 등을) 수반하다
+0536 / dynasty / 왕조, 시대
+0537 / whisper / 속삭이다, 귓속말하다
+0538 / predict / 예측하다, 예견하다
+0539 / live on / ~을 먹고 살다
+0540 / be responsible for / ~에 책임이 있다
+0541 / lay / 놓다, (알을) 낳다
+0542 / represent / 대표하다, 나타내다, 상징하다
+0543 / wicked / 못된, 사악한
+0544 / committee / 위원회
+0545 / consult / 상담하다, 상의하다
+0546 / experiment / 실험, 실험을 하다
+0547 / devote / 바치다, 전념하다
+0548 / submit / 제출하다, 굴복[복종]하다
+0549 / dynamic / 역동적인
+0550 / comment / 논평, 언급, 논평하다, 의견을 말하다
+0551 / propose / 제안[제의]하다, 청혼하다
+0552 / invasion / 침략, 침공, 침해
+0553 / motivate / 동기를 부여하다
+0554 / impression / 인상, 느낌
+0555 / pretend / ~인 척하다, 가장하다
+0556 / nuclear / 핵의, 원자력의
+0557 / abstract / 추상적인
+0558 / penalty / 처벌, 불이익
+0559 / hardly ever / 거의 ~않다
+0560 / give in / (~에게) 항복하다
+0561 / export / 수출하다, 수출
+0562 / mention / 말하다, 언급하다, 언급, 거론
+0563 / differ / 다르다
+0564 / invest / 투자하다
+0565 / contract / 계약, 계약하다
+0566 / force / 힘, 강요하다, 강제하다
+0567 / remind / 상기시키다, 생각나게 하다
+0568 / punish / 처벌하다, 벌주다
+0569 / advantage / 이점, 장점
+0570 / reasonable / 타당한, 합리적인, 적당한
+0571 / capture / (사람을) 포로로 잡다, 붙잡다, 포획하다
+0572 / literature / 문학
+0573 / recent / 최근의
+0574 / worship / 숭배하다, 예배하다, 예배, 숭배
+0575 / conclusion / 결론, 판단
+0576 / task / 과업, 과제
+0577 / destiny / 운명
+0578 / political / 정치적인
+0579 / be used to ~ing / ~하는 데 익숙하다
+0580 / no longer / 더 이상 ~아닌
+0581 / valuable / 소중한, 귀중한, 값비싼
+0582 / pollution / 오염, 공해
+0583 / atmosphere / 대기, 분위기, 기운
+0584 / witness / 목격자, 증인, 목격하다
+0585 / conference / 회의, 학회
+0586 / priority / 우선 사항, 우선하는 일
+0587 / disappoint / 실망시키다, 좌절시키다
+0588 / relative / 친척, 상대적인
+0589 / twisted / 뒤틀린, 일그러진
+0590 / recall / 기억해 내다, 상기하다, 회수, 리콜 조치
+0591 / contribute / 기부하다, 기여하다
+0592 / occasion / 때, 기회, 행사
+0593 / direction / 방향, 지시
+0594 / exhibition / 전시회, 전시
+0595 / laundry / 세탁물, 세탁
+0596 / accommodate / 공간을 제공하다, 수용하다
+0597 / household / 가구, 가정, 가정의
+0598 / liberal / 자유민주적인, 진보적인
+0599 / put ~ in danger / ~을 위험에 빠뜨리다
+0600 / be eager for / ~을 열망하다, 간절히 바라다
+; 
 // ※ 실제 사용 시 전체 목록을 복사하세요.
 
 // ==========================================
