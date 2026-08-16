@@ -1,308 +1,560 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>중학 영단어 마스터 [완전판]</title>
-    <style>
-        /* 폰트 설정 */
-        @font-face { font-family: 'HanjinGroupSans'; src: url('./HanjinGroupSans-Light.ttf') format('truetype'); font-weight: 300; }
-        @font-face { font-family: 'HanjinGroupSans'; src: url('./HanjinGroupSans-Regular.ttf') format('truetype'); font-weight: 400; }
-        @font-face { font-family: 'HanjinGroupSans'; src: url('./HanjinGroupSans-Bold.ttf') format('truetype'); font-weight: 700; }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>중학 영단어 마스터 [완전판]</title>
+  <style>
+    @font-face { font-family: 'HanjinGroupSans'; src: url('./HanjinGroupSans-Light.ttf') format('truetype'); font-weight: 300; }
+    @font-face { font-family: 'HanjinGroupSans'; src: url('./HanjinGroupSans-Regular.ttf') format('truetype'); font-weight: 400; }
+    @font-face { font-family: 'HanjinGroupSans'; src: url('./HanjinGroupSans-Bold.ttf') format('truetype'); font-weight: 700; }
 
-        :root {
-            --kal-blue: #0064B2; --kal-navy: #00205B; --kal-light: #EBF3FA;
-            --wrong-color: #D32F2F; --correct-color: #008000;
-            --bg-color: #F8F9FA; --card-bg: #FFFFFF;
-            --text-main: #222222; --text-muted: #666666; --border-color: #D0D9E1;
-        }
+    :root {
+      --kal-blue: #0064B2;
+      --kal-navy: #00205B;
+      --kal-light: #EBF3FA;
+      --wrong-color: #D32F2F;
+      --correct-color: #008000;
+      --bg-color: #F8F9FA;
+      --card-bg: #FFFFFF;
+      --text-main: #222222;
+      --text-muted: #666666;
+      --border-color: #D0D9E1;
+    }
 
-        body.dark-mode {
-            --kal-blue: #3399FF; --kal-navy: #66B2FF; --kal-light: #00205B;
-            --wrong-color: #FF5252; --correct-color: #4CAF50;
-            --bg-color: #0B132B; --card-bg: #1C2541;
-            --text-main: #F0F4F8; --text-muted: #A0B2C6; --border-color: #2B3A55;
-        }
+    body.dark-mode {
+      --kal-blue: #3399FF;
+      --kal-navy: #66B2FF;
+      --kal-light: #00205B;
+      --wrong-color: #FF5252;
+      --correct-color: #4CAF50;
+      --bg-color: #0B132B;
+      --card-bg: #1C2541;
+      --text-main: #F0F4F8;
+      --text-muted: #A0B2C6;
+      --border-color: #2B3A55;
+    }
 
-        /* 부정행위(드래그) 방지 CSS */
-        body {
-            font-family: 'HanjinGroupSans', sans-serif; background-color: var(--bg-color); color: var(--text-main);
-            margin: 0; display: flex; justify-content: center; align-items: flex-start;
-            min-height: 100vh; transition: 0.3s; padding: 20px 15px; box-sizing: border-box;
-            user-select: none; -webkit-user-select: none;
-        }
-        
-        input { user-select: auto; -webkit-user-select: auto; }
+    * { box-sizing: border-box; }
 
-        #flashOverlay {
-            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
-            pointer-events: none; z-index: 9999; display: none; opacity: 0; transition: opacity 0.3s ease-out;
-        }
+    body {
+      font-family: 'HanjinGroupSans', Arial, sans-serif;
+      background-color: var(--bg-color);
+      color: var(--text-main);
+      margin: 0;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      min-height: 100vh;
+      transition: 0.3s;
+      padding: 20px 15px;
+      user-select: none;
+      -webkit-user-select: none;
+    }
 
-        .container {
-            background-color: var(--card-bg); width: 100%; max-width: 600px;
-            border-radius: 16px; box-shadow: 0 10px 30px rgba(0,32,91,0.08);
-            padding: 30px 25px; box-sizing: border-box; margin-bottom: 40px;
-            border-top: 6px solid var(--kal-blue); transition: 0.3s; position: relative;
-        }
+    input, select { user-select: auto; -webkit-user-select: auto; }
 
-        .app-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; padding-bottom: 15px; border-bottom: 1px solid var(--border-color); }
-        .theme-toggle { background: none; border: 2px solid var(--border-color); color: var(--text-main); padding: 8px 14px; border-radius: 20px; font-weight: 700; cursor: pointer; font-family: 'HanjinGroupSans'; }
-        
-        .timer-group { display: flex; align-items: center; gap: 15px; }
-        .timer { font-weight: 700; color: var(--wrong-color); font-size: 20px; letter-spacing: 1px;}
-        .timer.paused { color: var(--kal-blue); opacity: 0.5; animation: blink 1s infinite; }
-        @keyframes blink { 50% { opacity: 1; } }
+    #flashOverlay {
+      position: fixed;
+      inset: 0;
+      width: 100vw;
+      height: 100vh;
+      pointer-events: none;
+      z-index: 9999;
+      display: none;
+      opacity: 0;
+      transition: opacity 0.3s ease-out;
+    }
 
-        h1 { font-size: 28px; color: var(--kal-navy); margin: 0 0 10px 0; text-align: center; font-weight: 700; letter-spacing: -0.5px; }
-        body.dark-mode h1 { color: var(--kal-blue); }
+    .container {
+      background-color: var(--card-bg);
+      width: 100%;
+      max-width: 600px;
+      border-radius: 16px;
+      box-shadow: 0 10px 30px rgba(0,32,91,0.08);
+      padding: 30px 25px;
+      margin-bottom: 40px;
+      border-top: 6px solid var(--kal-blue);
+      transition: 0.3s;
+      position: relative;
+    }
 
-        .input-box { width: 100%; padding: 15px; border-radius: 8px; border: 2px solid var(--border-color); background: var(--card-bg); color: var(--text-main); font-size: 16px; font-weight: 700; font-family: 'HanjinGroupSans'; box-sizing: border-box; margin-bottom: 10px;}
-        
-        .mode-select-container { display: flex; gap: 15px; margin-bottom: 25px; }
-        .mode-label { flex: 1; cursor: pointer; display: block; }
-        .mode-label input[type="radio"] { display: none; } 
-        .mode-box { border: 2px solid var(--border-color); border-radius: 12px; padding: 20px 10px; text-align: center; background: var(--card-bg); transition: all 0.2s ease; }
-        .mode-title { font-size: 18px; font-weight: 700; color: var(--text-main); margin-bottom: 5px; }
-        .mode-desc { font-size: 13px; color: var(--text-muted); font-weight: 400; line-height: 1.4; }
-        .mode-label input[type="radio"]:checked + .mode-box { border-color: var(--kal-blue); background-color: var(--kal-light); box-shadow: 0 4px 12px rgba(0, 100, 178, 0.15); }
-        .mode-label input[type="radio"]:checked + .mode-box .mode-title { color: var(--kal-blue); }
+    .app-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+      padding-bottom: 15px;
+      border-bottom: 1px solid var(--border-color);
+      gap: 10px;
+    }
 
-        .btn { display: block; width: 100%; padding: 18px; margin: 12px 0; border: none; border-radius: 8px; font-size: 18px; font-weight: 700; cursor: pointer; font-family: 'HanjinGroupSans'; transition: 0.2s; }
-        .btn-primary { background-color: var(--kal-blue); color: #fff; }
-        .btn-primary:hover { background-color: var(--kal-navy); }
-        .btn-secondary { background-color: var(--kal-light); color: var(--kal-navy); border: 2px solid var(--kal-blue); }
+    .theme-toggle {
+      background: none;
+      border: 2px solid var(--border-color);
+      color: var(--text-main);
+      padding: 8px 14px;
+      border-radius: 20px;
+      font-weight: 700;
+      cursor: pointer;
+      font-family: inherit;
+    }
 
-        .screen { display: none; animation: fadeIn 0.3s ease-in-out; }
-        .screen.active { display: block; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
+    .timer {
+      font-weight: 700;
+      color: var(--wrong-color);
+      font-size: 20px;
+      letter-spacing: 1px;
+      white-space: nowrap;
+    }
 
-        .status-bar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; border-bottom: 2px dashed var(--border-color); padding-bottom: 10px; }
-        .progress-text { font-size: 17px; font-weight: 700; color: var(--kal-blue); }
-        .score-board { font-size: 16px; font-weight: 700; display: flex; gap: 15px; }
-        .score-board .ok { color: var(--correct-color); }
-        .score-board .no { color: var(--wrong-color); }
+    .timer.paused {
+      color: var(--kal-blue);
+      opacity: 0.5;
+      animation: blink 1s infinite;
+    }
 
-        .quiz-word { font-size: 56px; font-weight: 700; color: var(--kal-navy); text-align: center; margin: 20px 0; line-height: 1.1; }
-        body.dark-mode .quiz-word { color: #FFFFFF; }
-        
-        .sound-btn { background-color: var(--kal-light); border: 1px solid var(--kal-blue); color: var(--kal-navy); padding: 8px 16px; border-radius: 20px; font-weight: 700; cursor: pointer; display: block; margin: 0 auto 25px auto; font-family: 'HanjinGroupSans'; transition: 0.2s; }
-        .sound-btn:active { background-color: var(--kal-blue); color: white; }
+    @keyframes blink { 50% { opacity: 1; } }
 
-        .options-grid { display: grid; gap: 12px; }
-        .option-btn { background-color: var(--card-bg); border: 2px solid var(--border-color); color: var(--text-main); padding: 22px; border-radius: 12px; font-size: 19px; font-weight: 700; cursor: pointer; transition: all 0.2s; font-family: 'HanjinGroupSans'; line-height: 1.3; }
-        .option-btn.correct { background-color: var(--correct-color) !important; color: white !important; border-color: var(--correct-color) !important; font-size: 21px; }
-        .option-btn.wrong { background-color: var(--wrong-color) !important; color: white !important; border-color: var(--wrong-color) !important; font-size: 21px; }
-        
-        #testModeWarning { color: var(--wrong-color); font-weight: 700; text-align: center; margin-bottom: 15px; font-size: 16px; display: none; animation: blink 1s infinite; }
+    h1 {
+      font-size: 28px;
+      color: var(--kal-navy);
+      margin: 0 0 10px 0;
+      text-align: center;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+    }
 
-        .feedback-area { margin-top: 30px; padding: 25px; background-color: var(--kal-light); border-radius: 12px; display: none; border-left: 6px solid var(--wrong-color); }
-        .exp-step { background-color: var(--card-bg); padding: 18px; border-radius: 8px; font-size: 17px; line-height: 1.6; margin-bottom: 15px; border: 1px solid var(--border-color); color: var(--text-main); }
-        .exp-step strong { color: var(--kal-navy); font-weight: 700; }
-        body.dark-mode .exp-step strong { color: var(--kal-blue); }
+    body.dark-mode h1 { color: var(--kal-blue); }
 
-        .typing-container { background-color: rgba(255,255,255,0.9); padding: 25px; border-radius: 12px; margin-top: 20px; border: 3px dashed var(--kal-blue); }
-        body.dark-mode .typing-container { background-color: rgba(0,0,0,0.4); }
-        .target-text { font-size: 32px; font-weight: 700; color: var(--wrong-color); text-align: center; margin-bottom: 15px; letter-spacing: 1px; }
-        .guide-text { text-align: center; color: var(--kal-navy); font-weight: 700; margin-bottom: 10px; font-size: 16px; }
+    .input-box {
+      width: 100%;
+      padding: 15px;
+      border-radius: 8px;
+      border: 2px solid var(--border-color);
+      background: var(--card-bg);
+      color: var(--text-main);
+      font-size: 16px;
+      font-weight: 700;
+      font-family: inherit;
+      margin-bottom: 10px;
+    }
 
-        .score-circle { width: 150px; height: 150px; background: var(--kal-blue); color: white; border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 46px; font-weight: 700; margin: 30px auto; }
-        .word-list-container { max-height: 60vh; overflow-y: auto; text-align: left; border: 2px solid var(--border-color); border-radius: 8px; padding: 15px; margin-bottom: 20px;}
-        .word-item { padding: 12px 5px; border-bottom: 1px solid var(--border-color); }
-    </style>
+    .mode-select-container { display: flex; gap: 15px; margin-bottom: 25px; }
+    .mode-label { flex: 1; cursor: pointer; display: block; }
+    .mode-label input[type="radio"] { display: none; }
+    .mode-box {
+      border: 2px solid var(--border-color);
+      border-radius: 12px;
+      padding: 20px 10px;
+      text-align: center;
+      background: var(--card-bg);
+      transition: all 0.2s ease;
+      min-height: 100px;
+    }
+    .mode-title { font-size: 18px; font-weight: 700; color: var(--text-main); margin-bottom: 5px; }
+    .mode-desc { font-size: 13px; color: var(--text-muted); font-weight: 400; line-height: 1.4; }
+    .mode-label input[type="radio"]:checked + .mode-box {
+      border-color: var(--kal-blue);
+      background-color: var(--kal-light);
+      box-shadow: 0 4px 12px rgba(0, 100, 178, 0.15);
+    }
+    .mode-label input[type="radio"]:checked + .mode-box .mode-title { color: var(--kal-blue); }
+
+    .btn {
+      display: block;
+      width: 100%;
+      padding: 18px;
+      margin: 12px 0;
+      border: none;
+      border-radius: 8px;
+      font-size: 18px;
+      font-weight: 700;
+      cursor: pointer;
+      font-family: inherit;
+      transition: 0.2s;
+    }
+
+    .btn-primary { background-color: var(--kal-blue); color: #fff; }
+    .btn-primary:hover { background-color: var(--kal-navy); }
+    .btn-secondary { background-color: var(--kal-light); color: var(--kal-navy); border: 2px solid var(--kal-blue); }
+
+    .screen { display: none; animation: fadeIn 0.3s ease-in-out; }
+    .screen.active { display: block; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
+
+    .status-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 10px;
+      border-bottom: 2px dashed var(--border-color);
+      padding-bottom: 10px;
+    }
+
+    .progress-text { font-size: 17px; font-weight: 700; color: var(--kal-blue); }
+    .score-board { font-size: 16px; font-weight: 700; display: flex; gap: 15px; }
+    .score-board .ok { color: var(--correct-color); }
+    .score-board .no { color: var(--wrong-color); }
+
+    .quiz-word {
+      font-size: clamp(34px, 10vw, 56px);
+      font-weight: 700;
+      color: var(--kal-navy);
+      text-align: center;
+      margin: 20px 0;
+      line-height: 1.1;
+      overflow-wrap: anywhere;
+    }
+
+    body.dark-mode .quiz-word { color: #FFFFFF; }
+
+    .sound-btn {
+      background-color: var(--kal-light);
+      border: 1px solid var(--kal-blue);
+      color: var(--kal-navy);
+      padding: 8px 16px;
+      border-radius: 20px;
+      font-weight: 700;
+      cursor: pointer;
+      display: block;
+      margin: 0 auto 25px auto;
+      font-family: inherit;
+      transition: 0.2s;
+    }
+
+    .sound-btn:active { background-color: var(--kal-blue); color: white; }
+    .options-grid { display: grid; gap: 12px; }
+
+    .option-btn {
+      background-color: var(--card-bg);
+      border: 2px solid var(--border-color);
+      color: var(--text-main);
+      padding: 22px;
+      border-radius: 12px;
+      font-size: 19px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s;
+      font-family: inherit;
+      line-height: 1.3;
+      text-align: center;
+    }
+
+    .option-btn.correct { background-color: var(--correct-color) !important; color: white !important; border-color: var(--correct-color) !important; font-size: 21px; }
+    .option-btn.wrong { background-color: var(--wrong-color) !important; color: white !important; border-color: var(--wrong-color) !important; font-size: 21px; }
+
+    #testModeWarning {
+      color: var(--wrong-color);
+      font-weight: 700;
+      text-align: center;
+      margin-bottom: 15px;
+      font-size: 16px;
+      display: none;
+      animation: blink 1s infinite;
+    }
+
+    .feedback-area {
+      margin-top: 30px;
+      padding: 25px;
+      background-color: var(--kal-light);
+      border-radius: 12px;
+      display: none;
+      border-left: 6px solid var(--wrong-color);
+    }
+
+    .exp-step {
+      background-color: var(--card-bg);
+      padding: 18px;
+      border-radius: 8px;
+      font-size: 17px;
+      line-height: 1.6;
+      margin-bottom: 15px;
+      border: 1px solid var(--border-color);
+      color: var(--text-main);
+    }
+
+    .exp-step strong { color: var(--kal-navy); font-weight: 700; }
+    body.dark-mode .exp-step strong { color: var(--kal-blue); }
+
+    .typing-container {
+      background-color: rgba(255,255,255,0.9);
+      padding: 25px;
+      border-radius: 12px;
+      margin-top: 20px;
+      border: 3px dashed var(--kal-blue);
+    }
+
+    body.dark-mode .typing-container { background-color: rgba(0,0,0,0.4); }
+    .target-text { font-size: 32px; font-weight: 700; color: var(--wrong-color); text-align: center; margin-bottom: 15px; letter-spacing: 1px; overflow-wrap: anywhere; }
+    .guide-text { text-align: center; color: var(--kal-navy); font-weight: 700; margin-bottom: 10px; font-size: 16px; }
+
+    .score-circle {
+      width: 150px;
+      height: 150px;
+      background: var(--kal-blue);
+      color: white;
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 46px;
+      font-weight: 700;
+      margin: 30px auto;
+    }
+
+    .word-list-toolbar { display: flex; gap: 8px; margin-bottom: 12px; }
+    .word-list-container {
+      max-height: 65vh;
+      overflow-y: auto;
+      text-align: left;
+      border: 2px solid var(--border-color);
+      border-radius: 8px;
+      padding: 10px 15px;
+      margin-bottom: 20px;
+    }
+
+    .word-item {
+      display: grid;
+      grid-template-columns: minmax(125px, 0.8fr) 1.5fr;
+      gap: 14px;
+      padding: 12px 5px;
+      border-bottom: 1px solid var(--border-color);
+      align-items: start;
+    }
+
+    .word-item:last-child { border-bottom: none; }
+    .word-item .en { font-weight: 700; color: var(--kal-navy); overflow-wrap: anywhere; }
+    .word-item .ko { color: var(--text-main); line-height: 1.45; }
+    body.dark-mode .word-item .en { color: var(--kal-blue); }
+
+    .data-info {
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 13px;
+      margin-top: -10px;
+      margin-bottom: 15px;
+    }
+
+    @media (max-width: 520px) {
+      body { padding: 10px 8px; }
+      .container { padding: 20px 14px; border-radius: 12px; }
+      .mode-select-container { gap: 8px; }
+      .mode-box { padding: 16px 6px; }
+      .status-bar { align-items: flex-start; flex-direction: column; }
+      .word-item { grid-template-columns: 1fr; gap: 5px; }
+    }
+  </style>
 </head>
 
 <body oncontextmenu="return false;" ondragstart="return false;" onselectstart="return false;">
+  <div id="flashOverlay"></div>
 
-<div id="flashOverlay"></div>
-
-<div class="container">
+  <div class="container">
     <div class="app-header">
-        <button class="theme-toggle" onclick="toggleTheme()" id="themeBtn">🌙 다크 모드</button>
-        <span id="timerText" class="timer" style="display: none;">⏱ 10:00</span>
+      <button class="theme-toggle" onclick="toggleTheme()" id="themeBtn">🌙 다크 모드</button>
+      <span id="timerText" class="timer" style="display:none;">⏱ 10:00</span>
     </div>
 
     <div id="menuScreen" class="screen active">
-        <h1>영단어 마스터 [심화편]</h1>
-        
-        <div style="text-align: left; margin: 30px 0;">
-            <label style="font-weight: 700; display: block; margin-bottom: 10px; color: var(--kal-navy);">⚙️ 문제 형태 선택</label>
-            <div class="mode-select-container">
-                <label class="mode-label">
-                    <input type="radio" name="quizMode" value="practice" checked>
-                    <div class="mode-box">
-                        <div class="mode-title">모의고사</div>
-                        <div class="mode-desc">상세 해설 확인<br>타이핑 강제 복습</div>
-                    </div>
-                </label>
-                <label class="mode-label">
-                    <input type="radio" name="quizMode" value="test">
-                    <div class="mode-box">
-                        <div class="mode-title">실전고사</div>
-                        <div class="mode-desc">논스톱 타이머<br>오답 시 '음성 연동 5회 터치'</div>
-                    </div>
-                </label>
+      <h1>영단어 마스터 [심화편]</h1>
+      <div class="data-info" id="dataInfo">단어 데이터 불러오는 중...</div>
+
+      <div style="text-align:left; margin:30px 0;">
+        <label style="font-weight:700; display:block; margin-bottom:10px; color:var(--kal-navy);">⚙️ 문제 형태 선택</label>
+        <div class="mode-select-container">
+          <label class="mode-label">
+            <input type="radio" name="quizMode" value="practice" checked />
+            <div class="mode-box">
+              <div class="mode-title">모의고사</div>
+              <div class="mode-desc">상세 해설 확인<br />타이핑 강제 복습</div>
             </div>
-
-            <label style="font-weight: 700; display: block; margin-bottom: 10px; color: var(--kal-navy);">⏳ 시험 시간 설정 (분)</label>
-            <input type="number" id="timeLimitInput" class="input-box" value="10" min="1" max="100">
-
-            <label style="font-weight: 700; display: block; margin-bottom: 10px; color: var(--kal-navy); margin-top: 15px;">🎯 출제 범위 (단어 번호)</label>
-            <div style="display: flex; gap: 10px; margin-bottom: 20px;">
-                <input type="number" id="startNum" class="input-box" placeholder="시작" value="421">
-                <span style="font-size: 20px; font-weight: 700; line-height: 50px;">~</span>
-                <input type="number" id="endNum" class="input-box" placeholder="끝" value="600">
+          </label>
+          <label class="mode-label">
+            <input type="radio" name="quizMode" value="test" />
+            <div class="mode-box">
+              <div class="mode-title">실전고사</div>
+              <div class="mode-desc">논스톱 타이머<br />오답 시 정답 5회 터치</div>
             </div>
-
-            <label style="font-weight: 700; display: block; margin-bottom: 10px; color: var(--kal-navy);">📝 출제 문항 수</label>
-            <select id="questionCountSelect" class="input-box">
-                <option value="10">10문제</option>
-                <option value="20">20문제</option>
-                <option value="50">50문제</option>
-                <option value="all">범위 전체 다 풀기</option>
-            </select>
+          </label>
         </div>
-        <button class="btn btn-primary" onclick="startQuiz()">📝 시험 시작하기</button>
-        <button class="btn btn-secondary" onclick="showWordList()">📖 전체 단어장 보기</button>
+
+        <label style="font-weight:700; display:block; margin-bottom:10px; color:var(--kal-navy);">⏳ 시험 시간 설정 (분)</label>
+        <input type="number" id="timeLimitInput" class="input-box" value="10" min="1" max="100" />
+
+        <label style="font-weight:700; display:block; margin-bottom:10px; color:var(--kal-navy); margin-top:15px;">🎯 출제 범위 (단어 번호)</label>
+        <div style="display:flex; gap:10px; margin-bottom:20px; align-items:flex-start;">
+          <input type="number" id="startNum" class="input-box" placeholder="시작" value="421" />
+          <span style="font-size:20px; font-weight:700; line-height:50px;">~</span>
+          <input type="number" id="endNum" class="input-box" placeholder="끝" value="600" />
+        </div>
+
+        <label style="font-weight:700; display:block; margin-bottom:10px; color:var(--kal-navy);">📝 출제 문항 수</label>
+        <select id="questionCountSelect" class="input-box">
+          <option value="10">10문제</option>
+          <option value="20">20문제</option>
+          <option value="50">50문제</option>
+          <option value="all">범위 전체 다 풀기</option>
+        </select>
+      </div>
+
+      <button class="btn btn-primary" onclick="startQuiz()">📝 시험 시작하기</button>
+      <button class="btn btn-secondary" onclick="showWordList()">📖 전체 단어장 보기</button>
     </div>
 
     <div id="quizScreen" class="screen">
-        <div class="status-bar">
-            <div class="progress-text" id="progressText">문제 1 / 10</div>
-            <div class="score-board">
-                <span class="ok">⭕ 정답: <span id="scoreCorrect">0</span></span>
-                <span class="no">❌ 오답: <span id="scoreWrong">0</span></span>
-            </div>
+      <div class="status-bar">
+        <div class="progress-text" id="progressText">문제 1 / 10</div>
+        <div class="score-board">
+          <span class="ok">⭕ 정답: <span id="scoreCorrect">0</span></span>
+          <span class="no">❌ 오답: <span id="scoreWrong">0</span></span>
         </div>
-        
-        <div class="quiz-word" id="quizWord">Loading...</div>
-        <button class="sound-btn" onclick="speakWord(document.getElementById('quizWord').innerText, 1)">🔊 발음 다시 듣기</button>
+      </div>
 
-        <div id="testModeWarning">🚨 오답! 정답 버튼을 5번 터치하세요.<br><span style="font-size: 14px; font-weight:400; color:var(--text-main);">(※ 터치 시 발음이 끝날 때까지 대기해야 합니다.)</span></div>
+      <div class="quiz-word" id="quizWord">Loading...</div>
+      <button class="sound-btn" onclick="speakWord(document.getElementById('quizWord').innerText, 1)">🔊 발음 다시 듣기</button>
 
-        <div class="options-grid" id="optionsGrid"></div>
+      <div id="testModeWarning">🚨 오답! 정답 버튼을 5번 터치하세요.<br /><span style="font-size:14px; font-weight:400; color:var(--text-main);">(발음이 끝난 뒤 다시 터치할 수 있습니다.)</span></div>
 
-        <div class="feedback-area" id="feedbackArea">
-            <h3 style="color: var(--wrong-color); margin-top:0;">🚨 오답 노트 (타이머 일시정지)</h3>
-            <div id="explanationContainer"></div>
-            <button class="btn step-btn" id="stepConfirmBtn" onclick="showNextExplanationStep()">다음 문장 읽기 ➔</button>
+      <div class="options-grid" id="optionsGrid"></div>
 
-            <div id="typingContainer" class="typing-container" style="display:none;">
-                <div class="guide-text">STEP 1. 영단어를 똑같이 타이핑하세요.</div>
-                <div class="target-text" id="targetEng"></div>
-                <input type="text" id="typeEngInput" class="input-box" placeholder="영어 직접 타이핑 (복붙 불가)" autocomplete="off" oninput="checkEngTyping(event)" onpaste="return false;" oncopy="return false;" oncut="return false;">
+      <div class="feedback-area" id="feedbackArea">
+        <h3 style="color:var(--wrong-color); margin-top:0;">🚨 오답 노트 (타이머 일시정지)</h3>
+        <div id="explanationContainer"></div>
+        <button class="btn btn-secondary" id="stepConfirmBtn" onclick="showNextExplanationStep()">다음 문장 읽기 ➔</button>
 
-                <div id="korTypingSection" style="display:none; margin-top:25px;">
-                    <div class="guide-text">STEP 2. 한글 뜻 타이핑 (괄호/점 무시)</div>
-                    <div class="target-text" id="targetKor" style="font-size: 26px; color: var(--kal-navy);"></div>
-                    <input type="text" id="typeKorInput" class="input-box" placeholder="한글 뜻 직접 타이핑 (복붙 불가)" autocomplete="off" oninput="checkKorTyping(event)" onpaste="return false;" oncopy="return false;" oncut="return false;">
-                </div>
-                <button class="btn btn-primary" id="typingNextBtn" style="display:none; margin-top:25px;" onclick="nextQuestion()">✅ 복습 완료! 다음 문제 ➔</button>
-            </div>
+        <div id="typingContainer" class="typing-container" style="display:none;">
+          <div class="guide-text">STEP 1. 영단어를 똑같이 타이핑하세요.</div>
+          <div class="target-text" id="targetEng"></div>
+          <input type="text" id="typeEngInput" class="input-box" placeholder="영어 직접 타이핑 (복붙 불가)" autocomplete="off" oninput="checkEngTyping(event)" onpaste="return false;" oncopy="return false;" oncut="return false;" />
+
+          <div id="korTypingSection" style="display:none; margin-top:25px;">
+            <div class="guide-text">STEP 2. 한글 뜻 타이핑 (공백/일부 기호 무시)</div>
+            <div class="target-text" id="targetKor" style="font-size:26px; color:var(--kal-navy);"></div>
+            <input type="text" id="typeKorInput" class="input-box" placeholder="한글 뜻 직접 타이핑 (복붙 불가)" autocomplete="off" oninput="checkKorTyping(event)" onpaste="return false;" oncopy="return false;" oncut="return false;" />
+          </div>
+          <button class="btn btn-primary" id="typingNextBtn" style="display:none; margin-top:25px;" onclick="nextQuestion()">✅ 복습 완료! 다음 문제 ➔</button>
         </div>
+      </div>
     </div>
 
     <div id="resultScreen" class="screen">
-        <h1 style="font-size: 32px;">시험 결과 리포트</h1>
-        <div id="finalScore" class="score-circle"></div>
-        <div id="resultMsg" style="text-align: center; font-size: 20px; margin-bottom: 30px; font-weight: 700; line-height: 1.8;"></div>
-        <button class="btn btn-primary" onclick="goHome()">🏠 메인으로 돌아가기</button>
+      <h1 style="font-size:32px;">시험 결과 리포트</h1>
+      <div id="finalScore" class="score-circle"></div>
+      <div id="resultMsg" style="text-align:center; font-size:20px; margin-bottom:30px; font-weight:700; line-height:1.8;"></div>
+      <button class="btn btn-primary" onclick="goHome()">🏠 메인으로 돌아가기</button>
     </div>
-</div>
 
-<script>
-// ==========================================
-// 1. 전체 단어 데이터 세팅 (1701~3000 복사)
-// ==========================================
-const rawData = `
+    <div id="studyScreen" class="screen">
+      <h1>전체 단어장</h1>
+      <div class="word-list-toolbar">
+        <input type="text" id="wordSearchInput" class="input-box" placeholder="번호, 영단어, 뜻 검색" oninput="renderWordList(this.value)" />
+      </div>
+      <div id="wordListContainer" class="word-list-container"></div>
+      <button class="btn btn-primary" onclick="goHome()">🏠 메인으로 돌아가기</button>
+    </div>
+  </div>
 
-0421 / involve / 수반[포함]하다, 관련[연루]시키다
-0422 / theme / 주제, 테마
-0423 / basis / 기반, 기초, 근거, 이유
-0424 / formal / 공식적인, 정식의
-0425 / tight / 단단한, 꽉 조여 있는, 빈틈없이 꽉 찬
-0426 / embarrass / 당황스럽게 만들다, 난처하게 하다
-0427 / adjust / 조정[조절]하다, 적응시키다
+  <script>
+    // ==========================================
+    // 1. 전체 단어 데이터: 0421 ~ 0600 (180개)
+    // ==========================================
+    const rawData = `
+0421 / migrate / 이동하다, 이주하다
+0422 / charge / 책임, 담당; 충전하다; 기소하다
+0423 / weapon / 무기
+0424 / chant / 구호; 외치다
+0425 / negative / 부정적인, 부정의; 부정
+0426 / idle / 게으른, 나태한; 가동되지 않는
+0427 / proceed / 진행되다, 계속해서 ~을 하다
+0428 / involve / 수반[포함]하다, 관련[연루]시키다
+0429 / theme / 주제, 테마
+0430 / basis / 기반, 기초; 근거, 이유
+0431 / formal / 공식적인, 정식의
+0432 / tight / 단단한, 꽉 조여 있는; 단단하게, 꽉
+0433 / embarrass / 당황스럽게 만들다, 난처하게 하다
+0434 / adjust / 조정[조절]하다; 적응하다
 0435 / suggestion / 제안, 제의
-0436 / demand / 요구하다, 요구, 수요
+0436 / demand / 요구하다; 요구, 수요
 0437 / philosophy / 철학
-0438 / acquire / 얻다, 습득하다, 획득[취득]하다
-0439 / check out / ~을 확인[조사]하다, (도서관 등에서) 대출하다
-0440 / only a few / only a little / 몇 안 되는, 아주 조금[적인]
+0438 / acquire / 얻다, 습득하다; 획득[취득]하다
+0439 / check out / ~을 확인[조사]하다; (도서관 등에서) 대출하다
+0440 / only a few / only a little / 몇 안 되는 / 아주 조금[적은]
 0441 / optimistic / 낙관적인, 낙천적인
 0442 / misunderstand / 오해하다
 0443 / empire / 제국
 0444 / unexpected / 예기치 않은, 예상 밖의
-0445 / burden / 부담, 짐, 부담을 지우다
+0445 / burden / 부담, 짐; 부담을 지우다
 0446 / attractive / 매력적인
-0447 / deny / 부정[부인]하다, 거부하다
+0447 / deny / 부정[부인]하다; 거부하다
 0448 / frustrate / 좌절시키다
 0449 / refresh / 생기를 되찾게[상쾌하게] 하다
-0450 / profit / 이익, 이윤, 이득을 얻다
+0450 / profit / 이익, 이윤; 이득을 얻다
 0451 / seal / 밀봉[밀폐]하다
 0452 / comparison / 비교, 대조
 0453 / precise / 정확한, 정밀한
 0454 / amaze / (대단히) 놀라게 하다
 0455 / immediate / 즉각적인
 0456 / jealous / 질투하는
-0457 / suspension / 연기, 보류, 유예, 정직, 정지
+0457 / suspension / 연기, 보류, 유예; 정직, 정지
 0458 / calculate / 계산하다
 0459 / as well as / ~뿐만 아니라
 0460 / on the other hand / 다른 한편으로는, 반면에
 0461 / distant / 먼, 떨어져 있는
-0462 / characteristic / 특유의, 특징, 특성
-0463 / expert / 전문가, 전문가의, 숙련된
-0464 / criticize / 비평[비판]하다, 비난하다
+0462 / characteristic / 특유의; 특징, 특성
+0463 / expert / 전문가; 전문가의, 숙련된
+0464 / criticize / 비평[비판]하다; 비난하다
 0465 / welfare / 복지, 후생
 0466 / totally / 완전히, 전적으로
-0467 / dramatic / 극적인, 연극의
-0468 / justice / 정의, 공정, 공평, 사법, 재판
-0469 / accuse / 고발[기소]하다, 비난하다
-0470 / relationship / 관계, 관련, 연관성
-0471 / pray / 기도하다, 기원하다
+0467 / dramatic / 극적인; 연극의
+0468 / justice / 정의, 공정, 공평; 사법, 재판
+0469 / accuse / 고발[기소]하다; 비난하다
+0470 / relationship / 관계; 관련, 연관성
+0471 / pray / 기도하다; 기원하다
 0472 / mutual / 상호 간의, 서로의
 0473 / loyal / 충실한, 충성스러운
-0474 / conclude / 결론을 내리다, 끝내다
-0475 / animate / 생기를 불어넣다, 살아 있는, 생물인
-0476 / public / 공공의, 대중의, 국가의
-0477 / visible / (눈에) 보이는, 가시적인, 뚜렷한
-0478 / insult / 모욕하다, 모욕, 무례
+0474 / conclude / 결론을 내리다; 끝내다
+0475 / animate / 생기를 불어넣다; 살아 있는, 생물인
+0476 / public / 공공의, 대중의; 국가의
+0477 / visible / (눈에) 보이는; 가시적인, 뚜렷한
+0478 / insult / 모욕하다; 모욕, 무례
 0479 / fall off / 떨어지다
-0480 / take advantage of / ~을 이용하다, ~을 기회로 활용하다
+0480 / take advantage of / ~을 이용하다; ~을 기회로 활용하다
 0481 / income / 소득, 수입
 0482 / participate / 참가하다, 참여하다
-0483 / supply / 공급하다, 공급, 보유량
+0483 / supply / 공급하다; 공급, 보유량
 0484 / crisis / 위기
-0485 / wave / 파도, 물결, 파동, (손을) 흔들다
+0485 / wave / 파도, 물결; 파동; (손을) 흔들다
 0486 / float / (물 위나 공중에서) 떠가다, 뜨다
 0487 / beneath / ~ 아래에
 0488 / luxury / 호화로움, 사치
-0489 / noble / 고결한, 숭고한, 귀족의, 귀족
-0490 / purchase / 구입, 구매, 구입[구매]하다
-0491 / spoil / 망치다, (음식이) 상하다
+0489 / noble / 고결한, 숭고한; 귀족의, 귀족
+0490 / purchase / 구입, 구매; 구입[구매]하다
+0491 / spoil / 망치다; (음식이) 상하다
 0492 / electricity / 전기, 전력
 0493 / device / 장치, 기기
 0494 / warn / 경고하다, 주의를 주다
-0495 / defeat / 패배시키다[물리치다], 패배
+0495 / defeat / 패배시키다[물리치다]; 패배
 0496 / athletic / 탄탄한, 강건한
 0497 / anticipate / 예상하다, 예측하다
-0498 / lecture / 강의, 강연, 강의하다, 강연하다
+0498 / lecture / 강의, 강연; 강의하다, 강연하다
 0499 / stay up / 안 자다, 깨어 있다
 0500 / now that / ~이므로, ~이기 때문에
 0501 / purpose / 목적, 의도, 용도
-0502 / maintain / 유지하다, 지키다, 주장하다
+0502 / maintain / 유지하다, 지키다; 주장하다
 0503 / splendid / 정말 좋은[멋진], 훌륭한
-0504 / duty / 의무, 관세
+0504 / duty / 의무; 관세
 0505 / nowadays / 요즘에는, 오늘날에는
 0506 / explode / 터지다, 폭발하다
 0507 / wisdom / 지혜, 슬기, 현명함
 0508 / immigrate / (타국으로) 이주하다[이민을 오다]
 0509 / counselor / 상담사, 고문
-0510 / wound / 상처, 부상, 상처를 입히다
+0510 / wound / 상처, 부상; 상처를 입히다
 0511 / intelligence / 지능, 이해력
-0512 / legal / 합법적인, 법률의, 법적인
-0513 / charm / 매력, (~으로) 매혹하다
-0514 / absorb / 흡수하다, 열중하다
+0512 / legal / 합법적인; 법률의, 법적인
+0513 / charm / 매력; (~으로) 매혹하다
+0514 / absorb / 흡수하다; 열중하다
 0515 / poverty / 가난, 빈곤
 0516 / summarize / 요약하다
 0517 / cultivate / 경작하다, 재배하다
@@ -310,36 +562,36 @@ const rawData = `
 0519 / step on / ~을 (짓)밟다
 0520 / go across / ~을 건너다
 0521 / planet / 행성
-0522 / explore / 탐험하다, 조사[탐구]하다
-0523 / credit / 칭찬, 신용, 학점
-0524 / combine / 결합하다[되다], 합병하다[시키다]
-0525 / measure / 측정하다, 판단하다, 조치
+0522 / explore / 탐험하다; 조사[탐구]하다
+0523 / credit / 칭찬; 신용; 학점
+0524 / combine / 결합하다[되다]; 합병하다[시키다]
+0525 / measure / 측정하다; 판단하다; 조치
 0526 / craft / 공예, 기술
-0527 / struggle / 투쟁하다, 싸우다, 투쟁
-0528 / require / ~을 필요로 하다, 요구하다
+0527 / struggle / 투쟁하다, 싸우다; 투쟁
+0528 / require / ~을 필요로 하다; 요구하다
 0529 / legendary / 전설적인, 아주 유명한
-0530 / worth / ~의 가치가 있는, ~할 만한
-0531 / internal / 내부의, 체내의, 국내의
+0530 / worth / ~의 가치가 있는; ~할 만한
+0531 / internal / 내부의; 체내의; 국내의
 0532 / accelerate / 속도를 높이다, 가속하다
-0533 / import / 수입하다, 수입품, 수입
-0534 / publication / 출판, 발행
-0535 / accompany / 동행하다, (일·현상 등을) 수반하다
+0533 / import / 수입하다; 수입품, 수입
+0534 / publication / 출판, 발행; 출판물
+0535 / accompany / 동행하다; (일·현상 등을) 수반하다
 0536 / dynasty / 왕조, 시대
 0537 / whisper / 속삭이다, 귓속말하다
 0538 / predict / 예측하다, 예견하다
 0539 / live on / ~을 먹고 살다
 0540 / be responsible for / ~에 책임이 있다
-0541 / lay / 놓다, (알을) 낳다
-0542 / represent / 대표하다, 나타내다, 상징하다
+0541 / lay / 놓다; (알을) 낳다
+0542 / represent / 대표하다; 나타내다, 상징하다
 0543 / wicked / 못된, 사악한
 0544 / committee / 위원회
 0545 / consult / 상담하다, 상의하다
-0546 / experiment / 실험, 실험을 하다
+0546 / experiment / 실험; 실험을 하다
 0547 / devote / 바치다, 전념하다
-0548 / submit / 제출하다, 굴복[복종]하다
+0548 / submit / 제출하다; 굴복[복종]하다
 0549 / dynamic / 역동적인
-0550 / comment / 논평, 언급, 논평하다, 의견을 말하다
-0551 / propose / 제안[제의]하다, 청혼하다
+0550 / comment / 논평, 언급; 논평하다, 의견을 말하다
+0551 / propose / 제안[제의]하다; 청혼하다
 0552 / invasion / 침략, 침공, 침해
 0553 / motivate / 동기를 부여하다
 0554 / impression / 인상, 느낌
@@ -349,468 +601,611 @@ const rawData = `
 0558 / penalty / 처벌, 불이익
 0559 / hardly ever / 거의 ~않다
 0560 / give in / (~에게) 항복하다
-0561 / export / 수출하다, 수출
-0562 / mention / 말하다, 언급하다, 언급, 거론
+0561 / export / 수출하다; 수출
+0562 / mention / 말하다, 언급하다; 언급, 거론
 0563 / differ / 다르다
 0564 / invest / 투자하다
-0565 / contract / 계약, 계약하다
-0566 / force / 힘, 강요하다, 강제하다
+0565 / contract / 계약; 계약하다
+0566 / force / 힘; 강요하다, 강제하다
 0567 / remind / 상기시키다, 생각나게 하다
 0568 / punish / 처벌하다, 벌주다
 0569 / advantage / 이점, 장점
-0570 / reasonable / 타당한, 합리적인, 적당한
-0571 / capture / (사람을) 포로로 잡다, 붙잡다, 포획하다
+0570 / reasonable / 타당한, 합리적인; 적당한
+0571 / capture / (사람을) 포로로 잡다; 붙잡다, 포획하다
 0572 / literature / 문학
 0573 / recent / 최근의
-0574 / worship / 숭배하다, 예배하다, 예배, 숭배
+0574 / worship / 숭배하다; 예배하다; 예배, 숭배
 0575 / conclusion / 결론, 판단
 0576 / task / 과업, 과제
 0577 / destiny / 운명
 0578 / political / 정치적인
 0579 / be used to ~ing / ~하는 데 익숙하다
 0580 / no longer / 더 이상 ~아닌
-0581 / valuable / 소중한, 귀중한, 값비싼
+0581 / valuable / 소중한, 귀중한; 값비싼
 0582 / pollution / 오염, 공해
-0583 / atmosphere / 대기, 분위기, 기운
-0584 / witness / 목격자, 증인, 목격하다
+0583 / atmosphere / 대기; 분위기, 기운
+0584 / witness / 목격자, 증인; 목격하다
 0585 / conference / 회의, 학회
 0586 / priority / 우선 사항, 우선하는 일
 0587 / disappoint / 실망시키다, 좌절시키다
-0588 / relative / 친척, 상대적인
+0588 / relative / 친척; 상대적인
 0589 / twisted / 뒤틀린, 일그러진
-0590 / recall / 기억해 내다, 상기하다, 회수, 리콜 조치
-0591 / contribute / 기부하다, 기여하다
-0592 / occasion / 때, 기회, 행사
-0593 / direction / 방향, 지시
+0590 / recall / 기억해 내다, 상기하다; 회수, 리콜 조치
+0591 / contribute / 기부하다; 기여하다
+0592 / occasion / 때, 기회; 행사
+0593 / direction / 방향; 지시
 0594 / exhibition / 전시회, 전시
 0595 / laundry / 세탁물, 세탁
 0596 / accommodate / 공간을 제공하다, 수용하다
-0597 / household / 가구, 가정, 가정의
-0598 / liberal / 자유민주적인, 진보적인
+0597 / household / 가구, 가정; 가정의
+0598 / liberal / 자유민주적인; 진보적인
 0599 / put ~ in danger / ~을 위험에 빠뜨리다
 0600 / be eager for / ~을 열망하다, 간절히 바라다
-; 
-// ※ 실제 사용 시 전체 목록을 복사하세요.
+`;
 
-// ==========================================
-// 2. 심층 해설 DB 세팅
-// ==========================================
-const detailedExplanationDB = {
-    // 만들어 드렸던 해설, 그리고 아래 2351번부터 제공되는 해설을 붙여넣으세요.
-};
+    // ==========================================
+    // 2. 선택적 심층 해설 DB
+    // ==========================================
+    const detailedExplanationDB = {};
 
-let vocabList = [];
-let quizQueue = [];
-let currentIndex = 0;
-let scoreOk = 0;
-let scoreNo = 0;
-let timerInterval = null;
-let timeLeft = 600;
-let isPaused = false; 
-let currentMode = 'practice'; 
-let currentExpSteps = [];
-let currentStepIndex = 0;
-let audioCtx; 
+    let vocabList = [];
+    let quizQueue = [];
+    let currentIndex = 0;
+    let scoreOk = 0;
+    let scoreNo = 0;
+    let timerInterval = null;
+    let timeLeft = 600;
+    let isPaused = false;
+    let currentMode = 'practice';
+    let currentExpSteps = [];
+    let currentStepIndex = 0;
+    let audioCtx = null;
+    let testModeClickCount = 0;
 
-let testModeClickCount = 0;
-
-function init() { 
-    vocabList = rawData.trim().split('\n').map(line => {
-        const parts = line.split('/').map(p => p.trim());
-        if(parts.length >= 3) return { id: parseInt(parts[0]), word: parts[1], meaning: parts[2] };
-        return null;
-    }).filter(item => item);
-    
-    if(vocabList.length > 0) {
-        document.getElementById('startNum').value = vocabList[0].id;
-        document.getElementById('endNum').value = vocabList[vocabList.length-1].id;
+    function parseRawData() {
+      return rawData
+        .trim()
+        .split(/\r?\n/)
+        .map(line => {
+          const parts = line.split(' / ').map(p => p.trim());
+          if (parts.length < 3) return null;
+          const idText = parts.shift();
+          const meaning = parts.pop();
+          const word = parts.join(' / ');
+          const id = Number.parseInt(idText, 10);
+          if (!Number.isFinite(id) || !word || !meaning) return null;
+          return { id, word, meaning };
+        })
+        .filter(Boolean)
+        .sort((a, b) => a.id - b.id);
     }
-}
 
-function showScreen(id) {
-    document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
-    document.getElementById(id).classList.add('active');
-    document.getElementById('timerText').style.display = (id === 'quizScreen') ? 'block' : 'none';
-}
+    function init() {
+      vocabList = parseRawData();
 
-function goHome() {
-    clearInterval(timerInterval);
-    window.speechSynthesis.cancel();
-    showScreen('menuScreen');
-}
+      if (vocabList.length === 0) {
+        alert('단어 데이터를 불러오지 못했습니다. rawData 형식을 확인하세요.');
+        return;
+      }
 
-// 🔊 효과음 시스템
-function initAudio() {
-    if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-    if (audioCtx.state === 'suspended') audioCtx.resume();
-}
-function playCorrectSound() {
-    initAudio(); const osc = audioCtx.createOscillator(); const gainNode = audioCtx.createGain();
-    osc.connect(gainNode); gainNode.connect(audioCtx.destination); osc.type = 'sine';
-    osc.frequency.setValueAtTime(523.25, audioCtx.currentTime); 
-    osc.frequency.setValueAtTime(659.25, audioCtx.currentTime + 0.1); 
-    osc.frequency.setValueAtTime(783.99, audioCtx.currentTime + 0.2); 
-    gainNode.gain.setValueAtTime(0.3, audioCtx.currentTime);
-    gainNode.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.5);
-    osc.start(); osc.stop(audioCtx.currentTime + 0.5);
-}
-function playWrongSound() {
-    initAudio(); const osc = audioCtx.createOscillator(); const gainNode = audioCtx.createGain();
-    osc.connect(gainNode); gainNode.connect(audioCtx.destination); osc.type = 'sawtooth';
-    osc.frequency.setValueAtTime(150, audioCtx.currentTime);
-    osc.frequency.setValueAtTime(100, audioCtx.currentTime + 0.2);
-    gainNode.gain.setValueAtTime(0.3, audioCtx.currentTime);
-    gainNode.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.4);
-    osc.start(); osc.stop(audioCtx.currentTime + 0.4);
-}
-function playClickSound() {
-    initAudio(); const osc = audioCtx.createOscillator(); const gainNode = audioCtx.createGain();
-    osc.connect(gainNode); gainNode.connect(audioCtx.destination); osc.type = 'square';
-    osc.frequency.setValueAtTime(400, audioCtx.currentTime);
-    gainNode.gain.setValueAtTime(0.1, audioCtx.currentTime);
-    gainNode.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.1);
-    osc.start(); osc.stop(audioCtx.currentTime + 0.1);
-}
+      const ids = vocabList.map(v => v.id);
+      const uniqueIds = new Set(ids);
+      const duplicateCount = ids.length - uniqueIds.size;
 
-function flashScreen(color) {
-    const overlay = document.getElementById('flashOverlay');
-    overlay.style.backgroundColor = color;
-    overlay.style.display = 'block';
-    overlay.getBoundingClientRect(); 
-    overlay.style.opacity = '0.4';
-    setTimeout(() => {
+      document.getElementById('startNum').value = vocabList[0].id;
+      document.getElementById('endNum').value = vocabList[vocabList.length - 1].id;
+      document.getElementById('dataInfo').innerText = `등록 단어 ${vocabList.length}개 · ${vocabList[0].id}~${vocabList[vocabList.length - 1].id}${duplicateCount ? ` · 중복 ${duplicateCount}개` : ''}`;
+      updateThemeButton();
+    }
+
+    function showScreen(id) {
+      document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+      const target = document.getElementById(id);
+      if (!target) {
+        console.error(`화면을 찾을 수 없습니다: ${id}`);
+        return;
+      }
+      target.classList.add('active');
+      document.getElementById('timerText').style.display = id === 'quizScreen' ? 'block' : 'none';
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function goHome() {
+      clearInterval(timerInterval);
+      if ('speechSynthesis' in window) window.speechSynthesis.cancel();
+      isPaused = false;
+      showScreen('menuScreen');
+    }
+
+    function initAudio() {
+      try {
+        if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        if (audioCtx.state === 'suspended') audioCtx.resume();
+      } catch (e) {
+        console.warn('AudioContext unavailable:', e);
+      }
+    }
+
+    function playCorrectSound() {
+      if (!window.AudioContext && !window.webkitAudioContext) return;
+      initAudio();
+      if (!audioCtx) return;
+      const osc = audioCtx.createOscillator();
+      const gainNode = audioCtx.createGain();
+      osc.connect(gainNode);
+      gainNode.connect(audioCtx.destination);
+      osc.type = 'sine';
+      osc.frequency.setValueAtTime(523.25, audioCtx.currentTime);
+      osc.frequency.setValueAtTime(659.25, audioCtx.currentTime + 0.1);
+      osc.frequency.setValueAtTime(783.99, audioCtx.currentTime + 0.2);
+      gainNode.gain.setValueAtTime(0.3, audioCtx.currentTime);
+      gainNode.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.5);
+      osc.start();
+      osc.stop(audioCtx.currentTime + 0.5);
+    }
+
+    function playWrongSound() {
+      if (!window.AudioContext && !window.webkitAudioContext) return;
+      initAudio();
+      if (!audioCtx) return;
+      const osc = audioCtx.createOscillator();
+      const gainNode = audioCtx.createGain();
+      osc.connect(gainNode);
+      gainNode.connect(audioCtx.destination);
+      osc.type = 'sawtooth';
+      osc.frequency.setValueAtTime(150, audioCtx.currentTime);
+      osc.frequency.setValueAtTime(100, audioCtx.currentTime + 0.2);
+      gainNode.gain.setValueAtTime(0.3, audioCtx.currentTime);
+      gainNode.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.4);
+      osc.start();
+      osc.stop(audioCtx.currentTime + 0.4);
+    }
+
+    function playClickSound() {
+      if (!window.AudioContext && !window.webkitAudioContext) return;
+      initAudio();
+      if (!audioCtx) return;
+      const osc = audioCtx.createOscillator();
+      const gainNode = audioCtx.createGain();
+      osc.connect(gainNode);
+      gainNode.connect(audioCtx.destination);
+      osc.type = 'square';
+      osc.frequency.setValueAtTime(400, audioCtx.currentTime);
+      gainNode.gain.setValueAtTime(0.1, audioCtx.currentTime);
+      gainNode.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.1);
+      osc.start();
+      osc.stop(audioCtx.currentTime + 0.1);
+    }
+
+    function flashScreen(color) {
+      const overlay = document.getElementById('flashOverlay');
+      overlay.style.backgroundColor = color;
+      overlay.style.display = 'block';
+      overlay.getBoundingClientRect();
+      overlay.style.opacity = '0.4';
+      setTimeout(() => {
         overlay.style.opacity = '0';
         setTimeout(() => { overlay.style.display = 'none'; }, 300);
-    }, 300);
-}
+      }, 300);
+    }
 
-// 🧠 스마트 단어 출제 알고리즘
-function startQuiz() {
-    initAudio(); 
-    currentMode = document.querySelector('input[name="quizMode"]:checked').value;
-    const minutes = parseInt(document.getElementById('timeLimitInput').value);
-    if(isNaN(minutes) || minutes < 1) { alert("올바른 시간을 입력하세요."); return; }
+    function startQuiz() {
+      initAudio();
+      currentMode = document.querySelector('input[name="quizMode"]:checked').value;
 
-    const start = parseInt(document.getElementById('startNum').value);
-    const end = parseInt(document.getElementById('endNum').value);
-    const targetList = vocabList.filter(v => v.id >= start && v.id <= end);
-    if(targetList.length < 4) { alert("범위 내 단어가 너무 적습니다."); return; }
+      const minutes = Number.parseInt(document.getElementById('timeLimitInput').value, 10);
+      const start = Number.parseInt(document.getElementById('startNum').value, 10);
+      const end = Number.parseInt(document.getElementById('endNum').value, 10);
 
-    const countVal = document.getElementById('questionCountSelect').value;
-    const count = countVal === 'all' ? targetList.length : parseInt(countVal);
+      if (!Number.isFinite(minutes) || minutes < 1) {
+        alert('올바른 시험 시간을 입력하세요.');
+        return;
+      }
+      if (!Number.isFinite(start) || !Number.isFinite(end) || start > end) {
+        alert('올바른 출제 범위를 입력하세요.');
+        return;
+      }
 
-    let stats = JSON.parse(localStorage.getItem('vocabStats') || '{}');
-    
-    let weightedList = targetList.map(v => {
-        let playCount = stats[v.id] || 0;
+      const targetList = vocabList.filter(v => v.id >= start && v.id <= end);
+      if (targetList.length < 4) {
+        alert('범위 내 단어가 4개 미만입니다. 범위를 넓혀 주세요.');
+        return;
+      }
+
+      const countVal = document.getElementById('questionCountSelect').value;
+      const requestedCount = countVal === 'all' ? targetList.length : Number.parseInt(countVal, 10);
+      const count = Math.min(requestedCount, targetList.length);
+
+      let stats = {};
+      try {
+        stats = JSON.parse(localStorage.getItem('vocabStats') || '{}');
+      } catch (e) {
+        stats = {};
+      }
+
+      const weightedList = targetList.map(v => {
+        const playCount = Number(stats[v.id] || 0);
         return { ...v, weight: (playCount * 100) + Math.random() * 100 };
-    });
-    weightedList.sort((a, b) => a.weight - b.weight);
-    
-    quizQueue = weightedList.slice(0, count);
+      });
+      weightedList.sort((a, b) => a.weight - b.weight);
+      quizQueue = weightedList.slice(0, count);
 
-    quizQueue.forEach(v => { stats[v.id] = (stats[v.id] || 0) + 1; });
-    localStorage.setItem('vocabStats', JSON.stringify(stats));
+      quizQueue.forEach(v => { stats[v.id] = Number(stats[v.id] || 0) + 1; });
+      try { localStorage.setItem('vocabStats', JSON.stringify(stats)); } catch (e) {}
 
-    currentIndex = 0; scoreOk = 0; scoreNo = 0; timeLeft = minutes * 60; isPaused = false;
-    updateScoreBoard();
+      currentIndex = 0;
+      scoreOk = 0;
+      scoreNo = 0;
+      timeLeft = minutes * 60;
+      isPaused = false;
+      testModeClickCount = 0;
+      updateScoreBoard();
+      updateTimerText();
 
-    if('speechSynthesis' in window) window.speechSynthesis.speak(new SpeechSynthesisUtterance(''));
+      if ('speechSynthesis' in window) {
+        try { window.speechSynthesis.speak(new SpeechSynthesisUtterance('')); } catch (e) {}
+      }
 
-    showScreen('quizScreen');
-    startTimer();
-    loadQuestion();
-}
+      showScreen('quizScreen');
+      startTimer();
+      loadQuestion();
+    }
 
-function startTimer() {
-    clearInterval(timerInterval);
-    const timerEl = document.getElementById('timerText');
-    timerEl.classList.remove('paused');
-    
-    timerInterval = setInterval(() => {
-        if(!isPaused) {
-            timeLeft--;
-            const m = Math.floor(timeLeft / 60);
-            const s = timeLeft % 60;
-            timerEl.innerText = `⏱ ${m}:${s<10?'0'+s:s}`;
-            if(timeLeft <= 0) finishQuiz(true);
+    function updateTimerText() {
+      const timerEl = document.getElementById('timerText');
+      const m = Math.max(0, Math.floor(timeLeft / 60));
+      const s = Math.max(0, timeLeft % 60);
+      timerEl.innerText = `⏱ ${m}:${s < 10 ? '0' + s : s}`;
+    }
+
+    function startTimer() {
+      clearInterval(timerInterval);
+      const timerEl = document.getElementById('timerText');
+      timerEl.classList.remove('paused');
+      updateTimerText();
+
+      timerInterval = setInterval(() => {
+        if (!isPaused) {
+          timeLeft--;
+          timerEl.classList.remove('paused');
+          updateTimerText();
+          if (timeLeft <= 0) finishQuiz(true);
         } else {
-            timerEl.classList.add('paused');
-            timerEl.innerText = "⏸️ 일시정지 (복습 중)";
+          timerEl.classList.add('paused');
+          timerEl.innerText = '⏸️ 일시정지 (복습 중)';
         }
-    }, 1000);
-}
+      }, 1000);
+    }
 
-// 기본 다중 재생용 함수
-function speakWord(word, times) {
-    if(!('speechSynthesis' in window)) return;
-    window.speechSynthesis.cancel();
-    
-    let count = 0;
-    function speak() {
-        if(count >= times) return;
+    function speakWord(word, times = 1) {
+      if (!('speechSynthesis' in window)) return;
+      window.speechSynthesis.cancel();
+
+      let count = 0;
+      function speak() {
+        if (count >= times) return;
         const msg = new SpeechSynthesisUtterance(word);
         msg.lang = 'en-US';
-        msg.rate = 0.85; 
+        msg.rate = 0.85;
         const voices = window.speechSynthesis.getVoices();
-        const preferred = voices.find(v => v.name.includes("Google US English") || v.name.includes("Microsoft David")) || voices.find(v => v.lang === 'en-US');
-        if(preferred) msg.voice = preferred;
-
-        msg.onend = () => setTimeout(speak, 500);
+        const preferred = voices.find(v => v.name.includes('Google US English') || v.name.includes('Microsoft David')) || voices.find(v => v.lang === 'en-US');
+        if (preferred) msg.voice = preferred;
+        msg.onend = () => setTimeout(speak, 350);
         window.speechSynthesis.speak(msg);
         count++;
+      }
+      speak();
     }
-    speak();
-}
 
-// 🎤 오답 페널티 전용: 1번만 재생하고 끝났을 때 콜백(callback) 실행
-function speakWordOnceWithCallback(word, callback) {
-    if(!('speechSynthesis' in window)) {
-        if(callback) setTimeout(callback, 1000); // TTS 안되면 1초 지연 대체
+    function speakWordOnceWithCallback(word, callback) {
+      if (!('speechSynthesis' in window)) {
+        if (callback) setTimeout(callback, 700);
         return;
+      }
+
+      window.speechSynthesis.cancel();
+      const msg = new SpeechSynthesisUtterance(word);
+      msg.lang = 'en-US';
+      msg.rate = 0.85;
+      const voices = window.speechSynthesis.getVoices();
+      const preferred = voices.find(v => v.name.includes('Google US English') || v.name.includes('Microsoft David')) || voices.find(v => v.lang === 'en-US');
+      if (preferred) msg.voice = preferred;
+      msg.onend = () => { if (callback) callback(); };
+      msg.onerror = () => { if (callback) callback(); };
+      window.speechSynthesis.speak(msg);
     }
-    window.speechSynthesis.cancel();
-    const msg = new SpeechSynthesisUtterance(word);
-    msg.lang = 'en-US';
-    msg.rate = 0.85;
-    const voices = window.speechSynthesis.getVoices();
-    const preferred = voices.find(v => v.name.includes("Google US English") || v.name.includes("Microsoft David")) || voices.find(v => v.lang === 'en-US');
-    if(preferred) msg.voice = preferred;
 
-    // 재생이 끝나면 콜백(버튼 활성화) 실행
-    msg.onend = () => { if(callback) callback(); };
-    msg.onerror = () => { if(callback) callback(); };
+    function updateScoreBoard() {
+      document.getElementById('scoreCorrect').innerText = scoreOk;
+      document.getElementById('scoreWrong').innerText = scoreNo;
+    }
 
-    window.speechSynthesis.speak(msg);
-}
+    function loadQuestion() {
+      isPaused = false;
+      document.getElementById('timerText').classList.remove('paused');
+      document.getElementById('testModeWarning').style.display = 'none';
+      document.getElementById('feedbackArea').style.display = 'none';
+      document.getElementById('typingContainer').style.display = 'none';
+      document.getElementById('optionsGrid').style.pointerEvents = 'auto';
 
-function updateScoreBoard() {
-    document.getElementById('scoreCorrect').innerText = scoreOk;
-    document.getElementById('scoreWrong').innerText = scoreNo;
-}
+      if (currentIndex >= quizQueue.length) {
+        finishQuiz(false);
+        return;
+      }
 
-function loadQuestion() {
-    isPaused = false; 
-    document.getElementById('timerText').classList.remove('paused');
-    document.getElementById('testModeWarning').style.display = 'none';
-    document.getElementById('feedbackArea').style.display = 'none';
-    document.getElementById('typingContainer').style.display = 'none';
-    document.getElementById('optionsGrid').style.pointerEvents = 'auto';
+      const cur = quizQueue[currentIndex];
+      const prefix = currentMode === 'test' ? '실전고사' : '모의고사';
+      document.getElementById('progressText').innerText = `[${prefix}] ${currentIndex + 1} / ${quizQueue.length}`;
+      document.getElementById('quizWord').innerText = cur.word;
 
-    if(currentIndex >= quizQueue.length) { finishQuiz(false); return; }
+      speakWord(cur.word, 3);
 
-    const cur = quizQueue[currentIndex];
-    
-    let prefix = currentMode === 'test' ? '실전고사' : '모의고사';
-    document.getElementById('progressText').innerText = `[${prefix}] ${currentIndex + 1} / ${quizQueue.length}`;
-    document.getElementById('quizWord').innerText = cur.word;
+      const pool = vocabList.filter(v => v.id !== cur.id && v.meaning !== cur.meaning);
+      shuffleInPlace(pool);
+      const distractors = pool.slice(0, 3);
+      const options = [cur, ...distractors];
+      shuffleInPlace(options);
 
-    speakWord(cur.word, 3); 
-
-    let distractors = vocabList.filter(v => v.meaning !== cur.meaning).sort(() => Math.random() - 0.5).slice(0, 3);
-    const options = [cur, ...distractors].sort(() => Math.random() - 0.5);
-
-    const grid = document.getElementById('optionsGrid');
-    grid.innerHTML = '';
-    options.forEach(opt => {
-        const btn = document.createElement('div');
+      const grid = document.getElementById('optionsGrid');
+      grid.innerHTML = '';
+      options.forEach(opt => {
+        const btn = document.createElement('button');
+        btn.type = 'button';
         btn.className = 'option-btn';
         btn.innerText = opt.meaning;
+        btn.dataset.optionId = String(opt.id);
         btn.onclick = () => checkAnswer(btn, opt, cur);
         grid.appendChild(btn);
-    });
-}
+      });
+    }
 
-function checkAnswer(btn, selectedOpt, currentWord) {
-    window.speechSynthesis.cancel(); 
-    const isCorrect = selectedOpt.id === currentWord.id;
-    const buttons = document.querySelectorAll('.option-btn');
-    
-    document.getElementById('optionsGrid').style.pointerEvents = 'none';
+    function shuffleInPlace(arr) {
+      for (let i = arr.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [arr[i], arr[j]] = [arr[j], arr[i]];
+      }
+      return arr;
+    }
 
-    if(isCorrect) {
-        btn.classList.add('correct'); 
+    function checkAnswer(btn, selectedOpt, currentWord) {
+      if ('speechSynthesis' in window) window.speechSynthesis.cancel();
+      const isCorrect = selectedOpt.id === currentWord.id;
+      const buttons = Array.from(document.querySelectorAll('.option-btn'));
+      document.getElementById('optionsGrid').style.pointerEvents = 'none';
+
+      if (isCorrect) {
+        btn.classList.add('correct');
         scoreOk++;
         updateScoreBoard();
         playCorrectSound();
-        flashScreen('rgba(0, 200, 0, 0.4)'); 
-        setTimeout(() => { nextQuestion(); }, 800);
-    } else {
-        btn.classList.add('wrong');
-        scoreNo++;
-        updateScoreBoard();
-        playWrongSound();
-        flashScreen('rgba(255, 0, 0, 0.4)'); 
+        flashScreen('rgba(0, 200, 0, 0.4)');
+        setTimeout(nextQuestion, 800);
+        return;
+      }
 
-        if(currentMode === 'test') {
-            // 실전고사 5회 터치 & 음성 콜백 연동 로직
-            document.getElementById('testModeWarning').style.display = 'block';
-            document.getElementById('optionsGrid').style.pointerEvents = 'auto'; 
-            testModeClickCount = 0;
+      btn.classList.add('wrong');
+      scoreNo++;
+      updateScoreBoard();
+      playWrongSound();
+      flashScreen('rgba(255, 0, 0, 0.4)');
 
-            buttons.forEach(b => {
-                b.onclick = null; 
-                if(b.innerText === currentWord.meaning) {
-                    b.classList.add('correct');
-                    b.style.pointerEvents = 'auto'; 
-                    b.innerText = currentWord.meaning + ` (0/5)`;
-                    
-                    b.onclick = function() {
-                        testModeClickCount++;
-                        playClickSound();
-                        
-                        if(testModeClickCount < 5) {
-                            // 클릭 즉시 버튼 비활성화 (회색 처리)
-                            b.innerText = currentWord.meaning + ` (${testModeClickCount}/5) - 발음 재생 중...`;
-                            b.style.pointerEvents = 'none';
-                            b.style.opacity = '0.6';
-                            
-                            // 음성이 끝나면 콜백을 통해 다시 활성화
-                            speakWordOnceWithCallback(currentWord.word, () => {
-                                b.innerText = currentWord.meaning + ` (${testModeClickCount}/5) - 다시 터치!`;
-                                b.style.pointerEvents = 'auto';
-                                b.style.opacity = '1';
-                            });
-                        } else {
-                            // 5회 달성 시 
-                            b.innerText = currentWord.meaning + ` (✅ 암기 완료)`;
-                            b.style.pointerEvents = 'none';
-                            b.style.opacity = '1';
-                            
-                            // 마지막 발음 재생 후 다음 문제로
-                            speakWordOnceWithCallback(currentWord.word, () => {
-                                setTimeout(nextQuestion, 500);
-                            });
-                        }
-                    };
-                } else {
-                    b.disabled = true;
-                    b.style.pointerEvents = 'none';
-                }
-            });
-        } else {
-            // 모의고사 모드
-            buttons.forEach(b => { if(b.innerText === currentWord.meaning) b.classList.add('correct'); });
-            isPaused = true; 
-            startExplanation(currentWord);
-        }
+      const correctBtn = buttons.find(b => Number.parseInt(b.dataset.optionId, 10) === currentWord.id);
+      if (correctBtn) correctBtn.classList.add('correct');
+
+      if (currentMode === 'test') {
+        document.getElementById('testModeWarning').style.display = 'block';
+        document.getElementById('optionsGrid').style.pointerEvents = 'auto';
+        testModeClickCount = 0;
+
+        buttons.forEach(b => {
+          b.onclick = null;
+          if (Number.parseInt(b.dataset.optionId, 10) === currentWord.id) {
+            b.disabled = false;
+            b.style.pointerEvents = 'auto';
+            b.innerText = `${currentWord.meaning} (0/5)`;
+
+            b.onclick = function () {
+              if (b.style.pointerEvents === 'none') return;
+              testModeClickCount++;
+              playClickSound();
+
+              if (testModeClickCount < 5) {
+                b.innerText = `${currentWord.meaning} (${testModeClickCount}/5) - 발음 재생 중...`;
+                b.style.pointerEvents = 'none';
+                b.style.opacity = '0.6';
+                speakWordOnceWithCallback(currentWord.word, () => {
+                  b.innerText = `${currentWord.meaning} (${testModeClickCount}/5) - 다시 터치!`;
+                  b.style.pointerEvents = 'auto';
+                  b.style.opacity = '1';
+                });
+              } else {
+                b.innerText = `${currentWord.meaning} (✅ 암기 완료)`;
+                b.style.pointerEvents = 'none';
+                b.style.opacity = '1';
+                speakWordOnceWithCallback(currentWord.word, () => setTimeout(nextQuestion, 500));
+              }
+            };
+          } else {
+            b.disabled = true;
+            b.style.pointerEvents = 'none';
+          }
+        });
+      } else {
+        isPaused = true;
+        startExplanation(currentWord);
+      }
     }
-}
 
-function nextQuestion() { currentIndex++; loadQuestion(); }
-
-function startExplanation(wordObj) {
-    document.getElementById('feedbackArea').style.display = 'block';
-    document.getElementById('explanationContainer').style.display = 'block';
-    document.getElementById('stepConfirmBtn').style.display = 'block';
-    document.getElementById('explanationContainer').innerHTML = '';
-    
-    const key = wordObj.word.toLowerCase();
-    
-    if(detailedExplanationDB[key]) {
-        currentExpSteps = detailedExplanationDB[key];
-    } else {
-        currentExpSteps = [
-            `💡 <strong>[뜻 확인]</strong> '${wordObj.word}'의 정확한 뜻은 <strong>'${wordObj.meaning}'</strong>입니다.`,
-            `🔍 <strong>[복습]</strong> 눈으로만 보지 말고 소리 내어 읽으면서 타이핑을 준비하세요.`
-        ];
+    function nextQuestion() {
+      currentIndex++;
+      loadQuestion();
     }
-    currentStepIndex = 0;
-    showNextExplanationStep();
-}
 
-function showNextExplanationStep() {
-    const container = document.getElementById('explanationContainer');
-    const btn = document.getElementById('stepConfirmBtn');
-    
-    const div = document.createElement('div');
-    div.className = 'exp-step';
-    div.innerHTML = currentExpSteps[currentStepIndex];
-    container.appendChild(div);
-    currentStepIndex++;
+    function startExplanation(wordObj) {
+      document.getElementById('feedbackArea').style.display = 'block';
+      document.getElementById('explanationContainer').style.display = 'block';
+      document.getElementById('stepConfirmBtn').style.display = 'block';
+      document.getElementById('explanationContainer').innerHTML = '';
 
-    if(currentStepIndex >= currentExpSteps.length) {
-        btn.innerText = "✍️ 타이핑 복습 하러가기 (타이머 멈춤)";
+      const key = wordObj.word.toLowerCase();
+      currentExpSteps = detailedExplanationDB[key] || [
+        `💡 <strong>[뜻 확인]</strong> '${escapeHtml(wordObj.word)}'의 뜻은 <strong>'${escapeHtml(wordObj.meaning)}'</strong>입니다.`,
+        `🔍 <strong>[복습]</strong> 단어를 소리 내어 읽고, 다음 단계에서 영어와 뜻을 직접 타이핑하세요.`
+      ];
+
+      currentStepIndex = 0;
+      const btn = document.getElementById('stepConfirmBtn');
+      btn.innerText = '다음 문장 읽기 ➔';
+      btn.onclick = showNextExplanationStep;
+      showNextExplanationStep();
+    }
+
+    function showNextExplanationStep() {
+      const container = document.getElementById('explanationContainer');
+      const btn = document.getElementById('stepConfirmBtn');
+
+      if (currentStepIndex >= currentExpSteps.length) {
+        btn.innerText = '✍️ 타이핑 복습 하러가기 (타이머 멈춤)';
         btn.onclick = startTypingPractice;
+        return;
+      }
+
+      const div = document.createElement('div');
+      div.className = 'exp-step';
+      div.innerHTML = currentExpSteps[currentStepIndex];
+      container.appendChild(div);
+      currentStepIndex++;
+
+      if (currentStepIndex >= currentExpSteps.length) {
+        btn.innerText = '✍️ 타이핑 복습 하러가기 (타이머 멈춤)';
+        btn.onclick = startTypingPractice;
+      }
     }
-}
 
-function startTypingPractice() {
-    document.getElementById('explanationContainer').style.display = 'none';
-    document.getElementById('stepConfirmBtn').style.display = 'none';
-    document.getElementById('typingContainer').style.display = 'block';
-    
-    const cur = quizQueue[currentIndex];
-    document.getElementById('targetEng').innerText = cur.word;
-    document.getElementById('targetKor').innerText = cur.meaning;
-    
-    const engInput = document.getElementById('typeEngInput');
-    const korInput = document.getElementById('typeKorInput');
-    
-    engInput.value = ''; korInput.value = '';
-    engInput.disabled = false; korInput.disabled = false;
-    engInput.style.borderColor = "var(--border-color)";
-    korInput.style.borderColor = "var(--border-color)";
-    
-    document.getElementById('korTypingSection').style.display = 'none';
-    document.getElementById('typingNextBtn').style.display = 'none';
-    
-    speakWord(cur.word, 1);
-    engInput.focus();
-}
+    function startTypingPractice() {
+      document.getElementById('explanationContainer').style.display = 'none';
+      document.getElementById('stepConfirmBtn').style.display = 'none';
+      document.getElementById('typingContainer').style.display = 'block';
 
-function cleanText(text) {
-    return text.replace(/[().,\s]/g, '');
-}
+      const cur = quizQueue[currentIndex];
+      document.getElementById('targetEng').innerText = cur.word;
+      document.getElementById('targetKor').innerText = cur.meaning;
 
-function checkEngTyping(e) {
-    const cur = quizQueue[currentIndex];
-    if(e.target.value.trim().toLowerCase() === cur.word.toLowerCase()) {
+      const engInput = document.getElementById('typeEngInput');
+      const korInput = document.getElementById('typeKorInput');
+      engInput.value = '';
+      korInput.value = '';
+      engInput.disabled = false;
+      korInput.disabled = false;
+      engInput.style.borderColor = 'var(--border-color)';
+      korInput.style.borderColor = 'var(--border-color)';
+
+      document.getElementById('korTypingSection').style.display = 'none';
+      document.getElementById('typingNextBtn').style.display = 'none';
+      speakWord(cur.word, 1);
+      setTimeout(() => engInput.focus(), 50);
+    }
+
+    function cleanText(text) {
+      return String(text)
+        .toLowerCase()
+        .replace(/[\s.,;:!?()[\]{}'"“”‘’·]/g, '')
+        .replace(/\/+/g, '/');
+    }
+
+    function checkEngTyping(e) {
+      const cur = quizQueue[currentIndex];
+      if (cleanText(e.target.value) === cleanText(cur.word)) {
         e.target.disabled = true;
-        e.target.style.borderColor = "var(--correct-color)";
+        e.target.style.borderColor = 'var(--correct-color)';
         document.getElementById('korTypingSection').style.display = 'block';
-        document.getElementById('typeKorInput').focus();
+        setTimeout(() => document.getElementById('typeKorInput').focus(), 50);
+      }
     }
-}
 
-function checkKorTyping(e) {
-    const cur = quizQueue[currentIndex];
-    if(cleanText(e.target.value) === cleanText(cur.meaning)) {
+    function checkKorTyping(e) {
+      const cur = quizQueue[currentIndex];
+      if (cleanText(e.target.value) === cleanText(cur.meaning)) {
         e.target.disabled = true;
-        e.target.style.borderColor = "var(--correct-color)";
+        e.target.style.borderColor = 'var(--correct-color)';
         document.getElementById('typingNextBtn').style.display = 'block';
+      }
     }
-}
 
-function finishQuiz(isTimeout) {
-    clearInterval(timerInterval);
-    showScreen('resultScreen');
-    
-    const totalCount = quizQueue.length;
-    const finalScore = Math.round((scoreOk / totalCount) * 100);
-    
-    document.getElementById('finalScore').innerText = finalScore + "점";
-    
-    let endMsg = isTimeout ? "⏰ 설정한 시험 시간이 종료되었습니다." : "🎉 수고하셨습니다! 시험을 완료했습니다.";
-    
-    document.getElementById('resultMsg').innerHTML = 
-        endMsg + 
-        `<br><br>총 ${totalCount}문제 중<br>` +
+    function finishQuiz(isTimeout) {
+      clearInterval(timerInterval);
+      if ('speechSynthesis' in window) window.speechSynthesis.cancel();
+      showScreen('resultScreen');
+
+      const totalCount = quizQueue.length;
+      const finalScore = totalCount > 0 ? Math.round((scoreOk / totalCount) * 100) : 0;
+      document.getElementById('finalScore').innerText = `${finalScore}점`;
+
+      const endMsg = isTimeout ? '⏰ 설정한 시험 시간이 종료되었습니다.' : '🎉 수고하셨습니다! 시험을 완료했습니다.';
+      document.getElementById('resultMsg').innerHTML =
+        `${endMsg}<br><br>총 ${totalCount}문제 중<br>` +
         `<span style="color:var(--correct-color); font-size:24px;">맞힌 문제: ${scoreOk}개</span><br>` +
         `<span style="color:var(--wrong-color); font-size:24px;">틀린 문제: ${scoreNo}개</span>`;
-}
+    }
 
-window.onload = init;
-function toggleTheme() { document.body.classList.toggle('dark-mode'); }
-function showWordList() {
-    if(vocabList.length===0) init();
-    const con = document.getElementById('wordListContainer');
-    con.innerHTML = '';
-    vocabList.forEach(v => {
-        con.innerHTML += `<div class="word-item"><span class="en">${v.id}. ${v.word}</span><span class="ko">${v.meaning}</span></div>`;
-    });
-    showScreen('studyScreen');
-}
-</script>
+    function renderWordList(query = '') {
+      const con = document.getElementById('wordListContainer');
+      const q = String(query).trim().toLowerCase();
+      const filtered = !q ? vocabList : vocabList.filter(v =>
+        String(v.id).includes(q) ||
+        v.word.toLowerCase().includes(q) ||
+        v.meaning.toLowerCase().includes(q)
+      );
+
+      con.innerHTML = '';
+      if (filtered.length === 0) {
+        con.innerHTML = '<div class="word-item"><span class="ko">검색 결과가 없습니다.</span></div>';
+        return;
+      }
+
+      const frag = document.createDocumentFragment();
+      filtered.forEach(v => {
+        const row = document.createElement('div');
+        row.className = 'word-item';
+        const en = document.createElement('span');
+        en.className = 'en';
+        en.textContent = `${String(v.id).padStart(4, '0')}. ${v.word}`;
+        const ko = document.createElement('span');
+        ko.className = 'ko';
+        ko.textContent = v.meaning;
+        row.append(en, ko);
+        frag.appendChild(row);
+      });
+      con.appendChild(frag);
+    }
+
+    function showWordList() {
+      if (vocabList.length === 0) init();
+      document.getElementById('wordSearchInput').value = '';
+      renderWordList('');
+      showScreen('studyScreen');
+    }
+
+    function toggleTheme() {
+      document.body.classList.toggle('dark-mode');
+      updateThemeButton();
+    }
+
+    function updateThemeButton() {
+      const dark = document.body.classList.contains('dark-mode');
+      document.getElementById('themeBtn').innerText = dark ? '☀️ 라이트 모드' : '🌙 다크 모드';
+    }
+
+    function escapeHtml(str) {
+      return String(str)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#039;');
+    }
+
+    window.addEventListener('load', init);
+  </script>
 </body>
 </html>
