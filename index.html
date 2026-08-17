@@ -993,6 +993,9 @@
       if (correctBtn) correctBtn.classList.add('correct');
 
       if (currentMode === 'test') {
+        // 오답 후 정답 버튼을 5회 터치하며 복습하는 동안에는 시험 타이머를 일시정지한다.
+        // 다음 문제로 넘어가면 loadQuestion()에서 isPaused가 false로 복구되어 타이머가 다시 진행된다.
+        isPaused = true;
         document.getElementById('testModeWarning').style.display = 'block';
         document.getElementById('optionsGrid').style.pointerEvents = 'auto';
         testModeClickCount = 0;
